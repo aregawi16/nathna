@@ -1,0 +1,36 @@
+.image-upload
+{
+  width: 100%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  mat-label
+  {
+    font-size: 20px;
+    position: relative;
+    padding: 15px;
+
+    width: 300px;
+    border-radius: 10px;
+    color: #fff !important;
+    margin: 0 auto;
+    background-color: #093d75 !important;
+
+
+  }
+  label.uploader-circle{
+    position: relative;
+    top:auto;
+    width: 450px;
+    height: 200px;
+    padding: 2rem;
+    text-align: center;
+    background-color: aqua;
+    border: dashed 1px #979797;
+  }
+}
+
+

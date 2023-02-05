@@ -1,0 +1,374 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" class="p-1">
+  <div fxLayout="row">
+      <mat-button-toggle-group #controls="matButtonToggleGroup" appearance="legacy">
+          <mat-button-toggle value="add" [routerLink]="['/applicant-profile/create-new']">
+              <mat-icon>person_add</mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle value="search">
+              <mat-icon>search</mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle value="date-range">
+            <mat-icon>date_range</mat-icon>
+        </mat-button-toggle>
+        <mat-button-toggle value="created-by">
+          <mat-icon>person</mat-icon>
+      </mat-button-toggle>
+        <mat-button-toggle value="status">
+          <mat-icon>filter_list</mat-icon>
+      </mat-button-toggle>
+      </mat-button-toggle-group>
+
+
+
+  </div>
+  <form class="user-search" [class.show]="controls.value == 'search'">
+      <mat-form-field class="user-search-input">
+          <input matInput placeholder="Search user by name..." [(ngModel)]="searchText" name="search">
+      </mat-form-field>
+  </form>
+  <!-- <form class="user-search" [class.show]="controls.value == 'date-range'">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input  [rangePicker]="picker">
+        <input matStartDate [(ngModel)]="startDate"  placeholder="Start date">
+        <input matEndDate [(ngModel)]="endDate" placeholder="End date">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+
+    </mat-form-field>
+  </form> -->
+  <form class="user-search" [class.show]="controls.value == 'status'">
+    <mat-form-field appearance="fill">
+      <mat-label>Status</mat-label>
+      <mat-select name="maritalStatus" [(ngModel)]="searchText">
+        <mat-option *ngFor="let status of statuses"
+        [value]="status">
+  {{statusList[status]}}
+</mat-option>
+</mat-select>
+
+    </mat-form-field>
+  </form>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-button-toggle-group #viewType="matButtonToggleGroup" appearance="legacy" value="grid">
+          <mat-button-toggle value="grid">
+              <mat-icon>view_module</mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle value="list">
+              <mat-icon>view_list</mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle value="table">
+            <mat-icon>view_column</mat-icon>
+        </mat-button-toggle>
+
+      </mat-button-toggle-group>
+  </div>
+</div>
+
+<div *ngIf="viewType.value == 'grid'" fxLayout="row wrap">
+  <div *ngFor="let applicantProfile of applicantProfiles | UserSearchPipe : searchText | paginate: { itemsPerPage: 8, currentPage: page }" fxFlex="100" fxFlex.gt-md="25" fxFlex.md="40" class="p-1">
+      <mat-card class="p-0">
+          <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
+              <h3 *ngIf="!applicantProfile.isDeleted" class="user-name">{{applicantProfile.fullName}}<br>{{applicantProfile.fullNameAm}}</h3>
+              <h3 *ngIf="applicantProfile.isDeleted" class="user-name">User blocked</h3>
+              <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
+                  <mat-icon>more_vert</mat-icon>
+              </button>
+          </div>
+          <mat-menu #menu="matMenu" xPosition="before" overlapTrigger="true">
+              <span (mouseleave)="menuTrigger.closeMenu()">
+                  <button mat-menu-item (click)="openApplicantProfileDialog(applicantProfile)">
+                      <mat-icon>mode_edit</mat-icon>
+                      <span>Edit</span>
+                  </button>
+                  <button *ngIf="checkDeleteStatus(applicantProfile.applicantPlacement)"  mat-menu-item (click)="deleteApplicantProfile(applicantProfile.applicantProfileId)">
+                    <mat-icon>delete</mat-icon>
+                      <span>Delete</span>
+                  </button>
+                  <a mat-menu-item [routerLink]="['/applicant-profile/detail', applicantProfile.applicantProfileId]">
+                    <mat-icon>details</mat-icon>
+                    <span>Detail</span>
+                </a>
+              </span>
+          </mat-menu>
+          <div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">
+              <div fxFlex="30" fxLayout="column" fxLayoutAlign="center center">
+                  <div class="user-img">
+                      <img *ngIf="applicantProfile.applicantDocument.applicantSmallPhotoPath" [src]="host+applicantProfile.applicantDocument.applicantSmallPhotoPath" class="transition-2" [class.blocked]="applicantProfile.isDeleted">
+                      <img *ngIf="!applicantProfile.image" src="assets/images/others/applicantProfile.jpg" class="transition-2" [class.blocked]="applicantProfile.isDeleted">
+                      <mat-icon *ngIf="applicantProfile.isDeleted" color="warn">block</mat-icon>
+                  </div>
+                  <div class="user-social">
+                      <mat-slide-toggle color="primary" [checked]="applicantProfile.isDeleted" (change)="applicantProfile.isDeleted = !applicantProfile.isDeleted"></mat-slide-toggle>
+                  </div>
+              </div>
+              <div fxFlex="70" fxLayout="column" class="user-details transition-2" [class.blocked]="applicantProfile.isDeleted">
+                  <!-- <p fxLayout="row" fxLayoutAlign="start center">
+                      <mat-icon class="text-muted">where_to_vote</mat-icon>
+                      <span>{{applicantProfile.nationality}}</span>
+                  </p> -->
+                  <p fxLayout="row" fxLayoutAlign="start center">
+                      <mat-icon class="text-muted">mail_outline</mat-icon>
+                      <span>{{applicantProfile.passportNo}}</span>
+                  </p>
+                  <p fxLayout="row" fxLayoutAlign="start center">
+                      <mat-icon class="text-muted">call</mat-icon>
+                      <span>{{applicantProfile.phoneNumber}}</span>
+                  </p>
+                  <p fxLayout="row" fxLayoutAlign="start center">
+                      <mat-icon class="text-muted">people</mat-icon>
+                      <span>    {{genderList[applicantProfile.gender]}}   </span>
+                  </p>
+                  <p fxLayout="row" fxLayoutAlign="start center">
+                      <mat-icon class="text-muted">wc</mat-icon>
+                      <span>    {{maritalStatusList[applicantProfile.maritalStatus]}}   </span>
+                  </p>
+                  <p fxLayout="row" fxLayoutAlign="start center">
+                      <mat-icon class="text-muted">wc</mat-icon>
+                      <span>    {{applicantProfile.applicantPlacement?statusList[applicantProfile.applicantPlacement.status]:"UnAssigned"}}   </span>
+                  </p>
+              </div>
+          </div>
+      </mat-card>
+  </div>
+</div>
+<div *ngIf="viewType.value == 'list'" fxLayout="row wrap">
+  <div *ngFor="let applicantProfile of applicantProfiles | UserSearchPipe : searchText | paginate: { itemsPerPage: 3, currentPage: page }" fxFlex="100" class="p-1">
+      <mat-card class="p-0">
+          <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
+              <h3 *ngIf="!applicantProfile.isDeleted" class="user-name">{{applicantProfile.fullName}}</h3>
+              <h3 *ngIf="applicantProfile.isDeleted" class="user-name">User blocked</h3>
+              <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
+                  <mat-icon>more_vert</mat-icon>
+              </button>
+          </div>
+          <mat-menu #menu="matMenu" xPosition="before"  overlapTrigger="true">
+              <span (mouseleave)="menuTrigger.closeMenu()">
+                  <button mat-menu-item (click)="openApplicantProfileDialog(applicantProfile);">
+                      <mat-icon>mode_edit</mat-icon>
+                      <span>Edit</span>
+                  </button>
+                  <button  mat-menu-item (click)="deleteApplicantProfile(applicantProfile.applicantProfileId)" *ngIf="checkDeleteStatus(applicantProfile.applicantPlacement)">
+                      <mat-icon>delete</mat-icon>
+                      <span>Delete</span>
+                  </button>
+                  <a mat-menu-item [routerLink]="['/applicant-profile/detail', applicantProfile.applicantProfileId]">
+                    <mat-icon>details</mat-icon>
+                    <span>Detail</span>
+                </a>
+              </span>
+          </mat-menu>
+          <div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">
+              <div fxFlex="20" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center center">
+                  <div class="user-img">
+                      <img *ngIf="applicantProfile.image" [src]="applicantProfile.image" class="transition-2" [class.blocked]="applicantProfile.isDeleted">
+                      <img *ngIf="!applicantProfile.image" src="assets/img/applicantProfiles/default-applicantProfile.jpg" class="transition-2" [class.blocked]="applicantProfile.isDeleted">
+                      <mat-icon *ngIf="applicantProfile.isDeleted" color="warn">block</mat-icon>
+                  </div>
+                  <div class="user-social">
+                      <mat-slide-toggle color="primary" [checked]="applicantProfile.isDeleted" (change)="applicantProfile.isDeleted = !applicantProfile.isDeleted"></mat-slide-toggle>
+                  </div>
+              </div>
+              <div fxFlex="80" fxFlex.xs="70" fxLayout="row" fxLayout.xs="column" class="user-details transition-2" [class.blocked]="applicantProfile.isDeleted">
+                  <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
+                      <p fxLayout="row" fxLayoutAlign="start center">
+                          <mat-icon class="text-muted">business</mat-icon>
+                          <span>{{applicantProfile.nationality}}</span>
+                        </p>
+                      <p fxLayout="row" fxLayoutAlign="start center">
+                          <mat-icon class="text-muted">card_membership</mat-icon>
+                          <span>{{applicantProfile.passportNo}}</span>
+                        </p>
+                      <p fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="text-muted">call</mat-icon>
+                        <span>{{applicantProfile.phoneNumber}}</span>
+                      </p>
+                      <p fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="text-muted">location_on</mat-icon>
+                        <span>{{applicantProfile.address}}</span>
+                      </p>
+                  </div>
+                  <div fxFlex="30" fxFlex.xs="100" fxLayout="column">
+                      <p fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="text-muted">people</mat-icon>
+                        <span>    {{genderList[applicantProfile.gender]}}   </span>
+                      </p>
+                      <p fxLayout="row" fxLayoutAlign="start center">
+                          <mat-icon class="text-muted">wc</mat-icon>
+                          <span>    {{religionList[applicantProfile.religion]}}   </span>
+                                              </p>
+
+
+
+
+                                              <p fxLayout="row" fxLayoutAlign="start center">
+                                                <mat-icon class="text-muted">wc</mat-icon>
+                                                <span>    {{maritalStatusList[applicantProfile.maritalStatus]}}   </span>
+                                                                    </p>
+                      <p fxLayout="row" fxLayoutAlign="start center">
+                          <mat-icon class="text-muted">location_on</mat-icon>
+                          <span>{{applicantProfile.age}}</span>
+                      </p>
+                  </div>
+                  <div fxFlex="40" fxFlex.xs="100" fxLayout="column">
+                      <!-- <p fxLayout="row" fxLayoutAlign="start center">
+                          <mat-icon class="text-muted">event_available</mat-icon>
+                          <span>Expired {{applicantProfile.availabilityYear}}</span>
+                        </p> -->
+                      <p fxLayout="row" fxLayoutAlign="start center">
+                          <mat-icon class="text-muted">event_available</mat-icon>
+                          <span>{{applicantProfile.height}}</span>
+                      </p>
+                      <p fxLayout="row" fxLayoutAlign="start center">
+                          <mat-icon class="text-muted">date_range</mat-icon>
+                          <span> {{applicantProfile.weight}}</span>
+                      </p>
+                      <p fxLayout="row" fxLayoutAlign="start center">
+                          <mat-icon class="text-muted">date_range</mat-icon>
+                          <span> {{applicantProfile.createdDate | date}}</span>
+                      </p>
+                      <p fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="text-muted">wc</mat-icon>
+                        <span>    {{applicantProfile.applicantPlacement?statusList[applicantProfile.applicantPlacement.status]:"UnAssigned"}}   </span>
+                    </p>
+                      <!-- <p fxLayout="row" fxLayoutAlign="start center">
+                          <mat-icon *ngIf="applicantProfile.isDeleted" class="text-muted">person_outline</mat-icon>
+                          <mat-icon *ngIf="!applicantProfile.isDeleted" class="text-muted">person</mat-icon>
+                          <span>{{ (applicantProfile.isDeleted) ? 'Blocked' : 'Active' }}</span>
+                      </p> -->
+                  </div>
+              </div>
+          </div>
+      </mat-card>
+  </div>
+</div>
+
+<div *ngIf="viewType.value == 'table'" fxLayout="row wrap">
+   <div  fxFlex="100" class="p-1" >
+      <mat-card class="p-0">
+        <div *ngIf="isAnySelected" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="start">
+          <div [formGroup]="placementFormGroup">
+
+   <mat-form-field appearance="outline">
+    <mat-label>Office</mat-label>
+    <mat-select formControlName="officeId" required>
+      <mat-option *ngFor="let office of offices"
+      [value]="office.id">
+{{office.name}}
+</mat-option>
+  </mat-select>
+
+  </mat-form-field>
+          </div>
+          <div>
+          <button mat-button (click)="placeApplicant();" style="background-color: dodgerblue; height: 54px;color: white;">
+             <mat-icon matPrefix title="Assign">redo</mat-icon> Assign</button>
+      </div>
+        </div>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-checkbox (change)="$event ? masterToggle() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selectRow(row) : null"
+                            [checked]="selection.isSelected(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.applicantProfileId}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="fullName">
+            <th mat-header-cell *matHeaderCellDef> Full Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
+          </ng-container>
+
+           <!-- Email Column -->
+           <ng-container matColumnDef="phoneNumber">
+            <th mat-header-cell *matHeaderCellDef> Phone No </th>
+            <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="passportNumber">
+            <th mat-header-cell *matHeaderCellDef> Passport No </th>
+            <td mat-cell *matCellDef="let element"> {{element.passportNo}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="agentId">
+            <th mat-header-cell *matHeaderCellDef> Agent </th>
+            <td mat-cell *matCellDef="let element">
+                      {{(agents | filterById : element.agentId)?.name}}
+          </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element">
+                      {{element.applicantPlacement?statusList[element.applicantPlacement.status]:"UnAssigned"}}
+          </td>
+          </ng-container>
+          <!--Symbol Column -->
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let element">
+
+              <button mat-mini-fab matTooltip="Edit" color="primary" (click)="openApplicantProfileDialog(element);" class="mx-1">
+                <mat-icon>mode_edit</mat-icon>
+            </button>
+            <button mat-mini-fab matTooltip="Delete" class="mx-1" color="warn" *ngIf="checkDeleteStatus(element.applicantPlacement)" (click)="deleteApplicantProfile(element.applicantProfileId)">
+                <mat-icon>delete</mat-icon>
+            </button>
+            <button  mat-mini-fab matTooltip="Upload Document" class="mx-1"  color="primary" *ngIf="checkUploadStatus(element.applicantPlacement)"  (click)="uploadVerifiedDocument(element.applicantProfileId)">
+                <mat-icon><mat-icon>cloud_upload</mat-icon>
+              </mat-icon>
+            </button>
+            <button  mat-mini-fab matTooltip="Upload Contract" class="mx-1" color="primary" *ngIf="checkUploadContractStatus(element.applicantPlacement)" (click)="uploadContractDocument(element.applicantProfileId)">
+                <mat-icon ><mat-icon>wb_cloudy</mat-icon>
+              </mat-icon>
+            </button>
+            <button mat-mini-fab matTooltip="Accept Contract" class="mx-1" [ngStyle]="{'color':'green'}" *ngIf="checkVerifyContractStatus(element.applicantPlacement)" (click)="verifyContractDocument(element.applicantProfileId)">
+              <mat-icon >check</mat-icon>
+          </button>
+            <button mat-mini-fab matTooltip="Request Yellow Card" class="mx-1" [ngStyle]="{'background-color':'yellow'}" *ngIf="checkYellowCardStatus(element.applicantPlacement)" (click)="requestYellowCard(element.applicantProfileId)">
+              <mat-icon >check</mat-icon>
+          </button>
+            <button mat-mini-fab matTooltip="Detail" class="mx-1"  [ngStyle]="{'color':'green'}" [routerLink]="['/applicant-profile/detail', element.applicantProfileId]">
+              <mat-icon>visibility</mat-icon>
+          </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+              (click)="selection.toggle(row)">
+          </tr>
+        </table>
+      </mat-card>
+  </div>
+</div>
+<div *ngIf="applicantProfiles" fxLayout="row wrap">
+  <div fxFlex="100" class="p-1">
+      <mat-card class="p-0 text-center">
+          <pagination-controls class="product-pagination" [autoHide]='true' [maxSize]='5' (pageChange)="onPageChanged($event)"></pagination-controls>
+      </mat-card>
+  </div>
+</div>
+
+<div *ngIf="!applicantProfiles" fxLayout="column" fxLayoutAlign="center center" class="user-spinner">
+  <mat-spinner color="primary"></mat-spinner>
+</div>
+

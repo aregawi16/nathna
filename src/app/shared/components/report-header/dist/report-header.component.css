@@ -1,0 +1,10 @@
+div {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+div div {
+  border-right: 1px solid lightgrey;
+  border-left: 1px solid lightgrey;
+}

@@ -1,0 +1,50 @@
+<h1 mat-dialog-title><span *ngIf="!user.id">Add</span><span *ngIf="user.id">Edit</span> user</h1>
+<div mat-dialog-content>
+    <form [formGroup]="userSignupform" class="user-form">
+                <div fxLayout="column" class="form-field-outer">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="First Name" formControlName="firstName">
+                </mat-form-field>
+                <mat-form-field class="w-100">
+                    <input matInput placeholder="Middle Name" formControlName="middleName">
+                </mat-form-field>
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="Last Name" formControlName="lastName">
+              </mat-form-field>
+                <mat-form-field class="w-100">
+                  <input matInput placeholder="E-mail" formControlName="email">
+              </mat-form-field>
+
+              <mat-form-field class="w-100">
+                <mat-select formControlName="officeId" placeholder="Office" required>
+                  <mat-option *ngFor="let office of offices"
+                  [value]="office.id">
+            {{office.name}}
+          </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+                    <mat-form-field class="w-100">
+                        <!-- <mat-place><mat-icon>person</mat-icon> Username</mat-place> -->
+                        <input matInput formControlName="userName" required>
+                        <mat-error *ngIf="userSignupform.controls.userName.errors?.required">Username is required</mat-error>
+                        <mat-error *ngIf="userSignupform.controls.userName.hasError('minlength')">Username isn't long enough, minimum of 5 characters</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="w-100">
+                        <!-- <mat-placeholder><mat-icon>vpn_key</mat-icon> Password</mat-placeholder> -->
+                        <input matInput formControlName="password" required [type]="passwordHide ? 'password' : 'text'">
+                        <mat-icon matSuffix (click)="passwordHide = !passwordHide">{{passwordHide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                        <mat-error *ngIf="userSignupform.controls.password.errors?.required">Password is required</mat-error>
+                        <mat-error *ngIf="userSignupform.controls.password.hasError('minlength')">Password isn't long enough, minimum of 6 characters</mat-error>
+                    </mat-form-field>
+                </div>
+
+    </form>
+</div>
+<div mat-dialog-actions>
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+        <button mat-raised-button color="primary" [mat-dialog-close]="userSignupform.value" (click)="createUser()" [disabled]="!userSignupform.valid">
+          <span *ngIf="!user.id">Save</span><span *ngIf="user.id">Update</span></button>
+        <button mat-raised-button color="warn" (click)="close()">Cancel</button>
+    </div>
+</div>

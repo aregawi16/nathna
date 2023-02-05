@@ -1,0 +1,7 @@
+<label>
+
+  <img src="assets/images/uploadicons/upload-svgrepo-com2.svg"  width="50px" matTooltip="upload"  alt="">
+<input type="file" (change)="onFileSelected($event)" [accept]="accept" id="uploader" required/>
+<div>  <span>{{fileName || "No file."}}</span>
+</div>
+</label>

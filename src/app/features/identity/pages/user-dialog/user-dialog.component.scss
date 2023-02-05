@@ -1,0 +1,12 @@
+.user-form{
+  width: 500px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+    .form-field-outer{
+        width: 350px;
+    }
+    .mat-radio-button{
+        margin-right: 12px;
+    }
+}

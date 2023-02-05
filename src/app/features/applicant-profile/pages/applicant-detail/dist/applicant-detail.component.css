@@ -1,0 +1,103 @@
+.mdc-data-table__header-cell {
+  border: 1px solid gray;
+}
+
+::ng-deep .mat-tab-header {
+  background-color: red !important;
+}
+
+.app.blue .mat-mdc-tab, .app.blue .mat-mdc-tab-link {
+  background-color: rebeccapurple !important;
+}
+
+.mat-mdc-tab-label-container {
+  background-color: rebeccapurple !important;
+}
+.mat-mdc-tab-label-container .mat-mdc-tab-list {
+  background-color: rebeccapurple !important;
+}
+
+.mat-mdc-tab-group.mat-mdc-tab-group-stretch-tabs > .mat-mdc-tab-header .mat-mdc-tab {
+  background-color: rebeccapurple !important;
+}
+
+.mdc-data-table__row:last-child .mdc-data-table__cell {
+  border-bottom-color: gray;
+}
+
+.mdc-data-table__cell {
+  border: 1px solid gray !important;
+}
+
+.cv-container {
+  border: 2px solid gray;
+}
+
+.div-row {
+  height: 30px;
+  border-bottom: 1px solid #e4e1e1;
+  border-left: 1px solid #e4e1e1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.div-row label {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  width: 50%;
+  font-weight: bold;
+  font-size: 12px;
+}
+.div-row span {
+  position: relative;
+  top: 10px;
+  margin-left: 20px;
+  font-size: 11px;
+}
+
+.applicant-profile-header {
+  height: 50px;
+  border-top-right-radius: 100px;
+  border-bottom-left-radius: 100px;
+  background-color: #185ADB;
+}
+.applicant-profile-header p {
+  position: relative;
+  top: 15px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.tab-content {
+  display: flex;
+  justify-content: center;
+}
+
+.mat-mdc-tab-label-container {
+  background-color: black !important;
+  height: 100px;
+}
+
+.mat-tab-header {
+  background-color: red !important;
+}
+
+.mat-mdc-tab-label-container {
+  background-color: lightgray !important;
+}
+
+.mat-tab-group {
+  margin-bottom: 108px !important;
+}
+
+.check {
+  color: white;
+  font-weight: bold;
+}
+
+.reject {
+  color: white;
+  font-weight: bold;
+}

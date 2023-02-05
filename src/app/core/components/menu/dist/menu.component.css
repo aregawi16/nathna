@@ -1,0 +1,77 @@
+.menu-expand-icon {
+  position: absolute !important;
+  right: 10px;
+  top: 13px;
+}
+
+.menu-item .mdc-button {
+  padding: 0;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  width: 100%;
+  font-weight: 400;
+  border-radius: 0;
+}
+.menu-item .mdc-button .menu-icon {
+  margin-right: 12px;
+  padding: 7px;
+  border-radius: 50%;
+}
+.menu-item .mdc-button.expanded .menu-expand-icon {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+.menu-item .mat-mdc-button-touch-target {
+  padding-left: 16px;
+}
+
+.sub-menu {
+  max-height: 0;
+  overflow: hidden;
+  -webkit-transition: max-height 0.25s ease-out;
+  -moz-transition: max-height 0.25s ease-out;
+  transition: max-height 0.25s ease-out;
+}
+.sub-menu .sub-menu .mdc-button {
+  padding-left: 40px;
+}
+.sub-menu .sub-menu .sub-menu .mdc-button {
+  padding-left: 60px;
+}
+.sub-menu .sub-menu .sub-menu .sub-menu .mdc-button {
+  padding-left: 80px;
+}
+.sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .mdc-button {
+  padding-left: 100px;
+}
+.sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .mdc-button {
+  padding-left: 120px;
+}
+.sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .mdc-button {
+  padding-left: 140px;
+}
+.sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .mdc-button {
+  padding-left: 160px;
+}
+.sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .mdc-button {
+  padding-left: 180px;
+}
+.sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu .mdc-button {
+  padding-left: 200px;
+}
+.sub-menu .mdc-button {
+  padding-left: 20px;
+}
+.sub-menu.show {
+  max-height: 900px;
+  -webkit-transition: max-height 0.25s ease-in;
+  -moz-transition: max-height 0.25s ease-in;
+  transition: max-height 0.25s ease-in;
+}
+
+.menu-expand-icon {
+  position: absolute;
+  right: 10px;
+  top: 13px;
+}

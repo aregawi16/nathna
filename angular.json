@@ -30,6 +30,8 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@videogular/ngx-videogular/fonts/videogular.css",
+
               "src/styles.scss"
             ],
             "scripts": []
@@ -93,6 +95,9 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@videogular/ngx-videogular/fonts/videogular.css",
+              "./node_modules/ngx-sharebuttons/themes/circles.scss",
+              "./node_modules/ngx-sharebuttons/themes/modern.scss",
               "src/styles.scss"
             ],
             "scripts": []
@@ -100,5 +105,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "6ab886b3-11f9-49e7-ab74-25e46e07791f"
   }
 }
