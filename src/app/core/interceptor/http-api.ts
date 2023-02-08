@@ -12,7 +12,7 @@ export class HttpApi {
 static getApplicantProfiles = 'ApplicantProfile';
 static createApplicantProfile = 'ApplicantProfile';
 static getApplicantProfileList = 'ApplicantProfile';
-static placeApplicant = 'ApplicantProfile/placement';
+static placeApplicant = 'ProcessManagement/placement';
 
 // Get Jobs
 static getJobs = 'CommonJob/list';
@@ -35,4 +35,8 @@ static selectApplicant = "ProcessManagement/selectApplicant";
 static rejectApplicant = 'ProcessManagement/rejectApplicant';
 static uploadVerifiedDocumentApplicant = 'ProcessManagement/uploadVerifiedDocument';
 static uploadContractDocumentApplicant = 'ProcessManagement/uploadContractDocument';
+static receiveContractAgreement = 'ProcessManagement/receiveContractAgreement';
+static verifyContractAgreement = 'ProcessManagement/verifyContractAgreement';
+static requestInsurance = 'ProcessManagement/requestInsurance';
+static completeInsurance = 'ProcessManagement/completeInsurance';
 }

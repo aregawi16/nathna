@@ -1,6 +1,7 @@
+import { CompleteInsuranceDocumentComponent } from './../complete-insurance-document/complete-insurance-document.component';
+import { VerfContractDocumentComponent } from './../verf-contract-document/verf-contract-document.component';
 import { ProcessManagementService } from 'src/app/features/process-management/service/process-management.service';
 import { ApplicantRequiredVerifiedDocumentComponent } from '../applicant-required-verified-document/applicant-required-verified-document.component';
-import { Status } from './../../../../core/constants/status.enum';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from './../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -16,9 +17,11 @@ import { Component, OnInit, ViewEncapsulation, Injectable } from '@angular/core'
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ApplicantProfileService } from '../../services/applicant-profile.service';
 import { Gender } from 'src/app/core/constants/gender.enum';
-import { faLess } from '@fortawesome/free-brands-svg-icons';
 import { ApplicantContractAgreementComponent } from '../applicant-contract-agreement/applicant-contract-agreement.component';
 import { YellowCardRequestComponent } from '../yellow-card-request/yellow-card-request.component';
+import { Status } from '../../model/Status.enum';
+import { ApplicantPlacementStatus, ApplicantInsuranceStatus, ApplicantLabourStatus, ApplicantTicketStatus, ApplicantContractStatus } from './../../model/Status.enum';
+
 export interface ApplicantProfile {
   id: number;
   applicantProfileId: number;
@@ -80,13 +83,23 @@ export interface ApplicantProfileSettings{
 
 @Injectable({ providedIn: 'root' })
 export class ApplicantListComponent implements OnInit {
-  displayedColumns: string[] = ['select', 'id', 'fullName','phoneNumber', 'passportNumber', 'agentId','status','action'];
+  displayedColumns: string[] = ['select', 'id', 'fullName','phoneNumber', 'passportNumber', 'agentId','process','status','action'];
   dataSource = new MatTableDataSource<ApplicantProfile>();
   selection = new SelectionModel<ApplicantProfile>(true, []);
   horizontalPosition: MatSnackBarHorizontalPosition = 'start';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   agents!:DropDownObject[];
   offices!:DropDownObject[];
+  applicantPlacementStatuses!:number[];
+  applicantPlacementStatusList=ApplicantPlacementStatus;
+  applicantContractStatuses!:number[];
+  applicantContractStatusList=ApplicantContractStatus;
+  applicantInsuranceStatuses!:number[];
+  applicantInsuranceStatusList=ApplicantInsuranceStatus;
+  applicantLabourOfficeStatuses!:number[];
+  applicantLabourOfficeStatusList=ApplicantLabourStatus;
+  applicantFlightTicketStatuses!:number[];
+  applicantFlightTicketStatuseList=ApplicantTicketStatus;
   placementFormGroup!: FormGroup;
     public applicantProfiles!: ApplicantProfile[];
     public searchText!: string;
@@ -104,6 +117,7 @@ export class ApplicantListComponent implements OnInit {
     religionList=Religion;
     statuses!:number[];
     statusList=Status;
+
     host = environment.backend.base_url;
     constructor(
       public _formBuilder: FormBuilder,
@@ -156,28 +170,18 @@ export class ApplicantListComponent implements OnInit {
         return false;
       }
     }
-    checkUploadStatus(applicantPlacement:any)
+
+
+    checkReceieveContractStatus(applicantPlacement:any)
     {
+      let status = this.applicantContractStatusList[this.applicantContractStatusList.Ready];
+
       if(applicantPlacement==null)
       {
         return false;
       }
       else{
-        if(applicantPlacement.status==this.statusList.Selected)
-        {
-          return true;
-        }
-        return false;
-      }
-    }
-    checkUploadContractStatus(applicantPlacement:any)
-    {
-      if(applicantPlacement==null)
-      {
-        return false;
-      }
-      else{
-        if(applicantPlacement.status==this.statusList.DocumentVerified)
+        if(applicantPlacement.status==status)
         {
           return true;
         }
@@ -186,12 +190,46 @@ export class ApplicantListComponent implements OnInit {
     }
     checkVerifyContractStatus(applicantPlacement:any)
     {
+      let status = this.applicantContractStatusList[this.applicantContractStatusList.Received];
+
       if(applicantPlacement==null)
       {
         return false;
       }
       else{
-        if(applicantPlacement.status==this.statusList.ContractReady)
+        if(applicantPlacement.status==status)
+        {
+          return true;
+        }
+        return false;
+      }
+    }
+    checkInsuranceStatus(applicantPlacement:any)
+    {
+      let status = this.applicantContractStatusList[this.applicantContractStatusList.Verified];
+
+      if(applicantPlacement==null)
+      {
+        return false;
+      }
+      else{
+        if(applicantPlacement.status==status)
+        {
+          return true;
+        }
+        return false;
+      }
+    }
+    checkCompleteInsuranceStatus(applicantPlacement:any)
+    {
+      let status = this.applicantInsuranceStatusList[this.applicantInsuranceStatusList.Requested];
+
+      if(applicantPlacement==null)
+      {
+        return false;
+      }
+      else{
+        if(applicantPlacement.status==status)
         {
           return true;
         }
@@ -205,13 +243,76 @@ export class ApplicantListComponent implements OnInit {
         return false;
       }
       else{
-        if(applicantPlacement.status==this.statusList.ContractAgreed)
+        if(applicantPlacement.status==this.statusList.ContractAgreement)
         {
           return true;
         }
         return false;
       }
     }
+    public uploadVerifiedDocument(id:any)
+    {
+      const dialogRef = this.dialog.open(ApplicantRequiredVerifiedDocumentComponent, {
+        maxWidth: "400",
+        data:id
+
+      });
+
+      dialogRef.afterClosed().subscribe(dialogResult => {
+        if(dialogResult){
+
+        }
+      });
+
+    }
+    checkUploadStatus(applicantStatus:any)
+    {
+      let status = this.applicantPlacementStatusList[this.applicantPlacementStatusList.Selected];
+      if(applicantStatus==null)
+      {
+        return false;
+      }
+      else{
+        if(applicantStatus?.status==status)
+        {
+          return true;
+        }
+        return false;
+      }
+    }
+
+    checkContractStatus(applicantProfile:any)
+    {
+    let status = this.applicantPlacementStatusList[this.applicantPlacementStatusList.DocumentVerified];
+      if(applicantProfile.applicantStatuses==null)
+      {
+        return false;
+      }
+      else{
+      if(applicantProfile.applicantStatuses[0].status==status)
+      {
+        console.log(applicantProfile);
+        return true;
+      }
+      return false;
+    }
+
+}
+public uploadContractDocument(id:any)
+{
+  const dialogRef = this.dialog.open(ApplicantContractAgreementComponent, {
+    maxWidth: "400",
+    data:id
+
+  });
+
+  dialogRef.afterClosed().subscribe(dialogResult => {
+    if(dialogResult){
+
+    }
+  });
+
+}
    placeApplicant()
   {
     if(this.placementFormGroup.valid)
@@ -234,7 +335,7 @@ export class ApplicantListComponent implements OnInit {
     this._applicantService.placeApplicant(this.placementFormGroup.value)
     .subscribe(data => {
 
-          this._snackBar.open('Job added successfully', 'Undo', {
+          this._snackBar.open('Office assigned successfully', 'Undo', {
             duration:10000,
             horizontalPosition: this.horizontalPosition,
             verticalPosition: this.verticalPosition,
@@ -282,29 +383,8 @@ export class ApplicantListComponent implements OnInit {
 
     }
 
-    public uploadContractDocument(id:any)
-    {
-      const dialogRef = this.dialog.open(ApplicantContractAgreementComponent, {
-        maxWidth: "400",
-        data:id
 
-      });
-
-      dialogRef.afterClosed().subscribe(dialogResult => {
-        if(dialogResult){
-
-
-          this._snackBar.open('Contract Agreement Document uploaded successfully', 'Undo', {
-            duration:10000,
-            horizontalPosition: this.horizontalPosition,
-            verticalPosition: this.verticalPosition,
-          });
-
-        }
-      });
-
-    }
-    public verifyContractDocument(id:any)
+    public receieveContractDocument(id:any)
     {
       const dialogRef = this.dialog.open(ConfirmDialogComponent, {
         maxWidth: "400px",
@@ -318,10 +398,10 @@ export class ApplicantListComponent implements OnInit {
         if(dialogResult){
           let data = {
             "applicantId":id,
-             "status":this.statusList.ContractAgreed,
+             "status":this.applicantContractStatusList.Received,
                 };
 
-                this._processManagementService.rejectApplicant(data)
+                this._processManagementService.updateContractStatus(data)
                 .subscribe(data => {
 
                       this._snackBar.open('Contract Verified successfully', 'Undo', {
@@ -330,12 +410,78 @@ export class ApplicantListComponent implements OnInit {
                         verticalPosition: this.verticalPosition,
                       });
 
+                      this._dialogRef.close();
 
                 });
 
 
 
-          this._dialogRef.close();
+        }
+      });
+
+    }
+    public requestInsurance(id:any)
+    {
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        maxWidth: "400px",
+        data: {
+          title: "Confirm Action",
+          message: "Are you sure you want request this insurance?"
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(dialogResult => {
+        if(dialogResult){
+          let data = {
+            "applicantId":id,
+             "status":this.applicantInsuranceStatusList.Requested,
+                };
+
+                this._processManagementService.requestInsurance(data)
+                .subscribe(data => {
+
+                      this._snackBar.open('Insurance requested successfully', 'Undo', {
+                        duration:10000,
+                        horizontalPosition: this.horizontalPosition,
+                        verticalPosition: this.verticalPosition,
+                      });
+
+                      this._dialogRef.close();
+
+                });
+
+
+
+        }
+      });
+
+    }
+    public verifyContractDocument(id:any)
+    {
+      const dialogRef = this.dialog.open(VerfContractDocumentComponent, {
+        maxWidth: "400",
+        data:id
+
+      });
+
+      dialogRef.afterClosed().subscribe(dialogResult => {
+        if(dialogResult){
+
+        }
+      });
+
+    }
+    public completeInsurance(id:any)
+    {
+      const dialogRef = this.dialog.open(CompleteInsuranceDocumentComponent, {
+        maxWidth: "400",
+        data:id
+
+      });
+
+      dialogRef.afterClosed().subscribe(dialogResult => {
+        if(dialogResult){
+
         }
       });
 
@@ -354,7 +500,7 @@ export class ApplicantListComponent implements OnInit {
         if(dialogResult){
           let data = {
             "applicantId":id,
-             "status":this.statusList.ContractAgreed,
+             "status":this.statusList.ContractAgreement,
                 };
 
                 this._processManagementService.rejectApplicant(data)
@@ -377,21 +523,6 @@ export class ApplicantListComponent implements OnInit {
 
     }
 
-    public uploadVerifiedDocument(id:any)
-    {
-      const dialogRef = this.dialog.open(ApplicantRequiredVerifiedDocumentComponent, {
-        maxWidth: "400",
-        data:id
-
-      });
-
-      dialogRef.afterClosed().subscribe(dialogResult => {
-        if(dialogResult){
-
-        }
-      });
-
-    }
 
 /** Whether the number of selected elements matches the total number of rows. */
 isAllSelected() {

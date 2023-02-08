@@ -1,0 +1,284 @@
+<mat-card>
+  <mat-card-content>
+    <mat-tab-group>
+      <mat-tab class="custom-mat-tab-header">
+
+        <ng-template mat-tab-label>
+          <mat-icon>book</mat-icon>
+         Placement
+        </ng-template>
+        <table mat-table [dataSource]="applicantPlacementStatusDataSource" class="mat-elevation-z8">
+
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+          <!-- Full Name Column -->
+          <ng-container matColumnDef="fullName">
+            <th mat-header-cell *matHeaderCellDef> Full Name </th>
+            <td mat-cell *matCellDef="let element"> {{applicantProfileData.fullName}} </td>
+          </ng-container>
+
+          <!-- Full Name Am Column -->
+          <ng-container matColumnDef="fullNameAm">
+            <th mat-header-cell *matHeaderCellDef> Full Name Am </th>
+            <td mat-cell *matCellDef="let element"> {{applicantProfileData.fullNameAm}} </td>
+          </ng-container>
+
+
+
+          <!--Description Column -->
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Description</th>
+            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+          </ng-container>
+
+          <!--Description Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.createdDate|date}} </td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+
+          <button mat-mini-fab matTooltip="Accept Contract" class="mx-1" [ngStyle]="{'color':'green'}">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let element"> <mat-icon >edit</mat-icon>
+              <button  mat-mini-fab matTooltip="Upload Document" class="mx-1"  color="primary" *ngIf="checkUploadStatus(element.status)"  (click)="uploadVerifiedDocument(element.applicantProfileId)">
+                <mat-icon><mat-icon>cloud_upload</mat-icon>
+              </mat-icon>
+            </button></td>
+        </button>
+        </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedApplicantPlacements"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedApplicantPlacements;"></tr>
+        </table>
+
+
+  </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>folder</mat-icon>
+        Contract
+      </ng-template>
+      <table mat-table [dataSource]="applicantContractStatusDataSource" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Full Name Column -->
+        <ng-container matColumnDef="fullName">
+          <th mat-header-cell *matHeaderCellDef> Full Name </th>
+          <td mat-cell *matCellDef="let element"> {{applicantProfileData.fullName}} </td>
+        </ng-container>
+
+        <!-- Full Name Am Column -->
+        <ng-container matColumnDef="fullNameAm">
+          <th mat-header-cell *matHeaderCellDef> Full Name Am </th>
+          <td mat-cell *matCellDef="let element"> {{applicantProfileData.fullNameAm}} </td>
+        </ng-container>
+
+
+
+        <!--Description Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef> Description</th>
+          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+        </ng-container>
+
+        <!--Description Column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.createdDate|date}} </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+
+        <button mat-mini-fab matTooltip="Accept Contract" class="mx-1" [ngStyle]="{'color':'green'}">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let element"> <mat-icon >edit</mat-icon>
+            <button  mat-mini-fab matTooltip="Upload Document" class="mx-1"  color="primary" *ngIf="checkUploadStatus(element.status)"  (click)="uploadVerifiedDocument(element.applicantProfileId)">
+              <mat-icon><mat-icon>cloud_upload</mat-icon>
+            </mat-icon>
+          </button></td>
+      </button>
+      </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedApplicantPlacements"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedApplicantPlacements;"></tr>
+      </table>
+
+    </mat-tab>
+
+      <mat-tab>
+        <ng-template mat-tab-label>
+
+          <mat-icon>perm_identity</mat-icon>
+          Insurance
+        </ng-template>
+
+        <table mat-table [dataSource]="applicantInsuranceStatusDataSource" class="mat-elevation-z8">
+
+          <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+          <!-- Full Name Column -->
+          <ng-container matColumnDef="fullName">
+            <th mat-header-cell *matHeaderCellDef> Full Name </th>
+            <td mat-cell *matCellDef="let element"> {{applicantProfileData.fullName}} </td>
+          </ng-container>
+
+          <!-- Full Name Am Column -->
+          <ng-container matColumnDef="fullNameAm">
+            <th mat-header-cell *matHeaderCellDef> Full Name Am </th>
+            <td mat-cell *matCellDef="let element"> {{applicantProfileData.fullNameAm}} </td>
+          </ng-container>
+
+
+
+          <!--Description Column -->
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Description</th>
+            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+          </ng-container>
+
+          <!--Description Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.createdDate|date}} </td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+          </ng-container>
+          <ng-container matColumnDef="action">
+
+          <button mat-mini-fab matTooltip="Accept Contract" class="mx-1" [ngStyle]="{'color':'green'}">
+            <th mat-header-cell *matHeaderCellDef> Action </th>
+            <td mat-cell *matCellDef="let element"> <mat-icon >edit</mat-icon>
+              <button  mat-mini-fab matTooltip="Upload Document" class="mx-1"  color="primary" *ngIf="checkUploadStatus(element.status)"  (click)="uploadVerifiedDocument(element.applicantProfileId)">
+                <mat-icon><mat-icon>cloud_upload</mat-icon>
+              </mat-icon>
+            </button></td>
+        </button>
+        </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedApplicantPlacements"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedApplicantPlacements;"></tr>
+        </table>
+
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+
+          <mat-icon>person</mat-icon>
+        Ministry  Labour Office
+        </ng-template>
+        <!-- <div class="p-2">
+
+          <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.2%" fxLayoutAlign="Start">
+
+            <div   fxFlex="30%">
+        <mat-form-field appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status" required>
+            <mat-option *ngFor="let applicantLabourOfficeStatus of applicantLabourOfficeStatuses"
+            [value]="applicantLabourOfficeStatus">
+      {{applicantLabourOfficeStatusList[applicantLabourOfficeStatus]}}
+    </mat-option>
+        </mat-select>
+
+        </mat-form-field>
+</div>
+<div   fxFlex="30%">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Price</mat-label>
+          <input matInput placeholder="Price" formControlName="price" required>
+        </mat-form-field>
+</div><div   fxFlex="30%">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <input matInput placeholder="Description" formControlName="description" required>
+        </mat-form-field>
+        </div>
+        </div>
+        </div> -->
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+
+        <mat-icon>perm_media</mat-icon>
+        Flight Ticket
+      </ng-template>
+      <!-- <div class="p-2">
+        <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.2%" fxLayoutAlign="Start">
+
+          <div   fxFlex="30%">
+      <mat-form-field color="primary" appearance="outline">
+        <mat-label>Departure Date</mat-label>
+        <input matInput [matDatepicker]="departureDatePicker" formControlName="departureDate">
+        <mat-datepicker-toggle matIconSuffix [for]="departureDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #departureDatePicker color="primary"></mat-datepicker>
+
+    </mat-form-field>
+    </div>
+    <div   fxFlex="30%">
+
+    <mat-form-field color="primary" appearance="outline">
+      <mat-label>Arrival Date</mat-label>
+      <input matInput [matDatepicker]="arrivalDatePicker" formControlName="arrivalDate">
+      <mat-datepicker-toggle matIconSuffix [for]="arrivalDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #arrivalDatePicker color="primary"></mat-datepicker>
+
+  </mat-form-field>
+</div>
+<div   fxFlex="30%">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Price</mat-label>
+    <input matInput placeholder="Price" formControlName="price" required>
+  </mat-form-field>
+</div>
+</div>
+<div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.2%" fxLayoutAlign="Start">
+  <div   fxFlex="30%">
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status" required>
+          <mat-option *ngFor="let applicantFlightTicketStatus of applicantFlightTicketStatuses"
+          [value]="applicantFlightTicketStatus">
+    {{applicantFlightTicketStatuseList[applicantFlightTicketStatus]}}
+  </mat-option>
+      </mat-select>
+
+      </mat-form-field>
+
+</div>
+<div   fxFlex="30%">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput placeholder="Description" formControlName="description" required>
+      </mat-form-field>
+    </div>
+    </div>
+</div> -->
+      </mat-tab>
+
+
+    </mat-tab-group>
+    </mat-card-content>
+  </mat-card>

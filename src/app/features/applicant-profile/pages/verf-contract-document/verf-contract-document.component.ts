@@ -6,17 +6,17 @@ import { Component, Inject } from '@angular/core';
 import { ProcessManagementService } from 'src/app/features/process-management/service/process-management.service';
 
 @Component({
-  selector: 'app-applicant-contract-agreement',
-  templateUrl: './applicant-contract-agreement.component.html',
-  styleUrls: ['./applicant-contract-agreement.component.scss']
+  selector: 'app-verf-contract-document',
+  templateUrl: './verf-contract-document.component.html',
+  styleUrls: ['./verf-contract-document.component.scss']
 })
-export class ApplicantContractAgreementComponent {
+export class VerfContractDocumentComponent {
   horizontalPosition: MatSnackBarHorizontalPosition = 'start';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   contractAgreementDocumentFormGroup: FormGroup;
   formData = new FormData();
   constructor(
-    public dialogRef: MatDialogRef<ApplicantContractAgreementComponent>,
+    public dialogRef: MatDialogRef<VerfContractDocumentComponent>,
     @Inject(MAT_DIALOG_DATA) public id: any,
     private _formBuilder:FormBuilder,
     private _processManagementService: ProcessManagementService,
@@ -29,7 +29,8 @@ export class ApplicantContractAgreementComponent {
   ngOnInit(): void {
     this.contractAgreementDocumentFormGroup = this._formBuilder.group({
       applicantId: [''],
-      contractDocument: [''],
+      price: [''],
+      verifiedContractDocument: [''],
     });
 
   }
@@ -37,18 +38,17 @@ export class ApplicantContractAgreementComponent {
   uploadDocument()
   {
     this.formData.append("applicantId",this.id);
-
     // Object.entries(this.documentFormGroup.value).forEach(([key, value]) => {
     //   this.formData.append(key,JSON.stringify(value));
     // });
     console.log(this.formData);
       console.log(this.contractAgreementDocumentFormGroup.value);
-      this._processManagementService.uplodContractApplicantDocument(this.formData)
+      this._processManagementService.verifyContractApplicantDocument(this.formData)
       .subscribe(data => {
 
-        this._snackBar.open('Contract Agreement Document uploaded successfully', 'Undo', {
+        this._snackBar.open('Contract Agreement Document verified successfully', 'Undo', {
           duration:10000,
-          horizontalPosition: this.horizontalPosition, 
+          horizontalPosition: this.horizontalPosition,
           verticalPosition: this.verticalPosition,
         });
 
@@ -59,9 +59,9 @@ export class ApplicantContractAgreementComponent {
 
   onChangeContractAgreement(event)
 {
-  this.contractAgreementDocumentFormGroup.controls.contractDocument.setValue(event.target.files[0]);
+  this.contractAgreementDocumentFormGroup.controls.verifiedContractDocument.setValue(event.target.files[0]);
   console.log(event.target.files[0]);
-  this.formData.append("contractDocument",event.target.files[0]);
+  this.formData.append("verifiedContractDocument",event.target.files[0]);
 }
 
 }

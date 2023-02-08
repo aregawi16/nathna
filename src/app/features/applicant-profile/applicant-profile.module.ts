@@ -23,6 +23,9 @@ import { ShareButtonsModule } from 'ngx-sharebuttons/buttons';
 import { ShareIconsModule } from 'ngx-sharebuttons/icons';
 import { ApplicantRequiredVerifiedDocumentComponent } from './pages/applicant-required-verified-document/applicant-required-verified-document.component';
 import { ApplicantContractAgreementComponent } from './pages/applicant-contract-agreement/applicant-contract-agreement.component';
+import { ProcessManagementComponent } from './pages/process-management/process-management.component';
+import { VerfContractDocumentComponent } from './pages/verf-contract-document/verf-contract-document.component';
+import { CompleteInsuranceDocumentComponent } from './pages/complete-insurance-document/complete-insurance-document.component';
 
 
 @NgModule({
@@ -33,7 +36,10 @@ import { ApplicantContractAgreementComponent } from './pages/applicant-contract-
     ApplicantDetailComponent,
     ApplicantRequiredVerifiedDocumentComponent,
     ApplicantContractAgreementComponent,
-    YellowCardRequestComponent
+    YellowCardRequestComponent,
+    ProcessManagementComponent,
+    VerfContractDocumentComponent,
+    CompleteInsuranceDocumentComponent
     ],
   imports: [
     CommonModule,

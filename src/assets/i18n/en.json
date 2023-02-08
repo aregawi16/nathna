@@ -29,8 +29,9 @@
   "ADMIN_NAV": {
     "DASHBOARD": "Dashboard",
     "APPLICANT_PROFILE": "Applicant Profile",
-    "CREATE_APPLICANT_PROFILE":"Add",
+    "CREATE_APPLICANT_PROFILE":"Create",
     "LIST_APPLICANT_PROFILE":"List",
+    "APPLICANT_PROFILE_PROCESS":"Process",
     "USER": "User",
     "ROLE": "Role",
     "JOB": "Job",

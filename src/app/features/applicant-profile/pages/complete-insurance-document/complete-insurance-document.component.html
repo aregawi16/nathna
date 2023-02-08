@@ -1,0 +1,35 @@
+<h1 mat-dialog-title>Upload Insurance</h1>
+<mat-divider></mat-divider>
+<form [formGroup]="insuranceDocumentFormGroup" (ngSubmit)="uploadDocument()">
+  <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
+    <div class="image-upload" fxFlex="90%">
+<mat-form-field appearance="outline">
+  <mat-label>Payment</mat-label>
+
+      <input matInput type="nuumber"  placeholder="Price" formControlName="price"    required/>
+    </mat-form-field>
+    </div>
+    </div>
+
+  <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
+    <div class="image-upload" fxFlex="90%">
+
+      <label>Insurance Document</label>
+      <!-- <app-image-uploader (change)="onChangeMedical($event)" accept="image/*" formControlName="medicalDocument"></app-image-uploader> -->
+      <!-- <img src="assets/images/uploadicons/upload-svgrepo-com2.svg"  width="50px" matTooltip="upload"  alt=""> -->
+      <input type="file" (change)="onChangeContractAgreement($event)" accept="image/*"    required/>
+    </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div  fxLayout="row"  fxLayoutAlign="end center">
+      <div mat-dialog-actions>
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+          <button mat-raised-button color="warn" type="button" mat-dialog-close>
+            Close
+          </button>
+          <button mat-raised-button color="primary" type="submit">Save</button>
+        </div>
+      </div></div>
+</form>

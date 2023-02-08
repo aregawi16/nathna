@@ -82,13 +82,18 @@
                       <mat-icon>mode_edit</mat-icon>
                       <span>Edit</span>
                   </button>
-                  <button *ngIf="checkDeleteStatus(applicantProfile.applicantPlacement)"  mat-menu-item (click)="deleteApplicantProfile(applicantProfile.applicantProfileId)">
+                  <button *ngIf="checkDeleteStatus(applicantProfile.applicantStatuses[0])"  mat-menu-item (click)="deleteApplicantProfile(applicantProfile.applicantProfileId)">
                     <mat-icon>delete</mat-icon>
                       <span>Delete</span>
                   </button>
                   <a mat-menu-item [routerLink]="['/applicant-profile/detail', applicantProfile.applicantProfileId]">
                     <mat-icon>details</mat-icon>
                     <span>Detail</span>
+                </a>
+
+                  <a mat-menu-item [routerLink]="['/applicant-profile/process', applicantProfile.applicantProfileId]">
+                    <mat-icon>trending_up</mat-icon>
+                    <span>Process</span>
                 </a>
               </span>
           </mat-menu>
@@ -126,7 +131,7 @@
                   </p>
                   <p fxLayout="row" fxLayoutAlign="start center">
                       <mat-icon class="text-muted">wc</mat-icon>
-                      <span>    {{applicantProfile.applicantPlacement?statusList[applicantProfile.applicantPlacement.status]:"UnAssigned"}}   </span>
+                      <span>    {{applicantProfile.applicantStatuses[0]?statusList[applicantProfile.applicantStatuses[0].status]:"UnAssigned"}}   </span>
                   </p>
               </div>
           </div>
@@ -149,7 +154,7 @@
                       <mat-icon>mode_edit</mat-icon>
                       <span>Edit</span>
                   </button>
-                  <button  mat-menu-item (click)="deleteApplicantProfile(applicantProfile.applicantProfileId)" *ngIf="checkDeleteStatus(applicantProfile.applicantPlacement)">
+                  <button  mat-menu-item (click)="deleteApplicantProfile(applicantProfile.applicantProfileId)" *ngIf="checkDeleteStatus(applicantProfile.applicantStatuses[0])">
                       <mat-icon>delete</mat-icon>
                       <span>Delete</span>
                   </button>
@@ -157,6 +162,10 @@
                     <mat-icon>details</mat-icon>
                     <span>Detail</span>
                 </a>
+                <a mat-menu-item [routerLink]="['/applicant-profile/process', applicantProfile.applicantProfileId]">
+                  <mat-icon>trending_up</mat-icon>
+                  <span>Process</span>
+              </a>
               </span>
           </mat-menu>
           <div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">
@@ -230,7 +239,7 @@
                       </p>
                       <p fxLayout="row" fxLayoutAlign="start center">
                         <mat-icon class="text-muted">wc</mat-icon>
-                        <span>    {{applicantProfile.applicantPlacement?statusList[applicantProfile.applicantPlacement.status]:"UnAssigned"}}   </span>
+                        <span>    {{applicantProfile.applicantStatuses[0]?statusList[applicantProfile.applicantStatuses[0].status]:"UnAssigned"}}   </span>
                     </p>
                       <!-- <p fxLayout="row" fxLayoutAlign="start center">
                           <mat-icon *ngIf="applicantProfile.isDeleted" class="text-muted">person_outline</mat-icon>
@@ -315,10 +324,17 @@
           </td>
           </ng-container>
 
+          <ng-container matColumnDef="process">
+            <th mat-header-cell *matHeaderCellDef> Process </th>
+            <td mat-cell *matCellDef="let element">
+                      {{element.status?statusList[element.status]:"UnAssigned"}}
+          </td>
+          </ng-container>
+
           <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef> Status </th>
             <td mat-cell *matCellDef="let element">
-                      {{element.applicantPlacement?statusList[element.applicantPlacement.status]:"UnAssigned"}}
+                      {{element.applicantStatuses[0]?element.applicantStatuses[0].status:"UnAssigned"}}
           </td>
           </ng-container>
           <!--Symbol Column -->
@@ -329,25 +345,38 @@
               <button mat-mini-fab matTooltip="Edit" color="primary" (click)="openApplicantProfileDialog(element);" class="mx-1">
                 <mat-icon>mode_edit</mat-icon>
             </button>
-            <button mat-mini-fab matTooltip="Delete" class="mx-1" color="warn" *ngIf="checkDeleteStatus(element.applicantPlacement)" (click)="deleteApplicantProfile(element.applicantProfileId)">
+            <!-- <button mat-mini-fab matTooltip="Delete" class="mx-1" color="warn" *ngIf="checkDeleteStatus(element.applicantStatuses[0])" (click)="deleteApplicantProfile(element.applicantProfileId)">
                 <mat-icon>delete</mat-icon>
-            </button>
-            <button  mat-mini-fab matTooltip="Upload Document" class="mx-1"  color="primary" *ngIf="checkUploadStatus(element.applicantPlacement)"  (click)="uploadVerifiedDocument(element.applicantProfileId)">
-                <mat-icon><mat-icon>cloud_upload</mat-icon>
+            </button> -->
+
+            <button  mat-mini-fab matTooltip="Upload Verified Document" class="mx-1" color="primary" *ngIf="checkUploadStatus(element.applicantStatuses[0])" (click)="uploadVerifiedDocument(element.applicantProfileId)">
+                <mat-icon ><mat-icon>cloud_upload</mat-icon>
               </mat-icon>
             </button>
-            <button  mat-mini-fab matTooltip="Upload Contract" class="mx-1" color="primary" *ngIf="checkUploadContractStatus(element.applicantPlacement)" (click)="uploadContractDocument(element.applicantProfileId)">
-                <mat-icon ><mat-icon>wb_cloudy</mat-icon>
+            <button  mat-mini-fab matTooltip="Upload Contract" class="mx-1" color="primary" *ngIf="checkContractStatus(element)" (click)="uploadContractDocument(element.applicantProfileId)">
+                <mat-icon ><mat-icon>cloud_upload</mat-icon>
               </mat-icon>
             </button>
-            <button mat-mini-fab matTooltip="Accept Contract" class="mx-1" [ngStyle]="{'color':'green'}" *ngIf="checkVerifyContractStatus(element.applicantPlacement)" (click)="verifyContractDocument(element.applicantProfileId)">
+            <button mat-mini-fab matTooltip="Accept Contract" class="mx-1" color="primary"  *ngIf="checkReceieveContractStatus(element.applicantStatuses[0])" (click)="receieveContractDocument(element.applicantProfileId)">
               <mat-icon >check</mat-icon>
           </button>
-            <button mat-mini-fab matTooltip="Request Yellow Card" class="mx-1" [ngStyle]="{'background-color':'yellow'}" *ngIf="checkYellowCardStatus(element.applicantPlacement)" (click)="requestYellowCard(element.applicantProfileId)">
+            <button mat-mini-fab matTooltip="Verify Contract" class="mx-1" color="primary"  *ngIf="checkVerifyContractStatus(element.applicantStatuses[0])" (click)="verifyContractDocument(element.applicantProfileId)">
+              <mat-icon >check</mat-icon>
+          </button>
+            <button mat-mini-fab matTooltip="Request Insurance" class="mx-1" color="primary"  *ngIf="checkInsuranceStatus(element.applicantStatuses[0])" (click)="requestInsurance(element.applicantProfileId)">
+              <mat-icon >directions</mat-icon>
+          </button>
+            <button mat-mini-fab matTooltip="Complete Insurance" class="mx-1" color="primary"  *ngIf="checkCompleteInsuranceStatus(element.applicantStatuses[0])" (click)="completeInsurance(element.applicantProfileId)">
+              <mat-icon >directions</mat-icon>
+          </button>
+            <button mat-mini-fab matTooltip="Request Yellow Card" class="mx-1" [ngStyle]="{'background-color':'yellow'}" *ngIf="checkYellowCardStatus(element.applicantStatuses[0])" (click)="requestYellowCard(element.applicantProfileId)">
               <mat-icon >check</mat-icon>
           </button>
             <button mat-mini-fab matTooltip="Detail" class="mx-1"  [ngStyle]="{'color':'green'}" [routerLink]="['/applicant-profile/detail', element.applicantProfileId]">
               <mat-icon>visibility</mat-icon>
+          </button>
+            <button mat-mini-fab matTooltip="Process" class="mx-1"  [ngStyle]="{'color':'Blue'}" [routerLink]="['/applicant-profile/process', element.applicantProfileId]">
+              <mat-icon>trending_down</mat-icon>
           </button>
             </td>
           </ng-container>

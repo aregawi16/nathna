@@ -20,7 +20,13 @@
   <button mat-raised-button align="center" (click)="rejectApplicant(applicantProfile.applicantProfileId)" color="warn" title="Reject"><mat-icon  class="reject">close</mat-icon></button>
 </div>
 
+<div *ngIf="checkContractStatus(applicantProfile)">
+  <button style="margin-right:25px" mat-raised-button align="center" (click)="uploadContractDocument(applicantProfile.applicantProfileId)" color="primary" title="Upload"><mat-icon  class="check">cloud_upload</mat-icon></button>
+  <button style="margin-right:25px"mat-raised-button align="center" (click)="rejectApplicant(applicantProfile.applicantProfileId)" color="warn" title="Reject"><mat-icon  class="reject">close</mat-icon></button>
+</div>
+
 </mat-card-title>
+
 <mat-card-content>
   <mat-tab-group>
     <mat-tab class="custom-mat-tab-header">
@@ -327,4 +333,4 @@
     </mat-tab>
   </mat-tab-group>
   </mat-card-content>
-</mat-card>
+

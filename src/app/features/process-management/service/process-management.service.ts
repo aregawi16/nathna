@@ -21,6 +21,15 @@ export class ProcessManagementService {
     })
   );
 }
+updateContractStatus(data)
+{
+  return this._http.post(HttpApi.receiveContractAgreement,data)
+  .pipe(
+    map((response: any) => {
+      return response;
+    })
+  );
+}
 
 
 rejectApplicant(data)
@@ -41,9 +50,36 @@ uplodVerifiedApplicantDocument(data)
     })
   );
 }
+completeInsurance(data)
+{
+  return this._http.post(HttpApi.completeInsurance,data)
+  .pipe(
+    map((response: any) => {
+      return response;
+    })
+  );
+}
 uplodContractApplicantDocument(data)
 {
   return this._http.post(HttpApi.uploadContractDocumentApplicant,data)
+  .pipe(
+    map((response: any) => {
+      return response;
+    })
+  );
+}
+verifyContractApplicantDocument(data)
+{
+  return this._http.post(HttpApi.verifyContractAgreement,data)
+  .pipe(
+    map((response: any) => {
+      return response;
+    })
+  );
+}
+requestInsurance(data)
+{
+  return this._http.post(HttpApi.requestInsurance,data)
   .pipe(
     map((response: any) => {
       return response;

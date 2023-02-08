@@ -1,4 +1,3 @@
-import { Status } from './../../core/constants/status.enum';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'UserSearchPipe', pure: false })

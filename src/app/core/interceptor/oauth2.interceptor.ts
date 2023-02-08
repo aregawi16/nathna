@@ -59,6 +59,8 @@ export class Oauth2Interceptor implements HttpInterceptor {
 private JsonApi(apiUrl: string): boolean {
   const blockedApiList = [environment.backend.host + HttpApi.createApplicantProfile+"/upload",
   environment.backend.host + HttpApi.uploadVerifiedDocumentApplicant,
+  environment.backend.host + HttpApi.verifyContractAgreement,
+  environment.backend.host + HttpApi.completeInsurance,
   environment.backend.host + HttpApi.uploadContractDocumentApplicant
 ];
   return blockedApiList.includes(apiUrl) ? false : true;

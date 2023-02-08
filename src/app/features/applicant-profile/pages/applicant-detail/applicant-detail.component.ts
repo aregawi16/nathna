@@ -1,8 +1,8 @@
-import { ApplicantPlaceMent } from './../applicant-list/applicant-list.component';
+import { ApplicantContractAgreementComponent } from './../applicant-contract-agreement/applicant-contract-agreement.component';
+import { ApplicantPlacementStatus, ApplicantInsuranceStatus, ApplicantLabourStatus, ApplicantTicketStatus } from './../../model/Status.enum';
 import { ConfirmDialogComponent } from './../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
-import { Status } from './../../../../core/constants/status.enum';
 import { DropDownObject } from './../../../../core/models/dropDownObject';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Observer } from 'rxjs';
@@ -20,6 +20,7 @@ import { MatSort } from '@angular/material/sort';
 import { DocPreviewConfig } from 'img-pdf-viewer';
 import { DialogRef } from '@angular/cdk/dialog';
 import { ProcessManagementService } from 'src/app/features/process-management/service/process-management.service';
+import { Status } from '../../model/Status.enum';
 
 @Component({
   selector: 'app-applicant-detail',
@@ -30,6 +31,17 @@ export class ApplicantDetailComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'start';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
    applicantProfile !:any;
+
+   applicantPlacementStatuses!:number[];
+   applicantPlacementStatusList=ApplicantPlacementStatus;
+   applicantContractStatuses!:number[];
+   applicantContractStatusList=ApplicantPlacementStatus;
+   applicantInsuranceStatuses!:number[];
+   applicantInsuranceStatusList=ApplicantInsuranceStatus;
+   applicantLabourOfficeStatuses!:number[];
+   applicantLabourOfficeStatusList=ApplicantLabourStatus;
+   applicantFlightTicketStatuses!:number[];
+   applicantFlightTicketStatuseList=ApplicantTicketStatus;
    jobs !: [];
    name = "Mr";
    base64Image: any;
@@ -39,6 +51,7 @@ export class ApplicantDetailComponent implements OnInit {
    genderList=Gender;
    statuses!:number[];
    statusList=Status;
+   applicationStatusList=ApplicantPlacementStatus;
    maritalStatuses!:number[];
    maritalStatusList=MaritalStatus;
    religions!:number[];
@@ -202,13 +215,13 @@ public getOffices()
         if(dialogResult){
     let data = {
 "applicantId":applicantId,
- "status":this.statusList.Selected,
+ "status":this.applicantPlacementStatusList.Selected,
     };
 
     this._processManagementService.selectApplicant(data)
     .subscribe(data => {
 
-          this._snackBar.open('ApplicantSelected successfully', 'Undo', {
+          this._snackBar.open('Applicant Selected successfully', 'Undo', {
             duration:10000,
             horizontalPosition: this.horizontalPosition,
             verticalPosition: this.verticalPosition,
@@ -233,7 +246,7 @@ public getOffices()
         if(dialogResult){
     let data = {
 "applicantId":applicantId,
- "status":this.statusList.Rejected,
+ "status":this.applicantPlacementStatusList.Rejected,
     };
 
     this._processManagementService.rejectApplicant(data)
@@ -251,29 +264,63 @@ public getOffices()
       });
     }
 
-    checkStatus(applicantProfile:any)
-    {
 
-      if(applicantProfile.applicantPlacement==null)
+ checkStatus(applicantProfile:any)
+    {
+let status = this.applicantPlacementStatusList[this.applicantPlacementStatusList.Assigned];
+      if(applicantProfile.applicantStatuses==null)
       {
         return false;
       }
       else{
-      if(applicantProfile.applicantPlacement.status == this.statusList.Assigned)
+      if(applicantProfile.applicantStatuses[0].status==status)
       {
+        console.log(applicantProfile);
         return true;
       }
       return false;
     }
     }
-    checkVerifiedDoc(applicantPlacement:any)
+    checkContractStatus(applicantProfile:any)
+    {
+let status = this.applicantPlacementStatusList[this.applicantPlacementStatusList.DocumentVerified];
+      if(applicantProfile.applicantStatuses==null)
+      {
+        return false;
+      }
+      else{
+      if(applicantProfile.applicantStatuses[0].status==status)
+      {
+        console.log(applicantProfile);
+        return true;
+      }
+      return false;
+    }
+
+}
+public uploadContractDocument(id:any)
+{
+  const dialogRef = this._dialog.open(ApplicantContractAgreementComponent, {
+    maxWidth: "400",
+    data:id
+
+  });
+
+  dialogRef.afterClosed().subscribe(dialogResult => {
+    if(dialogResult){
+
+    }
+  });
+
+}
+  checkVerifiedDoc(applicantPlacement:any)
     {
       if(applicantPlacement==null)
       {
         return false;
       }
       else{
-      if(parseInt(applicantPlacement.status) >= this.statusList.DocumentVerified)
+      if(parseInt(applicantPlacement.status) >= this.statusList.Placement)
       {
         return true;
       }
@@ -288,7 +335,7 @@ public getOffices()
         return false;
       }
       else{
-      if(parseInt(applicantPlacement.status) >= this.statusList.ContractReady)
+      if(parseInt(applicantPlacement.status) >= this.statusList.ContractAgreement)
       {
         return true;
       }

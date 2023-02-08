@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddApplicantComponent } from './pages/add-applicant/add-applicant.component';
 import { ApplicantListComponent } from './pages/applicant-list/applicant-list.component';
+import { ProcessManagementComponent } from './pages/process-management/process-management.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,12 @@ const routes: Routes = [
       {
         path: 'detail/:id',
         component: ApplicantDetailComponent,
+        data: { breadcrumb: 'Detail' }
+      }
+      ,
+      {
+        path: 'process/:id',
+        component: ProcessManagementComponent,
         data: { breadcrumb: 'Detail' }
       }
     ]
