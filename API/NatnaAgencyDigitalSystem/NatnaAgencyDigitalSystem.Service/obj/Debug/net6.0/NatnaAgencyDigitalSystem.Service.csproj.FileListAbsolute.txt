@@ -1,0 +1,17 @@
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Service\bin\Debug\net6.0\NatnaAgencyDigitalSystem.Service.deps.json
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Service\bin\Debug\net6.0\NatnaAgencyDigitalSystem.Service.dll
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Service\bin\Debug\net6.0\NatnaAgencyDigitalSystem.Service.pdb
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Service\obj\Debug\net6.0\NatnaAgencyDigitalSystem.Service.csproj.AssemblyReference.cache
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Service\obj\Debug\net6.0\NatnaAgencyDigitalSystem.Service.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Service\obj\Debug\net6.0\NatnaAgencyDigitalSystem.Service.AssemblyInfoInputs.cache
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Service\obj\Debug\net6.0\NatnaAgencyDigitalSystem.Service.AssemblyInfo.cs
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Service\obj\Debug\net6.0\NatnaAgencyDigitalSystem.Service.csproj.CoreCompileInputs.cache
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Service\obj\Debug\net6.0\NatnaAgencyDigitalSystem.Service.dll
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Service\obj\Debug\net6.0\refint\NatnaAgencyDigitalSystem.Service.dll
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Service\obj\Debug\net6.0\NatnaAgencyDigitalSystem.Service.pdb
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Service\obj\Debug\net6.0\ref\NatnaAgencyDigitalSystem.Service.dll
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Service\bin\Debug\net6.0\NatnaAgencyDigitalSystem.Core.dll
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Service\bin\Debug\net6.0\NatnaAgencyDigitalSystem.Data.dll
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Service\bin\Debug\net6.0\NatnaAgencyDigitalSystem.Core.pdb
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Service\bin\Debug\net6.0\NatnaAgencyDigitalSystem.Data.pdb
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Service\obj\Debug\net6.0\NatnaAgencyDigitalSystem.Service.csproj.CopyComplete

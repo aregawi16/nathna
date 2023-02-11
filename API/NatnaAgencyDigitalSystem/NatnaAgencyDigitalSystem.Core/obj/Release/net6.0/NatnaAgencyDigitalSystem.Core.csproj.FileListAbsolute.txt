@@ -1,0 +1,12 @@
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Core\bin\Release\net6.0\NatnaAgencyDigitalSystem.Core.deps.json
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Core\bin\Release\net6.0\NatnaAgencyDigitalSystem.Core.dll
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Core\bin\Release\net6.0\NatnaAgencyDigitalSystem.Core.pdb
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Core\obj\Release\net6.0\NatnaAgencyDigitalSystem.Core.csproj.AssemblyReference.cache
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Core\obj\Release\net6.0\NatnaAgencyDigitalSystem.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Core\obj\Release\net6.0\NatnaAgencyDigitalSystem.Core.AssemblyInfoInputs.cache
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Core\obj\Release\net6.0\NatnaAgencyDigitalSystem.Core.AssemblyInfo.cs
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Core\obj\Release\net6.0\NatnaAgencyDigitalSystem.Core.csproj.CoreCompileInputs.cache
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Core\obj\Release\net6.0\NatnaAgencyDigitalSystem.Core.dll
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Core\obj\Release\net6.0\refint\NatnaAgencyDigitalSystem.Core.dll
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Core\obj\Release\net6.0\NatnaAgencyDigitalSystem.Core.pdb
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Core\obj\Release\net6.0\ref\NatnaAgencyDigitalSystem.Core.dll

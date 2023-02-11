@@ -1,0 +1,17 @@
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Data\bin\Release\net6.0\NatnaAgencyDigitalSystem.Data.deps.json
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Data\bin\Release\net6.0\NatnaAgencyDigitalSystem.Data.runtimeconfig.json
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Data\bin\Release\net6.0\NatnaAgencyDigitalSystem.Data.dll
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Data\bin\Release\net6.0\NatnaAgencyDigitalSystem.Data.pdb
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Data\bin\Release\net6.0\NatnaAgencyDigitalSystem.Core.dll
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Data\bin\Release\net6.0\NatnaAgencyDigitalSystem.Core.pdb
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Data\obj\Release\net6.0\NatnaAgencyDigitalSystem.Data.csproj.AssemblyReference.cache
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Data\obj\Release\net6.0\NatnaAgencyDigitalSystem.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Data\obj\Release\net6.0\NatnaAgencyDigitalSystem.Data.AssemblyInfoInputs.cache
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Data\obj\Release\net6.0\NatnaAgencyDigitalSystem.Data.AssemblyInfo.cs
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Data\obj\Release\net6.0\NatnaAgencyDigitalSystem.Data.csproj.CoreCompileInputs.cache
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Data\obj\Release\net6.0\NatnaAgencyDigitalSystem.Data.csproj.CopyComplete
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Data\obj\Release\net6.0\NatnaAgencyDigitalSystem.Data.dll
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Data\obj\Release\net6.0\refint\NatnaAgencyDigitalSystem.Data.dll
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Data\obj\Release\net6.0\NatnaAgencyDigitalSystem.Data.pdb
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Data\obj\Release\net6.0\NatnaAgencyDigitalSystem.Data.genruntimeconfig.cache
+C:\Users\aziz\source\repos\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Data\obj\Release\net6.0\ref\NatnaAgencyDigitalSystem.Data.dll
