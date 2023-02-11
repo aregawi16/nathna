@@ -26,6 +26,8 @@ import { ApplicantContractAgreementComponent } from './pages/applicant-contract-
 import { ProcessManagementComponent } from './pages/process-management/process-management.component';
 import { VerfContractDocumentComponent } from './pages/verf-contract-document/verf-contract-document.component';
 import { CompleteInsuranceDocumentComponent } from './pages/complete-insurance-document/complete-insurance-document.component';
+import { ReceiveYellowCardComponent } from './pages/receive-yellow-card/receive-yellow-card.component';
+import { VerifyFlightTicketComponent } from './pages/verify-flight-ticket/verify-flight-ticket.component';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { CompleteInsuranceDocumentComponent } from './pages/complete-insurance-d
     YellowCardRequestComponent,
     ProcessManagementComponent,
     VerfContractDocumentComponent,
-    CompleteInsuranceDocumentComponent
+    CompleteInsuranceDocumentComponent,
+    ReceiveYellowCardComponent,
+    VerifyFlightTicketComponent
     ],
   imports: [
     CommonModule,

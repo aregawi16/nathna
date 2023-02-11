@@ -1,23 +1,39 @@
-<h1 mat-dialog-title>Upload Contract Document</h1>
+<h1 mat-dialog-title>Upload Flight</h1>
 <mat-divider></mat-divider>
-<form [formGroup]="contractAgreementDocumentFormGroup" (ngSubmit)="uploadDocument()">
+<form [formGroup]="flightTicketDocumentFormGroup" (ngSubmit)="uploadDocument()">
   <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
     <div class="image-upload" fxFlex="90%">
 <mat-form-field appearance="outline">
   <mat-label>Payment</mat-label>
 
-      <input matInput type="number"  placeholder="Price" formControlName="price"    required/>
+      <input matInput type="nuumber"  placeholder="Price" formControlName="price"    required/>
     </mat-form-field>
     </div>
     </div>
+    <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
+      <div  fxFlex="90%" class="p-5">
+      <div><label>Departure Date</label></div>
+      <div><input type="datetime-local" formControlName="departureDate"></div>
 
+
+  </div>
+</div>
+
+<div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
+  <div  fxFlex="90%" class="p-5">
+  <div>  <label>Arrival Date</label></div>
+  <div><input type="datetime-local" formControlName="arrivalDate"></div>
+
+
+</div>
+</div>
   <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
     <div class="image-upload" fxFlex="90%">
 
-      <label>Contract Document</label>
+      <label>Flight Document</label>
       <!-- <app-image-uploader (change)="onChangeMedical($event)" accept="image/*" formControlName="medicalDocument"></app-image-uploader> -->
       <!-- <img src="assets/images/uploadicons/upload-svgrepo-com2.svg"  width="50px" matTooltip="upload"  alt=""> -->
-      <input type="file" (change)="onChangeContractAgreement($event)" accept="image/*"    required/>
+      <input type="file" (change)="onChangeFlightTicket($event)" accept="image/*"    required/>
     </div>
     </div>
 

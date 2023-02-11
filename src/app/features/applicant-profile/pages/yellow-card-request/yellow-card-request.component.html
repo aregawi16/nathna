@@ -1,4 +1,4 @@
-<!-- <h1 mat-dialog-title>Upload Document</h1>
+<h1 mat-dialog-title>Upload Document</h1>
 <mat-divider></mat-divider>
 <form [formGroup]="yellowCardFormGroup" (ngSubmit)="submitYellowCardRequest()">
   <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
@@ -9,9 +9,15 @@
     </div>
     <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
 
-    <div class="image-upload" fxFlex="90%">
+      <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
+        <div class="image-upload" fxFlex="90%">
 
-    </div>
+          <label>Labour Document</label>
+          <!-- <app-image-uploader (change)="onChangeMedical($event)" accept="image/*" formControlName="medicalDocument"></app-image-uploader> -->
+          <!-- <img src="assets/images/uploadicons/upload-svgrepo-com2.svg"  width="50px" matTooltip="upload"  alt=""> -->
+          <input type="file" (change)="onChangeLabourDocument($event)" accept="image/*"    required/>
+        </div>
+        </div>
     </div>
     <mat-divider></mat-divider>
 
@@ -24,4 +30,4 @@
           <button mat-raised-button color="primary" type="submit">Save</button>
         </div>
       </div></div>
-</form> -->
+</form>

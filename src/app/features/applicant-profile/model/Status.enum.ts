@@ -42,7 +42,6 @@ export enum ApplicantLabourStatus
 export enum ApplicantTicketStatus
 {
     Requested = 1,
-    Received,
     Verified,
     Flighted,
     Arrived

@@ -5,19 +5,18 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 import { Component, Inject } from '@angular/core';
 import { ProcessManagementService } from 'src/app/features/process-management/service/process-management.service';
 
-
 @Component({
-  selector: 'app-yellow-card-request',
-  templateUrl: './yellow-card-request.component.html',
-  styleUrls: ['./yellow-card-request.component.scss']
+  selector: 'app-receive-yellow-card',
+  templateUrl: './receive-yellow-card.component.html',
+  styleUrls: ['./receive-yellow-card.component.scss']
 })
-export class YellowCardRequestComponent {
+export class ReceiveYellowCardComponent {
   horizontalPosition: MatSnackBarHorizontalPosition = 'start';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-  yellowCardFormGroup: FormGroup;
+  yellowCardDocumentFormGroup: FormGroup;
   formData = new FormData();
   constructor(
-    public dialogRef: MatDialogRef<YellowCardRequestComponent>,
+    public dialogRef: MatDialogRef<ReceiveYellowCardComponent>,
     @Inject(MAT_DIALOG_DATA) public id: any,
     private _formBuilder:FormBuilder,
     private _processManagementService: ProcessManagementService,
@@ -28,22 +27,27 @@ export class YellowCardRequestComponent {
   {
   }
   ngOnInit(): void {
-    this.yellowCardFormGroup = this._formBuilder.group({
+    this.yellowCardDocumentFormGroup = this._formBuilder.group({
       applicantId: [''],
-      labourDocument: [''],
+      price: [''],
+      yellowCardDocument: [''],
     });
 
   }
 
-  submitYellowCardRequest()
+  uploadDocument()
   {
     this.formData.append("applicantId",this.id);
+    this.formData.append("price",this.yellowCardDocumentFormGroup.controls.price.value);
+    // Object.entries(this.documentFormGroup.value).forEach(([key, value]) => {
+    //   this.formData.append(key,JSON.stringify(value));
+    // });
     console.log(this.formData);
-      console.log(this.yellowCardFormGroup.value);
-      this._processManagementService.requestYellowRecord(this.formData)
+      console.log(this.yellowCardDocumentFormGroup.value);
+      this._processManagementService.receieveYellowRecord(this.formData)
       .subscribe(data => {
 
-        this._snackBar.open('Labour Document uploaded successfully', 'Undo', {
+        this._snackBar.open('Yellow Card Uploaded  successfully', 'Undo', {
           duration:10000,
           horizontalPosition: this.horizontalPosition,
           verticalPosition: this.verticalPosition,
@@ -54,11 +58,10 @@ export class YellowCardRequestComponent {
       });
   }
 
-  onChangeLabourDocument(event)
+  onChangeYellowCard(event)
 {
-  this.yellowCardFormGroup.controls.labourDocument.setValue(event.target.files[0]);
   console.log(event.target.files[0]);
-  this.formData.append("labourDocument",event.target.files[0]);
+  this.formData.append("yellowCardDocument",event.target.files[0]);
 }
 
 }

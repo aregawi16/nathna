@@ -35,6 +35,8 @@ export class ProcessManagementComponent implements OnInit  {
   applicantPlacementStatusDataSource!:any;
   applicantContractStatusDataSource!:any;
   applicantInsuranceStatusDataSource!:any;
+  applicantLabourStatusDataSource!:any;
+  applicantTicketStatusDataSource!:any;
   applicantContractStatus!:any;
   applicantInsuranceStatus!:any;
   applicantLabourOfficeStatus!:any;
@@ -76,6 +78,8 @@ export class ProcessManagementComponent implements OnInit  {
     let placementStatus = this.statusList[this.statusList.Placement];
     let contractStatus = this.statusList[this.statusList.ContractAgreement];
     let insuranceStatus = this.statusList[this.statusList.Insurance];
+    let labourStatus = this.statusList[this.statusList.MinistryOfLabor];
+    let ticketStatus = this.statusList[this.statusList.Ticket];
 
     this._applicantService.getApplicantRofileById(id)
     .subscribe(data => {
@@ -83,6 +87,8 @@ export class ProcessManagementComponent implements OnInit  {
       this.applicantPlacementStatusDataSource = new MatTableDataSource(data.applicantStatuses.filter(item => item.officeLevel ==placementStatus ));
       this.applicantContractStatusDataSource = new MatTableDataSource(data.applicantStatuses.filter(item => item.officeLevel ==contractStatus ));
       this.applicantInsuranceStatusDataSource = new MatTableDataSource(data.applicantStatuses.filter(item => item.officeLevel ==insuranceStatus ));
+      this.applicantLabourStatusDataSource = new MatTableDataSource(data.applicantStatuses.filter(item => item.officeLevel ==labourStatus ));
+      this.applicantTicketStatusDataSource = new MatTableDataSource(data.applicantStatuses.filter(item => item.officeLevel ==ticketStatus ));
 
       console.log(data);
     });

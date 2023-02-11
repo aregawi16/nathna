@@ -327,8 +327,8 @@
           <ng-container matColumnDef="process">
             <th mat-header-cell *matHeaderCellDef> Process </th>
             <td mat-cell *matCellDef="let element">
-                      {{element.status?statusList[element.status]:"UnAssigned"}}
-          </td>
+              {{element.applicantStatuses[0]?element.applicantStatuses[0].officeLevel:"UnAssigned"}}
+                      </td>
           </ng-container>
 
           <ng-container matColumnDef="status">
@@ -369,9 +369,22 @@
             <button mat-mini-fab matTooltip="Complete Insurance" class="mx-1" color="primary"  *ngIf="checkCompleteInsuranceStatus(element.applicantStatuses[0])" (click)="completeInsurance(element.applicantProfileId)">
               <mat-icon >directions</mat-icon>
           </button>
-            <button mat-mini-fab matTooltip="Request Yellow Card" class="mx-1" [ngStyle]="{'background-color':'yellow'}" *ngIf="checkYellowCardStatus(element.applicantStatuses[0])" (click)="requestYellowCard(element.applicantProfileId)">
-              <mat-icon >check</mat-icon>
+            <button mat-mini-fab matTooltip="Request Yellow Card" class="mx-1"  [ngStyle]="{'background-color':'yellow'}"  *ngIf="checkRequestYellowCardStatus(element.applicantStatuses[0])" (click)="requestYellowCard(element.applicantProfileId)">
+              <mat-icon >redo</mat-icon>
           </button>
+            <button mat-mini-fab matTooltip="Receieve Yellow Card" class="mx-1" [ngStyle]="{'background-color':'yellow'}"  *ngIf="checkGetYellowCardStatus(element.applicantStatuses[0])" (click)="receiveYellowCard(element.applicantProfileId)">
+              <mat-icon >redo</mat-icon>
+          </button>
+            <button mat-mini-fab matTooltip="Verify Ticket" class="mx-1" color="primary"  *ngIf="checkTicketStatus(element.applicantStatuses[0])" (click)="verifyFlightTicket(element.applicantProfileId)">
+              <mat-icon >airplanemode_active</mat-icon>
+          </button>
+            <button mat-mini-fab matTooltip="Start Flight" class="mx-1" color="primary"  *ngIf="checkFlightStatus(element.applicantStatuses[0])" (click)="startFlight(element.applicantProfileId)">
+              <mat-icon >airplanemode_active</mat-icon>
+          </button>
+            <button mat-mini-fab matTooltip="Arrived" class="mx-1" color="primary"  *ngIf="checkArrivalStatus(element.applicantStatuses[0])" (click)="confirmArrival(element.applicantProfileId)">
+              <mat-icon >airplanemode_active</mat-icon>
+          </button>
+
             <button mat-mini-fab matTooltip="Detail" class="mx-1"  [ngStyle]="{'color':'green'}" [routerLink]="['/applicant-profile/detail', element.applicantProfileId]">
               <mat-icon>visibility</mat-icon>
           </button>

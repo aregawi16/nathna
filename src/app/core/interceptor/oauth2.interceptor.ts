@@ -61,6 +61,9 @@ private JsonApi(apiUrl: string): boolean {
   environment.backend.host + HttpApi.uploadVerifiedDocumentApplicant,
   environment.backend.host + HttpApi.verifyContractAgreement,
   environment.backend.host + HttpApi.completeInsurance,
+  environment.backend.host + HttpApi.requestYellowRecord,
+  environment.backend.host + HttpApi.receivetYellowRecord,
+  environment.backend.host + HttpApi.verifyFlightTcket,
   environment.backend.host + HttpApi.uploadContractDocumentApplicant
 ];
   return blockedApiList.includes(apiUrl) ? false : true;

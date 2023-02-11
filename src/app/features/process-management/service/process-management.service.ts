@@ -86,4 +86,40 @@ requestInsurance(data)
     })
   );
 }
+requestYellowRecord(data)
+{
+  return this._http.post(HttpApi.requestYellowRecord,data)
+  .pipe(
+    map((response: any) => {
+      return response;
+    })
+  );
+}
+receieveYellowRecord(data)
+{
+  return this._http.post(HttpApi.receivetYellowRecord,data)
+  .pipe(
+    map((response: any) => {
+      return response;
+    })
+  );
+}
+verifyFlightTcket(data)
+{
+  return this._http.post(HttpApi.verifyFlightTcket,data)
+  .pipe(
+    map((response: any) => {
+      return response;
+    })
+  );
+}
+followFlight(data)
+{
+  return this._http.post(HttpApi.followFlight,data)
+  .pipe(
+    map((response: any) => {
+      return response;
+    })
+  );
+}
 }

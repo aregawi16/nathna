@@ -1,23 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Component, Inject } from '@angular/core';
 import { ProcessManagementService } from 'src/app/features/process-management/service/process-management.service';
 
-
 @Component({
-  selector: 'app-yellow-card-request',
-  templateUrl: './yellow-card-request.component.html',
-  styleUrls: ['./yellow-card-request.component.scss']
+  selector: 'app-verify-flight-ticket',
+  templateUrl: './verify-flight-ticket.component.html',
+  styleUrls: ['./verify-flight-ticket.component.scss']
 })
-export class YellowCardRequestComponent {
+export class VerifyFlightTicketComponent {
   horizontalPosition: MatSnackBarHorizontalPosition = 'start';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-  yellowCardFormGroup: FormGroup;
+  flightTicketDocumentFormGroup: FormGroup;
   formData = new FormData();
   constructor(
-    public dialogRef: MatDialogRef<YellowCardRequestComponent>,
+    public dialogRef: MatDialogRef<VerifyFlightTicketComponent>,
     @Inject(MAT_DIALOG_DATA) public id: any,
     private _formBuilder:FormBuilder,
     private _processManagementService: ProcessManagementService,
@@ -28,22 +27,29 @@ export class YellowCardRequestComponent {
   {
   }
   ngOnInit(): void {
-    this.yellowCardFormGroup = this._formBuilder.group({
+    this.flightTicketDocumentFormGroup = this._formBuilder.group({
       applicantId: [''],
-      labourDocument: [''],
+      price: [''],
+      departureDate: ['',[Validators.required]],
+      arrivalDate: ['',[Validators.required]],
+      FlightTicketDocument: [''],
     });
 
   }
 
-  submitYellowCardRequest()
+  uploadDocument()
   {
     this.formData.append("applicantId",this.id);
+    this.formData.append("price",this.flightTicketDocumentFormGroup.controls.price.value);
+    this.formData.append("arrivalDate",this.flightTicketDocumentFormGroup.controls.arrivalDate.value);
+    this.formData.append("departureDate",this.flightTicketDocumentFormGroup.controls.departureDate.value);
+
     console.log(this.formData);
-      console.log(this.yellowCardFormGroup.value);
-      this._processManagementService.requestYellowRecord(this.formData)
+      console.log(this.flightTicketDocumentFormGroup.value);
+      this._processManagementService.verifyFlightTcket(this.formData)
       .subscribe(data => {
 
-        this._snackBar.open('Labour Document uploaded successfully', 'Undo', {
+        this._snackBar.open('Flght Ticket Uploaded  successfully', 'Undo', {
           duration:10000,
           horizontalPosition: this.horizontalPosition,
           verticalPosition: this.verticalPosition,
@@ -54,11 +60,10 @@ export class YellowCardRequestComponent {
       });
   }
 
-  onChangeLabourDocument(event)
+  onChangeFlightTicket(event)
 {
-  this.yellowCardFormGroup.controls.labourDocument.setValue(event.target.files[0]);
   console.log(event.target.files[0]);
-  this.formData.append("labourDocument",event.target.files[0]);
+  this.formData.append("flightTicketDocument",event.target.files[0]);
 }
 
 }

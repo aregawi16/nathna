@@ -1,3 +1,4 @@
+import { VerifyFlightTicketComponent } from './../verify-flight-ticket/verify-flight-ticket.component';
 import { CompleteInsuranceDocumentComponent } from './../complete-insurance-document/complete-insurance-document.component';
 import { VerfContractDocumentComponent } from './../verf-contract-document/verf-contract-document.component';
 import { ProcessManagementService } from 'src/app/features/process-management/service/process-management.service';
@@ -21,6 +22,7 @@ import { ApplicantContractAgreementComponent } from '../applicant-contract-agree
 import { YellowCardRequestComponent } from '../yellow-card-request/yellow-card-request.component';
 import { Status } from '../../model/Status.enum';
 import { ApplicantPlacementStatus, ApplicantInsuranceStatus, ApplicantLabourStatus, ApplicantTicketStatus, ApplicantContractStatus } from './../../model/Status.enum';
+import { ReceiveYellowCardComponent } from '../receive-yellow-card/receive-yellow-card.component';
 
 export interface ApplicantProfile {
   id: number;
@@ -206,6 +208,7 @@ export class ApplicantListComponent implements OnInit {
     }
     checkInsuranceStatus(applicantPlacement:any)
     {
+      let officeLevel = this.statusList[this.statusList.Insurance];
       let status = this.applicantContractStatusList[this.applicantContractStatusList.Verified];
 
       if(applicantPlacement==null)
@@ -213,7 +216,7 @@ export class ApplicantListComponent implements OnInit {
         return false;
       }
       else{
-        if(applicantPlacement.status==status)
+        if(applicantPlacement.status==status&&applicantPlacement.officeLevel==officeLevel)
         {
           return true;
         }
@@ -223,6 +226,23 @@ export class ApplicantListComponent implements OnInit {
     checkCompleteInsuranceStatus(applicantPlacement:any)
     {
       let status = this.applicantInsuranceStatusList[this.applicantInsuranceStatusList.Requested];
+      let officeLevel = this.statusList[this.statusList.Insurance];
+
+      if(applicantPlacement==null)
+      {
+        return false;
+      }
+      else{
+        if(applicantPlacement.status==status&& applicantPlacement.officeLevel==officeLevel)
+        {
+          return true;
+        }
+        return false;
+      }
+    }
+    checkRequestYellowCardStatus(applicantPlacement:any)
+    {
+      let status = this.applicantInsuranceStatusList[this.applicantInsuranceStatusList.Completed];
 
       if(applicantPlacement==null)
       {
@@ -236,14 +256,68 @@ export class ApplicantListComponent implements OnInit {
         return false;
       }
     }
-    checkYellowCardStatus(applicantPlacement:any)
+
+    checkGetYellowCardStatus(applicantPlacement:any)
     {
+      let officeLevel = this.statusList[this.statusList.MinistryOfLabor];
+      let status = this.applicantFlightTicketStatuseList[this.applicantFlightTicketStatuseList.Requested];
+
       if(applicantPlacement==null)
       {
         return false;
       }
       else{
-        if(applicantPlacement.status==this.statusList.ContractAgreement)
+        if(applicantPlacement.status==status && applicantPlacement.officeLevel==officeLevel)
+        {
+          return true;
+        }
+        return false;
+      }
+    }
+
+    checkTicketStatus(applicantPlacement:any)
+    {
+      let officeLevel = this.statusList[this.statusList.Ticket];
+      let status = this.applicantFlightTicketStatuseList[this.applicantFlightTicketStatuseList.Requested];
+      if(applicantPlacement==null)
+      {
+        return false;
+      }
+      else{
+        if(applicantPlacement.status==status&&applicantPlacement.officeLevel==officeLevel)
+        {
+          return true;
+        }
+        return false;
+      }
+    }
+    checkFlightStatus(applicantPlacement:any)
+    {
+      let officeLevel = this.statusList[this.statusList.Ticket];
+      let status = this.applicantFlightTicketStatuseList[this.applicantFlightTicketStatuseList.Verified];
+
+      if(applicantPlacement==null)
+      {
+        return false;
+      }
+      else{
+        if(applicantPlacement.status==status&&applicantPlacement.officeLevel ==officeLevel)
+        {
+          return true;
+        }
+        return false;
+      }
+    }
+    checkArrivalStatus(applicantPlacement:any)
+    {
+      let status = this.applicantFlightTicketStatuseList[this.applicantFlightTicketStatuseList.Flighted];
+
+      if(applicantPlacement==null)
+      {
+        return false;
+      }
+      else{
+        if(applicantPlacement.status==status)
         {
           return true;
         }
@@ -311,6 +385,103 @@ public uploadContractDocument(id:any)
 
     }
   });
+
+
+}
+public receiveYellowCard(id:any)
+{
+  const dialogRef = this.dialog.open(ReceiveYellowCardComponent, {
+    maxWidth: "400",
+    data:id
+
+  });
+
+  dialogRef.afterClosed().subscribe(dialogResult => {
+    if(dialogResult){
+
+    }
+  });
+
+
+}
+public verifyFlightTicket(id:any)
+{
+  const dialogRef = this.dialog.open(VerifyFlightTicketComponent, {
+    maxWidth: "400",
+    data:id
+
+  });
+
+  dialogRef.afterClosed().subscribe(dialogResult => {
+    if(dialogResult){
+
+    }
+  });
+
+
+}
+public startFlight(id:any)
+{
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      maxWidth: "400px",
+      data: {
+        title: "Confirm Action",
+        message: "Are you sure the applicant is starting his flight?"
+      }
+    });
+    dialogRef.afterClosed().subscribe(dialogResult => {
+      if(dialogResult){
+  let data = {
+"applicantId":id,
+"status":this.applicantFlightTicketStatuseList.Flighted,
+  };
+
+  this._processManagementService.followFlight(data)
+  .subscribe(data => {
+
+        this._snackBar.open('Applicant started Flight', 'Undo', {
+          duration:10000,
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+        });
+
+
+  });
+}
+    });
+
+}
+public confirmArrival(id:any)
+{
+  const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+    maxWidth: "400px",
+    data: {
+      title: "Confirm Action",
+      message: "Are you sure you want select this Applicant?"
+    }
+  });
+  dialogRef.afterClosed().subscribe(dialogResult => {
+    if(dialogResult){
+let data = {
+"applicantId":id,
+"status":this.applicantFlightTicketStatuseList.Arrived,
+};
+
+this._processManagementService.followFlight(data)
+.subscribe(data => {
+
+      this._snackBar.open('Applicant started Flight', 'Undo', {
+        duration:10000,
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+      });
+
+
+});
+}
+  });
+
 
 }
    placeApplicant()
@@ -490,10 +661,8 @@ public uploadContractDocument(id:any)
     {
       const dialogRef = this.dialog.open(YellowCardRequestComponent, {
         maxWidth: "400px",
-        data: {
-          title: "Confirm Action",
-          message: "Are you sure you want approve this contract?"
-        }
+          data:id
+
       });
 
       dialogRef.afterClosed().subscribe(dialogResult => {

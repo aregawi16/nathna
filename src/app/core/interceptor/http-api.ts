@@ -39,4 +39,8 @@ static receiveContractAgreement = 'ProcessManagement/receiveContractAgreement';
 static verifyContractAgreement = 'ProcessManagement/verifyContractAgreement';
 static requestInsurance = 'ProcessManagement/requestInsurance';
 static completeInsurance = 'ProcessManagement/completeInsurance';
+static requestYellowRecord = 'ProcessManagement/requestYellowRecord';
+static receivetYellowRecord = 'ProcessManagement/receiveYellowRecord';
+static verifyFlightTcket = 'ProcessManagement/verifyFlightTcket';
+static followFlight = 'ProcessManagement/followFlight';
 }
