@@ -35,10 +35,20 @@
     "USER": "User",
     "ROLE": "Role",
     "JOB": "Job",
+    "COMPANY_PROFILE": "Comapny Profile",
     "COUNTRY": "Country",
     "OFFICE": "Office",
     "AGENT": "Agent",
-    "SETTING": "Setting"
+    "SETTING": "Setting",
+    "LETTER": "Letter",
+    "FINGERPRINT_LETTER": "Finger Print Letter",
+    "CONTRACT_LETTER": "Contract Letter",
+    "COC_LETTER": "CoC Letter",
+    "PRE_FLIGHT_TRAINING_LETTER": "Pre Flight Training Letter",
+    "VISA_CONFIRMATION_LETTER": "VISA Confirmation Letter",
+    "RECEIPT_REQUEST_LETTER": "MoS Receipt Letter",
+    "MINISTRY_SKILL_APLICANT_DETAIL": "Ministry of Skill Detail",
+    "LABOUR_APPROVAL_LETTER": "Labour Approval"
 
   },
   "BTN": {

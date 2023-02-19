@@ -121,6 +121,13 @@ model : LoginForm={
         wereda: ['', Validators.required],
         kebelle: ['', Validators.required],
         }),
+        educationData:this._formBuilder.group({
+          qualificationType: [''],
+          levelOfQualification: ['', Validators.required],
+          yearCompleted: ['', Validators.required],
+          award: [''],
+          professionalSkill: ['']
+                }),
       experiencedJobs: this._formBuilder.array([]),
       applicantDocument:{}
 

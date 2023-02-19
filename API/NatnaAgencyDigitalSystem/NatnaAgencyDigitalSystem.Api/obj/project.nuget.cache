@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zLIZCvxSe9jHJWmA8IsuA5uP7wWG1Evk0o1gG1EArIQaXNC/X39Pn3pjnS0Vn2HU6FT25SDLvHVKblDycMH1KA==",
+  "dgSpecHash": "OXnkkfIzcisUZ5o8RaV5zbHE6QOxqf870njMfcDtnno07V7Xk3ya1ehPA2iN+xrIRBG/xiLH0ua3oRDb+ZvWSA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\aziz\\source\\repos\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Api\\NatnaAgencyDigitalSystem.Api.csproj",
+  "projectFilePath": "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Api\\NatnaAgencyDigitalSystem.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\aziz\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\aziz\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",

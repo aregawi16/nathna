@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GOxa3+X6p7A2JzuKgBij3uThV5I2IDNycMopz3c9/gcHY//t0KYBAO4jyGIgwoUr9gdgn/Rrr5WJelUOHYNdiA==",
+  "dgSpecHash": "ZePcCYDMqW5l+UzsMctfbKKulqMOflCt4j3zFk0RuelUh2AjxAZXns1UhOtPBdGlIFjLBlBeddy13LDeWqkZ9Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\aziz\\source\\repos\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Core\\NatnaAgencyDigitalSystem.Core.csproj",
+  "projectFilePath": "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Core\\NatnaAgencyDigitalSystem.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\aziz\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\7.0.0\\microsoft.aspnetcore.cryptography.internal.7.0.0.nupkg.sha512",
     "C:\\Users\\aziz\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\7.0.0\\microsoft.aspnetcore.cryptography.keyderivation.7.0.0.nupkg.sha512",

@@ -27,6 +27,7 @@ namespace NatnaAgencyDigitalSystem.Data.Repositories
                    .Include(m => m.ExperiencedJobs)
                    .Include(m => m.ApplicantDocument)
                    .Include(m => m.ContactPerson)
+                   .Include(m => m.EducationHistorys)
                    .Include(m => m.BenificiaryDeclarations.OrderByDescending(q => q.BenificiaryDeclarationId))
                    .Include(m => m.ApplicantPlacements.OrderByDescending(q => q.ApplicantPlacementId))
                    .Include(m => m.ApplicantPlacements.OrderByDescending(q => q.ApplicantPlacementId))

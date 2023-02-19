@@ -5269,11 +5269,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\aziz\\source\\repos\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Api\\NatnaAgencyDigitalSystem.Api.csproj",
+      "projectUniqueName": "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Api\\NatnaAgencyDigitalSystem.Api.csproj",
       "projectName": "NatnaAgencyDigitalSystem.Api",
-      "projectPath": "C:\\Users\\aziz\\source\\repos\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Api\\NatnaAgencyDigitalSystem.Api.csproj",
+      "projectPath": "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Api\\NatnaAgencyDigitalSystem.Api.csproj",
       "packagesPath": "C:\\Users\\aziz\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aziz\\source\\repos\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Api\\obj\\",
+      "outputPath": "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\aziz\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5284,20 +5284,21 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://nuget.telerik.com/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\aziz\\source\\repos\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Core\\NatnaAgencyDigitalSystem.Core.csproj": {
-              "projectPath": "C:\\Users\\aziz\\source\\repos\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Core\\NatnaAgencyDigitalSystem.Core.csproj"
+            "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Core\\NatnaAgencyDigitalSystem.Core.csproj": {
+              "projectPath": "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Core\\NatnaAgencyDigitalSystem.Core.csproj"
             },
-            "C:\\Users\\aziz\\source\\repos\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Data\\NatnaAgencyDigitalSystem.Data.csproj": {
-              "projectPath": "C:\\Users\\aziz\\source\\repos\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Data\\NatnaAgencyDigitalSystem.Data.csproj"
+            "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Data\\NatnaAgencyDigitalSystem.Data.csproj": {
+              "projectPath": "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Data\\NatnaAgencyDigitalSystem.Data.csproj"
             },
-            "C:\\Users\\aziz\\source\\repos\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Service\\NatnaAgencyDigitalSystem.Service.csproj": {
-              "projectPath": "C:\\Users\\aziz\\source\\repos\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Service\\NatnaAgencyDigitalSystem.Service.csproj"
+            "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Service\\NatnaAgencyDigitalSystem.Service.csproj": {
+              "projectPath": "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Service\\NatnaAgencyDigitalSystem.Service.csproj"
             }
           }
         }

@@ -80,6 +80,7 @@ namespace NatnaAgencyDigitalSystem.Api.Models
         public virtual ICollection<ApplicantLabourOffice> ApplicantLabourOffices { get; set; } 
         public virtual ICollection<ApplicantFlightTicket> ApplicantFlightTickets { get; set; } 
         public virtual ICollection<ApplicantStatus> ApplicantStatuses { get; set; } 
+        public virtual ICollection<EducationHistory> EducationHistorys { get; set; } 
         public string GetFullName(string format)
         {
             return string.Format(format, FirstName, LastName);
@@ -138,6 +139,17 @@ namespace NatnaAgencyDigitalSystem.Api.Models
 
 
 
+    }   
+    public class EducationHistory 
+    {
+        public int EducationHistoryId { get; set; }
+        public int ApplicantProfileId { get; set; }
+
+        public string? QualificationType { get; set; }
+        public string? LevelOfQualification { get; set; }
+        public int YearCompleted { get; set; }
+        public string? Award { get; set; }
+        public string? ProfessionalSkill { get; set; }
     }
     public class ExperiencedJob 
     {

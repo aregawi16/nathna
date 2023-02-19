@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "n40CWW7x9V4A8UQBJGumcF/87g2YVl66K4WhqVLVB9AhVPCaG8dw9+jj2PK1dyZrY/jVDG0WEgmApsGkOqWTZA==",
+  "dgSpecHash": "UsKkSg39mPalJdPGhIvAmxOC+Y8nbYqHzhQRdwd1dt8AUmMVoXUrNtcmrC/UMPhS/TuDY4l8t06K4aVURVQVkw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\aziz\\source\\repos\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Service\\NatnaAgencyDigitalSystem.Service.csproj",
+  "projectFilePath": "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Service\\NatnaAgencyDigitalSystem.Service.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\aziz\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\aziz\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

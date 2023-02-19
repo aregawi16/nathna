@@ -206,7 +206,7 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
 
         [HttpPost("completeInsurance")]
         [Authorize(Roles = "OnlyTest")]
-        public async Task<ActionResult> completeInsurance([FromForm] ApplicantInsuranceResource applicantInsurance)
+        public async Task<ActionResult> completeInsurance([FromForm] InsuranceResource applicantInsurance)
         {
             var applicantInsuranceStatus = _db.ApplicantStatuses.Where(q => q.ApplicantProfileId == applicantInsurance.applicantId).FirstOrDefault();
 
@@ -308,8 +308,8 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
 
 
 
-        [HttpPost("requestYellowRecord")]                                                                                 [HttpPost("requestYellowRecord")]
-        [Authorize(Roles = "OnlyTest")]                                                                                   [Authorize(Roles = "OnlyTest")]
+        [HttpPost("requestYellowRecord")]                                                                                 
+        [Authorize(Roles = "OnlyTest")]                                                                                   
         public async Task<ActionResult> requestYellowRecord([FromForm] ApplicantLabourResource applicantLabourResource)
         {
             var applicantStatus = _db.ApplicantStatuses.Where(q => q.ApplicantProfileId == applicantLabourResource.applicantId).FirstOrDefault();

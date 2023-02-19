@@ -82,6 +82,8 @@ namespace NatnaAgencyDigitalSystem.Api.Models.Common
         Placement = 1,
         ContractAgreement,
         Insurance,
+        CoC,
+        PreFlightTraining,
         MinistryOfLabor,
         Ticket
     }
@@ -124,7 +126,13 @@ public enum ApplicantPlacementStatus
         Flighted,
         Arrived
 
+    }   
+    public enum CoCAndTrainingStatus
+    {
+        Progress = 1,
+        Taken
     }
+  
 
 
     //public enum DocumentUserType

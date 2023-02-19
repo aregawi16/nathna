@@ -11,6 +11,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { CountryComponent } from './pages/country/country.component';
 import { AgentComponent } from './pages/agent/agent.component';
 import { OfficeComponent } from './pages/office/office.component';
+import { CompanyProfileComponent } from './pages/company-profile/company-profile.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { OfficeComponent } from './pages/office/office.component';
     JobComponent,
     CountryComponent,
     AgentComponent,
-    OfficeComponent
+    OfficeComponent,
+    CompanyProfileComponent
   ],
   imports: [
     CommonModule,

@@ -16,9 +16,8 @@ namespace NatnaAgencyDigitalSystem.Api.Resources
     public class ApplicantInsuranceResource
     {
         public int applicantId { get; set; }
-        public decimal price { get; set; }
+        public ApplicantInsuranceStatus status { get; set; }
 
-        public IFormFile insuranceDocument { get; set; }
     }
     public class ApplicantLabourResource
     {

@@ -208,7 +208,7 @@ export class ApplicantListComponent implements OnInit {
     }
     checkInsuranceStatus(applicantPlacement:any)
     {
-      let officeLevel = this.statusList[this.statusList.Insurance];
+      let officeLevel = this.statusList[this.statusList.ContractAgreement];
       let status = this.applicantContractStatusList[this.applicantContractStatusList.Verified];
 
       if(applicantPlacement==null)

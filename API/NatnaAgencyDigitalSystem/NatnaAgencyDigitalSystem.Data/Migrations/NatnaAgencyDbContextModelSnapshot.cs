@@ -791,6 +791,39 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                     b.ToTable("ContactPersons", "NatnaAgency");
                 });
 
+            modelBuilder.Entity("NatnaAgencyDigitalSystem.Api.Models.EducationHistory", b =>
+                {
+                    b.Property<int>("EducationHistoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EducationHistoryId"));
+
+                    b.Property<int>("ApplicantProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Award")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LevelOfQualification")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfessionalSkill")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("QualificationType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("YearCompleted")
+                        .HasColumnType("int");
+
+                    b.HasKey("EducationHistoryId");
+
+                    b.HasIndex("ApplicantProfileId");
+
+                    b.ToTable("EducationHistorys", "NatnaAgency");
+                });
+
             modelBuilder.Entity("NatnaAgencyDigitalSystem.Api.Models.ExperiencedJob", b =>
                 {
                     b.Property<int>("ExperiencedJobId")
@@ -987,6 +1020,287 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                     b.ToTable("WorkExperiences", "NatnaAgency");
                 });
 
+            modelBuilder.Entity("NatnaAgencyDigitalSystem.Core.Models.CoC", b =>
+                {
+                    b.Property<int>("CoCId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CoCId"));
+
+                    b.Property<string>("CertificateTakenAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CertificateTakenPlaceName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TrainedPlaceAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TrainedPlaceName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TrainedSkill")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CoCId");
+
+                    b.ToTable("CoCs", "NatnaAgency");
+                });
+
+            modelBuilder.Entity("NatnaAgencyDigitalSystem.Core.Models.CompanyProfile", b =>
+                {
+                    b.Property<int>("CompanyProfileId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CompanyProfileId"));
+
+                    b.Property<string>("AddressRegion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("AgencyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Fax")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GeneralManager")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Kebelle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LicenseNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LogoName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameAm")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("POBox")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Telephone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Wereda")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Zone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CompanyProfileId");
+
+                    b.ToTable("CompanyProfiles", "NatnaAgency");
+                });
+
+            modelBuilder.Entity("NatnaAgencyDigitalSystem.Core.Models.FingerPrintInvestigation", b =>
+                {
+                    b.Property<int>("FingerPrintInvestigationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FingerPrintInvestigationId"));
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("FingerPrintInvestigationId");
+
+                    b.ToTable("FingerPrintInvestigations", "NatnaAgency");
+                });
+
+            modelBuilder.Entity("NatnaAgencyDigitalSystem.Core.Models.FingerPrintInvestigationPerson", b =>
+                {
+                    b.Property<int>("FingerPrintInvestigationPersonId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FingerPrintInvestigationPersonId"));
+
+                    b.Property<int>("ApplicantProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FingerPrintInvestigationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("FingerPrintInvestigationPersonId");
+
+                    b.HasIndex("ApplicantProfileId");
+
+                    b.HasIndex("FingerPrintInvestigationId");
+
+                    b.ToTable("FingerPrintInvestigationPeople", "NatnaAgency");
+                });
+
+            modelBuilder.Entity("NatnaAgencyDigitalSystem.Core.Models.PreFlightTraining", b =>
+                {
+                    b.Property<int>("PreFlightTrainingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PreFlightTrainingId"));
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Place")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ScheduledDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("PreFlightTrainingId");
+
+                    b.ToTable("PreFlightTrainings", "NatnaAgency");
+                });
+
+            modelBuilder.Entity("NatnaAgencyDigitalSystem.Core.Models.PreFlightTrainingPerson", b =>
+                {
+                    b.Property<int>("PreFlightTrainingPersonId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PreFlightTrainingPersonId"));
+
+                    b.Property<int>("ApplicantProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PreFlightTrainingId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PreFlightTrainingPersonId");
+
+                    b.HasIndex("ApplicantProfileId");
+
+                    b.HasIndex("PreFlightTrainingId");
+
+                    b.ToTable("PreFlightTrainingPeople", "NatnaAgency");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("NatnaAgencyDigitalSystem.Api.Models.Auth.Role", null)
@@ -1119,6 +1433,15 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("NatnaAgencyDigitalSystem.Api.Models.EducationHistory", b =>
+                {
+                    b.HasOne("NatnaAgencyDigitalSystem.Api.Models.ApplicantProfile", null)
+                        .WithMany("EducationHistorys")
+                        .HasForeignKey("ApplicantProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("NatnaAgencyDigitalSystem.Api.Models.ExperiencedJob", b =>
                 {
                     b.HasOne("NatnaAgencyDigitalSystem.Api.Models.ApplicantProfile", null)
@@ -1154,6 +1477,40 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("NatnaAgencyDigitalSystem.Core.Models.FingerPrintInvestigationPerson", b =>
+                {
+                    b.HasOne("NatnaAgencyDigitalSystem.Api.Models.ApplicantProfile", "ApplicantProfile")
+                        .WithMany()
+                        .HasForeignKey("ApplicantProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NatnaAgencyDigitalSystem.Core.Models.FingerPrintInvestigation", null)
+                        .WithMany("FingerPrintInvestigationPeople")
+                        .HasForeignKey("FingerPrintInvestigationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicantProfile");
+                });
+
+            modelBuilder.Entity("NatnaAgencyDigitalSystem.Core.Models.PreFlightTrainingPerson", b =>
+                {
+                    b.HasOne("NatnaAgencyDigitalSystem.Api.Models.ApplicantProfile", "ApplicantProfile")
+                        .WithMany()
+                        .HasForeignKey("ApplicantProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("NatnaAgencyDigitalSystem.Core.Models.PreFlightTraining", null)
+                        .WithMany("PreFlightTrainingPeople")
+                        .HasForeignKey("PreFlightTrainingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicantProfile");
+                });
+
             modelBuilder.Entity("NatnaAgencyDigitalSystem.Api.Models.ApplicantProfile", b =>
                 {
                     b.Navigation("ApplicantContractAgreements");
@@ -1176,6 +1533,8 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                     b.Navigation("ContactPerson")
                         .IsRequired();
 
+                    b.Navigation("EducationHistorys");
+
                     b.Navigation("ExperiencedJobs");
 
                     b.Navigation("WorkExperiences");
@@ -1184,6 +1543,16 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
             modelBuilder.Entity("NatnaAgencyDigitalSystem.Api.Models.Setting.Country", b =>
                 {
                     b.Navigation("Offices");
+                });
+
+            modelBuilder.Entity("NatnaAgencyDigitalSystem.Core.Models.FingerPrintInvestigation", b =>
+                {
+                    b.Navigation("FingerPrintInvestigationPeople");
+                });
+
+            modelBuilder.Entity("NatnaAgencyDigitalSystem.Core.Models.PreFlightTraining", b =>
+                {
+                    b.Navigation("PreFlightTrainingPeople");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,10 +2,30 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NatnaAgencyDigitalSystem.Api.Models;
 using NatnaAgencyDigitalSystem.Api.Models.Setting;
+using NatnaAgencyDigitalSystem.Core.Models;
 using System.Reflection.Emit;
 
 namespace NatnaAgencyDigitalSystem.Data.Configurations
 {
+    public class CompanyProfileConfiguration : IEntityTypeConfiguration<CompanyProfile>
+    {
+        public void Configure(EntityTypeBuilder<CompanyProfile> builder)
+        {
+            builder
+                .HasKey(a => a.CompanyProfileId);
+
+            builder
+                .Property(m => m.CompanyProfileId)
+                .UseIdentityColumn();
+
+          
+
+        
+
+            builder
+                .ToTable("CompanyProfiles", "NatnaAgency");
+        }
+    } 
     public class ApplicantProfileConfiguration : IEntityTypeConfiguration<ApplicantProfile>
     {
         public void Configure(EntityTypeBuilder<ApplicantProfile> builder)
@@ -62,6 +82,23 @@ namespace NatnaAgencyDigitalSystem.Data.Configurations
 
             builder
                 .ToTable("WorkExperiences","NatnaAgency");
+
+        }
+    }
+    public class EducationHistoryConfiguration : IEntityTypeConfiguration<EducationHistory>
+    {
+        public void Configure(EntityTypeBuilder<EducationHistory> builder)
+        {
+            builder
+                .HasKey(a => a.EducationHistoryId);
+
+            builder
+                .Property(m => m.EducationHistoryId)
+                .UseIdentityColumn();
+
+
+            builder
+                .ToTable("EducationHistorys", "NatnaAgency");
 
         }
     }
@@ -273,6 +310,93 @@ namespace NatnaAgencyDigitalSystem.Data.Configurations
 
             builder
                 .ToTable("ApplicantStatuses", "NatnaAgency");
+
+        }
+    }
+    public class FingerPrintInvestigationConfiguration : IEntityTypeConfiguration<FingerPrintInvestigation>
+    {
+        public void Configure(EntityTypeBuilder<FingerPrintInvestigation> builder)
+        {
+            builder
+                .HasKey(a => a.FingerPrintInvestigationId);
+
+            builder
+                .Property(m => m.FingerPrintInvestigationId)
+                .UseIdentityColumn();
+
+
+            builder
+                .ToTable("FingerPrintInvestigations", "NatnaAgency");
+
+        }
+    }
+    public class FingerPrintInvestigationPersonConfiguration : IEntityTypeConfiguration<FingerPrintInvestigationPerson>
+    {
+        public void Configure(EntityTypeBuilder<FingerPrintInvestigationPerson> builder)
+        {
+            builder
+                .HasKey(a => a.FingerPrintInvestigationPersonId);
+
+            builder
+                .Property(m => m.FingerPrintInvestigationPersonId)
+                .UseIdentityColumn();
+
+
+            builder
+                .ToTable("FingerPrintInvestigationPeople", "NatnaAgency");
+
+        }
+    }
+    public class PreFlightTrainingConfiguration : IEntityTypeConfiguration<PreFlightTraining>
+    {
+        public void Configure(EntityTypeBuilder<PreFlightTraining> builder)
+        {
+            builder
+                .HasKey(a => a.PreFlightTrainingId);
+
+            builder
+                .Property(m => m.PreFlightTrainingId)
+                .UseIdentityColumn();
+
+
+            builder
+                .ToTable("PreFlightTrainings", "NatnaAgency");
+
+        }
+    }
+
+    public class PreFlightTrainingPersonConfiguration : IEntityTypeConfiguration<PreFlightTrainingPerson>
+    {
+        public void Configure(EntityTypeBuilder<PreFlightTrainingPerson> builder)
+        {
+            builder
+                .HasKey(a => a.PreFlightTrainingPersonId);
+
+            builder
+                .Property(m => m.PreFlightTrainingPersonId)
+                .UseIdentityColumn();
+
+
+            builder
+                .ToTable("PreFlightTrainingPeople", "NatnaAgency");
+
+        }
+    }
+
+    public class CoCConfiguration : IEntityTypeConfiguration<CoC>
+    {
+        public void Configure(EntityTypeBuilder<CoC> builder)
+        {
+            builder
+                .HasKey(a => a.CoCId);
+
+            builder
+                .Property(m => m.CoCId)
+                .UseIdentityColumn();
+
+
+            builder
+                .ToTable("CoCs", "NatnaAgency");
 
         }
     }

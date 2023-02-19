@@ -4,6 +4,8 @@ export enum Status
   Placement = 1,
   ContractAgreement,
   Insurance,
+  CoC,
+  PreFlightTraining,
   MinistryOfLabor,
   Ticket
 }
@@ -45,5 +47,10 @@ export enum ApplicantTicketStatus
     Verified,
     Flighted,
     Arrived
+}
 
+export enum CoCAndTrainingStatus
+{
+    Progress = 1,
+    Taken
 }

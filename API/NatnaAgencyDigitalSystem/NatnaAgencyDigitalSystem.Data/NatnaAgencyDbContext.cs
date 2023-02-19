@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using NatnaAgencyDigitalSystem.Api.Models;
 using NatnaAgencyDigitalSystem.Api.Models.Auth;
 using NatnaAgencyDigitalSystem.Api.Models.Setting;
+using NatnaAgencyDigitalSystem.Core.Models;
 using NatnaAgencyDigitalSystem.Data.Configurations;
 using System.Collections.Generic;
 using System.Reflection.Emit;
@@ -14,14 +15,21 @@ namespace NatnaAgencyDigitalSystem.Data
 
 
         public DbSet<ApplicantProfile> ApplicantProfiles { get; set; }
+        public DbSet<CompanyProfile> CompanyProfiles { get; set; }
         public DbSet<WorkExperience> WorkExperiences { get; set; }
+        public DbSet<EducationHistory> EducationHistorys { get; set; }
         public DbSet<ContactPerson> ContactPeople { get; set; }
         public DbSet<ExperiencedJob> ExperiencedJobs { get; set; }
         public DbSet<BenificiaryDeclaration> BenificiaryDeclarations { get; set; }
         public DbSet<ApplicantDocument> ApplicantDocuments { get; set; }
         public DbSet<ApplicantPlacement> ApplicantPlacements { get; set; }
+        public DbSet<FingerPrintInvestigation> FingerPrintInvestigations { get; set; }
+        public DbSet<FingerPrintInvestigationPerson> FingerPrintInvestigationPeople { get; set; }
         public DbSet<ApplicantContractAgreement> ApplicantContractAgreements { get; set; }
         public DbSet<ApplicantInsurance> ApplicantInsurances { get; set; }
+        public DbSet<CoC> CoCs { get; set; }
+        public DbSet<PreFlightTraining> PreFlightTrainings { get; set; }
+        public DbSet<PreFlightTrainingPerson> PreFlightTrainingPeople { get; set; }
         public DbSet<ApplicantLabourOffice> ApplicantLabourOffices { get; set; }
         public DbSet<ApplicantFlightTicket> ApplicantFlightTickets { get; set; }
         public DbSet<ApplicantStatus> ApplicantStatuses { get; set; }
@@ -46,7 +54,9 @@ namespace NatnaAgencyDigitalSystem.Data
             base.OnModelCreating(builder);
 
             builder
-                .ApplyConfiguration(new ApplicantProfileConfiguration());
+                .ApplyConfiguration(new ApplicantProfileConfiguration()); 
+            builder
+                .ApplyConfiguration(new CompanyProfileConfiguration());
             builder
                 .ApplyConfiguration(new WorkExperienceConfiguration());
             builder
@@ -54,13 +64,25 @@ namespace NatnaAgencyDigitalSystem.Data
             builder
                 .ApplyConfiguration(new ExperiencedJobConfiguration());
             builder
+                .ApplyConfiguration(new EducationHistoryConfiguration());
+            builder
                 .ApplyConfiguration(new ApplicantDocumentConfiguration());  
             builder
-                .ApplyConfiguration(new ApplicantPlacementConfiguration()); 
+                .ApplyConfiguration(new ApplicantPlacementConfiguration());  
+            builder
+                .ApplyConfiguration(new FingerPrintInvestigationConfiguration());  
+            builder
+                .ApplyConfiguration(new FingerPrintInvestigationPersonConfiguration()); 
             builder
                 .ApplyConfiguration(new ApplicantContractConfiguration()); 
             builder
                 .ApplyConfiguration(new ApplicantInsuranceConfiguration()); 
+            builder
+                .ApplyConfiguration(new CoCConfiguration());  
+            builder
+                .ApplyConfiguration(new PreFlightTrainingConfiguration());
+            builder
+                .ApplyConfiguration(new PreFlightTrainingPersonConfiguration()); 
             builder
                 .ApplyConfiguration(new ApplicantLabourOfficeConfiguration());
             builder

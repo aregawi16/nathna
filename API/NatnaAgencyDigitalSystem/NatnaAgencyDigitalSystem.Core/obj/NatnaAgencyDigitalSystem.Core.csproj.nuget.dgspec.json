@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\aziz\\source\\repos\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Core\\NatnaAgencyDigitalSystem.Core.csproj": {}
+    "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Core\\NatnaAgencyDigitalSystem.Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\aziz\\source\\repos\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Core\\NatnaAgencyDigitalSystem.Core.csproj": {
+    "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Core\\NatnaAgencyDigitalSystem.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\aziz\\source\\repos\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Core\\NatnaAgencyDigitalSystem.Core.csproj",
+        "projectUniqueName": "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Core\\NatnaAgencyDigitalSystem.Core.csproj",
         "projectName": "NatnaAgencyDigitalSystem.Core",
-        "projectPath": "C:\\Users\\aziz\\source\\repos\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Core\\NatnaAgencyDigitalSystem.Core.csproj",
+        "projectPath": "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Core\\NatnaAgencyDigitalSystem.Core.csproj",
         "packagesPath": "C:\\Users\\aziz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\aziz\\source\\repos\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Core\\obj\\",
+        "outputPath": "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\aziz\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -22,7 +22,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.telerik.com/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {

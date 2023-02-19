@@ -21,7 +21,12 @@
         <mat-label>Last Name</mat-label>
         <input matInput placeholder="Last name" pattern="[a-zA-Z][a-zA-Z ]+" formControlName="lastName" (change)="generateRefNo()" required>
       </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input matInput placeholder="Phone Number" formControlName="phoneNumber" (change)="generateRefNo()" ngModel maxlength="10" required>
+        <span matPrefix class="text-prefix"> +251</span>
 
+      </mat-form-field>
     </div>
    <div>
       <mat-form-field appearance="outline">
@@ -37,19 +42,14 @@
         <input matInput placeholder="የኣያት ስም" formControlName="lastNameAm" (change)="generateRefNo()" required>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Phone Number</mat-label>
-        <input matInput placeholder="Phone Number" formControlName="phoneNumber" (change)="generateRefNo()" ngModel maxlength="10" required>
-        <span matPrefix class="text-prefix"> +251</span>
-
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field appearance="outline">
         <mat-label>Passport No</mat-label>
         <input matInput placeholder="Passport No" formControlName="passportNo" ngModel maxlength="8" required>
         <span matPrefix class="text-prefix"> EP</span>
 
       </mat-form-field>
+    </div>
+    <div>
+
 
       <mat-form-field color="primary" appearance="outline">
         <mat-label>Date Of Birth</mat-label>
@@ -75,9 +75,6 @@
           <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2 color="primary"></mat-datepicker>
       </mat-form-field>
-
-    </div>
-    <div>
       <mat-form-field appearance="outline">
         <mat-label>Nationality</mat-label>
         <mat-select formControlName="nationality" required>
@@ -86,6 +83,9 @@
           </mat-option>
       </mat-select>
       </mat-form-field>
+    </div>
+    <div>
+
       <mat-form-field appearance="outline">
         <mat-label>Gender</mat-label>
         <mat-select formControlName="gender" required>
@@ -109,9 +109,6 @@
         <mat-label>No of Children</mat-label>
         <input matInput placeholder="No of Children" formControlName="noOfChildren" required>
       </mat-form-field>
-
-    </div>
-    <div>
       <mat-form-field appearance="outline">
         <mat-label>Religion</mat-label>
         <mat-select formControlName="religion" placeholder="Religion" required>
@@ -121,6 +118,9 @@
   </mat-option>
       </mat-select>
       </mat-form-field>
+    </div>
+    <div>
+
       <mat-form-field appearance="outline">
         <mat-label>Reference No</mat-label>
         <input matInput placeholder="Reference No" formControlName="referenceNo" ngModel  [value]="refNo"  required>
@@ -147,13 +147,13 @@
       </mat-select>
 
       </mat-form-field>
-
-    </div>
-    <div>
       <mat-form-field appearance="outline">
         <mat-label>Height(m)</mat-label>
         <input matInput placeholder="Height" formControlName="height" required>
       </mat-form-field>
+    </div>
+    <div>
+
       <mat-form-field appearance="outline">
         <mat-label>Weight(Kg)</mat-label>
         <input matInput placeholder="Weight" formControlName="weight" required>
@@ -185,7 +185,57 @@
       </div>
 
   </mat-step>
-  <mat-step label="Step 2" state="school"  >
+  <mat-step label="Step 2" state="phone"  >
+    <ng-template matStepLabel>Education Data</ng-template>
+    <div class="mat-elevation-z8 personal-dtail-container">
+      <form formGroupName="educationData">
+        <div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Qualification Type</mat-label>
+      <input matInput placeholder="First name" pattern="[a-zA-Z][a-zA-Z ]+" formControlName="qualificationType" >
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Level Of Qualification</mat-label>
+      <input matInput placeholder="Middle name"  pattern="[a-zA-Z][a-zA-Z ]+"  formControlName="levelOfQualification" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Year Completed</mat-label>
+      <input matInput placeholder="Last name" pattern="[a-zA-Z][a-zA-Z ]+" formControlName="yearCompleted"  required>
+    </mat-form-field>
+
+  </div>
+
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Award</mat-label>
+      <input matInput placeholder="Passport No" formControlName="award" ngModel  required>
+
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Professional Skill</mat-label>
+      <input matInput placeholder="Height" formControlName="professionalSkill" required>
+    </mat-form-field>
+
+  </div>
+</form>
+
+  </div>
+    <div>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+
+        <!-- <button  mat-button matStepperNext><mat-icon style="font-size: 30px;width: 30px;height: 30px;">skip_next</mat-icon> -->
+        <!-- </button> -->
+
+      </div>
+    </div>
+
+</mat-step>
+
+  <mat-step label="Step 3" state="school"  >
     <ng-template matStepLabel>Work Experience</ng-template>
 
     <div class="mat-elevation-z8 personal-dtail-container">
@@ -236,7 +286,7 @@
       <button mat-button matStepperNext>Next</button>
     </div>
   </mat-step>
-  <mat-step label="Step 3" state="contact_phone"  >
+  <mat-step label="Step 4" state="contact_phone"  >
     <ng-template matStepLabel>Contact Person</ng-template>
     <div class="mat-elevation-z8 personal-dtail-container">
       <form formGroupName="contactPerson">
@@ -298,7 +348,7 @@
       <button mat-button matStepperNext>Next</button>
     </div>
   </mat-step>
-  <mat-step label="Step 4" state="group_work"  >
+  <mat-step label="Step 5" state="group_work"  >
     <ng-template matStepLabel>Experienced Job</ng-template>
 
     <div class="mat-elevation-z8 personal-dtail-container">
@@ -344,7 +394,7 @@
         <button mat-button matStepperNext>Next</button>
     </div>
   </mat-step>
-  <mat-step label="Step 2" state="school"  >
+  <mat-step label="Step 6" state="school"  >
     <ng-template matStepLabel>Benificiary Declaration</ng-template>
 
     <div class="mat-elevation-z8 personal-dtail-container">
@@ -396,7 +446,7 @@
 
 </form>
 
-  <mat-step label="Step 5" state="cloud_upload"  >
+  <mat-step label="Step 7" state="cloud_upload"  >
     <ng-template matStepLabel>Documents</ng-template>
     <div class="mat-elevation-z8 personal-dtail-container">
 

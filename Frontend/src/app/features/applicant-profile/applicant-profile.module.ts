@@ -28,6 +28,8 @@ import { VerfContractDocumentComponent } from './pages/verf-contract-document/ve
 import { CompleteInsuranceDocumentComponent } from './pages/complete-insurance-document/complete-insurance-document.component';
 import { ReceiveYellowCardComponent } from './pages/receive-yellow-card/receive-yellow-card.component';
 import { VerifyFlightTicketComponent } from './pages/verify-flight-ticket/verify-flight-ticket.component';
+import { CocComponent } from './pages/coc/coc.component';
+import { PreFlightTrainingComponent } from './pages/pre-flight-training/pre-flight-training.component';
 
 
 @NgModule({
@@ -43,7 +45,9 @@ import { VerifyFlightTicketComponent } from './pages/verify-flight-ticket/verify
     VerfContractDocumentComponent,
     CompleteInsuranceDocumentComponent,
     ReceiveYellowCardComponent,
-    VerifyFlightTicketComponent
+    VerifyFlightTicketComponent,
+    CocComponent,
+    PreFlightTrainingComponent
     ],
   imports: [
     CommonModule,
