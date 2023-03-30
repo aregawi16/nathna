@@ -11,11 +11,13 @@ namespace NatnaAgencyDigitalSystem.Core.Models
     {
 
         public int CoCId { get; set; }
+        public int ApplicantProfileId { get; set; }
         public string TrainedPlaceName { get; set; }
         public string  TrainedPlaceAddress { get; set; }
         public string TrainedSkill { get; set; }
         public string CertificateTakenPlaceName { get; set; }
         public string CertificateTakenAddress { get; set; }
         public string? Description { get; set; }
+        public string? CertificateFilePath { get; set; }
     }
 }

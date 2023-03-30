@@ -1,0 +1,254 @@
+
+<main class="main-content">
+  <section class="left-section">
+      <div class="left-content">
+          <div class="profile">
+              <div class="image">
+                  <img [src]="base_url+applicantProfile?.applicantDocument?.applicantSmallPhotoPath" alt="">
+              </div>
+          </div>
+          <div class="name-left-section">
+            <h2>{{applicantProfile?.fullName}}</h2>
+            <p>Ethiopian</p>
+            <div class="contact-section">
+              <!-- <div class="title-section">
+                <div class="line">
+                </div>
+                <h2>Contact</h2>
+                <div class="line">
+                </div>
+              </div> -->
+              <img src="/assets/facebook.png">
+              <!-- <p class="para">fb.com/g1daniel</p> -->
+              <img src="/assets/youtube.png">
+              <!-- <p class="para">youtube.com/g1daniel</p> -->
+              <img src="/assets/instagram.png">
+              <!-- <p class="para">fb.com/g1daniel</p> -->
+            </div>
+          </div>
+          <div class="skills-section">
+            <h3 class="main-title">Skills</h3>
+            <ul>
+                <li>
+                    <p class="skill-title">Javascript</p>
+                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+                </li>
+                <li>
+                    <p class="skill-title">Photoshop</p>
+                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+                </li>
+                <li>
+                    <p class="skill-title">Java</p>
+                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+                </li>
+                <li>
+                    <p class="skill-title">C++</p>
+                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+                </li>
+                <li>
+                    <p class="skill-title">Ruby</p>
+                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+                </li>
+                <li>
+                    <p class="skill-title">Node js</p>
+                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+                </li>
+                <li>
+                    <p class="skill-title">html/css</p>
+                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+                </li>
+                <li>
+                    <p class="skill-title">illustrator</p>
+                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+                </li>
+                <li>
+                    <p class="skill-title">Wordpress</p>
+                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+                </li>
+            </ul>
+        </div>
+
+      </div>
+  </section>
+  <section class="right-section">
+    <!-- <div class="name-section">
+    </div> -->
+      <div class="right-main-content">
+          <section class="about sect">
+           <h4 class="right-title">Passport Details</h4>
+           <div class="title-bottom-line"></div>
+           <div class="details-section">
+            <div class="left-detail-section">
+              <div class="detail">
+                <p class="type-title">Phone Number</p>
+                <p class="para">+251{{applicantProfile?.phoneNumber}}</p>
+              </div>
+              <div class="detail">
+                <p class="type-title">Age</p>
+                <p class="para">{{applicantProfile?.age}}</p>
+              </div>
+              <div class="detail">
+                <p class="type-title">Passport Number</p>
+                <p class="para">EP33333333</p>
+              </div>
+              <div class="detail">
+                <p class="type-title">Marital Status</p>
+                <p class="para">{{maritalStatusList[applicantProfile?.maritalStatus]}}</p>
+              </div>
+              <div class="detail">
+                <p class="type-title">No of Children</p>
+                <p class="para">{{applicantProfile?.noOfChildren}}</p>
+              </div>
+              <div class="detail">
+                <p class="type-title">Gender</p>
+                <p class="para">{{genderList[applicantProfile?.gender]}}</p>
+              </div>
+              <div class="detail">
+                <p class="type-title">Address</p>
+                <p class="para">{{applicantProfile?.city}} {{applicantProfile?.wereda}} {{applicantProfile?.kebelle}}</p>
+              </div>
+            </div>
+            <div class="right-detail-section">
+              <div class="detail">
+                <p class="type-title">Passport Issue Date</p>
+                <p class="para">{{applicantProfile?.passportIssueDate | date}}</p>
+              </div>
+              <div class="detail">
+                <p class="type-title">{{applicantProfile?.createdDate | date}}</p>
+                <p class="para">Mar 25, 2023</p>
+              </div>
+              <div class="detail">
+                <p class="type-title">Passport Number</p>
+                <p class="para">EP{{applicantProfile?.passportNo}}</p>
+              </div>
+              <div class="detail">
+                <p class="type-title">Passport Expiry Date</p>
+                <p class="para">{{applicantProfile?.passportExpiryDate | date}}</p>
+              </div>
+              <div class="detail">
+                <p class="type-title">Height</p>
+                <p class="para">{{applicantProfile?.height}} m</p>
+              </div>
+              <div class="detail">
+                <p class="type-title">Weight</p>
+                <p class="para">{{applicantProfile?.weight}} k.g</p>
+              </div>
+              <div class="detail">
+                <p class="type-title">Religion</p>
+                <p class="para">{{religionList[applicantProfile?.religion]}}</p>
+              </div>
+            </div>
+           </div>
+          </section>
+
+          <section class="experince sect">
+              <h2 class="right-title">Experience</h2>
+              <div class="title-bottom-line"></div>
+              <div class="timeline">
+                  <div class="right-tl-content" *ngFor="let workExp of applicantProfile?.workExperiences">
+                      <div class="tl-content"  >
+                          <h5 class="tl-title-2">{{workExp?.country}}</h5>
+                          <p class="para">
+                          {{  workExp?.jobDescription}}
+                          </p>
+                          <p class="para">
+                            {{workExp?.duration}} yrs of exprience
+                        </p>
+                      </div>
+                  </div>
+
+              </div>
+          </section>
+
+      </div>
+  </section>
+</main>
+
+
+
+<div class="cv-container">
+  <!-- <app-report-header office="{{(offices | filterById : applicantProfile?.applicantPlacement?.officeId)?.name}}" agent="{{(agents | filterById : applicantProfile?.agentId)?.name}}"></app-report-header> -->
+<div class="personal-detail-conatainer">
+
+
+
+
+<div class="work-experience-container">
+
+
+<div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.2%" fxLayoutAlign="Start">
+
+<!-- <div   fxFlex="100%">
+  <table mat-table [dataSource]="workExperienceDataSource" matSort width="100%">
+
+    <ng-container matColumnDef="duration">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration(year)</th>
+      <td mat-cell *matCellDef="let row">{{ row.duration }}</td>
+    </ng-container>
+    <ng-container matColumnDef="country">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Country</th>
+      <td mat-cell *matCellDef="let row">{{ row.country }}</td>
+    </ng-container>
+    <ng-container matColumnDef="jobDescription">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        Job Description
+      </th>
+      <td mat-cell *matCellDef="let row">{{ row.jobDescription }}</td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedWorkExperienceColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedWorkExperienceColumns"></tr>
+  </table>
+</div>
+</div>
+<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.2%" fxLayoutAlign="Start">
+  <div fxFlex="60%">
+    <img [src]="base_url+applicantProfile?.applicantDocument?.applicantFullPhotoPath" width="400px" height="500px">
+  </div>
+
+<div   fxFlex="40%">
+<div class="contact-person-detail-container">
+
+  <div fxFlex="100%">
+    <div class="applicant-profile-header">
+
+    <p align="center"> Contact Person Detail </p>
+    </div>
+
+    <diV class="div-row"><label>Full Name:</label><span>{{applicantProfile?.contactPerson.fullName}}</span></diV>
+
+<diV class="div-row"> <label>Phone Number:</label><span>{{applicantProfile?.contactPerson.phoneNumber}}</span></diV>
+
+<diV class="div-row"> <label>Address:</label><span>{{applicantProfile?.contactPerson.city}} {{applicantProfile?.contactPerson.wereda}} {{applicantProfile?.contactPerson.kebelle}}</span></diV>
+</div>
+</div> -->
+
+
+<!-- </div>
+    <table mat-table [dataSource]="experiencedJobDataSource" matSort>
+      <ng-container matColumnDef="job">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Job</th>
+        <td mat-cell *matCellDef="let row">
+
+          {{(jobs | filterById : row.commonJobId)?.name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="haveExperience">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Experience
+        </th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.haveExperience? "Yes" :"No" }}</td>
+      </ng-container>
+
+
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedExperiencedJobsColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedExperiencedJobsColumns"></tr>
+    </table>
+  </div> -->
+  </div>
+</div>
+</div>

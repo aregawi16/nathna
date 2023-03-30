@@ -1,7 +1,13 @@
+using Azure.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
+using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -15,11 +21,15 @@ using NatnaAgencyDigitalSystem.Service;
 using Newtonsoft.Json;
 using System.Net;
 using System.Text;
+using Telerik.Reporting.Cache.File;
+using Telerik.Reporting.Services;
+using Telerik.WebReportDesigner.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //cors 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IApplicantProfileRepository, ApplicantProfileRepository>();
@@ -30,6 +40,7 @@ builder.Services.AddScoped<IApplicantProfileService, ApplicantProfileService>();
 builder.Services.AddScoped<ICountryService, CountryService>();
 builder.Services.AddScoped<IAgentService, AgentService>();
 builder.Services.AddScoped<IOfficeService, OfficeService>();
+
 ConfigurationManager configuration = builder.Configuration;
 
 // Add services to the container.
@@ -47,7 +58,9 @@ builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<NatnaAgencyDbContext>()
     .AddDefaultTokenProviders();
 
-// Adding Authentication
+builder.Services.AddDataProtection()
+        .PersistKeysToFileSystem(new DirectoryInfo(@"c:\temp-keys\"));
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -113,40 +126,70 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-//cors policy
+
+var reportsPath = System.IO.Path.Combine(builder.Environment.ContentRootPath, "Letters");
+// Configure dependencies for ReportsController.
+builder.Services.TryAddSingleton<IReportServiceConfiguration>(sp =>
+    new ReportServiceConfiguration
+    {
+        // The default ReportingEngineConfiguration will be initialized from appsettings.json or appsettings.{EnvironmentName}.json:
+        ReportingEngineConfiguration = sp.GetService<IConfiguration>(),
+
+        // In case the ReportingEngineConfiguration needs to be loaded from a specific configuration file, use the approach below:
+        //ReportingEngineConfiguration = ResolveSpecificReportingConfiguration(sp.GetService<IWebHostEnvironment>()),
+        HostAppId = "ERAMSReportService",
+        Storage = new FileStorage(),
+        ReportSourceResolver = new TypeReportSourceResolver()
+                                    .AddFallbackResolver(
+                                        new UriReportSourceResolver(reportsPath))
+    });
+
+builder.Services.TryAddSingleton<IReportDesignerServiceConfiguration>(sp => new ReportDesignerServiceConfiguration
+{
+    DefinitionStorage = new FileDefinitionStorage(
+        reportsPath),
+    ResourceStorage = new ResourceStorage(
+        System.IO.Path.Combine(builder.Environment.ContentRootPath, "Resources")),
+    SharedDataSourceStorage = new FileSharedDataSourceStorage(
+        System.IO.Path.Combine(builder.Environment.ContentRootPath, "Shared Data Sources")),
+    SettingsStorage = new FileSettingsStorage(
+        System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Telerik Reporting")),
+});
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins("http://localhost:4200");
-                      });
+        builder =>
+        {
+            builder.WithOrigins("http://localhost",
+                "http://localhost:4200",
+                "http://localhost:5050",
+                "https://localhost:7230",
+                "http://localhost:90")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .SetIsOriginAllowedToAllowWildcardSubdomains();
+        });
 });
+
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseFileServer(enableDirectoryBrowsing: true);
-app.UseRouting();
-app.UseStaticFiles();
-
-//app.UseCors(MyAllowSpecificOrigins);
-
-
-
-app.UseCors(x => x
-               .AllowAnyMethod()
-               .AllowAnyHeader()
-               .SetIsOriginAllowed(origin => true) // allow any origin
-               .AllowCredentials()
-                              .WithExposedHeaders("content-disposition")); // allow credentials
-
+else
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
+    app.UseFileServer(enableDirectoryBrowsing: true);
 var cacheMaxAgeOneWeek = (60 * 60 * 24 * 7).ToString();
+app.UseStaticFiles();
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
@@ -157,19 +200,17 @@ app.UseStaticFiles(new StaticFileOptions
         ctx.Context.Response.Headers.Append(
              "Cache-Control", $"public, max-age={cacheMaxAgeOneWeek}");
     }
-    //OnPrepareResponse = ctx =>
-    //{
-    //    if (!ctx.Context.User.Identity.IsAuthenticated)
-    //    {
-    //        ctx.Context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-    //    }
-    //}
+
 
 
 });
 
+//app.UseHttpsRedirection();
+app.UseRouting();
+
+app.UseCors(MyAllowSpecificOrigins);
+
 // Authentication & Authorization
-app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 

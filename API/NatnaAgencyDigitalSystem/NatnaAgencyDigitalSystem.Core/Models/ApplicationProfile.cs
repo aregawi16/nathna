@@ -70,7 +70,7 @@ namespace NatnaAgencyDigitalSystem.Api.Models
         [NotMapped]
         public string Address => $"{Kebelle} {Wereda} {City}";
         public virtual ICollection<WorkExperience> WorkExperiences { get; set; }
-        public  ICollection<ExperiencedJob> ExperiencedJobs { get; set; }
+        //public  ICollection<ExperiencedJob> ExperiencedJobs { get; set; }
         public  ICollection<BenificiaryDeclaration> BenificiaryDeclarations { get; set; }
         public  ContactPerson ContactPerson { get; set; }
         public  ApplicantDocument ApplicantDocument { get; set; }
@@ -94,11 +94,9 @@ namespace NatnaAgencyDigitalSystem.Api.Models
         public int WorkExperienceId { get; set; }
         public int ApplicantProfileId { get; set; }
 
-        public DateTime StartDate { get; set; }
-        [NotMapped]
-        public int Duration => (EndDate - StartDate).Days;
-
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public int Duration { get; set; }
+        public DateTime? EndDate { get; set; }
         public string Country { get; set; }
         public string JobDescription { get; set; }
 
@@ -112,7 +110,7 @@ namespace NatnaAgencyDigitalSystem.Api.Models
 
         public string FullName { get; set; }
         public string PhoneNumber { get; set; }
-        public string Email { get; set; }
+        public string? Email { get; set; }
         public string City { get; set; }
         public string Wereda { get; set; }
         public string Kebelle { get; set; }
@@ -147,7 +145,7 @@ namespace NatnaAgencyDigitalSystem.Api.Models
 
         public string? QualificationType { get; set; }
         public string? LevelOfQualification { get; set; }
-        public int YearCompleted { get; set; }
+        public int? YearCompleted { get; set; }
         public string? Award { get; set; }
         public string? ProfessionalSkill { get; set; }
     }
@@ -167,14 +165,14 @@ namespace NatnaAgencyDigitalSystem.Api.Models
     {
         public int ApplicantDocumentId { get; set; }
         public int ApplicantProfileId { get; set; }
-        public string ApplicantIdFilePath { get; set; }
+        public string? ApplicantIdFilePath { get; set; }
         public string ApplicantPassportFilePath { get; set; }
-        public string ApplicantSmallPhotoPath { get; set; }
-        public string ApplicantFullPhotoPath { get; set; }
+        public string? ApplicantSmallPhotoPath { get; set; }
+        public string? ApplicantFullPhotoPath { get; set; }
         public string? ApplicantContractAgreementPath { get; set; }
         public string? ApplicantMedicalDocumentPath { get; set; }
         public string? ApplicantCrimeCheckfreeDocumentPath { get; set; }
-        public string ApplicantVideoPath { get; set; }
+        public string? ApplicantVideoPath { get; set; }
 
     }
 
@@ -227,6 +225,7 @@ namespace NatnaAgencyDigitalSystem.Api.Models
         public string? LabourOfficeDocumentFilePath { get; set; }
         public string? LetterFilePath { get; set; }
         public string? YellowCardFilePath { get; set; }
+        public string? PreFlightTrainingCertficatePath { get; set; }
 
     }
     public class ApplicantFlightTicket : BaseModel

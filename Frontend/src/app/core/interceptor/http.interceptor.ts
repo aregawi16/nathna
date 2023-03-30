@@ -74,7 +74,8 @@ export class AppInterceptor implements HttpInterceptor {
   }
 
   private isAuthenticationRequired(apiUrl: string): boolean {
-    const blockedApiList = ["http://localhost:4200/assets/i18n/en.json"];
+    const blockedApiList = [environment.url+"/assets/i18n/en.json"];
+    // const blockedApiList = ["http://localhost:5050/assets/i18n/en.json"];
     return blockedApiList.includes(apiUrl) ? false : true;
   }
   private handleRequestCompleted(): void {

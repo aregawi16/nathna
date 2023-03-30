@@ -63,6 +63,7 @@ private JsonApi(apiUrl: string): boolean {
   environment.backend.host + HttpApi.completeInsurance,
   environment.backend.host + HttpApi.requestYellowRecord,
   environment.backend.host + HttpApi.receivetYellowRecord,
+  environment.backend.host + HttpApi.completeCoC,
   environment.backend.host + HttpApi.verifyFlightTcket,
   environment.backend.host + HttpApi.uploadContractDocumentApplicant
 ];
@@ -72,6 +73,7 @@ private JsonApi(apiUrl: string): boolean {
   // Helpers and Casuistics
   private isAuthenticationRequired(apiUrl: string): boolean {
     const blockedApiList = [HttpApi.oauthLogin];
+    console.log(apiUrl);
     return blockedApiList.includes(apiUrl) ? false : true;
   }
 

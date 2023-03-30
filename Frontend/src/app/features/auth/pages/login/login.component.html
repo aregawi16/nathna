@@ -19,13 +19,21 @@
     <mat-icon class="display:inline">error</mat-icon><span style="margin-top:auto;margin-bottom:auto;">Login Failed</span>
 
     </mat-error>
-     <mat-form-field appearance="outline">
+    <div fxLayout="row wrap" class="mt-2">
+    <div fxFlex="100" fxFlex.gt-sm="100" class="px-1">
+      <mat-form-field appearance="outline" class="w-100">
       <mat-label>User Name</mat-label>
       <input type="text" matInput [(ngModel)]="login.userName" placeholder="Email"  placeholder="Use Name" formControlName="userName">
       <mat-icon matPrefix>person</mat-icon>
 
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    </div>
+    </div>
+    <div fxLayout="row wrap" class="mt-2">
+
+    <div fxFlex="100" fxFlex.gt-sm="100" class="px-1">
+
+    <mat-form-field appearance="outline" class="w-100">
       <mat-label>Password</mat-label>
       <input  [type]="hide ? 'password' : 'text'" matInput  [(ngModel)]="login.password"  placeholder="Password" formControlName="password" />
       <mat-icon matPrefix>lock</mat-icon>
@@ -34,8 +42,12 @@
       </button>
 
     </mat-form-field>
-    <div>
-      <mat-checkbox
+    </div>
+    </div>
+    <div fxLayout="row wrap" class="mt-2" class="w-100">
+
+      <div fxFlex="100" fxFlex.gt-sm="100" class="px-1">
+        <mat-checkbox
       class="remember-me"
       [(ngModel)]="checked"
       [(ngModel)]="login.rememberMe"
@@ -44,10 +56,15 @@
       Remember me
       </mat-checkbox>
     </div>
+    </div>
+    <div fxLayout="row wrap" class="mt-2">
 
-    <button type="submit"   mat-raised-button id="login_btn"   [disabled]="!loginForm.valid"  >
+      <div fxFlex="100" fxFlex.gt-sm="100" class="px-1">
+    <button type="submit"   mat-raised-button id="login_btn"   [disabled]="!loginForm.valid" class="w-100"  >
       <mat-icon><mat-spinner color="accent" diameter="18" *ngIf="isLoggedInClick" >    </mat-spinner></mat-icon>
     <mat-icon style="margin-left: 10px;">lock</mat-icon>Sign in</button>
+    </div>
+    </div>
   </form>
 </div>
 

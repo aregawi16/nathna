@@ -1,1 +1,66 @@
-<p>coc works!</p>
+<h1 mat-dialog-title>CoC Form</h1>
+<mat-divider></mat-divider>
+<form [formGroup]="cocFormGroup" (ngSubmit)="submitCoC()">
+
+  <div mat-dialog-content>
+
+    <div fxLayout="row wrap" class="mt-2">
+      <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+          <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Trained Place Name</mat-label>
+      <input matInput placeholder="Trained Place Name" formControlName="trainedPlaceName" required>
+    </mat-form-field>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+      <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Trained Place Address</mat-label>
+      <input matInput placeholder="Trained Place Address" formControlName="trainedPlaceAddress" required>
+    </mat-form-field>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+      <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Trained Skill</mat-label>
+      <input matInput placeholder="Trained Skill" formControlName="trainedSkill" required>
+    </mat-form-field>
+    </div>
+    </div>
+    <div fxLayout="row wrap" class="mt-2">
+      <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+    <mat-form-field appearance="outline">
+      <mat-label>Certificate Taken Place Name</mat-label>
+      <input matInput placeholder="Certificate Taken Place Name" formControlName="certificateTakenPlaceName" required>
+    </mat-form-field>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+      <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Certificate Taken Address</mat-label>
+      <input matInput placeholder="Certificate Taken Address" formControlName="certificateTakenAddress" required>
+    </mat-form-field>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
+      <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Description</mat-label>
+      <input matInput placeholder="Description" formControlName="description" required>
+    </mat-form-field>
+</div>
+</div>
+  <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
+    <div class="image-upload" fxFlex="90%">
+
+      <label>Certificate</label>
+
+      <input type="file" (change)="onChangeCoC($event)" accept="image/*"    required/>
+    </div>
+    </div>
+    <div  fxLayout="row"  fxLayoutAlign="end center">
+      <div mat-dialog-actions>
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+          <button mat-raised-button color="warn" type="button" mat-dialog-close>
+            Close
+          </button>
+          <button mat-raised-button color="primary" type="submit">Save</button>
+        </div>
+      </div>
+    </div>
+    </div>
+</form>

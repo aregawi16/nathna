@@ -34,6 +34,20 @@ export enum ApplicantInsuranceStatus
     Rejected,
 
 }
+export enum ApplicantCocStatus
+{
+    Requested = 1,
+    Completed,
+    Rejected,
+
+}
+export enum ApplicantPreFlightTrainingStatus
+{
+    Requested = 1,
+    Completed,
+    Rejected,
+
+}
 export enum ApplicantLabourStatus
 {
     Requested = 1,

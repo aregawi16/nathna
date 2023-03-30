@@ -1,3 +1,4 @@
+import { ResumeComponent } from './pages/resume/resume.component';
 import { YellowCardRequestComponent } from './pages/yellow-card-request/yellow-card-request.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ImgPdfViewerModule } from 'img-pdf-viewer';
@@ -30,6 +31,8 @@ import { ReceiveYellowCardComponent } from './pages/receive-yellow-card/receive-
 import { VerifyFlightTicketComponent } from './pages/verify-flight-ticket/verify-flight-ticket.component';
 import { CocComponent } from './pages/coc/coc.component';
 import { PreFlightTrainingComponent } from './pages/pre-flight-training/pre-flight-training.component';
+import { PreflightTrainingDialogComponent } from './pages/pre-flight-training/preflight-training-dialog/preflight-training-dialog.component';
+import { CompletePreflightTrainingDialogComponent } from './pages/pre-flight-training/complete-preflight-training-dialog/complete-preflight-training-dialog.component';
 
 
 @NgModule({
@@ -45,9 +48,12 @@ import { PreFlightTrainingComponent } from './pages/pre-flight-training/pre-flig
     VerfContractDocumentComponent,
     CompleteInsuranceDocumentComponent,
     ReceiveYellowCardComponent,
+    ResumeComponent,
     VerifyFlightTicketComponent,
     CocComponent,
-    PreFlightTrainingComponent
+    PreFlightTrainingComponent,
+    PreflightTrainingDialogComponent,
+    CompletePreflightTrainingDialogComponent
     ],
   imports: [
     CommonModule,

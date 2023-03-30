@@ -36,7 +36,7 @@ namespace NatnaAgencyDigitalSystem.Api.Resources
 
         public virtual List<WorkExperienceResource> WorkExperiences { get; set; }
         public virtual ContactPersonResource ContactPerson { get; set; }
-        public virtual List<ExperiencedJobResource> ExperiencedJobs { get; set; }
+        //public virtual List<ExperiencedJobResource> ExperiencedJobs { get; set; }
     //    public virtual ApplicantDocument ApplicantDocuments { get; set; }
 
 
@@ -45,14 +45,15 @@ namespace NatnaAgencyDigitalSystem.Api.Resources
     }
     public class WorkExperienceResource 
     {
-            public DateTime StartDate { get; set; }
-            public DateTime EndDate { get; set; }
-            public string Country { get; set; }
-            public string JobDescription { get; set; }
+            public DateTime? StartDate { get; set; }
+            public DateTime? EndDate { get; set; }
+            public int? Duration { get; set; }
+            public string? Country { get; set; }
+            public string? JobDescription { get; set; }
 
         }
         public class ContactPersonResource
-    {
+    { 
 
             public string FullName { get; set; }
             public string PhoneNumber { get; set; }
@@ -69,17 +70,17 @@ namespace NatnaAgencyDigitalSystem.Api.Resources
             public int CommonJobId { get; set; }
             public bool HaveExperience { get; set; }
 
-        }
+      }
     public class ApplicantDocumentResource
     {
         public int ApplicantProfileId { get; set; }
         public IFormFile applicantPassport { get; set; }
-        public IFormFile applicantId { get; set; }
-        public IFormFile contactDocument { get; set; }
-        public IFormFile applicantVideo { get; set; }
-        public IFormFile applicantShortPhoto { get; set; }
-        public IFormFile applicantFullPhoto { get; set; }
- 
+        public IFormFile? applicantId { get; set; } = null;
+        public  IFormFile? contactDocument { get; set; } = null;
+        public IFormFile? applicantVideo { get; set; } = null;
+        public IFormFile? applicantShortPhoto { get; set; } = null;
+        public IFormFile? applicantFullPhoto { get; set; } = null;
+
 
     }
     public class ApplicantPlacementResource

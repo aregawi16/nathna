@@ -23,6 +23,24 @@ constructor(
     })
   );
 }
+getApplicantsForTraining()
+{
+  return this._http.get<DropDownObject[]>(HttpApi.getApplicantsForTraining)
+  .pipe(
+    map((response: any) => {
+      return response;
+    })
+  );
+}
+getPreFlightTrainingSchedules()
+{
+  return this._http.get<any[]>(HttpApi.getPreFlightTrainingSchedules)
+  .pipe(
+    map((response: any) => {
+      return response;
+    })
+  );
+}
 
 createApplicantProfile(data)
 {

@@ -19,7 +19,7 @@ namespace NatnaAgencyDigitalSystem.Data
         public DbSet<WorkExperience> WorkExperiences { get; set; }
         public DbSet<EducationHistory> EducationHistorys { get; set; }
         public DbSet<ContactPerson> ContactPeople { get; set; }
-        public DbSet<ExperiencedJob> ExperiencedJobs { get; set; }
+        //public DbSet<ExperiencedJob> ExperiencedJobs { get; set; }
         public DbSet<BenificiaryDeclaration> BenificiaryDeclarations { get; set; }
         public DbSet<ApplicantDocument> ApplicantDocuments { get; set; }
         public DbSet<ApplicantPlacement> ApplicantPlacements { get; set; }
@@ -61,8 +61,8 @@ namespace NatnaAgencyDigitalSystem.Data
                 .ApplyConfiguration(new WorkExperienceConfiguration());
             builder
                 .ApplyConfiguration(new ContactPersonConfiguration());
-            builder
-                .ApplyConfiguration(new ExperiencedJobConfiguration());
+            //builder
+            //    .ApplyConfiguration(new ExperiencedJobConfiguration());
             builder
                 .ApplyConfiguration(new EducationHistoryConfiguration());
             builder

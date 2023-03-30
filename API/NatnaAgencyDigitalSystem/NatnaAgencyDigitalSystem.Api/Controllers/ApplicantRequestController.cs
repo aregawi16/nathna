@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Identity;
 using NatnaAgencyDigitalSystem.Api.Models.Auth;
 using Newtonsoft.Json;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using NatnaAgencyDigitalSystem.Api.Models.Common;
+using Microsoft.EntityFrameworkCore;
 
 namespace NatnaAgencyDigitalSystem.Api.Controllers
 {
@@ -87,57 +89,73 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
         {
             var appDoc = new ApplicantDocumentResource();
             var appDocument = new ApplicantDocument();
-
+            var applicantDetail = _db.ApplicantProfiles.Find(ApplicantDocRes.ApplicantProfileId);
+            string fullName = applicantDetail?.FirstName + "_" + applicantDetail?.MiddleName + "_" + applicantDetail?.MiddleName;
             string wwwPath = this.Environment.WebRootPath;
             string contentPath = this.Environment.ContentRootPath;
 
-            string path = Path.Combine("", "NathnaDocuments");
+            string path = Path.Combine("", "NathnaDocuments/"+ fullName);
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
-            
             var NibConstantFileName = "NIB" + ApplicantDocRes.ApplicantProfileId.ToString();
-            string extention = Path.GetExtension(ApplicantDocRes.applicantId.FileName);
 
-            string fileName = NibConstantFileName + "ID"+ extention;
-            using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
-            {    
-                ApplicantDocRes.applicantId.CopyTo(stream);
-                appDocument.ApplicantIdFilePath= Path.Combine(path, fileName); 
-
-            }
-             extention = Path.GetExtension(ApplicantDocRes.applicantPassport.FileName);
-            fileName = NibConstantFileName + "Passport"+extention;
-            using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+            if (ApplicantDocRes.applicantId!=null)
             {
-                ApplicantDocRes.applicantPassport.CopyTo(stream);
-                appDocument.ApplicantPassportFilePath= Path.Combine(path, fileName); 
+                string extention = Path.GetExtension(ApplicantDocRes.applicantId.FileName);
+                string fileName = NibConstantFileName + "ID" + extention;
+                using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                {
+                    ApplicantDocRes.applicantId.CopyTo(stream);
+                    appDocument.ApplicantIdFilePath = Path.Combine(path, fileName);
 
+                }
             }
-            extention = Path.GetExtension(ApplicantDocRes.applicantShortPhoto.FileName);
-            fileName = NibConstantFileName + "SmallPhoto"+extention;
-            using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
-            {
-                ApplicantDocRes.applicantShortPhoto.CopyTo(stream);
-                appDocument.ApplicantSmallPhotoPath= Path.Combine(path, fileName);
 
+            if (ApplicantDocRes.applicantPassport != null)
+            {
+                string extention = Path.GetExtension(ApplicantDocRes.applicantPassport.FileName);
+                string fileName = NibConstantFileName + "Passport" + extention;
+                using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                {
+                    ApplicantDocRes.applicantPassport.CopyTo(stream);
+                    appDocument.ApplicantPassportFilePath = Path.Combine(path, fileName);
+
+                }
             }
-            extention = Path.GetExtension(ApplicantDocRes.applicantFullPhoto.FileName);
-            fileName = NibConstantFileName + "FullPhoto"+ extention;
-            using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+            if (ApplicantDocRes.applicantShortPhoto != null)
             {
-                ApplicantDocRes.applicantFullPhoto.CopyTo(stream);
-                appDocument.ApplicantFullPhotoPath= Path.Combine(path, fileName);
+               var extention = Path.GetExtension(ApplicantDocRes.applicantShortPhoto.FileName);
+                var fileName = NibConstantFileName + "SmallPhoto" + extention;
+                using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                {
+                    ApplicantDocRes.applicantShortPhoto.CopyTo(stream);
+                    appDocument.ApplicantSmallPhotoPath = Path.Combine(path, fileName);
 
+                }
             }
-            extention = Path.GetExtension(ApplicantDocRes.applicantVideo.FileName);
-            fileName = NibConstantFileName + "Video"+extention;
-            using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+            if (ApplicantDocRes.applicantFullPhoto != null)
             {
-                ApplicantDocRes.applicantVideo.CopyTo(stream);
-                appDocument.ApplicantVideoPath= Path.Combine(path, fileName);
+                var extention = Path.GetExtension(ApplicantDocRes.applicantFullPhoto.FileName);
+                var fileName = NibConstantFileName + "FullPhoto" + extention;
+                using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                {
+                    ApplicantDocRes.applicantFullPhoto.CopyTo(stream);
+                    appDocument.ApplicantFullPhotoPath = Path.Combine(path, fileName);
 
+                }
+            }
+            if (ApplicantDocRes.applicantVideo != null)
+            {
+               var  extention = Path.GetExtension(ApplicantDocRes.applicantVideo.FileName);
+              var  fileName = NibConstantFileName + "Video" + extention;
+                using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                {
+                    ApplicantDocRes.applicantVideo.CopyTo(stream);
+                    appDocument.ApplicantVideoPath = Path.Combine(path, fileName);
+
+                }
             }
             appDocument.ApplicantProfileId = ApplicantDocRes.ApplicantProfileId;
 
@@ -217,7 +235,26 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
                 return Ok(updatedApplicantProfileResource);
             }
 
-            [HttpDelete("{id}")]
+        [HttpGet("getApplicantsForTraining")]
+        public async Task<ActionResult<ApplicantProfile>> getApplicantsForTraining()
+        {
+            var appIds = _db.ApplicantStatuses.Where(q => q.OfficeLevel == Status.CoC.ToString() 
+            && q.Status ==ApplicantCocStatus.Completed.ToString()
+            ).Select(s=>s.ApplicantProfileId).ToList();
+
+            var applicants = _db.ApplicantProfiles.Where(q => appIds.Contains(q.ApplicantProfileId))
+                                                   .Select(s => new
+                                                   {
+                                                       id=s.ApplicantProfileId,
+                                                       name = $"{ s.FirstNameAm} {s.MiddleName} {s.LastNameAm} "
+                                                   })
+                                                  .ToList();
+
+
+            return Ok(applicants);
+        }
+
+              [HttpDelete("{id}")]
             public async Task<IActionResult> DeleteApplicantProfile(int id)
             {
                 var ApplicantProfile = await _ApplicantProfileService.GetApplicantProfileById(id);

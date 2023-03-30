@@ -1,66 +1,91 @@
 
-<div>
+<mat-card-content class>
 
 <mat-stepper role="tab" aria-selected="true">
-  <form [formGroup]="personalInfoFormGroup">
+  <form [formGroup]="personalInfoFormGroup"  #formItemDirective="ngForm">
 
   <mat-step label="Step 1" state="phone"  >
-      <ng-template matStepLabel>Personal Info</ng-template>
-      <div class="mat-elevation-z8 personal-dtail-container">
-<div>
-      <mat-form-field appearance="outline">
+      <ng-template matStepLabel>Passport Detail</ng-template>
+      <div>
+
+  <div fxLayout="row wrap" class="mt-2">
+    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+        <mat-form-field appearance="outline" class="w-100">
         <mat-label>First Name</mat-label>
         <input matInput placeholder="First name" pattern="[a-zA-Z][a-zA-Z ]+"
          (change)="generateRefNo()" formControlName="firstName" required>
       </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Middle Name</mat-label>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Middle Name</mat-label>
         <input matInput placeholder="Middle name"  pattern="[a-zA-Z][a-zA-Z ]+" (change)="generateRefNo()" formControlName="middleName" required>
       </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Last Name</mat-label>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Last Name</mat-label>
         <input matInput placeholder="Last name" pattern="[a-zA-Z][a-zA-Z ]+" formControlName="lastName" (change)="generateRefNo()" required>
       </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Phone Number</mat-label>
-        <input matInput placeholder="Phone Number" formControlName="phoneNumber" (change)="generateRefNo()" ngModel maxlength="10" required>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Phone Number</mat-label>
+        <input matInput placeholder="Phone Number" formControlName="phoneNumber" (change)="generateRefNo()" ngModel maxlength="9" required>
         <span matPrefix class="text-prefix"> +251</span>
 
       </mat-form-field>
-    </div>
-   <div>
-      <mat-form-field appearance="outline">
+</div>
+</div>
+<div fxLayout="row wrap" class="mt-2">
+  <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+          <mat-form-field appearance="outline" class="w-100">
         <mat-label>ስም</mat-label>
         <input matInput placeholder="ስም" (change)="generateRefNo()" formControlName="firstNameAm" required>
       </mat-form-field>
-      <mat-form-field appearance="outline">
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+
+      <mat-form-field appearance="outline" class="w-100">
         <mat-label>የኣባት ስም</mat-label>
         <input matInput placeholder="የኣባት ስም" (change)="generateRefNo()" formControlName="middleNameAm" required>
       </mat-form-field>
-      <mat-form-field appearance="outline">
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+
+      <mat-form-field appearance="outline" class="w-100">
         <mat-label>የኣያት ስም</mat-label>
         <input matInput placeholder="የኣያት ስም" formControlName="lastNameAm" (change)="generateRefNo()" required>
       </mat-form-field>
-      <mat-form-field appearance="outline">
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+
+      <mat-form-field appearance="outline" class="w-100">
         <mat-label>Passport No</mat-label>
         <input matInput placeholder="Passport No" formControlName="passportNo" ngModel maxlength="8" required>
         <span matPrefix class="text-prefix"> EP</span>
 
       </mat-form-field>
+      </div>
     </div>
-    <div>
 
-
-      <mat-form-field color="primary" appearance="outline">
+    <div fxLayout="row wrap" class="mt-2">
+      <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+      <mat-form-field appearance="outline" class="w-100">
         <mat-label>Date Of Birth</mat-label>
         <input matInput [matDatepicker]="picker1" formControlName="doB">
-        <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
         <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1 color="primary"></mat-datepicker>
 
     </mat-form-field>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
 
-        <mat-form-field color="primary" appearance="outline">
+
+        <mat-form-field appearance="outline" class="w-100">
           <mat-label>Passport Issue Date</mat-label>
           <input matInput [matDatepicker]="picker" formControlName="passportIssueDate">
           <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
@@ -68,25 +93,18 @@
           <mat-datepicker #picker color="primary"></mat-datepicker>
 
       </mat-form-field>
-        <mat-form-field color="primary" appearance="outline">
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+        <mat-form-field appearance="outline" class="w-100">
           <mat-label>Passport Expiry Date</mat-label>
           <input matInput [matDatepicker]="picker2" formControlName="passportExpiryDate">
-          <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
           <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker #picker2 color="primary"></mat-datepicker>
       </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Nationality</mat-label>
-        <mat-select formControlName="nationality" required>
-          <mat-option *ngFor="let country of countrys" [value]="country.id">
-              <span>{{country.name}}</span>
-          </mat-option>
-      </mat-select>
-      </mat-form-field>
     </div>
-    <div>
 
-      <mat-form-field appearance="outline">
+    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+      <mat-form-field appearance="outline" class="w-100">
         <mat-label>Gender</mat-label>
         <mat-select formControlName="gender" required>
           <mat-option *ngFor="let gender of genders"
@@ -96,85 +114,9 @@
       </mat-select>
 
       </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Marital Status</mat-label>
-        <mat-select formControlName="maritalStatus" required>
-          <mat-option *ngFor="let maritalStatus of maritalStatuses"
-          [value]="maritalStatus">
-    {{maritalStatusList[maritalStatus]}}
-  </mat-option>
-      </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>No of Children</mat-label>
-        <input matInput placeholder="No of Children" formControlName="noOfChildren" required>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Religion</mat-label>
-        <mat-select formControlName="religion" placeholder="Religion" required>
-          <mat-option *ngFor="let religion of religions"
-          [value]="religion">
-    {{religionList[religion]}}
-  </mat-option>
-      </mat-select>
-      </mat-form-field>
+      </div>
     </div>
-    <div>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Reference No</mat-label>
-        <input matInput placeholder="Reference No" formControlName="referenceNo" ngModel  [value]="refNo"  required>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Priority</mat-label>
-        <mat-select formControlName="priority" required>
-          <mat-option *ngFor="let priority of priorities"
-          [value]="priority">
-    {{priorityList[priority]}}
-  </mat-option>
-      </mat-select>
-
-      </mat-form-field>
-
-
-      <mat-form-field appearance="outline">
-        <mat-label>Agent</mat-label>
-        <mat-select formControlName="agentId" required>
-          <mat-option *ngFor="let agent of agents"
-          [value]="agent.id">
-    {{agent.name}}
-  </mat-option>
-      </mat-select>
-
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Height(m)</mat-label>
-        <input matInput placeholder="Height" formControlName="height" required>
-      </mat-form-field>
-    </div>
-    <div>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Weight(Kg)</mat-label>
-        <input matInput placeholder="Weight" formControlName="weight" required>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>City</mat-label>
-        <input matInput placeholder="City" formControlName="city" ngModel    required>
-
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Wereda</mat-label>
-        <input matInput placeholder="Wereda" formControlName="wereda" ngModel  required>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Kebelle</mat-label>
-        <input matInput placeholder="Kebelle" formControlName="kebelle" required>
-      </mat-form-field>
-
-    </div>
-    </div>
-      <div>
         <div>
           <button mat-button matStepperNext>Next</button>
 
@@ -186,56 +128,205 @@
 
   </mat-step>
   <mat-step label="Step 2" state="phone"  >
-    <ng-template matStepLabel>Education Data</ng-template>
-    <div class="mat-elevation-z8 personal-dtail-container">
-      <form formGroupName="educationData">
-        <div>
+    <ng-template matStepLabel>Personal Detail</ng-template>
+    <div>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Qualification Type</mat-label>
-      <input matInput placeholder="First name" pattern="[a-zA-Z][a-zA-Z ]+" formControlName="qualificationType" >
+
+
+<div fxLayout="row wrap" class="mt-2">
+
+    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Nationality</mat-label>
+        <mat-select formControlName="nationality" required>
+          <mat-option *ngFor="let country of countrys" [value]="country.id">
+              <span>{{country.name}}</span>
+          </mat-option>
+      </mat-select>
+      </mat-form-field>
+
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Marital Status</mat-label>
+      <mat-select formControlName="maritalStatus" required>
+        <mat-option *ngFor="let maritalStatus of maritalStatuses"
+        [value]="maritalStatus">
+  {{maritalStatusList[maritalStatus]}}
+</mat-option>
+    </mat-select>
     </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Level Of Qualification</mat-label>
-      <input matInput placeholder="Middle name"  pattern="[a-zA-Z][a-zA-Z ]+"  formControlName="levelOfQualification" required>
+  </div>
+  <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>No of Children</mat-label>
+      <input matInput placeholder="No of Children" formControlName="noOfChildren" required>
     </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Year Completed</mat-label>
-      <input matInput placeholder="Last name" pattern="[a-zA-Z][a-zA-Z ]+" formControlName="yearCompleted"  required>
+  </div>
+  <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Religion</mat-label>
+      <mat-select formControlName="religion" placeholder="Religion" required>
+        <mat-option *ngFor="let religion of religions"
+        [value]="religion">
+  {{religionList[religion]}}
+</mat-option>
+    </mat-select>
+    </mat-form-field>
+  </div>
+  </div>
+  <div fxLayout="row wrap" class="mt-2">
+    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Reference No</mat-label>
+      <input matInput placeholder="Reference No" formControlName="referenceNo" ngModel  [value]="refNo"  required>
+    </mat-form-field>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Priority</mat-label>
+      <mat-select formControlName="priority" required>
+        <mat-option *ngFor="let priority of priorities"
+        [value]="priority">
+  {{priorityList[priority]}}
+</mat-option>
+    </mat-select>
+
+    </mat-form-field>
+  </div>
+  <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Agent</mat-label>
+      <mat-select formControlName="agentId" required>
+        <mat-option *ngFor="let agent of agents"
+        [value]="agent.id">
+  {{agent.name}}
+</mat-option>
+    </mat-select>
+
+    </mat-form-field>
+  </div>
+  <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Height(m)</mat-label>
+      <input matInput placeholder="Height" formControlName="height" >
+    </mat-form-field>
+  </div>
+  </div>
+  <div fxLayout="row wrap" class="mt-2">
+    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Weight(Kg)</mat-label>
+      <input matInput placeholder="Weight" formControlName="weight" >
+    </mat-form-field>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>City</mat-label>
+      <input matInput placeholder="City" formControlName="city" ngModel    required>
+
+    </mat-form-field>
+  </div>
+  <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Wereda</mat-label>
+      <input matInput placeholder="Wereda" formControlName="wereda" ngModel  required>
+    </mat-form-field>
+  </div>
+  <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Kebelle</mat-label>
+      <input matInput placeholder="Kebelle" formControlName="kebelle" required>
     </mat-form-field>
 
   </div>
+  </div>
+  <div class="stepper-btn">
+    <button mat-button matStepperPrevious alig>Back</button>
+    <button mat-button matStepperNext>Next</button>
+  </div>
+    </div>
 
-  <div>
-    <mat-form-field appearance="outline">
+</mat-step>
+  <mat-step label="Step 3" state="phone"  >
+    <ng-template matStepLabel>Education Data</ng-template>
+    <div class="mat-elevation-z8 personal-dtail-container">
+      <form formGroupName="educationData">
+        <div fxLayout="row wrap" class="mt-2">
+          <div fxFlex="100" fxFlex.gt-sm="33" class="px-1">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Qualification Type</mat-label>
+      <mat-select formControlName="qualificationType">
+        <mat-option *ngFor="let qualificationType of qualificationTypes"
+        [value]="qualificationTypeList[qualificationType]">
+  {{qualificationTypeList[qualificationType]}}
+  </mat-option>
+    </mat-select>
+  </mat-form-field>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="33" class="px-1">
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Level Of Qualification</mat-label>
+        <mat-select formControlName="levelOfQualification">
+          <mat-option *ngFor="let levelOfQualification of levelOfQualifications"
+          [value]="levelOfQualificationList[levelOfQualification]">
+    {{levelOfQualificationList[levelOfQualification]}}
+    </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div fxFlex="100" fxFlex.gt-sm="33" class="px-1">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Year Completed</mat-label>
+      <input matInput placeholder="Year Completed"  formControlName="yearCompleted">
+    </mat-form-field>
+  </div>
+  </div>
+
+  <div fxLayout="row wrap" class="mt-2">
+    <div fxFlex="100" fxFlex.gt-sm="49" class="px-1">
+
+        <mat-form-field appearance="outline" class="w-100">
       <mat-label>Award</mat-label>
-      <input matInput placeholder="Passport No" formControlName="award" ngModel  required>
+      <input matInput placeholder="Award" formControlName="award" ngModel>
 
 
     </mat-form-field>
+</div>
+<div fxFlex="100" fxFlex.gt-sm="49" class="px-1">
 
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="w-100">
       <mat-label>Professional Skill</mat-label>
-      <input matInput placeholder="Height" formControlName="professionalSkill" required>
+      <input matInput placeholder="Professional Skill" formControlName="professionalSkill">
     </mat-form-field>
-
+</div>
   </div>
 </form>
 
   </div>
     <div>
       <div>
-        <button mat-button matStepperNext>Next</button>
 
-        <!-- <button  mat-button matStepperNext><mat-icon style="font-size: 30px;width: 30px;height: 30px;">skip_next</mat-icon> -->
-        <!-- </button> -->
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
 
       </div>
     </div>
 
 </mat-step>
 
-  <mat-step label="Step 3" state="school"  >
+  <mat-step label="Step 4" state="school"  >
     <ng-template matStepLabel>Work Experience</ng-template>
 
     <div class="mat-elevation-z8 personal-dtail-container">
@@ -244,35 +335,63 @@
       <div formArrayName="workExperiences">
 
            <div *ngFor="let row of personalInfoFormGroup['controls']['workExperiences']['controls'] let i = index" [formGroupName]="i">
+            <div fxLayout="row wrap" class="mt-2">
+              <div fxFlex="100" fxFlex.gt-sm="20" class="px-1">
+                <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Duration</mat-label>
+          <input matInput placeholder="Duration
+          " formControlName="duration">
 
-          <mat-form-field color="primary" appearance="outline">
+
+
+      </mat-form-field>
+      </div>
+              <!-- <div fxFlex="100" fxFlex.gt-sm="20" class="px-1">
+          <mat-form-field appearance="outline" class="w-100">
     <mat-label>Start Date</mat-label>
     <input matInput [matDatepicker]="startdate" formControlName="startDate" placeholder="Start Date">
     <mat-datepicker-toggle matIconSuffix [for]="startdate"></mat-datepicker-toggle>
     <mat-datepicker #startdate color="primary"></mat-datepicker>
 
 </mat-form-field>
-  <mat-form-field color="primary" appearance="outline">
+</div> -->
+<!-- <div fxFlex="100" fxFlex.gt-sm="20" class="px-1">
+
+  <mat-form-field appearance="outline" class="w-100">
     <mat-label>End Date</mat-label>
     <input matInput [matDatepicker]="enddate" formControlName="endDate" placeholder="End Date">
     <mat-datepicker-toggle matIconSuffix [for]="enddate"></mat-datepicker-toggle>
     <mat-datepicker #enddate color="primary"></mat-datepicker>
 </mat-form-field>
-
-      <mat-form-field appearance="outline">
+</div> -->
+<div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+      <mat-form-field appearance="outline" class="w-100">
         <mat-label>Country</mat-label>
-        <mat-select formControlName="country" required>
+        <mat-select formControlName="country">
           <mat-option *ngFor="let country of countries" [value]="country.name">
               <span>{{country.name}}</span>
           </mat-option>
       </mat-select>
       </mat-form-field>
-      <mat-form-field appearance="outline">
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Job</mat-label>
+        <mat-select formControlName="jobs"  (selectionChange)="onChangeJob(i,$event);" multiple>
+          <mat-option *ngFor="let experiencedJob of commonJobs" [value]="experiencedJob.id">
+              <span>{{experiencedJob.name}}</span>
+          </mat-option>
+      </mat-select>
+      <!-- <mat-form-field appearance="outline" class="w-100">
         <mat-label>Job Description</mat-label>
-        <input matInput placeholder="Job" formControlName="jobDescription" required>
+        <input matInput placeholder="Job" formControlName="jobDescription" required> -->
       </mat-form-field>
-      <button (click)="onDeleteRow(i)" mat-button><mat-icon id="delete-icon">delete</mat-icon></button>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="10" class="px-1">
 
+      <button (click)="onDeleteRow(i)" mat-button><mat-icon id="delete-icon">delete</mat-icon></button>
+</div>
+</div>
     </div>
     <div  id="add-div">
       <button mat-button (click)="initGroup()"><mat-icon id="add-icon">add</mat-icon></button>
@@ -286,55 +405,51 @@
       <button mat-button matStepperNext>Next</button>
     </div>
   </mat-step>
-  <mat-step label="Step 4" state="contact_phone"  >
+  <mat-step label="Step 5" state="contact_phone"  >
     <ng-template matStepLabel>Contact Person</ng-template>
     <div class="mat-elevation-z8 personal-dtail-container">
       <form formGroupName="contactPerson">
-        <div fxLayout.gt-sm="row" fxLayout.lt-md="column">
-          <div fxFlex="10%">
-          </div>
-        <div fxFlex.gt-sm="30%">
-      <mat-form-field appearance="outline">
+        <div fxLayout="row wrap" class="mt-2">
+        <div fxFlex="100" fxFlex.gt-sm="33" class="px-1">
+      <mat-form-field appearance="outline" class="w-100">
         <mat-label>Full Name</mat-label>
         <input matInput placeholder="Full Name" formControlName="fullName" required>
       </mat-form-field>
 </div>
-        <div fxFlex.gt-sm="30%">
-      <mat-form-field appearance="outline">
+<div fxFlex="100" fxFlex.gt-sm="33" class="px-1">
+  <mat-form-field appearance="outline" class="w-100">
         <mat-label>Phone Number</mat-label>
         <input matInput placeholder="Phone Number" formControlName="phoneNumber" required>
       </mat-form-field>
 </div>
-        <div fxFlex.gt-sm="30%">
-      <mat-form-field appearance="outline">
+<div fxFlex="100" fxFlex.gt-sm="33" class="px-1">
+  <mat-form-field appearance="outline" class="w-100">
         <mat-label>Email</mat-label>
-        <input matInput placeholder="Email" formControlName="email" required>
+        <input matInput placeholder="Email" formControlName="email" >
       </mat-form-field>
 
     </div>
     </div>
 
-    <div fxLayout.gt-sm="row" fxLayout.lt-md="column">
-      <div fxFlex="10%">
-      </div>
-    <div fxFlex="30%">
-  <mat-form-field appearance="outline">
+    <div fxLayout="row wrap" class="mt-2">
+      <div fxFlex="100" fxFlex.gt-sm="33" class="px-1">
+  <mat-form-field appearance="outline" class="w-100">
     <mat-label>City</mat-label>
     <input matInput placeholder="City" formControlName="city" required>
   </mat-form-field>
 
 </div>
 
-  <div fxFlex="30%">
-<mat-form-field appearance="outline">
+<div fxFlex="100" fxFlex.gt-sm="33" class="px-1">
+  <mat-form-field appearance="outline" class="w-100">
   <mat-label>Wereda</mat-label>
   <input matInput placeholder="Wereda" formControlName="wereda" required>
 </mat-form-field>
 
 </div>
 
-  <div fxFlex="30%">
-<mat-form-field appearance="outline">
+<div fxFlex="100" fxFlex.gt-sm="33" class="px-1">
+  <mat-form-field appearance="outline" class="w-100">
   <mat-label>Kebelle</mat-label>
   <input matInput placeholder="Kebelle" formControlName="kebelle" required>
 </mat-form-field>
@@ -348,36 +463,28 @@
       <button mat-button matStepperNext>Next</button>
     </div>
   </mat-step>
-  <mat-step label="Step 5" state="group_work"  >
+  <!-- <mat-step label="Step 5" state="group_work"  >
     <ng-template matStepLabel>Experienced Job</ng-template>
 
     <div class="mat-elevation-z8 personal-dtail-container">
-      <!-- <form formGroupName="experiencedJobs"> -->
 
       <div formArrayName="experiencedJobs">
 
-      <div *ngFor="let row of personalInfoFormGroup['controls']['experiencedJobs']['controls'] let i = index" [formGroupName]="i" class="ex-job-container">
-        <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="Start">
-          <div fxFlex="20%">
-
-
-          </div>
-          <div fxFlex="20%">
+        <div fxLayout="row wrap" class="mt-2">
+          <div *ngFor="let row of personalInfoFormGroup['controls']['experiencedJobs']['controls'] let i = index" [formGroupName]="i" class="ex-job-container">
+          <div fxFlex="100" fxFlex.gt-sm="10" class="px-1">
 
               <input matInput placeholder="Job" value="row.commonJobId.value" formControlName="commonJobId"ngModel *ngIf="hidden">
-            <!-- <mat-form-field appearance="fill">
-              <input matInput placeholder="Job"  value="row.commonJobName.value" formControlName="commonJobName">
-            </mat-form-field> -->
-            <!-- <span>{{row.commonJobName.value}}</span> -->
 
           </div>
-          <div fxFlex="20%">
+
+          <div fxFlex="40%">
              <mat-checkbox
-            class="remember-me"
+            class="w-100"
             formControlName="haveExperience"
             (change)="checkExp(row)"
             color="primary">
-  {{row.value.commonJobName}}
+             {{row.value.commonJobName}}
             </mat-checkbox>
             </div>
           </div>
@@ -387,29 +494,31 @@
 
       </div>
       </div>
-      <!-- </form> -->
       </div>
       <div class="stepper-btn">
         <button mat-button matStepperPrevious alig>Back</button>
         <button mat-button matStepperNext>Next</button>
     </div>
-  </mat-step>
+  </mat-step> -->
   <mat-step label="Step 6" state="school"  >
-    <ng-template matStepLabel>Benificiary Declaration</ng-template>
+    <ng-template matStepLabel>Insurance Benificiary</ng-template>
 
     <div class="mat-elevation-z8 personal-dtail-container">
 
-    <!-- <form formGroupName="workExperiences"> -->
       <div formArrayName="insuranceBeneficiaries">
 
            <div *ngFor="let row of personalInfoFormGroup['controls']['insuranceBeneficiaries']['controls'] let i = index" [formGroupName]="i">
-
-          <mat-form-field color="primary" appearance="outline">
+            <div fxLayout="row wrap" class="mt-2">
+              <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+          <mat-form-field appearance="outline" class="w-100">
     <mat-label>Full Name</mat-label>
     <input matInput placeholder="Full Name" formControlName="fullName">
 
 </mat-form-field>
-  <mat-form-field color="primary" appearance="outline">
+</div>
+<div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+
+  <mat-form-field appearance="outline" class="w-100">
     <mat-label>Relationship</mat-label>
     <mat-select formControlName="relationship" required>
       <mat-option *ngFor="let relationship of relationships"
@@ -418,18 +527,27 @@
 </mat-option>
   </mat-select>
 </mat-form-field>
+</div>
+<div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="w-100">
         <mat-label>Address</mat-label>
         <input matInput formControlName="address" placeholder="Address">
 
       </mat-form-field>
-      <mat-form-field appearance="outline">
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="15" class="px-1">
+
+      <mat-form-field appearance="outline" class="w-100">
         <mat-label>Percent(%)</mat-label>
         <input matInput placeholder="Percent" formControlName="percent" required>
       </mat-form-field>
-      <button (click)="onDeleteInsuranceRow(i)" mat-button><mat-icon id="delete-icon">delete</mat-icon></button>
+      </div>
+      <div fxFlex="100" fxFlex.gt-sm="10" class="px-1">
 
+      <button (click)="onDeleteInsuranceRow(i)" mat-button><mat-icon id="delete-icon">delete</mat-icon></button>
+</div>
+</div>
     </div>
     <div  id="add-div">
       <button mat-button (click)="initInsuranceGroup()"><mat-icon id="add-icon">add</mat-icon></button>
@@ -450,7 +568,7 @@
     <ng-template matStepLabel>Documents</ng-template>
     <div class="mat-elevation-z8 personal-dtail-container">
 
-    <form [formGroup]="documentFormGroup">
+    <form [formGroup]="documentFormGroup"  #formItemDirective="ngForm">
       <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
         <div class="image-upload" fxFlex="40%">
           <mat-label>Applicant Passport</mat-label>
@@ -497,7 +615,7 @@
       <div class="stepper-btn">
 
       <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="onSubmit()" matStepperNext>Submit</button>
+      <button mat-button (click)="onSubmit(formItemDirective)">Submit</button>
     </div>
   </mat-step>
 

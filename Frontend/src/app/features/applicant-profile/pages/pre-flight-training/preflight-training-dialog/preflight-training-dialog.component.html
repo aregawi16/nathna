@@ -1,0 +1,58 @@
+<h1 mat-dialog-title>FLight Schedule</h1>
+<mat-divider></mat-divider>
+<form [formGroup]="preflightTrainingFormGroup" (ngSubmit)="submitPreflightTraining()">
+
+  <div mat-dialog-content>
+
+    <div fxLayout="row wrap" class="mt-2">
+      <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+          <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Scheduled Date</mat-label>
+      <input matInput [matDatepicker]="picker1" formControlName="scheduledDate">
+      <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1 color="primary"></mat-datepicker>
+  </mat-form-field>
+    </div>
+    <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+      <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Place</mat-label>
+      <input matInput placeholder="Place" formControlName="place" required>
+    </mat-form-field>
+    </div>
+    </div>
+    <div fxLayout="row wrap" class="mt-2">
+      <div fxFlex="100" fxFlex.gt-sm="100" class="px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Trainees</mat-label>
+
+      <mat-select placeholder="Trainees" formControlName="applicantIds"
+      multiple>
+        <mat-option #allSelected (click)="toggleAllSelection()" [value]="0">All</mat-option>
+        <mat-option *ngFor="let trainee of trainees" [value]="trainee.id" (click)="tosslePerOne(allSelected.viewValue)">
+          {{trainee.name}}
+        </mat-option>
+      </mat-select>    </mat-form-field>
+    </div>
+    </div>
+    <div fxLayout="row wrap" class="mt-2">
+
+    <div fxFlex="100" fxFlex.gt-sm="100" class="px-1">
+      <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Description</mat-label>
+      <input matInput placeholder="Description" formControlName="description" required>
+    </mat-form-field>
+</div>
+</div>
+
+    <div  fxLayout="row"  fxLayoutAlign="end center">
+      <div mat-dialog-actions>
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+          <button mat-raised-button color="warn" type="button" mat-dialog-close>
+            Close
+          </button>
+          <button mat-raised-button color="primary" type="submit">Save</button>
+        </div>
+      </div>
+    </div>
+    </div>
+</form>

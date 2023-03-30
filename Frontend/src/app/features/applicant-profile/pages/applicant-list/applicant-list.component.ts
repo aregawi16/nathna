@@ -1,3 +1,4 @@
+import { CocComponent } from './../coc/coc.component';
 import { VerifyFlightTicketComponent } from './../verify-flight-ticket/verify-flight-ticket.component';
 import { CompleteInsuranceDocumentComponent } from './../complete-insurance-document/complete-insurance-document.component';
 import { VerfContractDocumentComponent } from './../verf-contract-document/verf-contract-document.component';
@@ -20,8 +21,8 @@ import { ApplicantProfileService } from '../../services/applicant-profile.servic
 import { Gender } from 'src/app/core/constants/gender.enum';
 import { ApplicantContractAgreementComponent } from '../applicant-contract-agreement/applicant-contract-agreement.component';
 import { YellowCardRequestComponent } from '../yellow-card-request/yellow-card-request.component';
-import { Status } from '../../model/Status.enum';
-import { ApplicantPlacementStatus, ApplicantInsuranceStatus, ApplicantLabourStatus, ApplicantTicketStatus, ApplicantContractStatus } from './../../model/Status.enum';
+import { ApplicantPreFlightTrainingStatus, Status } from '../../model/Status.enum';
+import { ApplicantPlacementStatus, ApplicantInsuranceStatus, ApplicantLabourStatus, ApplicantTicketStatus, ApplicantContractStatus, ApplicantCocStatus } from './../../model/Status.enum';
 import { ReceiveYellowCardComponent } from '../receive-yellow-card/receive-yellow-card.component';
 
 export interface ApplicantProfile {
@@ -98,6 +99,10 @@ export class ApplicantListComponent implements OnInit {
   applicantContractStatusList=ApplicantContractStatus;
   applicantInsuranceStatuses!:number[];
   applicantInsuranceStatusList=ApplicantInsuranceStatus;
+  applicantCoCStatuses!:number[];
+  applicantCoCStatusList=ApplicantCocStatus;
+  applicantPreFligtTrainingStatuses!:number[];
+  applicantPreFligtTrainingStatusList=ApplicantPreFlightTrainingStatus;
   applicantLabourOfficeStatuses!:number[];
   applicantLabourOfficeStatusList=ApplicantLabourStatus;
   applicantFlightTicketStatuses!:number[];
@@ -223,6 +228,23 @@ export class ApplicantListComponent implements OnInit {
         return false;
       }
     }
+    checkCocStatus(applicantPlacement:any)
+    {
+      let officeLevel = this.statusList[this.statusList.Insurance];
+      let status = this.applicantInsuranceStatusList[this.applicantInsuranceStatusList.Completed];
+
+      if(applicantPlacement==null)
+      {
+        return false;
+      }
+      else{
+        if(applicantPlacement.status==status&&applicantPlacement.officeLevel==officeLevel)
+        {
+          return true;
+        }
+        return false;
+      }
+    }
     checkCompleteInsuranceStatus(applicantPlacement:any)
     {
       let status = this.applicantInsuranceStatusList[this.applicantInsuranceStatusList.Requested];
@@ -240,16 +262,33 @@ export class ApplicantListComponent implements OnInit {
         return false;
       }
     }
-    checkRequestYellowCardStatus(applicantPlacement:any)
+    checkCompleteCocStatus(applicantPlacement:any)
     {
-      let status = this.applicantInsuranceStatusList[this.applicantInsuranceStatusList.Completed];
+      let status = this.applicantCoCStatusList[this.applicantCoCStatusList.Requested];
+      let officeLevel = this.statusList[this.statusList.CoC];
 
       if(applicantPlacement==null)
       {
         return false;
       }
       else{
-        if(applicantPlacement.status==status)
+        if(applicantPlacement.status==status&& applicantPlacement.officeLevel==officeLevel)
+        {
+          return true;
+        }
+        return false;
+      }
+    }
+    checkRequestYellowCardStatus(applicantPlacement:any)
+    {
+      let officeLevel = this.statusList[this.statusList.PreFlightTraining];
+      let status = this.applicantCoCStatusList[this.applicantPreFligtTrainingStatusList.Completed];
+      if(applicantPlacement==null)
+      {
+        return false;
+      }
+      else{
+        if(applicantPlacement.status==status&& applicantPlacement.officeLevel==officeLevel)
         {
           return true;
         }
@@ -363,7 +402,7 @@ export class ApplicantListComponent implements OnInit {
         return false;
       }
       else{
-      if(applicantProfile.applicantStatuses[0].status==status)
+      if(applicantProfile.applicantStatuses[0]?.status==status)
       {
         console.log(applicantProfile);
         return true;
@@ -657,6 +696,22 @@ this._processManagementService.followFlight(data)
       });
 
     }
+    public completeCoc(id:any)
+    {
+      const dialogRef = this.dialog.open(CocComponent, {
+        maxWidth: "500",
+        maxHeight:"500",
+        data:id
+
+      });
+
+      dialogRef.afterClosed().subscribe(dialogResult => {
+        if(dialogResult){
+
+        }
+      });
+
+    }
     public requestYellowCard(id:any)
     {
       const dialogRef = this.dialog.open(YellowCardRequestComponent, {
@@ -782,5 +837,46 @@ console.log(row);
     }
 
 
+
+
+    ///
+
+
+    public requestCoc(id:any)
+    {
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        maxWidth: "400px",
+        data: {
+          title: "Confirm Action",
+          message: "Are you sure you want request this Coc?"
+        }
+      });
+
+      dialogRef.afterClosed().subscribe(dialogResult => {
+        if(dialogResult){
+          let data = {
+            "applicantId":id,
+             "status":this.applicantInsuranceStatusList.Requested,
+                };
+
+                this._processManagementService.requestCoc(data)
+                .subscribe(data => {
+
+                      this._snackBar.open('Coc requested successfully', 'Undo', {
+                        duration:10000,
+                        horizontalPosition: this.horizontalPosition,
+                        verticalPosition: this.verticalPosition,
+                      });
+
+                      this._dialogRef.close();
+
+                });
+
+
+
+        }
+      });
+
+    }
 
 }

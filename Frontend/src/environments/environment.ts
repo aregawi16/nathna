@@ -4,20 +4,30 @@
 
 export const environment = {
   production: false,
-  url: 'http://localhost:4200',
+  url: '',
     backend: {
-    host: 'https://localhost:44374/api/',
-    base_url: 'https://localhost:44374/',
+    host: 'http://localhost:9898/api/',
+    base_url: 'http://localhost:9898/',
 
   },
+  reportingRestUrl:'http://localhost:9898/api/reports',
+
   oauth: {
-    host: 'https://localhost:44374/api/',
+    host: 'http://localhost:9898/api/',
     client_id: '2',
     client_secret: 'tsN80QNwTawD3WZSX2uziOFI6HstTEs2bXBqsCyv',
     scope: '*',
   },
+  trReportViewerContainerStyle : {
+    position: 'relative',
+    width: '100%',
+    height: '800px',
+    ['font-family']: 'ms sans serif'
+  }
+
 
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file

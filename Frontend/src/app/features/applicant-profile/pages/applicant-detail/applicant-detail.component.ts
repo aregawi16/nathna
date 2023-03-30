@@ -61,7 +61,7 @@ export class ApplicantDetailComponent implements OnInit {
    @ViewChild(MatPaginator) paginator!: MatPaginator;
    @ViewChild(MatSort) sort!: MatSort;
    base_url = environment.backend.base_url;
-   displayedWorkExperienceColumns: string[] = ['startDate', 'endDate', 'duration', 'country', 'jobDescription'];
+   displayedWorkExperienceColumns: string[] = ['duration', 'country', 'jobDescription'];
    displayedExperiencedJobsColumns: string[] = ['job', 'haveExperience'];
 
    docPreviewConfig: DocPreviewConfig = {
@@ -268,12 +268,12 @@ public getOffices()
  checkStatus(applicantProfile:any)
     {
 let status = this.applicantPlacementStatusList[this.applicantPlacementStatusList.Assigned];
-      if(applicantProfile.applicantStatuses==null)
+      if(applicantProfile?.applicantStatuses==null)
       {
         return false;
       }
       else{
-      if(applicantProfile.applicantStatuses[0].status==status)
+      if(applicantProfile?.applicantStatuses[0]?.status==status)
       {
         console.log(applicantProfile);
         return true;
@@ -284,12 +284,12 @@ let status = this.applicantPlacementStatusList[this.applicantPlacementStatusList
     checkContractStatus(applicantProfile:any)
     {
 let status = this.applicantPlacementStatusList[this.applicantPlacementStatusList.DocumentVerified];
-      if(applicantProfile.applicantStatuses==null)
+      if(applicantProfile?.applicantStatuses==null)
       {
         return false;
       }
       else{
-      if(applicantProfile.applicantStatuses[0].status==status)
+      if(applicantProfile?.applicantStatuses[0]?.status==status)
       {
         console.log(applicantProfile);
         return true;

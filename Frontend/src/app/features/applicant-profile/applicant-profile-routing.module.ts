@@ -1,3 +1,4 @@
+import { PreFlightTrainingComponent } from './pages/pre-flight-training/pre-flight-training.component';
 import { ApplicantDetailComponent } from './pages/applicant-detail/applicant-detail.component';
 import { ApplicantProfileComponent } from './applicant-profile.component';
 import { NgModule } from '@angular/core';
@@ -31,6 +32,12 @@ const routes: Routes = [
         path: 'process/:id',
         component: ProcessManagementComponent,
         data: { breadcrumb: 'Detail' }
+      }
+      ,
+      {
+        path: 'preflight-training',
+        component: PreFlightTrainingComponent,
+        data: { breadcrumb: 'Pre Flight Training' }
       }
     ]
     }

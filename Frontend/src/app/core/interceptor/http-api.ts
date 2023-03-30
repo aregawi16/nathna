@@ -13,6 +13,8 @@ static getApplicantProfiles = 'ApplicantProfile';
 static createApplicantProfile = 'ApplicantProfile';
 static getApplicantProfileList = 'ApplicantProfile';
 static placeApplicant = 'ProcessManagement/placement';
+static getApplicantsForTraining = 'ApplicantProfile/getApplicantsForTraining';
+
 
 // Get Jobs
 static getJobs = 'CommonJob/list';
@@ -39,6 +41,13 @@ static receiveContractAgreement = 'ProcessManagement/receiveContractAgreement';
 static verifyContractAgreement = 'ProcessManagement/verifyContractAgreement';
 static requestInsurance = 'ProcessManagement/requestInsurance';
 static completeInsurance = 'ProcessManagement/completeInsurance';
+static requestCoc = 'ProcessManagement/requestCoc';
+static completeCoC = 'ProcessManagement/completeCoC';
+static schedulePreflightTraining = 'SchedulePreflightTraining/schedulePreflightTraining';
+static getPreFlightTrainingSchedules = 'SchedulePreflightTraining/getPreflightTrainingScheduless';
+static completeSchedulePreflightTraining = 'SchedulePreflightTraining/completeSchedulePreflightTraining';
+
+
 static requestYellowRecord = 'ProcessManagement/requestYellowRecord';
 static receivetYellowRecord = 'ProcessManagement/receiveYellowRecord';
 static verifyFlightTcket = 'ProcessManagement/verifyFlightTcket';

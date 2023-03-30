@@ -59,6 +59,15 @@ completeInsurance(data)
     })
   );
 }
+completeCoC(data)
+{
+  return this._http.post(HttpApi.completeCoC,data)
+  .pipe(
+    map((response: any) => {
+      return response;
+    })
+  );
+}
 uplodContractApplicantDocument(data)
 {
   return this._http.post(HttpApi.uploadContractDocumentApplicant,data)
@@ -68,6 +77,7 @@ uplodContractApplicantDocument(data)
     })
   );
 }
+
 verifyContractApplicantDocument(data)
 {
   return this._http.post(HttpApi.verifyContractAgreement,data)
@@ -80,6 +90,33 @@ verifyContractApplicantDocument(data)
 requestInsurance(data)
 {
   return this._http.post(HttpApi.requestInsurance,data)
+  .pipe(
+    map((response: any) => {
+      return response;
+    })
+  );
+}
+requestCoc(data)
+{
+  return this._http.post(HttpApi.requestCoc,data)
+  .pipe(
+    map((response: any) => {
+      return response;
+    })
+  );
+}
+schedulePreflightTraining(data)
+{
+  return this._http.post(HttpApi.schedulePreflightTraining,data)
+  .pipe(
+    map((response: any) => {
+      return response;
+    })
+  );
+}
+completeSchedulePreflightTraining(data)
+{
+  return this._http.post(HttpApi.completeSchedulePreflightTraining,data)
   .pipe(
     map((response: any) => {
       return response;

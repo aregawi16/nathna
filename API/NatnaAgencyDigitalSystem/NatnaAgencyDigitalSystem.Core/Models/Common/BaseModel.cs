@@ -70,6 +70,27 @@ namespace NatnaAgencyDigitalSystem.Api.Models.Common
         Video,
 
     } 
+    public enum QualificationType
+    {
+        Certificate,
+        Diploma,
+        Degree,
+        Others
+    } 
+    public enum LevelOfQualification
+    {
+        Elementary,
+        JeniorSecondary,
+        SecondaryLevel,
+        SecondaryComplete,
+        VocationalLevel,
+        VoctionalComplete,
+        CollegeLevel,
+        CollegeComplete,
+        PostGraduateLevel,
+        NonFormalEducation,
+        Others,
+    }
     public enum Priority
     {
         High=1,
@@ -106,6 +127,20 @@ public enum ApplicantPlacementStatus
 
     }
     public enum ApplicantInsuranceStatus  
+    {
+        Requested = 1,
+        Completed,
+        Rejected,
+
+    }
+    public enum ApplicantCocStatus  
+    {
+        Requested = 1,
+        Completed,
+        Rejected,
+
+    }
+    public enum ApplicantPreFlightTrainingStatus  
     {
         Requested = 1,
         Completed,

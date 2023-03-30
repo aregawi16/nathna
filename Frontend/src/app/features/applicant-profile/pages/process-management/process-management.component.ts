@@ -39,6 +39,8 @@ export class ProcessManagementComponent implements OnInit  {
   applicantTicketStatusDataSource!:any;
   applicantContractStatus!:any;
   applicantInsuranceStatus!:any;
+  applicantCoCStatusDataSource!:any;
+  applicantPreFlightTrainingStatusDataSource!:any;
   applicantLabourOfficeStatus!:any;
   applicantTicketStatus!:any;
   offices!:DropDownObject[];
@@ -80,6 +82,8 @@ export class ProcessManagementComponent implements OnInit  {
     let insuranceStatus = this.statusList[this.statusList.Insurance];
     let labourStatus = this.statusList[this.statusList.MinistryOfLabor];
     let ticketStatus = this.statusList[this.statusList.Ticket];
+    let cocStatus = this.statusList[this.statusList.CoC];
+    let preFlightTrainingStatus = this.statusList[this.statusList.PreFlightTraining];
 
     this._applicantService.getApplicantRofileById(id)
     .subscribe(data => {
@@ -89,6 +93,8 @@ export class ProcessManagementComponent implements OnInit  {
       this.applicantInsuranceStatusDataSource = new MatTableDataSource(data.applicantStatuses.filter(item => item.officeLevel ==insuranceStatus ));
       this.applicantLabourStatusDataSource = new MatTableDataSource(data.applicantStatuses.filter(item => item.officeLevel ==labourStatus ));
       this.applicantTicketStatusDataSource = new MatTableDataSource(data.applicantStatuses.filter(item => item.officeLevel ==ticketStatus ));
+      this.applicantCoCStatusDataSource = new MatTableDataSource(data.applicantStatuses.filter(item => item.officeLevel ==cocStatus ));
+      this.applicantPreFlightTrainingStatusDataSource = new MatTableDataSource(data.applicantStatuses.filter(item => item.officeLevel ==preFlightTrainingStatus ));
 
       console.log(data);
     });

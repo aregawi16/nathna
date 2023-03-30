@@ -24,7 +24,7 @@ namespace NatnaAgencyDigitalSystem.Data.Repositories
         {
             return await NatnaAgencyDbContext.ApplicantProfiles
                    .Include(m => m.WorkExperiences)
-                   .Include(m => m.ExperiencedJobs)
+                   //.Include(m => m.ExperiencedJobs)
                    .Include(m => m.ApplicantDocument)
                    .Include(m => m.ContactPerson)
                    .Include(m => m.EducationHistorys)

@@ -1,19 +1,15 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NatnaAgencyDigitalSystem.Api.Models;
 using NatnaAgencyDigitalSystem.Api.Models.Auth;
-using NatnaAgencyDigitalSystem.Api.Resources;
-using NatnaAgencyDigitalSystem.Api.Services;
-using NatnaAgencyDigitalSystem.Api.Validators;
-using NatnaAgencyDigitalSystem.Data;
-using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
-
-using System;
-using Microsoft.EntityFrameworkCore;
-using System.Data;
 using NatnaAgencyDigitalSystem.Api.Models.Common;
+using NatnaAgencyDigitalSystem.Api.Resources;
+using NatnaAgencyDigitalSystem.Core.Models;
+using NatnaAgencyDigitalSystem.Data;
+using System.Data;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace NatnaAgencyDigitalSystem.Api.Controllers
 {
@@ -259,6 +255,79 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
                 UpdateStatus(applicantInsuranceResource.applicantId, Status.Insurance, ApplicantInsuranceStatus.Requested.ToString());
 
                 _db.SaveChanges();
+                return Ok("200");
+
+            }
+            return Ok("404");
+        }
+
+        [HttpPost("completeCoC")]
+        [Authorize(Roles = "OnlyTest")]
+        public async Task<ActionResult> completeCoC([FromForm] ApplicantCoCResource applicantCocResource)
+        {
+            var applicantInsuranceStatus = _db.ApplicantStatuses.Where(q => q.ApplicantProfileId == applicantCocResource.applicantId).FirstOrDefault();
+
+            if (applicantInsuranceStatus != null)
+            {
+                var applicantCoCObj = new CoC();
+                applicantCoCObj.ApplicantProfileId = applicantCocResource.applicantId;
+                applicantCoCObj.TrainedPlaceName = applicantCocResource.trainedPlaceName;
+                applicantCoCObj.TrainedPlaceAddress = applicantCocResource.trainedPlaceAddress;
+                applicantCoCObj.TrainedSkill = applicantCocResource.trainedSkill;
+                applicantCoCObj.CertificateTakenPlaceName = applicantCocResource.certificateTakenPlaceName;
+                applicantCoCObj.CertificateTakenAddress = applicantCocResource.certificateTakenAddress;
+                applicantCoCObj.Description = applicantCocResource.description;
+                applicantCoCObj.CreatedBy = User.Identity.Name;
+                applicantCoCObj.ModifiedBy = User.Identity.Name;
+                applicantCoCObj.CreatedDate = DateTime.Now;
+                applicantCoCObj.ModifiedDate = DateTime.Now;
+                string wwwPath = this.Environment.WebRootPath;
+                string contentPath = this.Environment.ContentRootPath;
+
+                if (applicantCocResource.cocCertificateFile != null)
+                {
+
+                    string path = Path.Combine("", "NathnaDocuments");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    var NibConstantFileName = "NIB" + applicantCocResource.applicantId.ToString();
+                    string extention = Path.GetExtension(applicantCocResource.cocCertificateFile.FileName);
+
+                    string fileName = NibConstantFileName + "CoCCertificate" + extention;
+                    using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                    {
+                        applicantCocResource.cocCertificateFile.CopyTo(stream);
+                        applicantCoCObj.CertificateFilePath = Path.Combine(path, fileName);
+                    }
+                }
+
+
+                _db.CoCs.Add(applicantCoCObj);
+                UpdateStatus(applicantCocResource.applicantId, Status.CoC, ApplicantCocStatus.Completed.ToString());
+
+                _db.SaveChanges();
+                return Ok("Updated");
+
+            }
+            return Ok(404);
+
+        }
+
+    
+
+        [HttpPost("requestCoc")]
+        [Authorize(Roles = "OnlyTest")]
+        public async Task<ActionResult> requestCoc([FromBody] ApplicantCocStstusResource applicantcocResource)
+        {
+            var applicantPlacementStatus = _db.ApplicantPlacements.Where(q => q.ApplicantProfileId == applicantcocResource.applicantId).FirstOrDefault();
+            if (applicantPlacementStatus != null)
+            {
+                UpdateStatus(applicantcocResource.applicantId, Status.CoC, ApplicantCocStatus.Requested.ToString());
+
+                _db.SaveChanges();
             }
             return Ok();
         }
@@ -308,14 +377,14 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
 
 
 
-        [HttpPost("requestYellowRecord")]                                                                                 
-        [Authorize(Roles = "OnlyTest")]                                                                                   
+        [HttpPost("requestYellowRecord")]
+        [Authorize(Roles = "OnlyTest")]
         public async Task<ActionResult> requestYellowRecord([FromForm] ApplicantLabourResource applicantLabourResource)
         {
             var applicantStatus = _db.ApplicantStatuses.Where(q => q.ApplicantProfileId == applicantLabourResource.applicantId).FirstOrDefault();
             if (applicantStatus != null)
             {
-              var  applicantLabourObj = new ApplicantLabourOffice();
+                var applicantLabourObj = new ApplicantLabourOffice();
 
                 applicantLabourObj.ApplicantProfileId = applicantLabourResource.applicantId;
                 applicantLabourObj.CreatedBy = User.Identity.Name;
@@ -341,6 +410,17 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
                     //applicantContract.ContractFilePath = Path.Combine(path, fileName);
                 }
 
+                 extention = Path.GetExtension(applicantLabourResource.preFlightTrainingCertficate.FileName);
+
+                 fileName = NibConstantFileName + "PreFlightTrainingCertificate" + extention;
+                using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                {
+                    applicantLabourResource.preFlightTrainingCertficate.CopyTo(stream);
+                    applicantLabourObj.PreFlightTrainingCertficatePath = Path.Combine(path, fileName);
+                    //applicantContract.ContractFilePath = Path.Combine(path, fileName);
+                }
+
+
                 UpdateStatus(applicantLabourResource.applicantId, Status.MinistryOfLabor, ApplicantLabourStatus.Requested.ToString());
 
                 _db.ApplicantLabourOffices.Add(applicantLabourObj);
@@ -356,7 +436,7 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
         {
             var applicantStatus = _db.ApplicantStatuses.Where(q => q.ApplicantProfileId == applicantLabourResource.applicantId).FirstOrDefault();
             var applicantLabourObj = _db.ApplicantLabourOffices.Where(q => q.ApplicantProfileId == applicantLabourResource.applicantId).FirstOrDefault();
-            if (applicantStatus != null&& applicantLabourObj != null)
+            if (applicantStatus != null && applicantLabourObj != null)
             {
 
                 string wwwPath = this.Environment.WebRootPath;
@@ -366,7 +446,7 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
                 {
                     Directory.CreateDirectory(path);
                 }
-                applicantLabourObj.Price =(decimal) applicantLabourResource.price;
+                applicantLabourObj.Price = (decimal)applicantLabourResource.price;
                 var NibConstantFileName = "NIB" + applicantLabourResource.applicantId.ToString();
                 string extention = Path.GetExtension(applicantLabourResource.yellowCardDocument.FileName);
 
@@ -388,12 +468,12 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
             return Ok(404);
 
         }
-    
-    [HttpPost("verifyFlightTcket")]
-    [Authorize(Roles = "OnlyTest")]
+
+        [HttpPost("verifyFlightTcket")]
+        [Authorize(Roles = "OnlyTest")]
         public async Task<ActionResult> verifyFlightTcket([FromForm] ApplicantFlightTicketResource applicantFlightTicketResource)
         {
-            var applicantStatus = _db.ApplicantStatuses.Where(q => q.ApplicantProfileId == applicantFlightTicketResource.applicantId).FirstOrDefault();            if (applicantStatus != null)
+            var applicantStatus = _db.ApplicantStatuses.Where(q => q.ApplicantProfileId == applicantFlightTicketResource.applicantId).FirstOrDefault(); if (applicantStatus != null)
             {
                 var applicantFlightTicketObj = new ApplicantFlightTicket();
                 applicantFlightTicketObj.ApplicantProfileId = applicantFlightTicketResource.applicantId;
@@ -445,6 +525,6 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
         }
     }
 
-    
+
 
 }

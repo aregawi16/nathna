@@ -21,8 +21,6 @@ export class YellowCardRequestComponent {
     @Inject(MAT_DIALOG_DATA) public id: any,
     private _formBuilder:FormBuilder,
     private _processManagementService: ProcessManagementService,
-    private _httpClient: HttpClient,
-     private _dialog : MatDialog,
     private _snackBar : MatSnackBar
   )
   {
@@ -31,6 +29,7 @@ export class YellowCardRequestComponent {
     this.yellowCardFormGroup = this._formBuilder.group({
       applicantId: [''],
       labourDocument: [''],
+      preFlightTrainingCertficate: [''],
     });
 
   }
@@ -59,6 +58,12 @@ export class YellowCardRequestComponent {
   this.yellowCardFormGroup.controls.labourDocument.setValue(event.target.files[0]);
   console.log(event.target.files[0]);
   this.formData.append("labourDocument",event.target.files[0]);
+}
+onChangePreflightTrainingCertificate(event)
+{
+  this.yellowCardFormGroup.controls.preFlightTrainingCertficate.setValue(event.target.files[0]);
+  console.log(event.target.files[0]);
+  this.formData.append("preFlightTrainingCertficate",event.target.files[0]);
 }
 
 }

@@ -1,0 +1,17 @@
+<tr-viewer
+    [containerStyle]="viewerContainerStyle"
+    [serviceUrl]="apiUrl"
+    [reportSource]="{
+        report: reportSource,
+        parameters: {}
+    }"
+    [parameters]="{
+      editors: {
+         singleSelect: 'COMBO_BOX',
+          multiSelect: 'COMBO_BOX'
+      }
+  }"
+    [viewMode]="'INTERACTIVE'"
+    [scaleMode]="'SPECIFIC'"
+    [scale]="1.0">
+</tr-viewer>

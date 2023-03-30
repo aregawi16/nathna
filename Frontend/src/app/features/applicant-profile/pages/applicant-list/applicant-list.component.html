@@ -100,7 +100,7 @@
           <div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">
               <div fxFlex="30" fxLayout="column" fxLayoutAlign="center center">
                   <div class="user-img">
-                      <img *ngIf="applicantProfile.applicantDocument.applicantSmallPhotoPath" [src]="host+applicantProfile.applicantDocument.applicantSmallPhotoPath" class="transition-2" [class.blocked]="applicantProfile.isDeleted">
+                      <img *ngIf="applicantProfile?.applicantDocument?.applicantSmallPhotoPath" [src]="host+applicantProfile.applicantDocument?.applicantSmallPhotoPath" class="transition-2" [class.blocked]="applicantProfile.isDeleted">
                       <img *ngIf="!applicantProfile.image" src="assets/images/others/applicantProfile.jpg" class="transition-2" [class.blocked]="applicantProfile.isDeleted">
                       <mat-icon *ngIf="applicantProfile.isDeleted" color="warn">block</mat-icon>
                   </div>
@@ -369,6 +369,12 @@
             <button mat-mini-fab matTooltip="Complete Insurance" class="mx-1" color="primary"  *ngIf="checkCompleteInsuranceStatus(element.applicantStatuses[0])" (click)="completeInsurance(element.applicantProfileId)">
               <mat-icon >directions</mat-icon>
           </button>
+          <button mat-mini-fab matTooltip="Request COC" class="mx-1" color="primary"  *ngIf="checkCocStatus(element.applicantStatuses[0])" (click)="requestCoc(element.applicantProfileId)">
+            <mat-icon >directions</mat-icon>
+        </button>
+        <button mat-mini-fab matTooltip="Complete COC" class="mx-1" color="primary"  *ngIf="checkCompleteCocStatus(element.applicantStatuses[0])" (click)="completeCoc(element.applicantProfileId)">
+          <mat-icon >directions</mat-icon>
+      </button>
             <button mat-mini-fab matTooltip="Request Yellow Card" class="mx-1"  [ngStyle]="{'background-color':'yellow'}"  *ngIf="checkRequestYellowCardStatus(element.applicantStatuses[0])" (click)="requestYellowCard(element.applicantProfileId)">
               <mat-icon >redo</mat-icon>
           </button>

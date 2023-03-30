@@ -16,13 +16,13 @@
 <mat-card-title  style="height: 50px; background-color: #574B9B; display: flex;justify-content: space-between; color: white;align-items: center;">
 <div>Applicant Detail</div>
 <div *ngIf="checkStatus(applicantProfile)">
-  <button mat-raised-button align="center" (click)="selectApplicant(applicantProfile.applicantProfileId)" color="primary" title="Select"><mat-icon  class="check">check</mat-icon></button>
-  <button mat-raised-button align="center" (click)="rejectApplicant(applicantProfile.applicantProfileId)" color="warn" title="Reject"><mat-icon  class="reject">close</mat-icon></button>
+  <button mat-raised-button align="center" (click)="selectApplicant(applicantProfile?.applicantProfileId)" color="primary" title="Select"><mat-icon  class="check">check</mat-icon></button>
+  <button mat-raised-button align="center" (click)="rejectApplicant(applicantProfile?.applicantProfileId)" color="warn" title="Reject"><mat-icon  class="reject">close</mat-icon></button>
 </div>
 
 <div *ngIf="checkContractStatus(applicantProfile)">
-  <button style="margin-right:25px" mat-raised-button align="center" (click)="uploadContractDocument(applicantProfile.applicantProfileId)" color="primary" title="Upload"><mat-icon  class="check">cloud_upload</mat-icon></button>
-  <button style="margin-right:25px"mat-raised-button align="center" (click)="rejectApplicant(applicantProfile.applicantProfileId)" color="warn" title="Reject"><mat-icon  class="reject">close</mat-icon></button>
+  <button style="margin-right:25px" mat-raised-button align="center" (click)="uploadContractDocument(applicantProfile?.applicantProfileId)" color="primary" title="Upload"><mat-icon  class="check">cloud_upload</mat-icon></button>
+  <button style="margin-right:25px"mat-raised-button align="center" (click)="rejectApplicant(applicantProfile?.applicantProfileId)" color="warn" title="Reject"><mat-icon  class="reject">close</mat-icon></button>
 </div>
 
 </mat-card-title>
@@ -52,148 +52,7 @@
   </share-buttons>
   </div>
   <div id="print-section">
-    <div class="cv-container">
-      <app-report-header office="{{(offices | filterById : applicantProfile.applicantPlacement?.officeId)?.name}}" agent="{{(agents | filterById : applicantProfile.agentId)?.name}}"></app-report-header>
-  <div class="personal-detail-conatainer">
-    <div class="applicant-profile-header">
-
-      <p align="center"> Personal Detail </p>
-
-    </div>
-
-
-  <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="Start">
-    <!-- <div fxFlex="10%"></div> -->
-    <div fxFlex="50%">
-      <diV class="div-row"><label>Full Name:</label><span>{{applicantProfile.fullName}}</span></diV>
-      <diV class="div-row"> <label>Phone Number:</label><span>+251{{applicantProfile.phoneNumber}}</span></diV>
-        <diV class="div-row"> <label>Passport Number:</label><span>EP{{applicantProfile.passportNo}}</span></diV>
-          <diV class="div-row"> <label>Nationality:</label><span>Ethiopian</span></diV>
-            <diV class="div-row"><label>Marital Status:</label><span>{{maritalStatusList[applicantProfile.maritalStatus]}}</span></diV>
-            <diV class="div-row"><label>No of Children:</label><span>{{applicantProfile.noOfChildren}}</span></diV>
-              <diV class="div-row"><label>Gender:</label><span>{{genderList[applicantProfile.gender]}}</span></diV>
-              <diV class="div-row"><label>Age:</label><span>{{applicantProfile.age}}</span></diV>
-
-</div>
-
-      <div fxFlex="50%">
-        <diV class="div-row"> <label>Reference No:</label><span>{{applicantProfile.referenceNo}}</span></diV>
-        <diV class="div-row"><label>Passport Issue Date:</label><span>{{applicantProfile.passportIssueDate | date}}</span></diV>
-        <diV class="div-row"><label>Registerd Date:</label><span>{{applicantProfile.createdDate | date}}</span></diV>
-        <diV class="div-row"> <label>Passport Expiry Date:</label><span>{{applicantProfile.passportExpiryDate | date}}</span></diV>
-        <diV class="div-row"><label>Height:</label><span>{{applicantProfile.height}} m</span></diV>
-        <diV class="div-row"><label>Weight:</label><span>{{applicantProfile.weight}} k.g</span></diV>
-        <diV class="div-row"> <label>Religion:</label><span>{{religionList[applicantProfile.religion]}}</span></diV>
-        <diV class="div-row"> <label>Address:</label><span>{{applicantProfile.city}} {{applicantProfile.wereda}} {{applicantProfile.kebelle}}</span></diV>
-
-    </div>
-    </div>
-
-    </div>
-
-    <div class="work-experience-container">
-      <div class="applicant-profile-header">
-        <p align="center"> Work Experience </p>
-
-</div>
-
-  <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.2%" fxLayoutAlign="Start">
-    <!-- <div fxFlex="2%"></div> -->
-
- <div   fxFlex="100%">
-      <table mat-table [dataSource]="workExperienceDataSource" matSort width="100%">
-        <!-- ID Column -->
-        <ng-container matColumnDef="startDate" sticky>
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
-          <td mat-cell *matCellDef="let row">{{ row.startDate | date }}</td>
-        </ng-container>
-
-        <!-- Project Code Column -->
-        <ng-container matColumnDef="endDate">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            End Date
-          </th>
-          <td mat-cell *matCellDef="let row">{{ row.endDate | date }}</td>
-        </ng-container>
-
-        <!-- Project Type Column -->
-        <ng-container matColumnDef="duration">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration(year)</th>
-          <td mat-cell *matCellDef="let row">{{ row.duration }}</td>
-        </ng-container>
-        <!-- Project Type Column -->
-        <ng-container matColumnDef="country">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Country</th>
-          <td mat-cell *matCellDef="let row">{{ row.country }}</td>
-        </ng-container>
-        <ng-container matColumnDef="jobDescription">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Job Description
-          </th>
-          <td mat-cell *matCellDef="let row">{{ row.jobDescription }}</td>
-        </ng-container>
-
-
-        <tr mat-header-row *matHeaderRowDef="displayedWorkExperienceColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedWorkExperienceColumns"></tr>
-      </table>
-    </div>
-    </div>
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.2%" fxLayoutAlign="Start">
-      <!-- <div fxFlex="2%"></div> -->
-      <div fxFlex="60%">
-      <!-- <h4>Full Photo</h4> -->
-        <img [src]="base_url+applicantProfile.applicantDocument.applicantFullPhotoPath" width="400px" height="500px">
-      </div>
-
-   <div   fxFlex="40%">
-    <div class="contact-person-detail-container">
-    <!-- <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.2%" fxLayoutAlign="Start">
-
-      <div fxFlex="100%">
-        <div class="applicant-profile-header">
-
-        <p align="center"> Contact Person Detail </p>
-        </div>
-
-        <diV class="div-row"><label>Full Name:</label><span>{{applicantProfile.contactPerson.fullName}}</span></diV>
-
-    <diV class="div-row"> <label>Phone Number:</label><span>{{applicantProfile.contactPerson.phoneNumber}}</span></diV>
-
-  <diV class="div-row"> <label>Address:</label><span>{{applicantProfile.contactPerson.city}} {{applicantProfile.contactPerson.wereda}} {{applicantProfile.contactPerson.kebelle}}</span></diV>
-</div>
-</div> -->
-
-
-    </div>
-        <table mat-table [dataSource]="experiencedJobDataSource" matSort>
-          <!-- ID Column -->
-          <ng-container matColumnDef="job">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job</th>
-            <td mat-cell *matCellDef="let row">
-
-              {{(jobs | filterById : row.commonJobId)?.name}}</td>
-          </ng-container>
-
-          <!-- Project Code Column -->
-          <ng-container matColumnDef="haveExperience">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>
-              Experience
-            </th>
-            <td mat-cell *matCellDef="let row">
-              {{ row.haveExperience? "Yes" :"No" }}</td>
-          </ng-container>
-
-
-
-
-          <tr mat-header-row *matHeaderRowDef="displayedExperiencedJobsColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedExperiencedJobsColumns"></tr>
-        </table>
-      </div>
-      </div>
-    </div>
-    </div>
+<app-resume [applicantProfile]= "applicantProfile"></app-resume>
   </div>
 </mat-tab>
   <mat-tab>
@@ -203,7 +62,7 @@
     </ng-template>
     <div class="mat-elevation-z8 tab-content" width="100%">
       <ngx-imgPdf-viewer
-      [documentURL]="base_url+applicantProfile.applicantDocument.applicantPassportFilePath"
+      [documentURL]="base_url+applicantProfile?.applicantDocument?.applicantPassportFilePath"
       [docPreviewConfig]="docPreviewConfig"
     ></ngx-imgPdf-viewer>
     </div>
@@ -218,7 +77,7 @@
       </ng-template>
       <div class="mat-elevation-z8 tab-content" width="70%">
         <ngx-imgPdf-viewer
-        [documentURL]="base_url+applicantProfile.applicantDocument.applicantIdFilePath"
+        [documentURL]="base_url+applicantProfile?.applicantDocument?.applicantIdFilePath"
         [docPreviewConfig]="docPreviewConfig"
       ></ngx-imgPdf-viewer>
     </div>
@@ -232,7 +91,7 @@
       </ng-template>
       <div class="mat-elevation-z8 tab-content" width="70%">
         <ngx-imgPdf-viewer
-        [documentURL]="base_url+applicantProfile.applicantDocument.applicantSmallPhotoPath"
+        [documentURL]="base_url+applicantProfile?.applicantDocument?.applicantSmallPhotoPath"
         [docPreviewConfig]="docPreviewConfig"
       ></ngx-imgPdf-viewer>
    </div>
@@ -246,7 +105,7 @@
     </ng-template>
       <div class="mat-elevation-z8 tab-content" width="70%">
         <ngx-imgPdf-viewer
-        [documentURL]="base_url+applicantProfile.applicantDocument.applicantFullPhotoPath"
+        [documentURL]="base_url+applicantProfile?.applicantDocument?.applicantFullPhotoPath"
         [docPreviewConfig]="docPreviewConfig"
       ></ngx-imgPdf-viewer>
     </div>
@@ -279,7 +138,7 @@
             <vg-fullscreen></vg-fullscreen>
           </vg-controls>
           <video [vgMedia]="$any(media)" #media id="singleVideo" preload="auto" crossorigin>
-            <source [src]="base_url+applicantProfile.applicantDocument.applicantVideoPath" type="video/mp4">
+            <source [src]="base_url+applicantProfile?.applicantDocument?.applicantVideoPath" type="video/mp4">
             <!-- <source src="http://static.videogular.com/assets/videos/videogular.ogg" type="video/ogg">
             <source src="http://static.videogular.com/assets/videos/videogular.webm" type="video/webm"> -->
             <!-- <track kind="subtitles" label="English" src="http://static.videogular.com/assets/subs/pale-blue-dot.vtt"
@@ -292,40 +151,40 @@
       </div>
 
     </mat-tab>
-    <mat-tab *ngIf="checkVerifiedDoc(applicantProfile.applicantPlacement)">
+    <mat-tab *ngIf="checkVerifiedDoc(applicantProfile?.applicantPlacement)">
       <ng-template mat-tab-label>
         <mat-icon>folder</mat-icon>
         Medical Document
       </ng-template>
       <div class="mat-elevation-z8 tab-content" width="100%">
         <ngx-imgPdf-viewer
-        [documentURL]="base_url+applicantProfile.applicantDocument.applicantMedicalDocumentPath"
+        [documentURL]="base_url+applicantProfile?.applicantDocument.applicantMedicalDocumentPath"
         [docPreviewConfig]="docPreviewConfig"
       ></ngx-imgPdf-viewer>
       </div>
 
     </mat-tab>
-    <mat-tab *ngIf="checkVerifiedDoc(applicantProfile.applicantPlacement)">
+    <mat-tab *ngIf="checkVerifiedDoc(applicantProfile?.applicantPlacement)">
       <ng-template mat-tab-label>
         <mat-icon>folder</mat-icon>
         Crime Free Document
       </ng-template>
       <div class="mat-elevation-z8 tab-content" width="100%">
         <ngx-imgPdf-viewer
-        [documentURL]="base_url+applicantProfile.applicantDocument.applicantCrimeCheckfreeDocumentPath"
+        [documentURL]="base_url+applicantProfile?.applicantDocument.applicantCrimeCheckfreeDocumentPath"
         [docPreviewConfig]="docPreviewConfig"
       ></ngx-imgPdf-viewer>
       </div>
 
     </mat-tab>
-    <mat-tab *ngIf="checkContractDoc(applicantProfile.applicantPlacement)">
+    <mat-tab *ngIf="checkContractDoc(applicantProfile?.applicantPlacement)">
       <ng-template mat-tab-label>
         <mat-icon>folder</mat-icon>
        Contract Agreement
       </ng-template>
       <div class="mat-elevation-z8 tab-content" width="100%">
         <ngx-imgPdf-viewer
-        [documentURL]="base_url+applicantProfile.applicantDocument.applicantContractAgreementPath"
+        [documentURL]="base_url+applicantProfile?.applicantDocument.applicantContractAgreementPath"
         [docPreviewConfig]="docPreviewConfig"
       ></ngx-imgPdf-viewer>
       </div>

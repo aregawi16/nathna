@@ -185,7 +185,7 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("ApplicantContractAgreementId");
 
@@ -209,11 +209,9 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ApplicantFullPhotoPath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ApplicantIdFilePath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ApplicantMedicalDocumentPath")
@@ -227,11 +225,9 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ApplicantSmallPhotoPath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ApplicantVideoPath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ApplicantDocumentId");
@@ -277,7 +273,7 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("TicketFilePath")
                         .HasColumnType("nvarchar(max)");
@@ -321,7 +317,7 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("ApplicantInsuranceId");
 
@@ -364,8 +360,11 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("PreFlightTrainingCertficatePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<string>("YellowCardFilePath")
                         .HasColumnType("nvarchar(max)");
@@ -764,7 +763,6 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
@@ -814,7 +812,7 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                     b.Property<string>("QualificationType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("YearCompleted")
+                    b.Property<int?>("YearCompleted")
                         .HasColumnType("int");
 
                     b.HasKey("EducationHistoryId");
@@ -822,32 +820,6 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                     b.HasIndex("ApplicantProfileId");
 
                     b.ToTable("EducationHistorys", "NatnaAgency");
-                });
-
-            modelBuilder.Entity("NatnaAgencyDigitalSystem.Api.Models.ExperiencedJob", b =>
-                {
-                    b.Property<int>("ExperiencedJobId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExperiencedJobId"));
-
-                    b.Property<int>("ApplicantProfileId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CommonJobId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("HaveExperience")
-                        .HasColumnType("bit");
-
-                    b.HasKey("ExperiencedJobId");
-
-                    b.HasIndex("ApplicantProfileId");
-
-                    b.HasIndex("CommonJobId");
-
-                    b.ToTable("ExperiencedJobs", "NatnaAgency");
                 });
 
             modelBuilder.Entity("NatnaAgencyDigitalSystem.Api.Models.Setting.CommonJob", b =>
@@ -1003,14 +975,17 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("JobDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("StartDate")
+                    b.Property<DateTime?>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("WorkExperienceId");
@@ -1027,6 +1002,12 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CoCId"));
+
+                    b.Property<int>("ApplicantProfileId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CertificateFilePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CertificateTakenAddress")
                         .IsRequired()
@@ -1256,6 +1237,9 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                     b.Property<DateTime>("ScheduledDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.HasKey("PreFlightTrainingId");
 
                     b.ToTable("PreFlightTrainings", "NatnaAgency");
@@ -1290,6 +1274,9 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("PreFlightTrainingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("PreFlightTrainingPersonId");
@@ -1442,23 +1429,6 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("NatnaAgencyDigitalSystem.Api.Models.ExperiencedJob", b =>
-                {
-                    b.HasOne("NatnaAgencyDigitalSystem.Api.Models.ApplicantProfile", null)
-                        .WithMany("ExperiencedJobs")
-                        .HasForeignKey("ApplicantProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NatnaAgencyDigitalSystem.Api.Models.Setting.CommonJob", "CommonJob")
-                        .WithMany()
-                        .HasForeignKey("CommonJobId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CommonJob");
-                });
-
             modelBuilder.Entity("NatnaAgencyDigitalSystem.Api.Models.Setting.Office", b =>
                 {
                     b.HasOne("NatnaAgencyDigitalSystem.Api.Models.Setting.Country", null)
@@ -1534,8 +1504,6 @@ namespace NatnaAgencyDigitalSystem.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("EducationHistorys");
-
-                    b.Navigation("ExperiencedJobs");
 
                     b.Navigation("WorkExperiences");
                 });

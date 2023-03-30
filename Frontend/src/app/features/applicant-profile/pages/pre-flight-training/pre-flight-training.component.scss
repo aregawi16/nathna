@@ -1,0 +1,14 @@
+.demo-table {
+  width: 100%;
+}
+
+.demo-button-container {
+  display:flex;
+  flex-direction: row;
+  justify-content: end;
+  padding-bottom: 16px;
+}
+
+.demo-button + .demo-button {
+  margin-left: 8px;
+}

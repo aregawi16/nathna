@@ -1,3 +1,5 @@
+import { QualificationType, LevelOfQualification } from './../../model/education-level.enum';
+import { Route, Router } from '@angular/router';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LoginForm } from './../../../auth/models/LoginForm';
 import { ApplicantProfile } from './../applicant-list/applicant-list.component';
@@ -10,7 +12,7 @@ import { formatDate } from '@angular/common';
 
 
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup, FormArray, Validators, FormGroupDirective } from '@angular/forms'
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { Gender } from 'src/app/core/constants/gender.enum';
 import { Religion } from 'src/app/core/constants/religion.enum';
@@ -57,6 +59,10 @@ model : LoginForm={
   relationships!:number[];
   relationshipList=Relationship;
   religions!:number[];
+  qualificationTypes!:number[];
+  qualificationTypeList=QualificationType;
+  levelOfQualifications!:number[];
+  levelOfQualificationList=LevelOfQualification;
   refNo:string="nnn";
   hidden = false;
   religionList=Religion;
@@ -79,6 +85,7 @@ model : LoginForm={
     private _snackBar: MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public applicantProfileEditData: any,
     private _settingService: SettingService,
+    private _router: Router,
     private _applicantProfileService:ApplicantProfileService
     ) {
 
@@ -92,8 +99,8 @@ model : LoginForm={
       lastNameAm: ['',[ Validators.required]],
       middleName: ['',[ Validators.required]],
       middleNameAm: ['',[ Validators.required]],
-      phoneNumber: ['',[ Validators.required,Validators.maxLength(10)]],
-      passportNo: ['',[ Validators.required,Validators.maxLength(10)]],
+      phoneNumber: ['',[ Validators.required,Validators.maxLength(9)]],
+      passportNo: ['',[ Validators.required,Validators.maxLength(8)]],
       passportIssueDate: ['',[ Validators.required]],
       passportExpiryDate: ['',[ Validators.required]],
       referenceNo: ['',[ Validators.required]],
@@ -105,8 +112,8 @@ model : LoginForm={
       religion: ['',[ Validators.required]],
       agentId: ['',[ Validators.required]],
       priority: ['',[ Validators.required]],
-      height: ['',[ Validators.required]],
-      weight: ['',[ Validators.required]],
+      height: [0],
+      weight: [0],
       city: ['',[ Validators.required]],
       wereda: ['',[ Validators.required]],
       kebelle: ['',[ Validators.required]],
@@ -116,15 +123,15 @@ model : LoginForm={
       contactPerson:this._formBuilder.group({
         fullName: ['', Validators.required],
         phoneNumber: ['', Validators.required],
-        email: ['', Validators.required],
+        email: [''],
         city: ['', Validators.required],
         wereda: ['', Validators.required],
         kebelle: ['', Validators.required],
         }),
         educationData:this._formBuilder.group({
           qualificationType: [''],
-          levelOfQualification: ['', Validators.required],
-          yearCompleted: ['', Validators.required],
+          levelOfQualification: [''],
+          yearCompleted: [''],
           award: [''],
           professionalSkill: ['']
                 }),
@@ -157,24 +164,28 @@ this.initInsuranceGroup();
   this.religions= Object.keys(this.religionList).map(key => parseInt(key)).filter(f => !isNaN(Number(f)));
   this.priorities= Object.keys(this.priorityList).map(key => parseInt(key)).filter(f => !isNaN(Number(f)));
   this.relationships= Object.keys(this.relationshipList).map(key => parseInt(key)).filter(f => !isNaN(Number(f)));
+  this.qualificationTypes= Object.keys(this.qualificationTypeList).map(key => parseInt(key)).filter(f => !isNaN(Number(f)));
+  this.levelOfQualifications= Object.keys(this.levelOfQualificationList).map(key => parseInt(key)).filter(f => !isNaN(Number(f)));
 
 
   }
   ngOnInit() {
-console.log(this.applicantProfileEditData);
 
   if(this.applicantProfileEditData){
     this.personalInfoFormGroup.patchValue(this.applicantProfileEditData);
   }
 }
   initGroup() {
+    let date = new Date();
     let workExperiences = this.personalInfoFormGroup.get('workExperiences') as FormArray;
     workExperiences.push(this._formBuilder.group({
       ApplicantProfileId: [1],
-      startDate: ['', Validators.required],
-    endDate: ['', Validators.required],
-    country: ['', Validators.required],
-    jobDescription: ['', Validators.required],
+      duration: [''],
+      startDate: [date],
+      endDate: [date],
+      country: [''],
+      jobs: [''],
+      jobDescription: [''],
     }))
   }
 
@@ -182,7 +193,7 @@ console.log(this.applicantProfileEditData);
     let insuranceBeneficiaries = this.personalInfoFormGroup.get('insuranceBeneficiaries') as FormArray;
     insuranceBeneficiaries.push(this._formBuilder.group({
       ApplicantProfileId: [1],
-      fullName: ['', Validators.required],
+    fullName: ['', Validators.required],
     relationship: ['', Validators.required],
     address: ['', Validators.required],
     percent: ['', Validators.required],
@@ -199,20 +210,20 @@ console.log(this.applicantProfileEditData);
 this._applicantProfileService.getCommonJobs()
     .subscribe(data => {
       this.commonJobs = data;
-      this.commonJobs.forEach(item =>{
-  let experiencedJobs = this.personalInfoFormGroup.get('experiencedJobs') as FormArray;
-  experiencedJobs.push(this._formBuilder.group({
-    commonJobId: item.id,
-    commonJobName: item.name,
-  haveExperience: false,
-  }))
+      // this.commonJobs.forEach(item =>{
+  // let experiencedJobs = this.personalInfoFormGroup.get('experiencedJobs') as FormArray;
+  // experiencedJobs.push(this._formBuilder.group({
+  //   commonJobId: item.id,
+  //   commonJobName: item.name,
+  // haveExperience: false,
+  // }))
 
-  console.log(experiencedJobs);
+  // console.log(this.commonJobs);
 
-    });
+    // });
 
      console.log(this.commonJobs);
-   console.log(this.experiencedJobFormGroup['controls']['jobs']['controls']);
+  //  console.log(this.experiencedJobFormGroup['controls']['jobs']['controls']);
 
 
    });
@@ -227,7 +238,13 @@ this._settingService.getAgentList()
    });
 
 }
+onChangeJob(i:number,event:any)
+{
 
+  console.log(event.value.toString());
+  console.log(this.personalInfoFormGroup['controls']['workExperiences']['controls'][i].controls.jobDescription.setValue(event.value.toString()));
+  console.log(this.personalInfoFormGroup['controls']['workExperiences']['controls'][i].controls.jobDescription.value);
+}
 generateRefNo()
 {
   this.refNo = this.personalInfoFormGroup['controls']['firstName'].value?.charAt(0);;
@@ -300,30 +317,49 @@ submitApplicantProfile()
 
   });
 }
-onSubmit()
+onSubmit(formItemDirective:FormGroupDirective)
 {
+
+
 
   console.log(this.formData);
   console.log(this.personalInfoFormGroup.value);
-  this._applicantProfileService.createApplicantProfile(this.personalInfoFormGroup.value)
-  .subscribe(data => {
-    this.formData.append("ApplicantProfileId",data.applicantProfileId);
-    this._applicantProfileService.uplodApplicantDocument(this.formData)
+  // if(this.personalInfoFormGroup.valid && this.documentFormGroup)
+  // {
+    this._applicantProfileService.createApplicantProfile(this.personalInfoFormGroup.value)
     .subscribe(data => {
+      this.formData.append("ApplicantProfileId",data.applicantProfileId);
+      this._applicantProfileService.uplodApplicantDocument(this.formData)
+      .subscribe(data => {
 
 
-          this._snackBar.open('Applicant added successfully', 'Undo', {
-            duration:10000,
-            horizontalPosition: this.horizontalPosition,
-            verticalPosition: this.verticalPosition,
-          });
+            this._snackBar.open('Applicant added successfully', 'Undo', {
+              duration:10000,
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+            });
+            formItemDirective.resetForm();
+            this.personalInfoFormGroup.reset();
+
+            this._router.navigateByUrl('/applicant-profile/list');
+
+      });
 
 
     });
+  }
+  // else
+  // {
 
+  //   this._snackBar.open('Please insert the required fields', 'cancel', {
+  //     duration:10000,
+  //     panelClass: ['mat-toolbar', 'mat-primary'],
+  //     horizontalPosition: "end",
+  //     verticalPosition: "top",
+  //   });
+  // }
 
-  });
-}
+// }
 
 onChangeApplicantPassport(event)
 {

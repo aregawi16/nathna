@@ -131,7 +131,9 @@ namespace NatnaAgencyDigitalSystem.Data.Configurations
                 .Property(m => m.ApplicantContractAgreementId)
                 .UseIdentityColumn();
 
-
+            builder
+               .Property(m => m.Price)
+               .HasColumnType("decimal(18,4)");
             builder
                 .ToTable("ApplicantContractAgreements", "NatnaAgency");
 
@@ -146,7 +148,11 @@ namespace NatnaAgencyDigitalSystem.Data.Configurations
 
             builder
                 .Property(m => m.ApplicantInsuranceId)
-                .UseIdentityColumn();
+                .UseIdentityColumn(); 
+            
+            builder
+                .Property(m => m.Price)
+                .HasColumnType("decimal(18,4)");
 
 
             builder
@@ -164,6 +170,9 @@ namespace NatnaAgencyDigitalSystem.Data.Configurations
             builder
                 .Property(m => m.ApplicantLabourOfficeId)
                 .UseIdentityColumn();
+            builder
+               .Property(m => m.Price)
+               .HasColumnType("decimal(18,4)");
 
 
             builder
@@ -181,7 +190,10 @@ namespace NatnaAgencyDigitalSystem.Data.Configurations
             builder
                 .Property(m => m.ApplicantFlightTicketId)
                 .UseIdentityColumn();
-
+             
+            builder
+                .Property(m => m.Price)
+                .HasColumnType("decimal(18,4)");
 
             builder
                 .ToTable("ApplicantFlightTickets", "NatnaAgency");

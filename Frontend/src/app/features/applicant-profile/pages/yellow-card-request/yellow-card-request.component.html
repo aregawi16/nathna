@@ -7,18 +7,22 @@
 
     </div>
     </div>
-    <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
 
-      <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
+      <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center" class="mt-2">
+        <div class="image-upload" fxFlex="90%">
+
+          <label>Preflight Trauning Certificate</label>
+        <input type="file" (change)="onChangePreflightTrainingCertificate($event)" accept="image/*"    required/>
+        </div>
+        </div>
+
+      <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center" class="mt-3">
         <div class="image-upload" fxFlex="90%">
 
           <label>Labour Document</label>
-          <!-- <app-image-uploader (change)="onChangeMedical($event)" accept="image/*" formControlName="medicalDocument"></app-image-uploader> -->
-          <!-- <img src="assets/images/uploadicons/upload-svgrepo-com2.svg"  width="50px" matTooltip="upload"  alt=""> -->
-          <input type="file" (change)="onChangeLabourDocument($event)" accept="image/*"    required/>
+    <input type="file" (change)="onChangeLabourDocument($event)" accept="image/*"    required/>
         </div>
         </div>
-    </div>
     <mat-divider></mat-divider>
 
     <div  fxLayout="row"  fxLayoutAlign="end center">
