@@ -7,7 +7,10 @@
     top: 13px;
 }
 
-
+.app.blue .active-link
+{
+  background-color: #06407a !important;
+}
 
 
 .menu-item{
@@ -16,12 +19,17 @@
         padding-top: 20px;
         padding-bottom: 20px;
         width: 100%;
+        font-size: 15px;
+        font-weight: bold;
+        // color: white !important;
         // color: #7e7f80 !important;
         border-radius: 0;
 
         .menu-icon{
             margin-right: 12px;
-            padding: 7px;
+            padding: 10px;
+            font-size: 25px;
+            color: #06407a !important;
             border-radius: 50%;
         }
         &.expanded{

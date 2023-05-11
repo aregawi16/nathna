@@ -33,6 +33,9 @@ import { CocComponent } from './pages/coc/coc.component';
 import { PreFlightTrainingComponent } from './pages/pre-flight-training/pre-flight-training.component';
 import { PreflightTrainingDialogComponent } from './pages/pre-flight-training/preflight-training-dialog/preflight-training-dialog.component';
 import { CompletePreflightTrainingDialogComponent } from './pages/pre-flight-training/complete-preflight-training-dialog/complete-preflight-training-dialog.component';
+import { QRCodeModule } from 'angularx-qrcode';
+import { NgxBarcodeModule } from 'ngx-barcode';
+
 
 
 @NgModule({
@@ -51,6 +54,7 @@ import { CompletePreflightTrainingDialogComponent } from './pages/pre-flight-tra
     ResumeComponent,
     VerifyFlightTicketComponent,
     CocComponent,
+    ResumeComponent,
     PreFlightTrainingComponent,
     PreflightTrainingDialogComponent,
     CompletePreflightTrainingDialogComponent
@@ -63,14 +67,17 @@ import { CompletePreflightTrainingDialogComponent } from './pages/pre-flight-tra
     ShareIconsModule,
     PipesModule,
     NgxPrintModule,
+    QRCodeModule,
     NgxPaginationModule,
     ApplicantProfileRoutingModule,
     VgCoreModule,
     VgControlsModule,
     VgOverlayPlayModule,
     VgBufferingModule,
-    ImgPdfViewerModule
-  ],
+    ImgPdfViewerModule,
+    NgxBarcodeModule
+
+    ],
   exports: [
     SharedModule,
     ApplicantProfileRoutingModule

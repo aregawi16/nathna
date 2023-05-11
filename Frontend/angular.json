@@ -26,9 +26,9 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
               "src/assets",
-              "src/web.config"
+              "src/favicon.ico",
+              "./src/web.config"
             ],
             "styles": [
               "./node_modules/@videogular/ngx-videogular/fonts/videogular.css",
@@ -42,7 +42,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "2mb",
-                  "maximumError": "4mb"
+                  "maximumError": "6mb"
                 },
                 {
                   "type": "anyComponentStyle",

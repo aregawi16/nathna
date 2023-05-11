@@ -116,6 +116,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 builder.Services.AddDirectoryBrowser();
 
+
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("OnlyTest", new AuthorizationPolicyBuilder()
@@ -167,6 +168,7 @@ builder.Services.AddCors(options =>
                 "http://localhost:90")
             .AllowAnyMethod()
             .AllowAnyHeader()
+            .AllowCredentials()
             .SetIsOriginAllowedToAllowWildcardSubdomains();
         });
 });

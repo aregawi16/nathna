@@ -261,7 +261,7 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
 
                 await _ApplicantProfileService.DeleteApplicantProfile(ApplicantProfile);
 
-                return NoContent();
+                return Ok("Deleted");
             }
         }
 

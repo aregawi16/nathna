@@ -1,6 +1,6 @@
 import { QualificationType, LevelOfQualification } from './../../model/education-level.enum';
 import { Route, Router } from '@angular/router';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { LoginForm } from './../../../auth/models/LoginForm';
 import { ApplicantProfile } from './../applicant-list/applicant-list.component';
 import { SettingService } from './../../../setting/setting.service';
@@ -11,13 +11,14 @@ import { DropDownObject } from './../../../../core/models/dropDownObject';
 import { formatDate } from '@angular/common';
 
 
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators, FormGroupDirective } from '@angular/forms'
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { Gender } from 'src/app/core/constants/gender.enum';
 import { Religion } from 'src/app/core/constants/religion.enum';
 import { Priority } from 'src/app/core/constants/priority.enum';
 import { Relationship } from '../../model/Relationship.enum';
+import { empty } from 'rxjs';
 
 /**
  * @title Stepper with customized states
@@ -34,7 +35,7 @@ import { Relationship } from '../../model/Relationship.enum';
   ],
 })
 export class AddApplicantComponent {
-
+  public event: EventEmitter<any> = new EventEmitter();
   horizontalPosition: MatSnackBarHorizontalPosition = 'start';
 verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 model : LoginForm={
@@ -83,10 +84,12 @@ model : LoginForm={
 
   constructor(public _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public applicantProfileEditData: any,
+    @Inject(MAT_DIALOG_DATA) public dataa: any,
     private _settingService: SettingService,
+    private _dialogRef: MatDialogRef<AddApplicantComponent>,
     private _router: Router,
     private _applicantProfileService:ApplicantProfileService
+
     ) {
 
 
@@ -99,13 +102,14 @@ model : LoginForm={
       lastNameAm: ['',[ Validators.required]],
       middleName: ['',[ Validators.required]],
       middleNameAm: ['',[ Validators.required]],
-      phoneNumber: ['',[ Validators.required,Validators.maxLength(9)]],
+      phoneNumber: [' '],
       passportNo: ['',[ Validators.required,Validators.maxLength(8)]],
       passportIssueDate: ['',[ Validators.required]],
       passportExpiryDate: ['',[ Validators.required]],
       referenceNo: ['',[ Validators.required]],
       doB: ['',[ Validators.required]],
-      nationality: ['',[ Validators.required]],
+      nationality: ['Ethiopian'],
+      countryId: ['',[ Validators.required]],
       maritalStatus: ['',[ Validators.required]],
       gender: ['',[ Validators.required]],
       noOfChildren: ['',[ Validators.required]],
@@ -121,12 +125,12 @@ model : LoginForm={
       workExperiences: this._formBuilder.array([]),
       insuranceBeneficiaries: this._formBuilder.array([]),
       contactPerson:this._formBuilder.group({
-        fullName: ['', Validators.required],
-        phoneNumber: ['', Validators.required],
+        fullName: [''],
+        phoneNumber: [''],
         email: [''],
-        city: ['', Validators.required],
-        wereda: ['', Validators.required],
-        kebelle: ['', Validators.required],
+        city: [''],
+        wereda: [''],
+        kebelle: [''],
         }),
         educationData:this._formBuilder.group({
           qualificationType: [''],
@@ -171,8 +175,8 @@ this.initInsuranceGroup();
   }
   ngOnInit() {
 
-  if(this.applicantProfileEditData){
-    this.personalInfoFormGroup.patchValue(this.applicantProfileEditData);
+  if(this.dataa){
+    this.personalInfoFormGroup.patchValue(this.dataa);
   }
 }
   initGroup() {
@@ -193,10 +197,10 @@ this.initInsuranceGroup();
     let insuranceBeneficiaries = this.personalInfoFormGroup.get('insuranceBeneficiaries') as FormArray;
     insuranceBeneficiaries.push(this._formBuilder.group({
       ApplicantProfileId: [1],
-    fullName: ['', Validators.required],
-    relationship: ['', Validators.required],
-    address: ['', Validators.required],
-    percent: ['', Validators.required],
+    fullName: [''],
+    relationship: [''],
+    address: [''],
+    percent: [''],
     }))
   }
 
@@ -298,34 +302,56 @@ submitApplicantProfile()
 
   console.log(this.formData);
   console.log(this.personalInfoFormGroup.value);
-  this._applicantProfileService.createApplicantProfile(this.personalInfoFormGroup.value)
-  .subscribe(data => {
-
-    this._applicantProfileService.uplodApplicantDocument(this.formData)
+  if(this.dataa.applicantProfileId==undefined|| this.dataa.applicantProfileId==null)
+  {
+    this._applicantProfileService.createApplicantProfile(this.personalInfoFormGroup.value)
     .subscribe(data => {
 
+      this._applicantProfileService.uplodApplicantDocument(this.formData)
+      .subscribe(data => {
 
-          this._snackBar.open('Applicant added successfully', 'Undo', {
-            duration:10000,
-            horizontalPosition: this.horizontalPosition,
-            verticalPosition: this.verticalPosition,
-          });
+
+            this._snackBar.open('Applicant added successfully', 'Undo', {
+              duration:10000,
+              horizontalPosition: this.horizontalPosition,
+              verticalPosition: this.verticalPosition,
+            });
+
+
+      });
 
 
     });
+  }
+  else
+  {
+    this._applicantProfileService.updateApplicantProfile(this.personalInfoFormGroup.value)
+    .subscribe(data => {
+      this.triggerEvent(data );
+      this._snackBar.open('Applicant updated successfully', 'Undo', {
+        duration:10000,
+        horizontalPosition: this.horizontalPosition,
+        verticalPosition: this.verticalPosition,
+      });
+    });
+  }
 
-
-  });
+}
+triggerEvent(uppdatedApplicant: string) {
+  this.event.emit({ data: uppdatedApplicant , res:200 });
 }
 onSubmit(formItemDirective:FormGroupDirective)
 {
 
 
 
-  console.log(this.formData);
+  console.log(this.dataa.applicantProfileId);
   console.log(this.personalInfoFormGroup.value);
-  // if(this.personalInfoFormGroup.valid && this.documentFormGroup)
-  // {
+
+  if(this.personalInfoFormGroup.valid && this.documentFormGroup)
+  {
+    if(this.dataa.applicantProfileId==undefined|| this.dataa.applicantProfileId==null )
+    {
     this._applicantProfileService.createApplicantProfile(this.personalInfoFormGroup.value)
     .subscribe(data => {
       this.formData.append("ApplicantProfileId",data.applicantProfileId);
@@ -348,18 +374,32 @@ onSubmit(formItemDirective:FormGroupDirective)
 
     });
   }
-  // else
-  // {
+    else
+    {
+      this._applicantProfileService.updateApplicantProfile(this.personalInfoFormGroup.value)
+      .subscribe(data => {
+        this._snackBar.open('Applicant updated successfully', 'Undo', {
+          duration:10000,
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+        });
+        // this._dialogRef.close();
 
-  //   this._snackBar.open('Please insert the required fields', 'cancel', {
-  //     duration:10000,
-  //     panelClass: ['mat-toolbar', 'mat-primary'],
-  //     horizontalPosition: "end",
-  //     verticalPosition: "top",
-  //   });
-  // }
+      });
+    }
+  }
+  else
+  {
 
-// }
+    this._snackBar.open('Please insert the required fields', 'cancel', {
+      duration:10000,
+      panelClass: ['mat-toolbar', 'mat-primary'],
+      horizontalPosition: "end",
+      verticalPosition: "top",
+    });
+  }
+
+}
 
 onChangeApplicantPassport(event)
 {

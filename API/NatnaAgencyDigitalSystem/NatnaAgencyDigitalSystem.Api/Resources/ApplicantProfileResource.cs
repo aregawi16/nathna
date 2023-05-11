@@ -7,6 +7,7 @@ namespace NatnaAgencyDigitalSystem.Api.Resources
 
     public class ApplicantProfileResource : BaseModelResource
     {
+        public int? ApplicantProfileId { get; set; }
         public string FirstName { get; set; }
         public string FirstNameAm { get; set; }
         public string MiddleName { get; set; }
@@ -14,9 +15,10 @@ namespace NatnaAgencyDigitalSystem.Api.Resources
         public string LastName { get; set; }
         public string LastNameAm { get; set; }
         public string? Email { get; set; }
-        public int Nationality { get; set; }
+        public string Nationality { get; set; }
+        public int? CountryId { get; set; }
         public string ReferenceNo { get; set; }
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
         public DateTime Date { get; set; }
         public MaritalStatus MaritalStatus { get; set; }
         public Gender Gender { get; set; }
@@ -55,12 +57,12 @@ namespace NatnaAgencyDigitalSystem.Api.Resources
         public class ContactPersonResource
     { 
 
-            public string FullName { get; set; }
-            public string PhoneNumber { get; set; }
-            public string Email { get; set; }
-            public string City { get; set; }
-            public string Wereda { get; set; }
-            public string Kebelle { get; set; }
+            public string? FullName { get; set; }
+            public string? PhoneNumber { get; set; }
+            public string? Email { get; set; }
+            public string? City { get; set; }
+            public string? Wereda { get; set; }
+            public string? Kebelle { get; set; }
         public string ContactPersonDocumentPath  => "aaaaaa";
 
 

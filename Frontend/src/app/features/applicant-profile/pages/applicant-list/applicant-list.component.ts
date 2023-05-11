@@ -33,6 +33,7 @@ export interface ApplicantProfile {
   fullName: string;
   applicantDocument: ApplicantDocument;
   applicantPlacement:ApplicantPlaceMent
+  isDeleted:Boolean
 
 }
 
@@ -108,7 +109,7 @@ export class ApplicantListComponent implements OnInit {
   applicantFlightTicketStatuses!:number[];
   applicantFlightTicketStatuseList=ApplicantTicketStatus;
   placementFormGroup!: FormGroup;
-    public applicantProfiles!: ApplicantProfile[];
+    public applicantProfiles!: any[];
     public searchText!: string;
     public startDate!: string;
     public endDate!: string;
@@ -560,6 +561,10 @@ this._processManagementService.followFlight(data)
     public addApplicantProfile(applicantProfile:any){
     }
     public updateApplicantProfile(applicantProfile:any){
+      const index: number = this.applicantProfiles.findIndex(x => x.applicantProfileId == applicantProfile.applicantProfileId);
+      if (index !== -1) {
+        this.applicantProfiles.splice(index, 1,applicantProfile);
+      }
     }
     public deleteApplicantProfile(id:any){
       const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -576,7 +581,7 @@ this._processManagementService.followFlight(data)
       .subscribe(() => {
         const index: number = this.applicantProfiles.findIndex(x => x.applicantProfileId == id);
           if (index !== -1) {
-            this.applicantProfiles =   this.applicantProfiles.splice(index, 1);
+              this.applicantProfiles.splice(index, 1);
           }
         // this.applicantProfiles = data;
         // console.log(data);
@@ -829,10 +834,14 @@ console.log(row);
             data: applicantProfile
         });
 
-        dialogRef.afterClosed().subscribe(applicantProfile => {
-            if(applicantProfile){
-                (applicantProfile.id) ? this.updateApplicantProfile(applicantProfile) : this.addApplicantProfile(applicantProfile);
-            }
+        dialogRef.componentInstance.event.subscribe(data => {
+
+        console.log(data.data);
+        console.log("Here");
+          if(data)
+              this.updateApplicantProfile(data);
+              dialogRef.close();
+
         });
     }
 

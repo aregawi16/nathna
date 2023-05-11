@@ -51,6 +51,15 @@ createApplicantProfile(data)
     })
   );
 }
+updateApplicantProfile(data)
+{
+  return this._http.put(HttpApi.createApplicantProfile+"/"+data.applicantProfileId,data)
+  .pipe(
+    map((response: any) => {
+      return response;
+    })
+  );
+}
 uplodApplicantDocument(data)
 {
   return this._http.post(HttpApi.createApplicantProfile+"/upload",data)

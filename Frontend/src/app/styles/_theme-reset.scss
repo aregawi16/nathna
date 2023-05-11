@@ -10,7 +10,7 @@
     $background:    map.get($color-config, 'background');
 
     .bg-primary {
-        background: mat.get-color-from-palette($primary);
+        background: #06407a;
         color: mat.get-color-from-palette($primary, default-contrast);
     }
     .bg-accent {
@@ -31,7 +31,7 @@
     }
 
     .primary-color{
-        color: mat.get-color-from-palette($primary);
+        color: #06407a;
     }
 
     .top-navbar.mat-toolbar,

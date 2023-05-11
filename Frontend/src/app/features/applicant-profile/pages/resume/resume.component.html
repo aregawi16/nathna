@@ -8,7 +8,7 @@
               </div>
           </div>
           <div class="name-left-section">
-            <h2>{{applicantProfile?.fullName}}</h2>
+            <h4>{{applicantProfile?.firstName}}  {{applicantProfile?.middleName}}</h4>
             <p>Ethiopian</p>
             <div class="contact-section">
               <!-- <div class="title-section">
@@ -18,55 +18,49 @@
                 <div class="line">
                 </div>
               </div> -->
-              <img src="/assets/facebook.png">
+              <!-- <img src="/assets/facebook.png"> -->
               <!-- <p class="para">fb.com/g1daniel</p> -->
-              <img src="/assets/youtube.png">
+              <!-- <img src="/assets/whatsapp.png"> -->
               <!-- <p class="para">youtube.com/g1daniel</p> -->
-              <img src="/assets/instagram.png">
+              <!-- <img src="/assets/instagram.png"> -->
               <!-- <p class="para">fb.com/g1daniel</p> -->
             </div>
           </div>
           <div class="skills-section">
             <h3 class="main-title">Skills</h3>
             <ul>
-                <li>
-                    <p class="skill-title">Javascript</p>
-                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-                </li>
-                <li>
-                    <p class="skill-title">Photoshop</p>
-                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-                </li>
-                <li>
-                    <p class="skill-title">Java</p>
-                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-                </li>
-                <li>
-                    <p class="skill-title">C++</p>
-                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-                </li>
-                <li>
-                    <p class="skill-title">Ruby</p>
-                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-                </li>
-                <li>
-                    <p class="skill-title">Node js</p>
-                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-                </li>
-                <li>
-                    <p class="skill-title">html/css</p>
-                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-                </li>
-                <li>
-                    <p class="skill-title">illustrator</p>
-                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-                </li>
-                <li>
-                    <p class="skill-title">Wordpress</p>
-                    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-                </li>
+                <li *ngFor="let item of getSkills(applicantProfile?.workExperiences)" >
+                  <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="gappx">
+                    <div fxFlex="100" fxFlex.gt-sm="60" class="px-1"> <p class="skill-title">{{item}}</p></div>
+                    <div fxFlex="100" fxFlex.gt-sm="50"><mat-icon style="color: #ffc20b">
+                      star
+                    </mat-icon> </div>
+                  </div>
+
+
+                                 </li>
+
+
             </ul>
         </div>
+
+        <!-- <div class="skills-section">
+          <h3 class="main-title">Language</h3>
+          <ul>
+              <li>
+                <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="gappx">
+                  <div fxFlex="100" fxFlex.gt-sm="60" class="px-1"> <p class="skill-title">Arabic</p></div>
+                  <div fxFlex="100" fxFlex.gt-sm="50"><mat-icon style="color: #ffc20b">
+                    stars
+                  </mat-icon> </div>
+                </div>
+
+
+                               </li>
+
+
+          </ul>
+      </div> -->
 
       </div>
   </section>
@@ -75,180 +69,179 @@
     </div> -->
       <div class="right-main-content">
           <section class="about sect">
-           <h4 class="right-title">Passport Details</h4>
+            <div class="row wrap">
+              <div fxFlex="100" fxFlex.gt-sm="60"> <h5 class="right-title" >Passport Details </h5></div>
+              <div fxFlex="100" fxFlex.gt-sm="25"> <ngx-barcode *ngFor="let bcValue of values" [bc-value]="'EP'+bcValue"  [bc-line-color]="lineColor"
+                [bc-width]="widthone" [bc-height]="height" [bc-display-value]="displayValueT" [bc-font-options]="fontOptions" [bc-font]="font"
+                [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"
+                [bc-margin]="margin" [bc-margin-top]="marginTop" [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight">
+              </ngx-barcode></div>
+            </div>
+
+
            <div class="title-bottom-line"></div>
            <div class="details-section">
             <div class="left-detail-section">
+
               <div class="detail">
-                <p class="type-title">Phone Number</p>
-                <p class="para">+251{{applicantProfile?.phoneNumber}}</p>
+                <p class="type-title">Given Name</p>
+                <p class="para">{{applicantProfile?.firstName}} {{applicantProfile?.middleName}}</p>
               </div>
               <div class="detail">
-                <p class="type-title">Age</p>
-                <p class="para">{{applicantProfile?.age}}</p>
-              </div>
-              <div class="detail">
-                <p class="type-title">Passport Number</p>
-                <p class="para">EP33333333</p>
-              </div>
-              <div class="detail">
-                <p class="type-title">Marital Status</p>
-                <p class="para">{{maritalStatusList[applicantProfile?.maritalStatus]}}</p>
-              </div>
-              <div class="detail">
-                <p class="type-title">No of Children</p>
-                <p class="para">{{applicantProfile?.noOfChildren}}</p>
-              </div>
-              <div class="detail">
-                <p class="type-title">Gender</p>
-                <p class="para">{{genderList[applicantProfile?.gender]}}</p>
-              </div>
-              <div class="detail">
-                <p class="type-title">Address</p>
-                <p class="para">{{applicantProfile?.city}} {{applicantProfile?.wereda}} {{applicantProfile?.kebelle}}</p>
-              </div>
-            </div>
-            <div class="right-detail-section">
-              <div class="detail">
-                <p class="type-title">Passport Issue Date</p>
-                <p class="para">{{applicantProfile?.passportIssueDate | date}}</p>
-              </div>
-              <div class="detail">
-                <p class="type-title">{{applicantProfile?.createdDate | date}}</p>
-                <p class="para">Mar 25, 2023</p>
-              </div>
-              <div class="detail">
-                <p class="type-title">Passport Number</p>
+                <p class="type-title">Passport No</p>
                 <p class="para">EP{{applicantProfile?.passportNo}}</p>
               </div>
               <div class="detail">
-                <p class="type-title">Passport Expiry Date</p>
+                <p class="type-title">Date of Birth</p>
+                <p class="para">{{applicantProfile?.doB | date}}</p>
+              </div>
+
+            </div>
+            <div class="right-detail-section">
+              <div class="detail">
+                <p class="type-title">Sur Name</p>
+                <p class="para">{{applicantProfile?.lastName}}</p>
+              </div>
+              <div class="detail">
+                <p class="type-title">Issue Date</p>
+                <p class="para">{{applicantProfile?.passportIssueDate | date}}</p>
+              </div>
+
+              <div class="detail">
+                <p class="type-title">Expiry Date</p>
                 <p class="para">{{applicantProfile?.passportExpiryDate | date}}</p>
               </div>
-              <div class="detail">
-                <p class="type-title">Height</p>
-                <p class="para">{{applicantProfile?.height}} m</p>
-              </div>
-              <div class="detail">
-                <p class="type-title">Weight</p>
-                <p class="para">{{applicantProfile?.weight}} k.g</p>
-              </div>
-              <div class="detail">
-                <p class="type-title">Religion</p>
-                <p class="para">{{religionList[applicantProfile?.religion]}}</p>
-              </div>
+
             </div>
            </div>
           </section>
+          <section class="about sect">
+            <h5 class="right-title" >Personal Details</h5>
+            <div class="title-bottom-line"></div>
+            <div class="details-section">
+             <div class="left-detail-section">
+
+               <div class="detail">
+                 <p class="type-title">Age</p>
+                 <p class="para">{{(applicantProfile?.age)}}</p>
+               </div>
+
+               <div class="detail">
+                 <p class="type-title">Marital Status</p>
+                 <p class="para">{{maritalStatusList[applicantProfile?.maritalStatus]}}</p>
+               </div>
+               <div class="detail">
+                 <p class="type-title">No of Children</p>
+                 <p class="para">{{applicantProfile?.noOfChildren}}</p>
+               </div>
+               <div class="detail">
+                 <p class="type-title">Gender</p>
+                 <p class="para">{{genderList[applicantProfile?.gender]}}</p>
+               </div>
+
+             </div>
+             <div class="right-detail-section">
+
+
+
+               <div class="detail">
+                 <p class="type-title">Height</p>
+                 <p class="para">{{applicantProfile?.height}} m</p>
+               </div>
+               <div class="detail">
+                 <p class="type-title">Weight</p>
+                 <p class="para">{{applicantProfile?.weight}} k.g</p>
+               </div>
+               <div class="detail">
+                 <p class="type-title">Religion</p>
+                 <p class="para">{{religionList[applicantProfile?.religion]}}</p>
+               </div>
+               <div class="detail">
+                <p class="type-title">Address</p>
+                <p class="para">{{applicantProfile?.city}} {{applicantProfile?.wereda}} {{applicantProfile?.kebelle}}</p>
+              </div>
+             </div>
+            </div>
+           </section>
 
           <section class="experince sect">
-              <h2 class="right-title">Experience</h2>
+              <h5 class="right-title">Experience</h5>
               <div class="title-bottom-line"></div>
+
               <div class="timeline">
+                <div fxLayout="row wrap">
+                  <div fxFlex="100" fxFlex.gt-sm="40" class="px-1">
                   <div class="right-tl-content" *ngFor="let workExp of applicantProfile?.workExperiences">
                       <div class="tl-content"  >
-                          <h5 class="tl-title-2">{{workExp?.country}}</h5>
-                          <p class="para">
-                          {{  workExp?.jobDescription}}
-                          </p>
+                          <h6 class="tl-title-2">{{workExp?.country}}</h6>
+
                           <p class="para">
                             {{workExp?.duration}} yrs of exprience
                         </p>
+                        <p class="para">
+                          {{  getJobDescription(workExp?.jobDescription)}}
+                          </p>
                       </div>
                   </div>
+                  <div  id="qrcode-print" class="qrcode">
+                    <qrcode
+                      [qrdata]="applicantProfile?.passportNo"
+                      [width]="150"
+                      [allowEmptyString]="true"
+                      [errorCorrectionLevel]="'M'"
+                      [elementType]="'svg'"
+                    >
+                    </qrcode>
+                  </div>
+                </div>
 
+                <div fxFlex="100" fxFlex.gt-sm="60" class="px-1">
+                 <img [src]="base_url+applicantProfile?.applicantDocument?.applicantFullPhotoPath" fxFlex.gt-sm="90" >
+                  </div>
+                </div>
               </div>
-          </section>
 
+
+
+          </section>
+          <div class="row wrap">
+            <div fxFlex="100" fxFlex.gt-sm="25">
+              <ngx-barcode class="w-100" *ngFor="let bcValue of values" [bc-value]="bcValue"  [bc-line-color]="lineColor"
+              [bc-width]="width" [bc-height]="heightl" [bc-display-value]="displayValue" [bc-font-options]="fontOptions" [bc-font]="font"
+              [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"
+              [bc-margin]="margin" [bc-margin-top]="marginTop" [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight">
+            </ngx-barcode>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="25">
+              <ngx-barcode class="w-100" *ngFor="let bcValue of values" [bc-value]="bcValue"  [bc-line-color]="lineColor"
+              [bc-width]="width" [bc-height]="heightl" [bc-display-value]="displayValue" [bc-font-options]="fontOptions" [bc-font]="font"
+              [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"
+              [bc-margin]="margin" [bc-margin-top]="marginTop" [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight">
+            </ngx-barcode>
+            </div>
+            <div fxFlex="100" fxFlex.gt-sm="25">
+              <ngx-barcode class="w-100" *ngFor="let bcValue of values" [bc-value]="bcValue"  [bc-line-color]="lineColor"
+              [bc-width]="width" [bc-height]="heightl" [bc-display-value]="displayValue" [bc-font-options]="fontOptions" [bc-font]="font"
+              [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"
+              [bc-margin]="margin" [bc-margin-top]="marginTop" [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight">
+            </ngx-barcode>
+            </div>
+            <!-- <div fxFlex="100" fxFlex.gt-sm="25">
+              <ngx-barcode class="w-100" *ngFor="let bcValue of values" [bc-value]="bcValue"  [bc-line-color]="lineColor"
+              [bc-width]="width" [bc-height]="height" [bc-display-value]="displayValue" [bc-font-options]="fontOptions" [bc-font]="font"
+              [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"
+              [bc-margin]="margin" [bc-margin-top]="marginTop" [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight">
+            </ngx-barcode>
+            </div> -->
+                          </div>
       </div>
   </section>
 </main>
 
 
 
-<div class="cv-container">
-  <!-- <app-report-header office="{{(offices | filterById : applicantProfile?.applicantPlacement?.officeId)?.name}}" agent="{{(agents | filterById : applicantProfile?.agentId)?.name}}"></app-report-header> -->
-<div class="personal-detail-conatainer">
 
 
 
 
-<div class="work-experience-container">
 
-
-<div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.2%" fxLayoutAlign="Start">
-
-<!-- <div   fxFlex="100%">
-  <table mat-table [dataSource]="workExperienceDataSource" matSort width="100%">
-
-    <ng-container matColumnDef="duration">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Duration(year)</th>
-      <td mat-cell *matCellDef="let row">{{ row.duration }}</td>
-    </ng-container>
-    <ng-container matColumnDef="country">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Country</th>
-      <td mat-cell *matCellDef="let row">{{ row.country }}</td>
-    </ng-container>
-    <ng-container matColumnDef="jobDescription">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        Job Description
-      </th>
-      <td mat-cell *matCellDef="let row">{{ row.jobDescription }}</td>
-    </ng-container>
-
-
-    <tr mat-header-row *matHeaderRowDef="displayedWorkExperienceColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedWorkExperienceColumns"></tr>
-  </table>
-</div>
-</div>
-<div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.2%" fxLayoutAlign="Start">
-  <div fxFlex="60%">
-    <img [src]="base_url+applicantProfile?.applicantDocument?.applicantFullPhotoPath" width="400px" height="500px">
-  </div>
-
-<div   fxFlex="40%">
-<div class="contact-person-detail-container">
-
-  <div fxFlex="100%">
-    <div class="applicant-profile-header">
-
-    <p align="center"> Contact Person Detail </p>
-    </div>
-
-    <diV class="div-row"><label>Full Name:</label><span>{{applicantProfile?.contactPerson.fullName}}</span></diV>
-
-<diV class="div-row"> <label>Phone Number:</label><span>{{applicantProfile?.contactPerson.phoneNumber}}</span></diV>
-
-<diV class="div-row"> <label>Address:</label><span>{{applicantProfile?.contactPerson.city}} {{applicantProfile?.contactPerson.wereda}} {{applicantProfile?.contactPerson.kebelle}}</span></diV>
-</div>
-</div> -->
-
-
-<!-- </div>
-    <table mat-table [dataSource]="experiencedJobDataSource" matSort>
-      <ng-container matColumnDef="job">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Job</th>
-        <td mat-cell *matCellDef="let row">
-
-          {{(jobs | filterById : row.commonJobId)?.name}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="haveExperience">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>
-          Experience
-        </th>
-        <td mat-cell *matCellDef="let row">
-          {{ row.haveExperience? "Yes" :"No" }}</td>
-      </ng-container>
-
-
-
-
-      <tr mat-header-row *matHeaderRowDef="displayedExperiencedJobsColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedExperiencedJobsColumns"></tr>
-    </table>
-  </div> -->
-  </div>
-</div>
-</div>

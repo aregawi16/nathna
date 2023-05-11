@@ -9,7 +9,9 @@
 body{
   background-color: #94D9EA;
 }
-
+p{
+  margin-bottom: 0px !important;
+}
 .main-content{
   min-height: 100vh;
   width: 100%;
@@ -19,10 +21,10 @@ body{
 }
 
 .left-section{
-  width: 25%;
+  width: 35%;
   height:auto;
-  /* background-color: #c85bc2; */
-  background-color: #1569c2;
+  background-color: #06407a;
+  /* background-color: #1569c2; */
 
   display: flex;
   justify-content: center;
@@ -45,8 +47,12 @@ body{
 }
 .type-title{
   font-weight: bold;
+  /* border-right: 1px solid red; */
+  vertical-align: bottom !important;
   font-size: 15px;
-  padding-top: 4px;
+  margin-left: 5px;
+  margin-bottom: 0px !important;
+  /* padding-top: 4px; */
 }
 .detail .para{
   /* font-style: italic; */
@@ -67,6 +73,8 @@ body{
 .right-section{
   background-color: white;
   height: 100%;
+  border-bottom: 1px solid #06407a;
+  border-right: 2px solid #06407a;
   width: 100%;
 }
 .name-left-section{
@@ -91,7 +99,13 @@ body{
 .profile{
   width: 100%;
 }
+@media print {
+  @page {
+    margin-top: 10;
+    margin-bottom: 10;
+  }
 
+}
 .image{
   width: 100%;
   text-align: center;
@@ -132,17 +146,30 @@ body{
 .right-title{
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #000;
-  margin-bottom: 3px;
+  color: #ffffff;
+  padding-top: 10px;
+  padding-left: 10px;
+  font-weight: bold;
+  padding-bottom: 10px;
+  width: 250px;
+  border-top-right-radius: 70px;
+  background-color: #06407a;
+  margin-bottom: 0px;
   position: relative;
 }
+svg{
+  width: 205px;
+}
 .right-main-content{
-  margin: 20px;
+  margin: 0 20px;
+  margin-right: 0px !important;
+  border-top: 1px solid #06407a;
+
 }
 
 .title-bottom-line{
   height: 2px;
-  background-color: rgb(248, 174, 1);
+  background-color: #06407a;
   border-radius: 12px;
 }
 
@@ -151,7 +178,7 @@ body{
  margin: 0;
 }
 .details-section{
-  padding-top: 20px;
+  /* padding-top: 20px; */
   display: flex;
 
 }
@@ -162,7 +189,9 @@ body{
   width: 50%;
 }
 .detail{
-  width: 90%;
+  width: 100%;
+  border:1px solid rgb(158, 158, 158);
+  padding-top: 10px;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -176,6 +205,7 @@ body{
 .para{
   /* line-height: 1.2rem; */
   color: #000000;
+  margin-left: 5px;
   font-size: 0.8rem;
 }
 
@@ -198,7 +228,7 @@ body{
 }
 .tl-title-2{
   letter-spacing: 1px;
-  font-size: 1.3rem;
+  font-weight: bold;
   color: #31383d;
   text-transform: uppercase;
 }
@@ -207,7 +237,7 @@ body{
   border-left: 1px solid #ccc;
   padding-left: 2rem;
   position: relative;
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
 }
 
 .tl-title-2::before{
@@ -227,13 +257,13 @@ body{
   padding-top: 10px;
 }
 .skills-section ul li{
-  display: grid;
+  /* display: grid; */
   grid-template-columns: repeat(2, 1fr);
-  padding: .4rem 0;
-  align-items: center;
+  /* padding: .4rem 0; */
+  /* align-items: center; */
 }
 .skills-section ul li p{
-  margin-right: 10px;
+  /* margin-right: 10px; */
 }
 ::ng-deep .mat-progress-bar-fill::after {
   background-color: #1E457C;

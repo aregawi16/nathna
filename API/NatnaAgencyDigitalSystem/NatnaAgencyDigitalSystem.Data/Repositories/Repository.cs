@@ -41,7 +41,19 @@ namespace NatnaAgencyDigitalSystem.Data.Repositories
             return Context.Set<TEntity>()
                 .FindAsync(id);
         }
+        public async Task  UpdateAsync(TEntity entity)
+        {
 
+            try
+            {
+                Context.Entry(entity).State = EntityState.Modified;
+                Context.Update(entity);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
         public void Remove(TEntity entity)
         {
             Context.Set<TEntity>().Remove(entity);

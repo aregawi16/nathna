@@ -22,7 +22,7 @@ export class MenuComponent implements OnInit {
     this.parentMenu = this.menuItems.filter(item => item.parentId == this.menuParentId);
   }
 
-  onClick(menuId){
+ onClick(menuId){
     this.menuService.toggleMenuItem(menuId);
     this.menuService.closeOtherSubMenus(this.menuItems, menuId);
   }

@@ -5,6 +5,7 @@
     width: $admin-sidenav-width;
     border: none !important;
     padding-top: $admin-toolbar-height;
+    background-color: #cecece !important;
     bottom: 0;
     top: 0;
     .close{
@@ -20,6 +21,7 @@
 
 .admin-toolbar{
     height: $admin-toolbar-height;
+    color: white !important;
     position: fixed;
     z-index: 9;
     .logo-section{

@@ -55,9 +55,34 @@ namespace NatnaAgencyDigitalSystem.Service
 
         public async Task UpdateApplicantProfile(ApplicantProfile ApplicantProfileToBeUpdated, ApplicantProfile ApplicantProfile)
         {
-          //  ApplicantProfileToBeUpdated. = ApplicantProfile.Name;
-
-            await _unitOfWork.CommitAsync();
+            ApplicantProfileToBeUpdated.FirstName = ApplicantProfile.FirstName;
+            ApplicantProfileToBeUpdated.FirstNameAm = ApplicantProfile.FirstNameAm;
+            ApplicantProfileToBeUpdated.MiddleName = ApplicantProfile.MiddleName;
+            ApplicantProfileToBeUpdated.MiddleNameAm = ApplicantProfile.MiddleNameAm;
+            ApplicantProfileToBeUpdated.LastName = ApplicantProfile.LastName;
+            ApplicantProfileToBeUpdated.LastNameAm = ApplicantProfile.LastNameAm;
+            ApplicantProfileToBeUpdated.Email = ApplicantProfile.Email;
+            ApplicantProfileToBeUpdated.City = ApplicantProfile.City;
+            ApplicantProfileToBeUpdated.Wereda = ApplicantProfile.Wereda;
+            ApplicantProfileToBeUpdated.Kebelle = ApplicantProfile.Kebelle;
+            ApplicantProfileToBeUpdated.PassportNo = ApplicantProfile.PassportNo;
+            ApplicantProfileToBeUpdated.PassportIssueDate = ApplicantProfile.PassportIssueDate;
+            ApplicantProfileToBeUpdated.PassportExpiryDate = ApplicantProfile.PassportExpiryDate;
+            ApplicantProfileToBeUpdated.PhoneNumber = ApplicantProfile.PhoneNumber;
+            ApplicantProfileToBeUpdated.DoB = ApplicantProfile.DoB;
+            ApplicantProfileToBeUpdated.Gender = ApplicantProfile.Gender;
+            ApplicantProfileToBeUpdated.MaritalStatus = ApplicantProfile.MaritalStatus;
+            ApplicantProfileToBeUpdated.ReferenceNo = ApplicantProfile.ReferenceNo;
+            ApplicantProfileToBeUpdated.NoOfChildren = ApplicantProfile.NoOfChildren;
+            ApplicantProfileToBeUpdated.Priority = ApplicantProfile.Priority;
+            ApplicantProfileToBeUpdated.Religion = ApplicantProfile.Religion;
+            ApplicantProfileToBeUpdated.CountryId = ApplicantProfile.CountryId;
+            ApplicantProfileToBeUpdated.Nationality = ApplicantProfile.Nationality;
+            ApplicantProfileToBeUpdated.AgentId = ApplicantProfile.AgentId;
+            ApplicantProfileToBeUpdated.CountryId = ApplicantProfile.CountryId;
+             //await _unitOfWork.ApplicantProfiles.UpdateAsync(ApplicantProfile);
+ 
+           await _unitOfWork.CommitAsync();
         }
     }
 }

@@ -6,11 +6,11 @@ export const environment = {
   production: true,
   url: '',
   backend: {
-    host: 'https://localhost:44374/api/',
-    base_url: 'https://localhost:44374/',
+    host: 'http://localhost:9898/api/',
+    base_url: 'http://localhost:9898/',
   },
   oauth: {
-    host: 'https://localhost:44374',
+    host: 'http://localhost:9898',
     client_id: '2',
     client_secret: 'tsN80QNwTawD3WZSX2uziOFI6HstTEs2bXBqsCyv',
     scope: '*',

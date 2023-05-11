@@ -52,7 +52,7 @@ namespace NatnaAgencyDigitalSystem.Api.Models
         public Gender Gender { get; set; }
         public string PassportNo { get; set; }
         [NotMapped]
-        public int Age => (DateTime.Now.Year - DoB.Year)+30;
+        public int Age => (DateTime.Now.Year - DoB.Year);
         public DateTime DoB { get; set; }
         public DateTime PassportIssueDate { get; set; }
         public DateTime PassportExpiryDate { get; set; }

@@ -67,7 +67,7 @@
 </div>
 
 <div *ngIf="viewType.value == 'grid'" fxLayout="row wrap">
-  <div *ngFor="let applicantProfile of applicantProfiles | UserSearchPipe : searchText | paginate: { itemsPerPage: 8, currentPage: page }" fxFlex="100" fxFlex.gt-md="25" fxFlex.md="40" class="p-1">
+  <div *ngFor="let applicantProfile of applicantProfiles  | paginate: { itemsPerPage: 8, currentPage: page }" fxFlex="100" fxFlex.gt-md="25" fxFlex.md="40" class="p-1">
       <mat-card class="p-0">
           <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
               <h3 *ngIf="!applicantProfile.isDeleted" class="user-name">{{applicantProfile.fullName}}<br>{{applicantProfile.fullNameAm}}</h3>
@@ -139,7 +139,7 @@
   </div>
 </div>
 <div *ngIf="viewType.value == 'list'" fxLayout="row wrap">
-  <div *ngFor="let applicantProfile of applicantProfiles | UserSearchPipe : searchText | paginate: { itemsPerPage: 3, currentPage: page }" fxFlex="100" class="p-1">
+  <div *ngFor="let applicantProfile of applicantProfiles  | paginate: { itemsPerPage: 3, currentPage: page }" fxFlex="100" class="p-1">
       <mat-card class="p-0">
           <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
               <h3 *ngIf="!applicantProfile.isDeleted" class="user-name">{{applicantProfile.fullName}}</h3>
