@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" class="p-1">
   <div fxLayout="row">
       <mat-button-toggle-group #controls="matButtonToggleGroup" appearance="legacy">
-          <mat-button-toggle value="add" [routerLink]="['/applicant-profile/create-new']">
+          <mat-button-toggle value="add" [routerLink]="['/applicant-profile/create-new']" *ngIf="isHeadOffice">
               <mat-icon>person_add</mat-icon>
           </mat-button-toggle>
           <mat-button-toggle value="search">
@@ -23,25 +23,25 @@
   </div>
   <form class="user-search" [class.show]="controls.value == 'search'">
       <mat-form-field class="user-search-input">
-          <input matInput placeholder="Search user by name..." [(ngModel)]="searchText" name="search">
+          <input matInput placeholder="Search user by name..." [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" name="search">
       </mat-form-field>
   </form>
-  <!-- <form class="user-search" [class.show]="controls.value == 'date-range'">
+  <form class="user-search" [class.show]="controls.value == 'date-range'">
     <mat-form-field appearance="fill">
       <mat-label>Enter a date range</mat-label>
       <mat-date-range-input  [rangePicker]="picker">
-        <input matStartDate [(ngModel)]="startDate"  placeholder="Start date">
-        <input matEndDate [(ngModel)]="endDate" placeholder="End date">
+        <input matStartDate [(ngModel)]="startDate" [ngModelOptions]="{standalone: true}" placeholder="Start date">
+        <input matEndDate [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}" placeholder="End date">
       </mat-date-range-input>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>
 
     </mat-form-field>
-  </form> -->
+  </form>
   <form class="user-search" [class.show]="controls.value == 'status'">
     <mat-form-field appearance="fill">
       <mat-label>Status</mat-label>
-      <mat-select name="maritalStatus" [(ngModel)]="searchText">
+      <mat-select name="maritalStatus" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}">
         <mat-option *ngFor="let status of statuses"
         [value]="status">
   {{statusList[status]}}
@@ -67,7 +67,7 @@
 </div>
 
 <div *ngIf="viewType.value == 'grid'" fxLayout="row wrap">
-  <div *ngFor="let applicantProfile of applicantProfiles  | paginate: { itemsPerPage: 8, currentPage: page }" fxFlex="100" fxFlex.gt-md="25" fxFlex.md="40" class="p-1">
+  <div *ngFor="let applicantProfile of applicantProfiles | UserSearchPipe : searchText  | paginate: { itemsPerPage: 8, currentPage: page }" fxFlex="100" fxFlex.gt-md="25" fxFlex.md="40" class="p-1">
       <mat-card class="p-0">
           <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
               <h3 *ngIf="!applicantProfile.isDeleted" class="user-name">{{applicantProfile.fullName}}<br>{{applicantProfile.fullNameAm}}</h3>
@@ -78,11 +78,11 @@
           </div>
           <mat-menu #menu="matMenu" xPosition="before" overlapTrigger="true">
               <span (mouseleave)="menuTrigger.closeMenu()">
-                  <button mat-menu-item (click)="openApplicantProfileDialog(applicantProfile)">
+                  <button mat-menu-item (click)="openApplicantProfileDialog(applicantProfile)" *ngIf="isHeadOffice">
                       <mat-icon>mode_edit</mat-icon>
                       <span>Edit</span>
                   </button>
-                  <button *ngIf="checkDeleteStatus(applicantProfile.applicantStatuses[0])"  mat-menu-item (click)="deleteApplicantProfile(applicantProfile.applicantProfileId)">
+                  <button *ngIf="checkDeleteStatus(applicantProfile.applicantStatuses[0]) && isHeadOffice"  mat-menu-item (click)="deleteApplicantProfile(applicantProfile.applicantProfileId)">
                     <mat-icon>delete</mat-icon>
                       <span>Delete</span>
                   </button>
@@ -139,7 +139,7 @@
   </div>
 </div>
 <div *ngIf="viewType.value == 'list'" fxLayout="row wrap">
-  <div *ngFor="let applicantProfile of applicantProfiles  | paginate: { itemsPerPage: 3, currentPage: page }" fxFlex="100" class="p-1">
+  <div *ngFor="let applicantProfile of applicantProfiles | UserSearchPipe : searchText  | paginate: { itemsPerPage: 3, currentPage: page }" fxFlex="100" class="p-1">
       <mat-card class="p-0">
           <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
               <h3 *ngIf="!applicantProfile.isDeleted" class="user-name">{{applicantProfile.fullName}}</h3>
@@ -150,11 +150,11 @@
           </div>
           <mat-menu #menu="matMenu" xPosition="before"  overlapTrigger="true">
               <span (mouseleave)="menuTrigger.closeMenu()">
-                  <button mat-menu-item (click)="openApplicantProfileDialog(applicantProfile);">
+                  <button mat-menu-item (click)="openApplicantProfileDialog(applicantProfile);" *ngIf="isHeadOffice">
                       <mat-icon>mode_edit</mat-icon>
                       <span>Edit</span>
                   </button>
-                  <button  mat-menu-item (click)="deleteApplicantProfile(applicantProfile.applicantProfileId)" *ngIf="checkDeleteStatus(applicantProfile.applicantStatuses[0])">
+                  <button  mat-menu-item (click)="deleteApplicantProfile(applicantProfile.applicantProfileId)" *ngIf="checkDeleteStatus(applicantProfile.applicantStatuses[0])  && isHeadOffice">
                       <mat-icon>delete</mat-icon>
                       <span>Delete</span>
                   </button>
@@ -171,8 +171,8 @@
           <div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">
               <div fxFlex="20" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center center">
                   <div class="user-img">
-                      <img *ngIf="applicantProfile.image" [src]="applicantProfile.image" class="transition-2" [class.blocked]="applicantProfile.isDeleted">
-                      <img *ngIf="!applicantProfile.image" src="assets/img/applicantProfiles/default-applicantProfile.jpg" class="transition-2" [class.blocked]="applicantProfile.isDeleted">
+                    <img *ngIf="applicantProfile?.applicantDocument?.applicantSmallPhotoPath" [src]="host+applicantProfile.applicantDocument?.applicantSmallPhotoPath" class="transition-2" [class.blocked]="applicantProfile.isDeleted">
+                    <img *ngIf="!applicantProfile.image" src="assets/img/applicantProfiles/default-applicantProfile.jpg" class="transition-2" [class.blocked]="applicantProfile.isDeleted">
                       <mat-icon *ngIf="applicantProfile.isDeleted" color="warn">block</mat-icon>
                   </div>
                   <div class="user-social">
@@ -275,136 +275,128 @@
              <mat-icon matPrefix title="Assign">redo</mat-icon> Assign</button>
       </div>
         </div>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-          <!-- Checkbox Column -->
-          <ng-container matColumnDef="select">
-            <th mat-header-cell *matHeaderCellDef>
-              <mat-checkbox (change)="$event ? masterToggle() : null"
-                            [checked]="selection.hasValue() && isAllSelected()"
-                            [indeterminate]="selection.hasValue() && !isAllSelected()">
-              </mat-checkbox>
-            </th>
-            <td mat-cell *matCellDef="let row">
-              <mat-checkbox (click)="$event.stopPropagation()"
-                            (change)="$event ? selectRow(row) : null"
-                            [checked]="selection.isSelected(row)">
-              </mat-checkbox>
-            </td>
-          </ng-container>
+        <div class="p-1">
+          <mat-card class="p-0">
+              <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
+                  <h2>Labour List</h2>
+                  <button mat-raised-button color="primary" [routerLink]="['/applicant-profile/create-new']" *ngIf="isHeadOffice">Add New</button>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="mat-table admin-table">
+                  <div class="mat-header-row">
+                      <div class="mat-header-cell">
+                        <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+                      </div>
+                      <div class="mat-header-cell">No.</div>
+                      <div class="mat-header-cell">Full Name</div>
+                      <div class="mat-header-cell">Phone No</div>
+                      <div class="mat-header-cell">Passport No</div>
+                      <div class="mat-header-cell">Agent</div>
+                      <div class="mat-header-cell">Process</div>
+                      <div class="mat-header-cell">Status</div>
+                      <div class="mat-header-cell"></div>
+                  </div>
+                  <div *ngFor="let applicantProfile of applicantProfiles | UserSearchPipe : searchText| paginate: { itemsPerPage: 10, currentPage: page }" class="mat-row">
+                      <div class="mat-cell">
+                          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selectRow(applicantProfile) : null"
+                        [checked]="selection.isSelected(applicantProfile)">
+          </mat-checkbox>
+         </div>
+                      <div class="mat-cell">{{applicantProfile.applicantProfileId}} </div>
+                      <div class="mat-cell">{{applicantProfile.fullName}}</div>
+                      <div class="mat-cell">{{applicantProfile.phoneNumber}}</div>
+                      <div class="mat-cell">{{applicantProfile.passportNo}}</div>
+                      <div class="mat-cell">                      {{(agents | filterById : applicantProfile.agentId)?.name}}
+                      </div>
+                      <div class="mat-cell"> {{applicantProfile.applicantStatuses[0]?applicantProfile.applicantStatuses[0].officeLevel:"UnAssigned"}}</div>
+                      <div class="mat-cell"> {{applicantProfile.applicantStatuses[0]?applicantProfile.applicantStatuses[0].status:"UnAssigned"}}
+                      </div>
+                      <div class="mat-cell">
+                          <div class="p-0 actions">
+                            <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
+                              <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu" xPosition="before"  overlapTrigger="true">
+                              <span (mouseleave)="menuTrigger.closeMenu()">
+                            <button mat-mini-fab matTooltip="Edit" color="primary" (click)="openApplicantProfileDialog(applicantProfile);" class="mx-1" *ngIf="isHeadOffice">
+                              <mat-icon>mode_edit</mat-icon>
+                          </button>
+                          <!-- <button mat-mini-fab matTooltip="Delete" class="mx-1" color="warn" *ngIf="checkDeleteStatus(applicantProfile.applicantStatuses[0])" (click)="deleteApplicantProfile(applicantProfile.applicantProfileId)">
+                              <mat-icon>delete</mat-icon>
+                          </button> -->
 
-          <!-- Position Column -->
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> No. </th>
-            <td mat-cell *matCellDef="let element"> {{element.applicantProfileId}} </td>
-          </ng-container>
+                          <button  mat-mini-fab matTooltip="Upload Verified Document" class="mx-1" color="primary" *ngIf="checkUploadStatus(applicantProfile.applicantStatuses[0])" (click)="uploadVerifiedDocument(applicantProfile.applicantProfileId)">
+                              <mat-icon ><mat-icon>cloud_upload</mat-icon>
+                            </mat-icon>
+                          </button>
+                          <button  mat-mini-fab matTooltip="Upload Contract" class="mx-1" color="primary" *ngIf="checkContractStatus(applicantProfile)" (click)="uploadContractDocument(applicantProfile.applicantProfileId)">
+                              <mat-icon ><mat-icon>cloud_upload</mat-icon>
+                            </mat-icon>
+                          </button>
+                          <button mat-mini-fab matTooltip="Accept Contract" class="mx-1" color="primary"  *ngIf="checkReceieveContractStatus(applicantProfile.applicantStatuses[0])" (click)="receieveContractDocument(applicantProfile.applicantProfileId)">
+                            <mat-icon >check</mat-icon>
+                        </button>
+                          <button mat-mini-fab matTooltip="Verify Contract" class="mx-1" color="primary"  *ngIf="checkVerifyContractStatus(applicantProfile.applicantStatuses[0])" (click)="verifyContractDocument(applicantProfile.applicantProfileId)">
+                            <mat-icon >check</mat-icon>
+                        </button>
+                          <button mat-mini-fab matTooltip="Request Insurance" class="mx-1" color="primary"  *ngIf="checkInsuranceStatus(applicantProfile.applicantStatuses[0])" (click)="requestInsurance(applicantProfile.applicantProfileId)">
+                            <mat-icon >directions</mat-icon>
+                        </button>
+                          <button mat-mini-fab matTooltip="Complete Insurance" class="mx-1" color="primary"  *ngIf="checkCompleteInsuranceStatus(applicantProfile.applicantStatuses[0])" (click)="completeInsurance(applicantProfile.applicantProfileId)">
+                            <mat-icon >directions</mat-icon>
+                        </button>
+                        <button mat-mini-fab matTooltip="Request COC" class="mx-1" color="primary"  *ngIf="checkCocStatus(applicantProfile.applicantStatuses[0])" (click)="requestCoc(applicantProfile.applicantProfileId)">
+                          <mat-icon >directions</mat-icon>
+                      </button>
+                      <button mat-mini-fab matTooltip="Complete COC" class="mx-1" color="primary"  *ngIf="checkCompleteCocStatus(applicantProfile.applicantStatuses[0])" (click)="completeCoc(applicantProfile.applicantProfileId)">
+                        <mat-icon >directions</mat-icon>
+                    </button>
+                          <button mat-mini-fab matTooltip="Request Yellow Card" class="mx-1"  [ngStyle]="{'background-color':'yellow'}"  *ngIf="checkRequestYellowCardStatus(applicantProfile.applicantStatuses[0])" (click)="requestYellowCard(applicantProfile.applicantProfileId)">
+                            <mat-icon >redo</mat-icon>
+                        </button>
+                          <button mat-mini-fab matTooltip="Receieve Yellow Card" class="mx-1" [ngStyle]="{'background-color':'yellow'}"  *ngIf="checkGetYellowCardStatus(applicantProfile.applicantStatuses[0])" (click)="receiveYellowCard(applicantProfile.applicantProfileId)">
+                            <mat-icon >redo</mat-icon>
+                        </button>
+                          <button mat-mini-fab matTooltip="Verify Ticket" class="mx-1" color="primary"  *ngIf="checkTicketStatus(applicantProfile.applicantStatuses[0])" (click)="verifyFlightTicket(applicantProfile.applicantProfileId)">
+                            <mat-icon >airplanemode_active</mat-icon>
+                        </button>
+                          <button mat-mini-fab matTooltip="Start Flight" class="mx-1" color="primary"  *ngIf="checkFlightStatus(applicantProfile.applicantStatuses[0])" (click)="startFlight(applicantProfile.applicantProfileId)">
+                            <mat-icon >airplanemode_active</mat-icon>
+                        </button>
+                          <button mat-mini-fab matTooltip="Arrived" class="mx-1" color="primary"  *ngIf="checkArrivalStatus(applicantProfile.applicantStatuses[0])" (click)="confirmArrival(applicantProfile.applicantProfileId)">
+                            <mat-icon >airplanemode_active</mat-icon>
+                        </button>
 
-          <!-- Name Column -->
-          <ng-container matColumnDef="fullName">
-            <th mat-header-cell *matHeaderCellDef> Full Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
-          </ng-container>
+                          <button mat-mini-fab matTooltip="Detail" class="mx-1"  [ngStyle]="{'color':'green'}" [routerLink]="['/applicant-profile/detail', applicantProfile.applicantProfileId]">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                          <button mat-mini-fab matTooltip="Process" class="mx-1"  [ngStyle]="{'color':'Blue'}" [routerLink]="['/applicant-profile/process', applicantProfile.applicantProfileId]">
+                            <mat-icon>trending_down</mat-icon>
+                        </button>
+                        </span>
+                        </mat-menu>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </mat-card>
 
-           <!-- Email Column -->
-           <ng-container matColumnDef="phoneNumber">
-            <th mat-header-cell *matHeaderCellDef> Phone No </th>
-            <td mat-cell *matCellDef="let element"> {{element.phoneNumber}} </td>
-          </ng-container>
+          <div *ngIf="applicantProfiles.length > 0" fxLayout="row wrap">
+              <div fxFlex="100">
+                  <mat-card class="p-0 text-center">
+                      <pagination-controls class="product-pagination" (pageChange)="onPageChanged($event)"></pagination-controls>
+                  </mat-card>
+              </div>
+          </div>
+      </div>
+      <!-- autoHide="true" maxSize="5" -->
 
-          <!-- Weight Column -->
-          <ng-container matColumnDef="passportNumber">
-            <th mat-header-cell *matHeaderCellDef> Passport No </th>
-            <td mat-cell *matCellDef="let element"> {{element.passportNo}} </td>
-          </ng-container>
 
-          <ng-container matColumnDef="agentId">
-            <th mat-header-cell *matHeaderCellDef> Agent </th>
-            <td mat-cell *matCellDef="let element">
-                      {{(agents | filterById : element.agentId)?.name}}
-          </td>
-          </ng-container>
-
-          <ng-container matColumnDef="process">
-            <th mat-header-cell *matHeaderCellDef> Process </th>
-            <td mat-cell *matCellDef="let element">
-              {{element.applicantStatuses[0]?element.applicantStatuses[0].officeLevel:"UnAssigned"}}
-                      </td>
-          </ng-container>
-
-          <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef> Status </th>
-            <td mat-cell *matCellDef="let element">
-                      {{element.applicantStatuses[0]?element.applicantStatuses[0].status:"UnAssigned"}}
-          </td>
-          </ng-container>
-          <!--Symbol Column -->
-          <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef> Action </th>
-            <td mat-cell *matCellDef="let element">
-
-              <button mat-mini-fab matTooltip="Edit" color="primary" (click)="openApplicantProfileDialog(element);" class="mx-1">
-                <mat-icon>mode_edit</mat-icon>
-            </button>
-            <!-- <button mat-mini-fab matTooltip="Delete" class="mx-1" color="warn" *ngIf="checkDeleteStatus(element.applicantStatuses[0])" (click)="deleteApplicantProfile(element.applicantProfileId)">
-                <mat-icon>delete</mat-icon>
-            </button> -->
-
-            <button  mat-mini-fab matTooltip="Upload Verified Document" class="mx-1" color="primary" *ngIf="checkUploadStatus(element.applicantStatuses[0])" (click)="uploadVerifiedDocument(element.applicantProfileId)">
-                <mat-icon ><mat-icon>cloud_upload</mat-icon>
-              </mat-icon>
-            </button>
-            <button  mat-mini-fab matTooltip="Upload Contract" class="mx-1" color="primary" *ngIf="checkContractStatus(element)" (click)="uploadContractDocument(element.applicantProfileId)">
-                <mat-icon ><mat-icon>cloud_upload</mat-icon>
-              </mat-icon>
-            </button>
-            <button mat-mini-fab matTooltip="Accept Contract" class="mx-1" color="primary"  *ngIf="checkReceieveContractStatus(element.applicantStatuses[0])" (click)="receieveContractDocument(element.applicantProfileId)">
-              <mat-icon >check</mat-icon>
-          </button>
-            <button mat-mini-fab matTooltip="Verify Contract" class="mx-1" color="primary"  *ngIf="checkVerifyContractStatus(element.applicantStatuses[0])" (click)="verifyContractDocument(element.applicantProfileId)">
-              <mat-icon >check</mat-icon>
-          </button>
-            <button mat-mini-fab matTooltip="Request Insurance" class="mx-1" color="primary"  *ngIf="checkInsuranceStatus(element.applicantStatuses[0])" (click)="requestInsurance(element.applicantProfileId)">
-              <mat-icon >directions</mat-icon>
-          </button>
-            <button mat-mini-fab matTooltip="Complete Insurance" class="mx-1" color="primary"  *ngIf="checkCompleteInsuranceStatus(element.applicantStatuses[0])" (click)="completeInsurance(element.applicantProfileId)">
-              <mat-icon >directions</mat-icon>
-          </button>
-          <button mat-mini-fab matTooltip="Request COC" class="mx-1" color="primary"  *ngIf="checkCocStatus(element.applicantStatuses[0])" (click)="requestCoc(element.applicantProfileId)">
-            <mat-icon >directions</mat-icon>
-        </button>
-        <button mat-mini-fab matTooltip="Complete COC" class="mx-1" color="primary"  *ngIf="checkCompleteCocStatus(element.applicantStatuses[0])" (click)="completeCoc(element.applicantProfileId)">
-          <mat-icon >directions</mat-icon>
-      </button>
-            <button mat-mini-fab matTooltip="Request Yellow Card" class="mx-1"  [ngStyle]="{'background-color':'yellow'}"  *ngIf="checkRequestYellowCardStatus(element.applicantStatuses[0])" (click)="requestYellowCard(element.applicantProfileId)">
-              <mat-icon >redo</mat-icon>
-          </button>
-            <button mat-mini-fab matTooltip="Receieve Yellow Card" class="mx-1" [ngStyle]="{'background-color':'yellow'}"  *ngIf="checkGetYellowCardStatus(element.applicantStatuses[0])" (click)="receiveYellowCard(element.applicantProfileId)">
-              <mat-icon >redo</mat-icon>
-          </button>
-            <button mat-mini-fab matTooltip="Verify Ticket" class="mx-1" color="primary"  *ngIf="checkTicketStatus(element.applicantStatuses[0])" (click)="verifyFlightTicket(element.applicantProfileId)">
-              <mat-icon >airplanemode_active</mat-icon>
-          </button>
-            <button mat-mini-fab matTooltip="Start Flight" class="mx-1" color="primary"  *ngIf="checkFlightStatus(element.applicantStatuses[0])" (click)="startFlight(element.applicantProfileId)">
-              <mat-icon >airplanemode_active</mat-icon>
-          </button>
-            <button mat-mini-fab matTooltip="Arrived" class="mx-1" color="primary"  *ngIf="checkArrivalStatus(element.applicantStatuses[0])" (click)="confirmArrival(element.applicantProfileId)">
-              <mat-icon >airplanemode_active</mat-icon>
-          </button>
-
-            <button mat-mini-fab matTooltip="Detail" class="mx-1"  [ngStyle]="{'color':'green'}" [routerLink]="['/applicant-profile/detail', element.applicantProfileId]">
-              <mat-icon>visibility</mat-icon>
-          </button>
-            <button mat-mini-fab matTooltip="Process" class="mx-1"  [ngStyle]="{'color':'Blue'}" [routerLink]="['/applicant-profile/process', element.applicantProfileId]">
-              <mat-icon>trending_down</mat-icon>
-          </button>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-              (click)="selection.toggle(row)">
-          </tr>
-        </table>
       </mat-card>
   </div>
 </div>

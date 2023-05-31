@@ -13,7 +13,7 @@ export class UserSearchPipe implements PipeTransform {
           {
              return user.applicantPlacement==null;
           }
-          return              user.fullName.search(searchText) !== -1 ||String(user.applicantPlacement?.status).search(searchText) !== -1 ;
+          return      user.fullName.search(searchText) !== -1 ||String(user.applicantPlacement?.status).search(searchText) !== -1 ;
         }
         else{
           return user.fullNameAm.search(searchText) !== -1;

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { AppSettings, Settings } from '../../../app.settings';
 import { MenuService } from './menu.service';
+import { AuthService } from 'src/app/features/auth/services/auth.service';
 
 @Component({
   selector: 'app-admin-menu',
@@ -14,12 +15,19 @@ export class MenuComponent implements OnInit {
   @Input('menuParentId') menuParentId;
   parentMenu!:Array<any>;
   public settings: Settings;
-  constructor(public appSettings:AppSettings, public menuService:MenuService) {
+  constructor(public appSettings:AppSettings,
+    private _authService:AuthService,
+    public menuService:MenuService) {
     this.settings = this.appSettings.settings;
   }
 
   ngOnInit() {
     this.parentMenu = this.menuItems.filter(item => item.parentId == this.menuParentId);
+    let isHeadOffice = this._authService.isHeadOffice();
+    if(!isHeadOffice)
+    {
+      this.parentMenu = this.parentMenu.filter(q=>q.isHeadOffice==false)
+    }
   }
 
  onClick(menuId){

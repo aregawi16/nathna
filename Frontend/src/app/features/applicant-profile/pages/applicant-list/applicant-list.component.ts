@@ -24,6 +24,7 @@ import { YellowCardRequestComponent } from '../yellow-card-request/yellow-card-r
 import { ApplicantPreFlightTrainingStatus, Status } from '../../model/Status.enum';
 import { ApplicantPlacementStatus, ApplicantInsuranceStatus, ApplicantLabourStatus, ApplicantTicketStatus, ApplicantContractStatus, ApplicantCocStatus } from './../../model/Status.enum';
 import { ReceiveYellowCardComponent } from '../receive-yellow-card/receive-yellow-card.component';
+import { AuthService } from 'src/app/features/auth/services/auth.service';
 
 export interface ApplicantProfile {
   id: number;
@@ -117,6 +118,8 @@ export class ApplicantListComponent implements OnInit {
     base_url = environment.backend.base_url;
     countries!:{name:string,code:string}[];
     isAnySelected :boolean=false;
+    isHeadOffice:boolean=true;
+
     genders!:number[];
     genderList=Gender;
     maritalStatuses!:number[];
@@ -134,6 +137,8 @@ export class ApplicantListComponent implements OnInit {
                 private _snackBar: MatSnackBar,
                 public _applicantService: ApplicantProfileService,
                 public _settingService: SettingService,
+                private _authService: AuthService,
+
                 public _processManagementService: ProcessManagementService,
                 ){
     }
@@ -146,6 +151,7 @@ export class ApplicantListComponent implements OnInit {
               this.statuses= Object.keys(this.statusList).map(key => parseInt(key)).filter(f => !isNaN(Number(f)));
               this.religions= Object.keys(this.religionList).map(key => parseInt(key)).filter(f => !isNaN(Number(f)));
 
+              this.isHeadOffice = this._authService.isHeadOffice();
 
               this.getAgents();
               this.getOffices();
@@ -382,17 +388,14 @@ export class ApplicantListComponent implements OnInit {
     checkUploadStatus(applicantStatus:any)
     {
       let status = this.applicantPlacementStatusList[this.applicantPlacementStatusList.Selected];
-      if(applicantStatus==null)
-      {
-        return false;
-      }
-      else{
-        if(applicantStatus?.status==status)
+      let status2 = this.applicantPlacementStatusList[this.applicantPlacementStatusList.Assigned];
+
+        if(applicantStatus?.status==status||applicantStatus?.status==status2||applicantStatus==null)
         {
           return true;
         }
         return false;
-      }
+
     }
 
     checkContractStatus(applicantProfile:any)

@@ -8,11 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserMenuComponent implements OnInit {
   public userImage = 'assets/images/others/user3.jpg';
+  userFullName :any = null;
   constructor(
     private _authService:AuthService
   ) { }
 
   ngOnInit(): void {
+    this.userFullName = this._authService.getFullName();
+
   }
 
   logout()

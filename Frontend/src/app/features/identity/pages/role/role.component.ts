@@ -23,7 +23,7 @@ description:string;
 export class RoleComponent {
 
 
-  displayedColumns: string[] = ['id','name', 'description','action'];
+  displayedColumns: string[] = ['name', 'description','action'];
     dataSource = new MatTableDataSource<any>();
    roles!:Role[];
    checkeditable = true;

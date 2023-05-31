@@ -1,14 +1,15 @@
 <div class="container">
 
-<mat-card>
+<mat-card class="mat-elevation-z0">
   <mat-card-header>
     <mat-card-title></mat-card-title>
   </mat-card-header>
   <mat-card-content>
 <div class="login-div">
-    <img src="./assets/images/logo.png"  class="image-container">
-<div fxLayout="row" class="p-2">
-  <h1 style="margin: top;">Sign in</h1>
+    <!-- <img src="./assets/images/logo.png"  class="image-container"> -->
+<div fxLayout="row" fxLayoutAlign="start center" class="p-2">
+  <div>  <h1 class="px-1" style="color: #06407a;">Sign in</h1>
+  </div>
 
 </div>
 
@@ -44,9 +45,8 @@
     </mat-form-field>
     </div>
     </div>
-    <div fxLayout="row wrap" class="mt-2" class="w-100">
+    <div fxLayout="row wrap" fxLayout.sm="start start" class="mt-2" class="w-100">
 
-      <div fxFlex="100" fxFlex.gt-sm="100" class="px-1">
         <mat-checkbox
       class="remember-me"
       [(ngModel)]="checked"
@@ -55,7 +55,6 @@
       color="primary">
       Remember me
       </mat-checkbox>
-    </div>
     </div>
     <div fxLayout="row wrap" class="mt-2">
 

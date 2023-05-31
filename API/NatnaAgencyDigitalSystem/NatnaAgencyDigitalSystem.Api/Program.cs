@@ -58,8 +58,8 @@ builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<NatnaAgencyDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddDataProtection()
-        .PersistKeysToFileSystem(new DirectoryInfo(@"c:\temp-keys\"));
+//builder.Services.AddDataProtection()
+//        .PersistKeysToFileSystem(new DirectoryInfo(@"c:\temp-keys\"));
 
 builder.Services.AddAuthentication(options =>
 {
@@ -163,6 +163,7 @@ builder.Services.AddCors(options =>
         {
             builder.WithOrigins("http://localhost",
                 "http://localhost:4200",
+                "https://nathanjobs.com",
                 "http://localhost:5050",
                 "https://localhost:7230",
                 "http://localhost:90")

@@ -23,6 +23,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
 import { NgxPrintModule } from 'ngx-print';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { NgxPrintModule } from 'ngx-print';
   ],
   providers: [
     AppSettings,
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     { provide: OverlayContainer, useClass: CustomOverlayContainer },
     { provide: MAT_MENU_SCROLL_STRATEGY, useFactory: menuScrollStrategy, deps: [Overlay] },
       { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },

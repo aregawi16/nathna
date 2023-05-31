@@ -60,7 +60,7 @@ export class UserDialogComponent implements OnInit {
 
      this._identityService.createUser(this.userSignupform.value)
        .subscribe(data => {
-       // this.offices = data;
+        // this.user = data;
       });
    }
 

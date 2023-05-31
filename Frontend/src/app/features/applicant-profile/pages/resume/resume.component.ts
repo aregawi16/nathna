@@ -5,6 +5,7 @@ import { Status, ApplicantPlacementStatus } from './../../model/Status.enum';
 import { Gender } from './../../../../core/constants/gender.enum';
 import { Component, Input, ViewEncapsulation, OnInit } from '@angular/core';
 import { ApplicantProfileService } from '../../services/applicant-profile.service';
+import { AuthService } from 'src/app/features/auth/services/auth.service';
 
 @Component({
   selector: 'app-resume',
@@ -16,6 +17,8 @@ export class ResumeComponent implements OnInit{
 
   @Input() applicantProfile :any;
   base_url = environment.backend.base_url;
+
+  resume:any;
   genders!:number[];
   jobs:any[]=[];
   jobListForCvs :any[]=[];
@@ -51,7 +54,7 @@ export class ResumeComponent implements OnInit{
   marginRight = 0;
 
   get values(): string[] {
-    return this.applicantProfile.passportNo.split('\n');
+    return this.applicantProfile?.passportNo.split('\n');
   }
   codeList: string[] = [
     '', 'CODE128',
@@ -64,8 +67,10 @@ export class ResumeComponent implements OnInit{
     'codabar'
   ];
 
+
   constructor(
-    private _applicantProfileService:ApplicantProfileService
+    private _applicantProfileService:ApplicantProfileService,
+    private _authService:AuthService
     ) {
 
     }
@@ -73,6 +78,8 @@ export class ResumeComponent implements OnInit{
 ngOnInit(): void
 {
   this.value = this.applicantProfile?.passportNo;
+  this.resume = "<html><h5>Hello</h5></html>";
+
   this.getJobs();
 }
 ngAfterContentInit(): void {

@@ -47,10 +47,22 @@ incorrectCredential : boolean = false;
     return this.http.post(HttpApi.oauthLogin, loginInfo, { headers })
       .pipe(
         map((response: any) => {
-          localStorage.setItem('access_token', JSON.stringify(response));
+          localStorage.setItem('access_token', JSON.stringify(response.accessToken));
+          localStorage.setItem('isHeadOffice', JSON.stringify(response.isHeadOffice));
+          localStorage.setItem('fullName', JSON.stringify(response.fullName));
           return response;
         })
       );
+  }
+  isHeadOffice()
+  {
+   let isHeadOffce =  JSON.parse(localStorage["isHeadOffice"]);
+   return isHeadOffce;
+  }
+  getFullName()
+  {
+   let fullName =  JSON.parse(localStorage["fullName"]);
+   return fullName;
   }
 
   loginWithRefreshToken(): Observable<any> {

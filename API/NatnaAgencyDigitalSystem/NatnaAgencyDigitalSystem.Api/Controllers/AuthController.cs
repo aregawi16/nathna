@@ -16,6 +16,7 @@ using NatnaAgencyDigitalSystem.Api.Settings;
 using NatnaAgencyDigitalSystem.Api.Models.Auth;
 using NatnaAgencyDigitalSystem.Api.Models.Setting;
 using Microsoft.EntityFrameworkCore;
+using NatnaAgencyDigitalSystem.Data;
 
 namespace NatnaAgencyDigitalSystem.Api.Controllers
 {
@@ -25,6 +26,8 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
+        private NatnaAgencyDbContext _db;
+
         private readonly IConfiguration _configuration;
 
         private readonly JwtSettings _jwtSettings;
@@ -32,11 +35,13 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
         public AuthController(
             UserManager<User> userManager,
             RoleManager<Role> roleManager,
+            NatnaAgencyDbContext db,
             IOptionsSnapshot<JwtSettings> jwtSettings,
              IConfiguration configuration)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _db = db;
             _jwtSettings = jwtSettings.Value;
             _configuration = configuration;
 
@@ -46,8 +51,15 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
         public async Task<ActionResult<IEnumerable<User>>> GetUserLists()
         {
             var users = _userManager.Users.ToList();
-           
+             
             return Ok(users);
+        }
+        [HttpDelete("delete/{id}")]
+        public async Task<ActionResult<User>> DeleteUser()
+        {
+            var user = _userManager.Users.FirstOrDefault();
+             
+            return Ok(user);
         }
 
         [HttpPost("SignUp")]
@@ -94,8 +106,13 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
 
             if (userSigninResult)
             {
+                var offce = _db.Offices.Find(user.OfficeId);
                 var roles = await _userManager.GetRolesAsync(user);
-                return Ok(GenerateJwt(user, roles));
+                return Ok(new { 
+                    AccessToken=GenerateJwt(user, roles),
+                    IsHeadOffice=offce?.IsHeadOffice,
+                    fullName = user.FullName
+                });
             }
 
             return BadRequest("Email or password incorrect.");

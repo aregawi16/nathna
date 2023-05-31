@@ -67,6 +67,11 @@
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.116\\RuntimeIdentifierGraph.json"
         }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
+        }
       }
     },
     "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Data\\NatnaAgencyDigitalSystem.Data.csproj": {
@@ -145,6 +150,11 @@
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.116\\RuntimeIdentifierGraph.json"
         }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
+        }
       }
     },
     "D:\\NatnaAgency\\Nathna\\API\\NatnaAgencyDigitalSystem\\NatnaAgencyDigitalSystem.Service\\NatnaAgencyDigitalSystem.Service.csproj": {
@@ -206,6 +216,11 @@
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.116\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
         }
       }
     }

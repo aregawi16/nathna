@@ -21,6 +21,7 @@ import { DocPreviewConfig } from 'img-pdf-viewer';
 import { DialogRef } from '@angular/cdk/dialog';
 import { ProcessManagementService } from 'src/app/features/process-management/service/process-management.service';
 import { Status } from '../../model/Status.enum';
+import { AuthService } from 'src/app/features/auth/services/auth.service';
 
 @Component({
   selector: 'app-applicant-detail',
@@ -43,6 +44,7 @@ export class ApplicantDetailComponent implements OnInit {
    applicantFlightTicketStatuses!:number[];
    applicantFlightTicketStatuseList=ApplicantTicketStatus;
    jobs !: [];
+   shareUrl:any;
    name = "Mr";
    base64Image: any;
    agents!:DropDownObject[];
@@ -51,6 +53,7 @@ export class ApplicantDetailComponent implements OnInit {
    genderList=Gender;
    statuses!:number[];
    statusList=Status;
+   isHeadOffice:boolean=true;
    applicationStatusList=ApplicantPlacementStatus;
    maritalStatuses!:number[];
    maritalStatusList=MaritalStatus;
@@ -81,6 +84,7 @@ export class ApplicantDetailComponent implements OnInit {
   constructor(
     public _applicantService: ApplicantProfileService,
     private _settingService: SettingService,
+    private _authService: AuthService,
     private _processManagementService: ProcessManagementService,
     private _httpClient: HttpClient,
      private _dialog : MatDialog,
@@ -97,9 +101,12 @@ export class ApplicantDetailComponent implements OnInit {
     this.getJobs();
     this.getAgents();
     this.getOffices();
+     this.isHeadOffice = this._authService.isHeadOffice();
+
 
   this.activatedRoute.params.subscribe(params => {
     if(params['id']){
+      this.shareUrl = "https://nathanjobs.com/#/applicant-profile/detail/"+params['id'];
       this.getApplicantProfileById(params['id']);
     }
     else{

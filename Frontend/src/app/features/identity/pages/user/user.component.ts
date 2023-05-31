@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import {SelectionModel} from '@angular/cdk/collections';
 import {Component} from '@angular/core';
 import { SettingService } from 'src/app/features/setting/setting.service';
+import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
 
 
 
@@ -31,7 +32,7 @@ export interface User {
 
 
 export class UserComponent {
-  displayedColumns: string[] = ['select', 'userName','email', 'fullName', 'officeId'];
+  displayedColumns: string[] = ['select', 'userName','email', 'fullName', 'officeId','action'];
   dataSource = new MatTableDataSource<User>();
   selection = new SelectionModel<User>(true, []);
   offices!:DropDownObject[];
@@ -94,6 +95,29 @@ export class UserComponent {
         this.getOffices();
     });
 }
+editUser(user:any)
+{
+
+}
+deleteUser(user:any)
+{ const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+  maxWidth: "400px",
+  data: {
+    title: "Confirm Action",
+    message: "Are you sure you want remove this user?"
+  }
+});
+dialogRef.afterClosed().subscribe(dialogResult => {
+  if(dialogResult){
+  this._identityService.deleteUser(user.id)
+  .subscribe(data => {
+  //  this.offices = data;
+ });
+}
+});
+}
+
+
 }
 
 

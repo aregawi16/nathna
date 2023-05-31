@@ -8,7 +8,8 @@
 
 .user-menu{
     .mat-toolbar, .mat-toolbar-row{
-        height: 100px !important;
+        height: 70px !important;
+        background-color: #06407a !important;
     }
     .user-info{
         width: 230px;
@@ -40,14 +41,14 @@
 
 .user-block{
     height: 0;
-    position: relative;  
-    z-index: 1; 
-    overflow: hidden; 
-    transition: 0.2s; 
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    transition: 0.2s;
     img{
-        width: 80px; 
+        width: 80px;
         border: 1px solid rgba(0, 0, 0, 0.2);
-        border-radius: 50%;       
+        border-radius: 50%;
     }
     .user-info-wrapper{
         padding: 0 6px;
@@ -62,10 +63,10 @@
                 font-size: 13px;
             }
         }
-    } 
+    }
     &.show{
         height: $sidenav-user-block-height;
-    }      
+    }
 }
 
 
@@ -85,7 +86,7 @@
         flex: 1;
         overflow: hidden;
         word-wrap: break-word;
-        padding: 0 8px; 
+        padding: 0 8px;
         &.image{
             flex-grow: 0;
             flex-shrink: 0;
@@ -119,14 +120,14 @@
         }
     }
     &.header-sm{
-        .mat-header-row { 
-            min-height: 36px; 
+        .mat-header-row {
+            min-height: 36px;
         }
     }
     &.truncated{
-        .mat-cell, .mat-header-cell { 
+        .mat-cell, .mat-header-cell {
             white-space: nowrap;
-            text-overflow: ellipsis;  
+            text-overflow: ellipsis;
         }
     }
 }

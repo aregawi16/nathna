@@ -46,7 +46,7 @@
     [include]="['copy', 'facebook', 'email', 'messenger', 'print',  'telegram',  'whatsapp']"
     [showIcon]="true"
     [showText]="false"
-    url="http://localhost:4200/applicant-profile/detail/1020"
+    [url]="shareUrl"
     description="Angular Share Buttons"
     class="pt-5">
   </share-buttons>
@@ -62,14 +62,14 @@
     </ng-template>
     <div class="mat-elevation-z8 tab-content" width="100%">
       <ngx-imgPdf-viewer
-      [documentURL]="base_url+applicantProfile?.applicantDocument?.applicantPassportFilePath"
+      [documentURL]="base_url+applicantProfile.applicantDocument.applicantPassportFilePath"
       [docPreviewConfig]="docPreviewConfig"
     ></ngx-imgPdf-viewer>
     </div>
 
   </mat-tab>
 
-    <mat-tab>
+    <mat-tab *ngIf="isHeadOffice">
       <ng-template mat-tab-label>
 
         <mat-icon>perm_identity</mat-icon>
@@ -77,13 +77,13 @@
       </ng-template>
       <div class="mat-elevation-z8 tab-content" width="70%">
         <ngx-imgPdf-viewer
-        [documentURL]="base_url+applicantProfile?.applicantDocument?.applicantIdFilePath"
+        [documentURL]="base_url+applicantProfile.applicantDocument.applicantIdFilePath"
         [docPreviewConfig]="docPreviewConfig"
       ></ngx-imgPdf-viewer>
     </div>
 
     </mat-tab>
-    <mat-tab>
+    <mat-tab *ngIf="isHeadOffice">
       <ng-template mat-tab-label>
 
         <mat-icon>person</mat-icon>
@@ -91,13 +91,13 @@
       </ng-template>
       <div class="mat-elevation-z8 tab-content" width="70%">
         <ngx-imgPdf-viewer
-        [documentURL]="base_url+applicantProfile?.applicantDocument?.applicantSmallPhotoPath"
+        [documentURL]="base_url+applicantProfile.applicantDocument.applicantSmallPhotoPath"
         [docPreviewConfig]="docPreviewConfig"
       ></ngx-imgPdf-viewer>
    </div>
 
     </mat-tab>
-    <mat-tab>
+    <mat-tab *ngIf="isHeadOffice">
       <ng-template mat-tab-label>
 
       <mat-icon>perm_media</mat-icon>
@@ -105,7 +105,7 @@
     </ng-template>
       <div class="mat-elevation-z8 tab-content" width="70%">
         <ngx-imgPdf-viewer
-        [documentURL]="base_url+applicantProfile?.applicantDocument?.applicantFullPhotoPath"
+        [documentURL]="base_url+applicantProfile.applicantDocument.applicantFullPhotoPath"
         [docPreviewConfig]="docPreviewConfig"
       ></ngx-imgPdf-viewer>
     </div>
@@ -137,8 +137,8 @@
             <vg-volume></vg-volume>
             <vg-fullscreen></vg-fullscreen>
           </vg-controls>
-          <video [vgMedia]="$any(media)" #media id="singleVideo" preload="auto" crossorigin>
-            <source [src]="base_url+applicantProfile?.applicantDocument?.applicantVideoPath" type="video/mp4">
+          <video [vgMedia]="$any(media)" #media id="singleVideo" preload="auto">
+            <source [src]="base_url+applicantProfile.applicantDocument.applicantVideoPath" type="video/mp4">
             <!-- <source src="http://static.videogular.com/assets/videos/videogular.ogg" type="video/ogg">
             <source src="http://static.videogular.com/assets/videos/videogular.webm" type="video/webm"> -->
             <!-- <track kind="subtitles" label="English" src="http://static.videogular.com/assets/subs/pale-blue-dot.vtt"

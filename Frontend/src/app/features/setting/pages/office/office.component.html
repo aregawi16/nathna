@@ -22,7 +22,7 @@
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef> No. </th>
           <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
-            <mat-form-field style="width: 70px;" appearance="fill">
+            <mat-form-field appearance="fill">
               <input matInput type="text" formControlName="id" [readonly]="true">
             </mat-form-field>
         </ng-container>
@@ -34,7 +34,7 @@
       <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
 
         <!-- <span [hidden]="OfficeForm.get('OfficeFormRows').value[i].isEditable"> -->
-        <mat-form-field style="width: 70px;" class="mat-bor-rem"
+        <mat-form-field
           [appearance]="OfficeForm.get('OfficeFormRows')?.value[i].isEditable? 'fill' : 'outline'">
           <mat-select matNativeControl  formControlName="countryId" [disabled]="OfficeForm.get('OfficeFormRows')?.value[i].isEditable">
             <mat-option  *ngFor="let country of countrys"
@@ -56,7 +56,7 @@
           <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
             <!-- [appearance]="true ? 'outline': 'fill'" -->
             <!-- <span [hidden]="OfficeForm.get('OfficeFormRows').value[i].isEditable"> -->
-            <mat-form-field style="width: 70px;" class="mat-bor-rem"
+            <mat-form-field
               [appearance]="OfficeForm.get('OfficeFormRows')?.value[i].isEditable? 'fill' : 'outline'">
               <input matInput type="text" formControlName="code" [readonly]="OfficeForm.get('OfficeFormRows')?.value[i].isEditable">
             </mat-form-field>
@@ -69,7 +69,7 @@
           <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
 
             <!-- <span [hidden]="OfficeForm.get('OfficeFormRows').value[i].isEditable"> -->
-            <mat-form-field style="width: 70px;" class="mat-bor-rem"
+            <mat-form-field
               [appearance]="OfficeForm.get('OfficeFormRows')?.value[i].isEditable? 'fill' : 'outline'">
               <input matInput type="text" formControlName="name" [readonly]="OfficeForm.get('OfficeFormRows')?.value[i].isEditable">
             </mat-form-field>
@@ -106,7 +106,7 @@
           <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
 
             <!-- <span [hidden]="OfficeForm.get('OfficeFormRows').value[i].isEditable"> -->
-            <mat-form-field style="width: 70px;" class="mat-bor-rem"
+            <mat-form-field
               [appearance]="OfficeForm.get('OfficeFormRows')?.value[i].isEditable? 'fill' : 'outline'">
               <input matInput type="text" formControlName="remark" [readonly]="OfficeForm.get('OfficeFormRows')?.value[i].isEditable">
             </mat-form-field>

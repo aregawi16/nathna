@@ -69,7 +69,11 @@ console.log(this.loginForm.value);
       next: _ => {
         this.isLoggedInClick = false;
         this.loginValid = true;
+        if(this._authService.isHeadOffice())
         this._router.navigateByUrl('/');
+        else
+        this._router.navigateByUrl('/applicant-profile/list');
+
       },
       error: _ => this.loginValid = false
     });

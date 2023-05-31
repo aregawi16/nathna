@@ -33,4 +33,13 @@ constructor(
       })
     );
   }
+  public deleteUser(id:any)
+  {
+    return this._http.delete(HttpApi.userRegister+'/'+id)
+    .pipe(
+      map((response) => {
+        return response;
+      })
+    );
+  }
 }

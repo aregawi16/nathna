@@ -56,10 +56,10 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
                 {
                   if(office.IsHeadOffice)
                     {
-                        if(!User.IsInRole("admin"))
-                            {
-                            ApplicantProfiles = ApplicantProfiles.Where(q =>q.CreatedBy == User.Identity.Name);
-                        }
+                        //if(!User.IsInRole("admin"))
+                        //    {
+                        //    ApplicantProfiles = ApplicantProfiles.Where(q =>q.CreatedBy == User.Identity.Name);
+                        //}
                     }
                     else
                     {
@@ -71,7 +71,7 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
                 var ApplicantProfileResource = _mapper.Map<IEnumerable<ApplicantProfile>, IEnumerable<ApplicantProfile>>(ApplicantProfiles);
 
 
-                return Ok(ApplicantProfileResource);
+                return Ok(ApplicantProfiles);
             }
             return Ok();
 

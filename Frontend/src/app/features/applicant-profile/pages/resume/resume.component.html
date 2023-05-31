@@ -185,18 +185,17 @@
                   </div>
                   <div  id="qrcode-print" class="qrcode">
                     <qrcode
-                      [qrdata]="applicantProfile?.passportNo"
+                      qrdata="{{resume}}"
                       [width]="150"
                       [allowEmptyString]="true"
                       [errorCorrectionLevel]="'M'"
-                      [elementType]="'svg'"
                     >
                     </qrcode>
                   </div>
                 </div>
 
                 <div fxFlex="100" fxFlex.gt-sm="60" class="px-1">
-                 <img [src]="base_url+applicantProfile?.applicantDocument?.applicantFullPhotoPath" fxFlex.gt-sm="90" >
+                 <img [src]="base_url+applicantProfile?.applicantDocument?.applicantFullPhotoPath" class="full-photo" >
                   </div>
                 </div>
               </div>

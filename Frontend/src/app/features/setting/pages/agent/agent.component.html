@@ -1,4 +1,4 @@
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8 table-row">
   <button><mat-icon (click)="AddNewRow()" class="add-button">add_box</mat-icon></button>
   <br />
   <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="Start">
@@ -16,6 +16,7 @@
   </div>
   <form [formGroup]="AgentForm" autocomplete="off">
     <ng-container formArrayName="AgentFormRows">
+      <div fxLayout="row wrap">
       <table #table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <!-- Position Column -->
@@ -35,7 +36,7 @@
           <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
             <!-- [appearance]="true ? 'outline': 'fill'" -->
             <!-- <span [hidden]="AgentForm.get('AgentFormRows').value[i].isEditable"> -->
-            <mat-form-field style="width: 70px;" class="mat-bor-rem"
+            <mat-form-field
               [appearance]="AgentForm.get('AgentFormRows')?.value[i].isEditable? 'fill' : 'outline'">
               <input matInput type="text" formControlName="code" [readonly]="AgentForm.get('AgentFormRows')?.value[i].isEditable">
             </mat-form-field>
@@ -48,7 +49,7 @@
           <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
 
             <!-- <span [hidden]="AgentForm.get('AgentFormRows').value[i].isEditable"> -->
-            <mat-form-field style="width: 70px;" class="mat-bor-rem"
+            <mat-form-field
               [appearance]="AgentForm.get('AgentFormRows')?.value[i].isEditable? 'fill' : 'outline'">
               <input matInput type="text" formControlName="fullName" [readonly]="AgentForm.get('AgentFormRows')?.value[i].isEditable">
             </mat-form-field>
@@ -64,7 +65,7 @@
             <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
 
               <!-- <span [hidden]="AgentForm.get('AgentFormRows').value[i].isEditable"> -->
-              <mat-form-field style="width: 70px;" class="mat-bor-rem"
+              <mat-form-field
                 [appearance]="AgentForm.get('AgentFormRows')?.value[i].isEditable? 'fill' : 'outline'">
                 <input matInput type="text" formControlName="phoneNumber" [readonly]="AgentForm.get('AgentFormRows')?.value[i].isEditable">
               </mat-form-field>
@@ -79,7 +80,7 @@
               <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
 
                 <!-- <span [hidden]="AgentForm.get('AgentFormRows').value[i].isEditable"> -->
-                <mat-form-field style="width: 70px;" class="mat-bor-rem"
+                <mat-form-field
                   [appearance]="AgentForm.get('AgentFormRows')?.value[i].isEditable? 'fill' : 'outline'">
                   <input matInput type="text" formControlName="description" [readonly]="AgentForm.get('AgentFormRows')?.value[i].isEditable">
                 </mat-form-field>
@@ -134,6 +135,7 @@
           <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
         </tr>
       </table>
+    </div>
     </ng-container>
   </form>
   <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
