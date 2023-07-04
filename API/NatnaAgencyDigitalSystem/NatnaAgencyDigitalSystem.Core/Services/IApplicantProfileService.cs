@@ -1,5 +1,7 @@
 ﻿using NatnaAgencyDigitalSystem.Api.Models;
+using NatnaAgencyDigitalSystem.Api.Models.Auth;
 using NatnaAgencyDigitalSystem.Api.Models.Setting;
+using NatnaAgencyDigitalSystem.Core.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ namespace NatnaAgencyDigitalSystem.Api.Services
 {
     public interface IApplicantProfileService
     {
-        Task<IEnumerable<ApplicantProfile>> GetAllWithStatusAsync();
+        Task<Page<ApplicantProfile>> GetAllWithStatusAsync(Pageable pageable, User user,int id);
         Task<IEnumerable<ApplicantProfile>> GetAllApplicantProfiles();
         Task<ApplicantProfile> GetApplicantProfileById(int id);
         Task<ApplicantProfile> GetWithWorkExperienceByIdAsync(int id);

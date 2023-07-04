@@ -15,7 +15,7 @@ import { environment } from './../../../../../environments/environment';
 import { Religion } from './../../../../core/constants/religion.enum';
 import { MaritalStatus } from './../../../../core/constants/marital-status.enum';
 import { AddApplicantComponent } from './../add-applicant/add-applicant.component';
-import { Component, OnInit, ViewEncapsulation, Injectable } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Injectable, Input, ChangeDetectorRef, ChangeDetectionStrategy,AfterViewChecked, AfterViewInit, AfterContentChecked, AfterContentInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ApplicantProfileService } from '../../services/applicant-profile.service';
 import { Gender } from 'src/app/core/constants/gender.enum';
@@ -25,6 +25,7 @@ import { ApplicantPreFlightTrainingStatus, Status } from '../../model/Status.enu
 import { ApplicantPlacementStatus, ApplicantInsuranceStatus, ApplicantLabourStatus, ApplicantTicketStatus, ApplicantContractStatus, ApplicantCocStatus } from './../../model/Status.enum';
 import { ReceiveYellowCardComponent } from '../receive-yellow-card/receive-yellow-card.component';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
+import { Observable } from 'rxjs';
 
 export interface ApplicantProfile {
   id: number;
@@ -78,6 +79,7 @@ export interface ApplicantProfileSettings{
   joinedDate: string;
 }
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-applicant-list',
   templateUrl: './applicant-list.component.html',
   styleUrls: ['./applicant-list.component.scss']
@@ -87,9 +89,11 @@ export interface ApplicantProfileSettings{
 
 
 @Injectable({ providedIn: 'root' })
-export class ApplicantListComponent implements OnInit {
+export class ApplicantListComponent implements OnInit,AfterViewInit,AfterContentInit,AfterContentChecked {
   displayedColumns: string[] = ['select', 'id', 'fullName','phoneNumber', 'passportNumber', 'agentId','process','status','action'];
   dataSource = new MatTableDataSource<ApplicantProfile>();
+  @Input() candidateType :any;
+
   selection = new SelectionModel<ApplicantProfile>(true, []);
   horizontalPosition: MatSnackBarHorizontalPosition = 'start';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
@@ -109,12 +113,17 @@ export class ApplicantListComponent implements OnInit {
   applicantLabourOfficeStatusList=ApplicantLabourStatus;
   applicantFlightTicketStatuses!:number[];
   applicantFlightTicketStatuseList=ApplicantTicketStatus;
+
+
   placementFormGroup!: FormGroup;
-    public applicantProfiles!: any[];
+    public applicantProfiles: any[] = [];
     public searchText!: string;
     public startDate!: string;
     public endDate!: string;
-    public page:any;
+    // public page:any;
+    pageSize = 8;
+    pageNumber = 0;
+    totalItems = 0;
     base_url = environment.backend.base_url;
     countries!:{name:string,code:string}[];
     isAnySelected :boolean=false;
@@ -138,15 +147,15 @@ export class ApplicantListComponent implements OnInit {
                 public _applicantService: ApplicantProfileService,
                 public _settingService: SettingService,
                 private _authService: AuthService,
-
+                private cdr: ChangeDetectorRef,
                 public _processManagementService: ProcessManagementService,
                 ){
     }
 
     ngOnInit() {
 
-        this.getApplicantProfiles();
-              this.genders= Object.keys(this.genderList).map(key => parseInt(key)).filter(f => !isNaN(Number(f)));
+      this.getApplicantProfiles(0);
+      this.genders= Object.keys(this.genderList).map(key => parseInt(key)).filter(f => !isNaN(Number(f)));
               this.maritalStatuses= Object.keys(this.maritalStatusList).map(key => parseInt(key)).filter(f => !isNaN(Number(f)));
               this.statuses= Object.keys(this.statusList).map(key => parseInt(key)).filter(f => !isNaN(Number(f)));
               this.religions= Object.keys(this.religionList).map(key => parseInt(key)).filter(f => !isNaN(Number(f)));
@@ -162,17 +171,49 @@ export class ApplicantListComponent implements OnInit {
 
                 });
             }
+            ngAfterViewInit(): void {
+              //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+              //Add 'implements AfterViewInit' to the class.
+               this.cdr.detectChanges();
+             // this.getApplicantProfiles(0);
 
-    public getApplicantProfiles(): void {
-      this._applicantService.getApplicantRofiles()
+              setTimeout(() => {
+                this.cdr.detectChanges(); /*cdRef injected in constructor*/
+              }, 0)
+            }
+            ngAfterContentChecked(): void {
+              this.cdr.detectChanges();
+           }
+            ngAfterContentInit()
+            {
+              this.cdr.detectChanges();
+
+            }
+
+    public async getApplicantProfiles(pageNo:any): Promise<void> {
+      await this._applicantService.getApplicantRofiles(pageNo,this.pageSize,this.candidateType)
       .subscribe(data => {
-        this.applicantProfiles = data;
-        this.dataSource = new MatTableDataSource(data);
+        this.totalItems =data?.totalItems;
+
+
+          this.applicantProfiles = data?.content;
+
+        this.dataSource = new MatTableDataSource( this.applicantProfiles);
 
         console.log(data);
       });
 
 
+    }
+    checkRejectStatus(applicantPlacement:any)
+    {
+      if(applicantPlacement!=null)
+      {
+        return true;
+      }
+      else{
+        return false;
+      }
     }
     checkDeleteStatus(applicantPlacement:any)
     {
@@ -592,6 +633,33 @@ this._processManagementService.followFlight(data)
     }
     });
     }
+
+    public rejectApplicantProfile(id:any){
+      const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+        maxWidth: "400px",
+        data: {
+          title: "Confirm Action",
+          message: "Are you sure you want reject this Applicant?"
+        }
+      });
+      dialogRef.afterClosed().subscribe(dialogResult => {
+        if(dialogResult){
+
+      this._applicantService.rejectApplicantRofile(id)
+      .subscribe(() => {
+        const index: number = this.applicantProfiles.findIndex(x => x.applicantProfileId == id);
+          if (index !== -1) {
+              this.applicantProfiles.splice(index, 1);
+          }
+        // this.applicantProfiles = data;
+        // console.log(data);
+      });
+    }
+    });
+    }
+
+
+
     public detailApplicantProfile(applicantProfile){
       this._applicantService.getApplicantRofileById(applicantProfile.applicantProfileId)
       .subscribe(data => {
@@ -821,8 +889,8 @@ console.log(row);
 
 
     public onPageChanged(event){
-        this.page = event;
-        this.getApplicantProfiles();
+        this.pageNumber = event;
+        this.getApplicantProfiles(this.pageNumber);
         window.scrollTo(0,0);
         // if(this.settings.fixedHeader){
         //     document.getElementById('main-content').scrollTop = 0;

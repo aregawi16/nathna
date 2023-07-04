@@ -1,4 +1,5 @@
 ﻿using NatnaAgencyDigitalSystem.Api.Models.Common;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -23,9 +24,21 @@ namespace NatnaAgencyDigitalSystem.Api.Resources
         public MaritalStatus MaritalStatus { get; set; }
         public Gender Gender { get; set; }
         public string PassportNo { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString =
+        "{0:MM-dd-yyyy}",
+         ApplyFormatInEditMode = true)]
         public DateTime DoB { get; set; }
-        public string PassportIssueDate { get; set; }
-        public string PassportExpiryDate { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString =
+        "{0:MM-dd-yyyy}",
+         ApplyFormatInEditMode = true)]
+        public DateTime PassportIssueDate { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString =
+         "{0:MM-dd-yyyy}",
+          ApplyFormatInEditMode = true)]
+        public DateTime PassportExpiryDate { get; set; }
         public Religion Religion { get; set; }
         public int? NoOfChildren { get; set; }
         public string City { get; set; }
@@ -35,9 +48,14 @@ namespace NatnaAgencyDigitalSystem.Api.Resources
         public string Kebelle { get; set; }
         public decimal Height { get; set; }
         public decimal Weight { get; set; }
-
-        public virtual List<WorkExperienceResource> WorkExperiences { get; set; }
-        public virtual ContactPersonResource ContactPerson { get; set; }
+        public IFormFile applicantPassport { get; set; }
+        public IFormFile? applicantId { get; set; } = null;
+        public IFormFile? contactDocument { get; set; } = null;
+        public IFormFile? applicantVideo { get; set; } = null;
+        public IFormFile? applicantShortPhoto { get; set; } = null;
+        public IFormFile? applicantFullPhoto { get; set; } = null;
+        public virtual List<WorkExperienceResource>? WorkExperiences { get; set; }
+        public virtual ContactPersonResource? ContactPerson { get; set; }
         //public virtual List<ExperiencedJobResource> ExperiencedJobs { get; set; }
     //    public virtual ApplicantDocument ApplicantDocuments { get; set; }
 

@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddApplicantComponent } from './pages/add-applicant/add-applicant.component';
 import { ApplicantListComponent } from './pages/applicant-list/applicant-list.component';
 import { ProcessManagementComponent } from './pages/process-management/process-management.component';
+import { CandidateListComponent } from './pages/candidate-list/candidate-list.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,9 @@ const routes: Routes = [
       },
       {
         path: 'list',
-        component: ApplicantListComponent,
+        component: CandidateListComponent
+
+        ,
         data: { breadcrumb: 'List' }
       },
       {

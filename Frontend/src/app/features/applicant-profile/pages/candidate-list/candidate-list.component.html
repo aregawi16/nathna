@@ -1,0 +1,40 @@
+<mat-card-content>
+  <mat-tab-group>
+    <mat-tab class="custom-mat-tab-header">
+
+      <ng-template mat-tab-label>
+        <mat-icon>book</mat-icon>
+        Applicants
+      </ng-template>
+<app-applicant-list [candidateType]= "applicant"></app-applicant-list>
+
+</mat-tab>
+<mat-tab class="custom-mat-tab-header">
+
+  <ng-template mat-tab-label>
+    <mat-icon>book</mat-icon>
+    Candidates
+  </ng-template>
+<app-applicant-list [candidateType]= "candidate"></app-applicant-list>
+
+</mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>folder</mat-icon>
+      Selected
+    </ng-template>
+<app-applicant-list [candidateType]= "qualified"></app-applicant-list>
+
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>folder</mat-icon>
+      Processing
+    </ng-template>
+<app-applicant-list [candidateType]= "processing"></app-applicant-list>
+
+  </mat-tab>
+
+  </mat-tab-group>
+  </mat-card-content>

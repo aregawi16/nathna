@@ -47,6 +47,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
   ],
   providers: [
     AppSettings,
+    { provide: 'MAX_FILE_SIZE', useValue: 10000000 }, // 10 MB
     {provide: LocationStrategy, useClass: HashLocationStrategy},
     { provide: OverlayContainer, useClass: CustomOverlayContainer },
     { provide: MAT_MENU_SCROLL_STRATEGY, useFactory: menuScrollStrategy, deps: [Overlay] },

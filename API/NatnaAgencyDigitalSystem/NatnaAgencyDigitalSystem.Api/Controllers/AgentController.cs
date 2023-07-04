@@ -26,7 +26,7 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
                 this._AgentService = AgentService;
             }
 
-            [HttpGet("")]
+            [HttpGet("")]   
             public async Task<ActionResult<IEnumerable<Agent>>> GetAllAgents()
             {
 

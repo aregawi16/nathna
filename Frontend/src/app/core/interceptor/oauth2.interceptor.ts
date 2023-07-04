@@ -1,3 +1,4 @@
+import { ApplicantProfile } from './../../features/applicant-profile/pages/applicant-list/applicant-list.component';
 import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpHeaders, HttpRequest, HttpErrorResponse } from '@angular/common/http';
@@ -58,6 +59,7 @@ export class Oauth2Interceptor implements HttpInterceptor {
 
 private JsonApi(apiUrl: string): boolean {
   const blockedApiList = [environment.backend.host + HttpApi.createApplicantProfile+"/upload",
+  environment.backend.host + HttpApi.createApplicantProfile,
   environment.backend.host + HttpApi.uploadVerifiedDocumentApplicant,
   environment.backend.host + HttpApi.verifyContractAgreement,
   environment.backend.host + HttpApi.completeInsurance,

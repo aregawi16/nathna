@@ -51,14 +51,15 @@ builder.Services.AddControllers()
     });
 
 // For Entity Framework
-builder.Services.AddDbContext<NatnaAgencyDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("NatnaAgencyCon")));
+builder.Services.AddDbContext<NatnaAgencyDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("NatnaAgencyCon"), op =>
+        op.CommandTimeout(120)));
 
 // For Identity
 builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<NatnaAgencyDbContext>()
     .AddDefaultTokenProviders();
 
-//builder.Services.AddDataProtection()
+//builder.Services.AddDataProtection();
 //        .PersistKeysToFileSystem(new DirectoryInfo(@"c:\temp-keys\"));
 
 builder.Services.AddAuthentication(options =>

@@ -136,3 +136,8 @@ D:\NatnaAgency\Nathna\API\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Api\
 D:\NatnaAgency\Nathna\API\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Api\bin\Debug\net6.0\Microsoft.AspNetCore.DataProtection.dll
 D:\NatnaAgency\Nathna\API\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Api\bin\Debug\net6.0\Microsoft.AspNetCore.DataProtection.Abstractions.dll
 D:\NatnaAgency\Nathna\API\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Api\obj\Debug\net6.0\refint\NatnaAgencyDigitalSystem.Api.dll
+D:\NatnaAgency\Nathna\API\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Api\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+D:\NatnaAgency\Nathna\API\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Api\bin\Debug\net6.0\Microsoft.AspNetCore.Razor.Language.dll
+D:\NatnaAgency\Nathna\API\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Api\bin\Debug\net6.0\Microsoft.CodeAnalysis.dll
+D:\NatnaAgency\Nathna\API\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Api\bin\Debug\net6.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\NatnaAgency\Nathna\API\NatnaAgencyDigitalSystem\NatnaAgencyDigitalSystem.Api\bin\Debug\net6.0\Microsoft.CodeAnalysis.Razor.dll

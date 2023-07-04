@@ -46,7 +46,7 @@ namespace NatnaAgencyDigitalSystem.Api.Models
         public int CountryId { get; set; }
         public string ReferenceNo { get; set; }
         public string? Email { get; set; }
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
         public DateTime Date { get; set; }
         public MaritalStatus MaritalStatus { get; set; }
         public Gender Gender { get; set; }
@@ -71,8 +71,8 @@ namespace NatnaAgencyDigitalSystem.Api.Models
         public string Address => $"{Kebelle} {Wereda} {City}";
         public virtual ICollection<WorkExperience> WorkExperiences { get; set; }
         //public  ICollection<ExperiencedJob> ExperiencedJobs { get; set; }
-        public  ICollection<BenificiaryDeclaration> BenificiaryDeclarations { get; set; }
-        public  ContactPerson ContactPerson { get; set; }
+        public virtual  ICollection<BenificiaryDeclaration> BenificiaryDeclarations { get; set; }
+        public   ContactPerson ContactPerson { get; set; }
         public  ApplicantDocument ApplicantDocument { get; set; }
         public virtual ICollection<ApplicantPlacement> ApplicantPlacements { get; set; } 
         public virtual ICollection<ApplicantContractAgreement> ApplicantContractAgreements { get; set; } 

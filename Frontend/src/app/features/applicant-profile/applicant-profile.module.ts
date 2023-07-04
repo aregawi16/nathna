@@ -35,6 +35,7 @@ import { PreflightTrainingDialogComponent } from './pages/pre-flight-training/pr
 import { CompletePreflightTrainingDialogComponent } from './pages/pre-flight-training/complete-preflight-training-dialog/complete-preflight-training-dialog.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { NgxBarcodeModule } from 'ngx-barcode';
+import { CandidateListComponent } from './pages/candidate-list/candidate-list.component';
 
 
 
@@ -57,7 +58,8 @@ import { NgxBarcodeModule } from 'ngx-barcode';
     ResumeComponent,
     PreFlightTrainingComponent,
     PreflightTrainingDialogComponent,
-    CompletePreflightTrainingDialogComponent
+    CompletePreflightTrainingDialogComponent,
+    CandidateListComponent
     ],
   imports: [
     CommonModule,

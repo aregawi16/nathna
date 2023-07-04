@@ -11,6 +11,7 @@ export class HttpApi {
 // Get Applicant Profile
 static getApplicantProfiles = 'ApplicantProfile';
 static createApplicantProfile = 'ApplicantProfile';
+static listApplicantProfile = 'ApplicantProfile/list';
 static getApplicantProfileList = 'ApplicantProfile';
 static placeApplicant = 'ProcessManagement/placement';
 static getApplicantsForTraining = 'ApplicantProfile/getApplicantsForTraining';

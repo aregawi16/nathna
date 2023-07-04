@@ -2,7 +2,7 @@
 <mat-card-content class>
 
 <mat-stepper role="tab" aria-selected="true">
-  <form [formGroup]="personalInfoFormGroup"  #formItemDirective="ngForm">
+  <form [formGroup]="personalInfoFormGroup"  #formItemDirective="ngForm" enctype="multipart/form-data">
 
   <mat-step label="Step 1" state="phone"  >
       <ng-template matStepLabel>Passport Detail</ng-template>
@@ -162,7 +162,7 @@
 
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>No of Children</mat-label>
-      <input matInput placeholder="No of Children" formControlName="noOfChildren" required>
+      <input matInput placeholder="No of Children" formControlName="noOfChildren" type="number" required>
     </mat-form-field>
   </div>
   <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
@@ -216,7 +216,7 @@
 
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Height(m)</mat-label>
-      <input matInput placeholder="Height" formControlName="height" >
+      <input matInput placeholder="Height" formControlName="height" type="number" >
     </mat-form-field>
   </div>
   </div>
@@ -224,7 +224,7 @@
     <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Weight(Kg)</mat-label>
-      <input matInput placeholder="Weight" formControlName="weight" >
+      <input matInput placeholder="Weight" formControlName="weight"  type="number">
     </mat-form-field>
     </div>
     <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">

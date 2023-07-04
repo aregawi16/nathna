@@ -8,14 +8,17 @@ using NatnaAgencyDigitalSystem.Api.Models;
 using NatnaAgencyDigitalSystem.Api.Services;
 using NatnaAgencyDigitalSystem.Data;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
-using Newtonsoft.Json.Linq;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Identity;
 using NatnaAgencyDigitalSystem.Api.Models.Auth;
-using Newtonsoft.Json;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using NatnaAgencyDigitalSystem.Api.Models.Common;
 using Microsoft.EntityFrameworkCore;
+using NatnaAgencyDigitalSystem.Core.Models.Common;
+using NatnaAgencyDigitalSystem.Data.Pagination.Extensions;
+using DocumentFormat.OpenXml.Bibliography;
+using System.Text.Json;
+using NatnaAgencyDigitalSystem.Service;
 
 namespace NatnaAgencyDigitalSystem.Api.Controllers
 {
@@ -41,37 +44,21 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
 
         }
 
-        [HttpGet("")]
-        public async Task<ActionResult<IEnumerable<ApplicantProfile>>> GetAllApplicantProfiles()
+        [HttpPost("list")]
+        public async Task<ActionResult<Page<ApplicantProfile>>> GetAllApplicantProfiles(Pageable pageable, int id)
         {
-         
+
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             if (user != null)
             {
-                var appPlacmentIds = _db.ApplicantPlacements.Where(q => q.OfficeId == user.OfficeId).Select(s => s.ApplicantProfileId);
-                var ApplicantProfiles = await _ApplicantProfileService.GetAllWithStatusAsync();
-
-                var office = await _db.Offices.FindAsync(user.OfficeId);
-                if(office != null)
-                {
-                  if(office.IsHeadOffice)
-                    {
-                        //if(!User.IsInRole("admin"))
-                        //    {
-                        //    ApplicantProfiles = ApplicantProfiles.Where(q =>q.CreatedBy == User.Identity.Name);
-                        //}
-                    }
-                    else
-                    {
-                        ApplicantProfiles = ApplicantProfiles.Where(q => appPlacmentIds.Contains(q.ApplicantProfileId));
-
-                    }
-                }
-
-                var ApplicantProfileResource = _mapper.Map<IEnumerable<ApplicantProfile>, IEnumerable<ApplicantProfile>>(ApplicantProfiles);
+                var applicantProfiles = await _ApplicantProfileService.GetAllWithStatusAsync(pageable, user, id);
 
 
-                return Ok(ApplicantProfiles);
+
+                //var ApplicantProfileResource = _mapper.Map<IEnumerable<ApplicantProfile>, IEnumerable<ApplicantProfile>>(ApplicantProfiles);
+
+
+                return Ok(applicantProfiles);
             }
             return Ok();
 
@@ -79,12 +66,11 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
         }
 
 
-      
 
 
 
-        [HttpPost("upload")]
-        public async Task<ActionResult<ApplicantDocumentResource>> UploadDocuments([FromForm] ApplicantDocumentResource ApplicantDocRes)
+
+        private void UploadDocuments([FromForm] ApplicantDocumentResource ApplicantDocRes)
 
         {
             var appDoc = new ApplicantDocumentResource();
@@ -94,14 +80,14 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
             string wwwPath = this.Environment.WebRootPath;
             string contentPath = this.Environment.ContentRootPath;
 
-            string path = Path.Combine("", "NathnaDocuments/"+ fullName);
+            string path = Path.Combine("", "NathnaDocuments/" + fullName);
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
             var NibConstantFileName = "NIB" + ApplicantDocRes.ApplicantProfileId.ToString();
 
-            if (ApplicantDocRes.applicantId!=null)
+            if (ApplicantDocRes.applicantId != null)
             {
                 string extention = Path.GetExtension(ApplicantDocRes.applicantId.FileName);
                 string fileName = NibConstantFileName + "ID" + extention;
@@ -126,7 +112,7 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
             }
             if (ApplicantDocRes.applicantShortPhoto != null)
             {
-               var extention = Path.GetExtension(ApplicantDocRes.applicantShortPhoto.FileName);
+                var extention = Path.GetExtension(ApplicantDocRes.applicantShortPhoto.FileName);
                 var fileName = NibConstantFileName + "SmallPhoto" + extention;
                 using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
                 {
@@ -148,8 +134,8 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
             }
             if (ApplicantDocRes.applicantVideo != null)
             {
-               var  extention = Path.GetExtension(ApplicantDocRes.applicantVideo.FileName);
-              var  fileName = NibConstantFileName + "Video" + extention;
+                var extention = Path.GetExtension(ApplicantDocRes.applicantVideo.FileName);
+                var fileName = NibConstantFileName + "Video" + extention;
                 using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
                 {
                     ApplicantDocRes.applicantVideo.CopyTo(stream);
@@ -169,7 +155,7 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
 
             //}
 
-            return Ok(appDocument);
+            // return Ok(appDocument);
         }
 
         [HttpGet("{id}")]
@@ -183,20 +169,23 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
         }
 
         [HttpPost("")]
-        [Authorize(Roles = "OnlyTest")]
-        public async Task<ActionResult<ApplicantProfile>> CreateApplicantProfile([FromBody] ApplicantProfileResource ApplicantProfileRes)
+        [RequestSizeLimit(20 * 1024 * 1024)]
+        //  [Authorize(Roles = "OnlyTest")]
+        public async Task<ActionResult<ApplicantProfile>> CreateApplicantProfile([FromForm] ApplicantProfileResource ApplicantProfileRes)
         {
+
+
+            var validator = new ApplicantProfileValidator();
+            // ApplicantProfile appRes = JsonSerializer.Deserialize<ApplicantProfile>(ApplicantProfileRes.ToString());
             ApplicantProfileRes.CreatedBy = "1111";
             ApplicantProfileRes.ModifiedBy = "1111";
             ApplicantProfileRes.CreatedDate = DateTime.Now;
             ApplicantProfileRes.ModifiedDate = DateTime.Now;
 
-            var validator = new ApplicantProfileValidator();
+            //var validationResult = await validator.ValidateAsync(ApplicantProfileRes);
 
-            var validationResult = await validator.ValidateAsync(ApplicantProfileRes);
-
-            if (!validationResult.IsValid)
-                return BadRequest(validationResult.Errors); // this needs refining, but for demo it is ok
+            //if (!validationResult.IsValid)
+            //    return BadRequest(validationResult.Errors); // this needs refining, but for demo it is ok
 
             var ApplicantProfileToCreate = _mapper.Map<ApplicantProfileResource, ApplicantProfile>(ApplicantProfileRes);
 
@@ -206,47 +195,56 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
 
             var ApplicantProfileResource = _mapper.Map<ApplicantProfile, ApplicantProfile>(ApplicantProfile);
 
+            var apppResource = new ApplicantDocumentResource();
+            apppResource.ApplicantProfileId = newApplicantProfile.ApplicantProfileId;
+            apppResource.applicantPassport = ApplicantProfileRes.applicantPassport;
+            apppResource.applicantFullPhoto = ApplicantProfileRes.applicantFullPhoto;
+            apppResource.applicantShortPhoto = ApplicantProfileRes.applicantShortPhoto;
+            apppResource.applicantId = ApplicantProfileRes.applicantId;
+            apppResource.contactDocument = ApplicantProfileRes.contactDocument;
+            apppResource.applicantVideo = ApplicantProfileRes.applicantVideo;
+            UploadDocuments(apppResource);
             return Ok(ApplicantProfileResource);
         }
 
 
-            [HttpPut("{id}")]
-            public async Task<ActionResult<ApplicantProfile>> UpdateApplicantProfile(int id, [FromBody] ApplicantProfileResource applicantProfile)
-            {
-                var validator = new ApplicantProfileValidator();
-                var validationResult = await validator.ValidateAsync(applicantProfile);
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ApplicantProfile>> UpdateApplicantProfile(int id, [FromBody] ApplicantProfileResource applicantProfile)
+        {
+            var validator = new ApplicantProfileValidator();
+            var validationResult = await validator.ValidateAsync(applicantProfile);
 
-                if (!validationResult.IsValid)
-                    return BadRequest(validationResult.Errors); // this needs refining, but for demo it is ok
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors); // this needs refining, but for demo it is ok
 
-                var ApplicantProfileToBeUpdated = await _ApplicantProfileService.GetApplicantProfileById(id);
+            var ApplicantProfileToBeUpdated = await _ApplicantProfileService.GetApplicantProfileById(id);
 
-                if (ApplicantProfileToBeUpdated == null)
-                    return NotFound();
+            if (ApplicantProfileToBeUpdated == null)
+                return NotFound();
 
-                var ApplicantProfile = _mapper.Map<ApplicantProfileResource, ApplicantProfile>(applicantProfile);
+            var ApplicantProfile = _mapper.Map<ApplicantProfileResource, ApplicantProfile>(applicantProfile);
 
-                await _ApplicantProfileService.UpdateApplicantProfile(ApplicantProfileToBeUpdated, ApplicantProfile);
+            await _ApplicantProfileService.UpdateApplicantProfile(ApplicantProfileToBeUpdated, ApplicantProfile);
 
-                var updatedApplicantProfile = await _ApplicantProfileService.GetApplicantProfileById(id);
+            var updatedApplicantProfile = await _ApplicantProfileService.GetApplicantProfileById(id);
 
-                var updatedApplicantProfileResource = _mapper.Map<ApplicantProfile, ApplicantProfile>(updatedApplicantProfile);
+            var updatedApplicantProfileResource = _mapper.Map<ApplicantProfile, ApplicantProfile>(updatedApplicantProfile);
 
-                return Ok(updatedApplicantProfileResource);
-            }
+            return Ok(updatedApplicantProfileResource);
+        }
 
         [HttpGet("getApplicantsForTraining")]
         public async Task<ActionResult<ApplicantProfile>> getApplicantsForTraining()
         {
-            var appIds = _db.ApplicantStatuses.Where(q => q.OfficeLevel == Status.CoC.ToString() 
-            && q.Status ==ApplicantCocStatus.Completed.ToString()
-            ).Select(s=>s.ApplicantProfileId).ToList();
+            var appIds = _db.ApplicantStatuses.Where(q => q.OfficeLevel == Status.CoC.ToString()
+            && q.Status == ApplicantCocStatus.Completed.ToString()
+            ).Select(s => s.ApplicantProfileId).ToList();
 
             var applicants = _db.ApplicantProfiles.Where(q => appIds.Contains(q.ApplicantProfileId))
                                                    .Select(s => new
                                                    {
-                                                       id=s.ApplicantProfileId,
-                                                       name = $"{ s.FirstNameAm} {s.MiddleName} {s.LastNameAm} "
+                                                       id = s.ApplicantProfileId,
+                                                       name = $"{s.FirstNameAm} {s.MiddleName} {s.LastNameAm} "
                                                    })
                                                   .ToList();
 
@@ -254,15 +252,31 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
             return Ok(applicants);
         }
 
-              [HttpDelete("{id}")]
-            public async Task<IActionResult> DeleteApplicantProfile(int id)
-            {
-                var ApplicantProfile = await _ApplicantProfileService.GetApplicantProfileById(id);
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "OnlyTest")]
+        public async Task<IActionResult> DeleteApplicantProfile(int id)
+        {
+            var ApplicantProfile = await _ApplicantProfileService.GetApplicantProfileById(id);
 
-                await _ApplicantProfileService.DeleteApplicantProfile(ApplicantProfile);
+            await _ApplicantProfileService.DeleteApplicantProfile(ApplicantProfile);
 
-                return Ok("Deleted");
-            }
+            return Ok("Deleted");
         }
+
+
+
+        [HttpDelete("reject/{id}")]
+        public async Task<IActionResult> RejectApplicantProfile(int id)
+        {
+            var user = _userManager.FindByNameAsync(User.Identity.Name).Result;
+            var statuses = _db.ApplicantStatuses.Where(q => q.ApplicantProfileId == id).ToList();
+            var offices = _db.ApplicantPlacements.Where(q => q.ApplicantProfileId == id).ToList();
+            _db.ApplicantStatuses.RemoveRange(statuses);
+            _db.ApplicantPlacements.RemoveRange(offices);
+            _db.SaveChanges();
+
+            return Ok("Rejected");
+        }
+    }
 
 }

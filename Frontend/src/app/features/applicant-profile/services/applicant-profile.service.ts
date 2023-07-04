@@ -1,9 +1,12 @@
 import { DropDownObject } from './../../../core/models/dropDownObject';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpApi } from 'src/app/core/interceptor/http-api';
 import { Country } from 'src/app/core/constants/country';
+import { Observable } from 'rxjs';
+
+const PARAMS = new HttpParams();
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +14,7 @@ import { Country } from 'src/app/core/constants/country';
 export class ApplicantProfileService {
 
 constructor(
-  private _http:HttpClient
+private _http:HttpClient
 ) { }
 
  getCommonJobs()
@@ -42,7 +45,7 @@ getPreFlightTrainingSchedules()
   );
 }
 
-createApplicantProfile(data)
+createApplicantProfile(data): Observable<any>
 {
   return this._http.post(HttpApi.createApplicantProfile,data)
   .pipe(
@@ -78,9 +81,12 @@ placeApplicant(data)
   );
 
 }
-public getApplicantRofiles()
+public getApplicantRofiles(pageNo:any,pageSize:any, candidateType:any): Observable<any>
 {
-  return this._http.get(HttpApi.createApplicantProfile)
+  let page = {
+  "pageNumber": pageNo,'pageSize':pageSize
+}
+  return this._http.post(HttpApi.listApplicantProfile+'?id='+candidateType,page)
   .pipe(
     map((response: any) => {
       return response;
@@ -101,6 +107,15 @@ public getApplicantRofileById(id:any)
 deleteApplicantRofile(id:any)
 {
   return this._http.delete(HttpApi.createApplicantProfile+'/'+id)
+  .pipe(
+    map(() => {
+return "Deleted";
+    })
+  );
+}
+rejectApplicantRofile(id:any)
+{
+  return this._http.delete(HttpApi.createApplicantProfile+'/reject/'+id)
   .pipe(
     map(() => {
 return "Deleted";

@@ -6,11 +6,11 @@ export const environment = {
   production: true,
   url: '',
   backend: {
-    host: 'https://api.nathanjobs.com/api/',
-    base_url: 'https://api.nathanjobs.com/',
+    host: 'https://localhost:7224/api/',
+    base_url: 'https://localhost:7224/',
   },
   oauth: {
-    host: 'https://api.nathanjobs.com',
+    host: 'https://localhost:7224',
     client_id: '2',
     client_secret: 'tsN80QNwTawD3WZSX2uziOFI6HstTEs2bXBqsCyv',
     scope: '*',

@@ -67,10 +67,12 @@
 </div>
 
 <div *ngIf="viewType.value == 'grid'" fxLayout="row wrap">
-  <div *ngFor="let applicantProfile of applicantProfiles | UserSearchPipe : searchText  | paginate: { itemsPerPage: 8, currentPage: page }" fxFlex="100" fxFlex.gt-md="25" fxFlex.md="40" class="p-1">
+  <div *ngFor="let applicantProfile of applicantProfiles  | paginate: { itemsPerPage: 8, currentPage: pageNumber,totalItems: totalItems }" fxFlex="100" fxFlex.gt-md="25" fxFlex.md="40" class="p-1">
       <mat-card class="p-0">
           <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
-              <h3 *ngIf="!applicantProfile.isDeleted" class="user-name">{{applicantProfile.fullName}}<br>{{applicantProfile.fullNameAm}}</h3>
+              <h3 *ngIf="!applicantProfile.isDeleted" class="user-name">{{applicantProfile.fullName}}</h3>
+              <!-- <br>{{applicantProfile.fullNameAm}} -->
+              <!-- <p style="font-size: 3.5vw;"></p> -->
               <h3 *ngIf="applicantProfile.isDeleted" class="user-name">User blocked</h3>
               <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
                   <mat-icon>more_vert</mat-icon>
@@ -85,6 +87,10 @@
                   <button *ngIf="checkDeleteStatus(applicantProfile.applicantStatuses[0]) && isHeadOffice"  mat-menu-item (click)="deleteApplicantProfile(applicantProfile.applicantProfileId)">
                     <mat-icon>delete</mat-icon>
                       <span>Delete</span>
+                  </button>
+                  <button *ngIf="checkRejectStatus(applicantProfile.applicantStatuses[0]) && isHeadOffice"  mat-menu-item (click)="rejectApplicantProfile(applicantProfile.applicantProfileId)">
+                    <mat-icon>cancel</mat-icon>
+                      <span>Reject</span>
                   </button>
                   <a mat-menu-item [routerLink]="['/applicant-profile/detail', applicantProfile.applicantProfileId]">
                     <mat-icon>details</mat-icon>
@@ -139,7 +145,7 @@
   </div>
 </div>
 <div *ngIf="viewType.value == 'list'" fxLayout="row wrap">
-  <div *ngFor="let applicantProfile of applicantProfiles | UserSearchPipe : searchText  | paginate: { itemsPerPage: 3, currentPage: page }" fxFlex="100" class="p-1">
+  <div *ngFor="let applicantProfile of applicantProfiles | UserSearchPipe : searchText  | paginate: { itemsPerPage: 8, currentPage: pageNumber,totalItems: totalItems }" fxFlex="100" class="p-1">
       <mat-card class="p-0">
           <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
               <h3 *ngIf="!applicantProfile.isDeleted" class="user-name">{{applicantProfile.fullName}}</h3>
@@ -256,7 +262,7 @@
 <div *ngIf="viewType.value == 'table'" fxLayout="row wrap">
    <div  fxFlex="100" class="p-1" >
       <mat-card class="p-0">
-        <div *ngIf="isAnySelected" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="start">
+        <div *ngIf="isAnySelected&&isHeadOffice" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="start">
           <div [formGroup]="placementFormGroup">
 
    <mat-form-field appearance="outline">
@@ -300,7 +306,7 @@
                       <div class="mat-header-cell">Status</div>
                       <div class="mat-header-cell"></div>
                   </div>
-                  <div *ngFor="let applicantProfile of applicantProfiles | UserSearchPipe : searchText| paginate: { itemsPerPage: 10, currentPage: page }" class="mat-row">
+                  <div *ngFor="let applicantProfile of applicantProfiles | UserSearchPipe : searchText| paginate: { itemsPerPage: 8, currentPage: pageNumber,totalItems: totalItems }" class="mat-row">
                       <div class="mat-cell">
                           <mat-checkbox (click)="$event.stopPropagation()"
                         (change)="$event ? selectRow(applicantProfile) : null"
@@ -386,13 +392,13 @@
               </div>
           </mat-card>
 
-          <div *ngIf="applicantProfiles.length > 0" fxLayout="row wrap">
+          <!-- <div *ngIf="applicantProfiles.length > 0" fxLayout="row wrap">
               <div fxFlex="100">
                   <mat-card class="p-0 text-center">
-                      <pagination-controls class="product-pagination" (pageChange)="onPageChanged($event)"></pagination-controls>
+                      <pagination-controls class="product-pagination" [maxSize]='10' (pageChange)="onPageChanged($event)"></pagination-controls>
                   </mat-card>
               </div>
-          </div>
+          </div> -->
       </div>
       <!-- autoHide="true" maxSize="5" -->
 
@@ -400,10 +406,10 @@
       </mat-card>
   </div>
 </div>
-<div *ngIf="applicantProfiles" fxLayout="row wrap">
+<div *ngIf="applicantProfiles.length>0" fxLayout="row wrap">
   <div fxFlex="100" class="p-1">
       <mat-card class="p-0 text-center">
-          <pagination-controls class="product-pagination" [autoHide]='true' [maxSize]='5' (pageChange)="onPageChanged($event)"></pagination-controls>
+          <pagination-controls class="product-pagination" [autoHide]='true' [maxSize]='8' (pageChange)="onPageChanged($event)"></pagination-controls>
       </mat-card>
   </div>
 </div>

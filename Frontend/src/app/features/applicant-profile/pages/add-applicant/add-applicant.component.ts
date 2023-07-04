@@ -95,7 +95,7 @@ model : LoginForm={
 
     //Personal Info
     this.personalInfoFormGroup = this._formBuilder.group({
-      applicantProfileId: [''],
+      applicantProfileId: [0],
       firstName: ['',[ Validators.required] ],
       firstNameAm: ['',[ Validators.required]],
       lastName: ['',[ Validators.required]],
@@ -107,12 +107,12 @@ model : LoginForm={
       passportIssueDate: ['',[ Validators.required]],
       passportExpiryDate: ['',[ Validators.required]],
       referenceNo: ['',[ Validators.required]],
-      doB: ['',[ Validators.required]],
+      doB: [Date.now,[ Validators.required]],
       nationality: ['Ethiopian'],
       countryId: ['',[ Validators.required]],
       maritalStatus: ['',[ Validators.required]],
       gender: ['',[ Validators.required]],
-      noOfChildren: ['',[ Validators.required]],
+      noOfChildren: [0,[ Validators.required]],
       religion: ['',[ Validators.required]],
       agentId: ['',[ Validators.required]],
       priority: ['',[ Validators.required]],
@@ -140,7 +140,6 @@ model : LoginForm={
           professionalSkill: ['']
                 }),
       experiencedJobs: this._formBuilder.array([]),
-      applicantDocument:{}
 
     });
 
@@ -307,18 +306,18 @@ submitApplicantProfile()
     this._applicantProfileService.createApplicantProfile(this.personalInfoFormGroup.value)
     .subscribe(data => {
 
-      this._applicantProfileService.uplodApplicantDocument(this.formData)
-      .subscribe(data => {
+      // this._applicantProfileService.uplodApplicantDocument(this.formData)
+      // .subscribe(datas => {
 
 
-            this._snackBar.open('Applicant added successfully', 'Undo', {
-              duration:10000,
-              horizontalPosition: this.horizontalPosition,
-              verticalPosition: this.verticalPosition,
-            });
+      //       this._snackBar.open('Applicant added successfully', 'Undo', {
+      //         duration:10000,
+      //         horizontalPosition: this.horizontalPosition,
+      //         verticalPosition: this.verticalPosition,
+      //       });
 
 
-      });
+      // });
 
 
     });
@@ -344,35 +343,78 @@ onSubmit(formItemDirective:FormGroupDirective)
 {
 
 
+  Object.keys(this.personalInfoFormGroup.value).forEach(key => {
+    const argIsString = typeof this.personalInfoFormGroup.value[key] === "string";
 
+    if(argIsString)
+    {
+      this.formData.append(key, this.personalInfoFormGroup.value[key]);
+
+    }
+    else
+    {
+      if(key=="doB"||key=="passportIssueDate"||key=="passportExpiryDate")
+      {
+        this.formData.append(key,this.transformDate(this.personalInfoFormGroup.value[key]));
+      }
+      else
+      {
+        this.formData.append(key, JSON.stringify(this.personalInfoFormGroup.value[key]));
+
+      }
+    }
+
+  });
   console.log(this.dataa.applicantProfileId);
   console.log(this.personalInfoFormGroup.value);
+  console.log(Object.keys(this.personalInfoFormGroup.value));
 
   if(this.personalInfoFormGroup.valid && this.documentFormGroup)
   {
     if(this.dataa.applicantProfileId==undefined|| this.dataa.applicantProfileId==null )
     {
-    this._applicantProfileService.createApplicantProfile(this.personalInfoFormGroup.value)
-    .subscribe(data => {
-      this.formData.append("ApplicantProfileId",data.applicantProfileId);
-      this._applicantProfileService.uplodApplicantDocument(this.formData)
-      .subscribe(data => {
+    this._applicantProfileService.createApplicantProfile(this.formData)
+    .subscribe({ next: (beers) => {
+      this._snackBar.open('Applicant added successfully', 'Undo', {
+                duration:10000,
+                horizontalPosition: this.horizontalPosition,
+                verticalPosition: this.verticalPosition,
+              });
+              formItemDirective.resetForm();
+              this.personalInfoFormGroup.reset();
 
-
-            this._snackBar.open('Applicant added successfully', 'Undo', {
-              duration:10000,
-              horizontalPosition: this.horizontalPosition,
-              verticalPosition: this.verticalPosition,
-            });
-            formItemDirective.resetForm();
-            this.personalInfoFormGroup.reset();
-
-            this._router.navigateByUrl('/applicant-profile/list');
-
+              this._router.navigateByUrl('/applicant-profile/list');
+    },
+    error: (e) => {
+      console.log(e);
+      this.formData = new FormData();
+      this._snackBar.open('Error Occured', 'cancel', {
+        duration:10000,
+        panelClass: ['mat-toolbar', 'mat-primary'],
+        horizontalPosition: "end",
+        verticalPosition: "top",
       });
+    },});
+   //   data => {
+    //   this.formData.append("ApplicantProfileId",data.applicantProfileId);
+      // this._applicantProfileService.uplodApplicantDocument(this.formData)
+      // .subscribe(data => {
 
 
-    });
+      //       this._snackBar.open('Applicant added successfully', 'Undo', {
+      //         duration:10000,
+      //         horizontalPosition: this.horizontalPosition,
+      //         verticalPosition: this.verticalPosition,
+      //       });
+      //       formItemDirective.resetForm();
+      //       this.personalInfoFormGroup.reset();
+
+      //       this._router.navigateByUrl('/applicant-profile/list');
+
+      // });
+
+
+   // })
   }
     else
     {
@@ -387,7 +429,7 @@ onSubmit(formItemDirective:FormGroupDirective)
 
       });
     }
-  }
+   }
   else
   {
 
