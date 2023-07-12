@@ -44,7 +44,6 @@ import {CdkStepperModule} from '@angular/cdk/stepper';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatBadgeModule} from '@angular/material/badge';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -61,6 +60,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import {MatStepperModule} from '@angular/material/stepper';
 import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
 import { ReportHeaderComponent } from './components/report-header/report-header.component';
+import {MatBadgeModule} from '@angular/material/badge';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   wheelPropagation: true,
@@ -81,6 +81,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ReactiveFormsModule,
     MatCardModule,
     MatListModule,
+    MatBadgeModule,
     TranslateModule,
     MatFormFieldModule,
     MatCheckboxModule,
@@ -123,6 +124,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ReactiveFormsModule,
     MatInputModule,
     MatListModule,
+    MatBadgeModule,
     MatButtonModule,
     MatButtonToggleModule,
     TranslateModule,

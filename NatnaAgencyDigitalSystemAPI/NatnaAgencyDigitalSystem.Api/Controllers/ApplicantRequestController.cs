@@ -45,13 +45,13 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
         }
 
         [HttpPost("list")]
-        public async Task<ActionResult<Page<ApplicantProfile>>> GetAllApplicantProfiles(Pageable pageable, int id)
+        public async Task<ActionResult<Page<ApplicantProfile>>> GetAllApplicantProfiles(Pageable pageable, int id, int? officeId,string? search)
         {
-
+            pageable.PageNumber = pageable.PageNumber-1;
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             if (user != null)
             {
-                var applicantProfiles = await _ApplicantProfileService.GetAllWithStatusAsync(pageable, user, id);
+                var applicantProfiles = await _ApplicantProfileService.GetAllWithStatusAsync(pageable, user, id, officeId, search);
 
 
 

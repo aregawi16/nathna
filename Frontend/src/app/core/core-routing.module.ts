@@ -8,7 +8,7 @@ const routes: Routes = [
     path: '',
     component: CoreComponent,
     children:[
-      { path: 'letter', loadChildren: () => import('./../features/letter/letter.module').then(m => m.LetterModule), data: { breadcrumb: 'Letter' }},
+     // { path: 'letter', loadChildren: () => import('./../features/letter/letter.module').then(m => m.LetterModule), data: { breadcrumb: 'Letter' }},
       { path: 'applicant-profile', loadChildren: () => import('./../features/applicant-profile/applicant-profile.module').then(m => m.ApplicantProfileModule), data: { breadcrumb: 'Applicant Profile' }},
       { path: 'setting', loadChildren: () => import('./../features/setting/setting.module').then(m => m.SettingModule), data: { breadcrumb: 'Setting' } },
       { path: 'identity', loadChildren: () => import('./../features/identity/identity.module').then(m => m.IdentityModule), data: { breadcrumb: 'Idenity' } },

@@ -6,6 +6,7 @@ using NatnaAgencyDigitalSystem.Api.Models;
 using NatnaAgencyDigitalSystem.Api.Models.Auth;
 using NatnaAgencyDigitalSystem.Api.Repositories;
 using NatnaAgencyDigitalSystem.Core.Models.Common;
+using NatnaAgencyDigitalSystem.Core.Models.ReadOnlyModel;
 using NatnaAgencyDigitalSystem.Data.Pagination.Extensions;
 
 namespace NatnaAgencyDigitalSystem.Data.Repositories
@@ -19,15 +20,57 @@ namespace NatnaAgencyDigitalSystem.Data.Repositories
             _context = context;
                 }
 
-        public async Task<Core.Models.Common.Page<ApplicantProfile>> GetAllWithStatusAsync(Pageable pageable, User user, int id)
+        public async Task<Core.Models.Common.Page<ApplicantProfileViewModel>> GetAllWithStatusAsync(Pageable pageable, User user, int id, int? officeId,string? search)
         {
             var office = await _context.Offices.FindAsync(user.OfficeId);
             var appPlacmentIds = _context.ApplicantPlacements.Where(q => q.OfficeId == user.OfficeId).Select(s => s.ApplicantProfileId);
 
-            var applcantProfiles = new List<ApplicantProfile>();
+            var applcantProfiles = new List<ApplicantProfileViewModel>();
+            IEnumerable<int> appIds = null;
+            Boolean isUpdate = false;
+            IEnumerable<int> officeAssignedAppIds = new List<int>();
+            if (officeId!=0)
+            {
+                officeAssignedAppIds = _context.ApplicantPlacements.Where(q => q.OfficeId==officeId).Select(s=>s.ApplicantProfileId);
+            }
+            if (id == 2)
+            {
+                isUpdate = true;
+                    appIds = _context.ApplicantStatuses.Where(q => q.OfficeLevel == "Placement" && q.Status == "Assigned").Select(q => q.ApplicantProfileId);
+            }
+            else if (id == 3)
+            {
+                isUpdate = true;
+
+                appIds = _context.ApplicantStatuses.Where(q => q.OfficeLevel == "Placement" && q.OfficeLevel != "ContractAgreement" && q.Status == "Selected").Select(q => q.ApplicantProfileId);
+
+            }
+            else if (id == 4)
+            {
+                isUpdate = true;
+
+                appIds = _context.ApplicantStatuses.Where(q => q.OfficeLevel == "ContractAgreement").Select(q => q.ApplicantProfileId);
+            }
             applcantProfiles = _context.ApplicantProfiles
-                   .Include(m => m.ApplicantDocument)
-                   .Include(m => m.ApplicantStatuses.OrderByDescending(q => q.ApplicantStatusId).Take(1)).ToList();
+                .Where(q => isUpdate? appIds.Contains(q.ApplicantProfileId): q.ApplicantStatuses.Count() == 0)
+                .Where(q => officeId!=0? officeAssignedAppIds.Contains(q.ApplicantProfileId):true)
+                .Where(q => search!="null"? q.FirstName.Contains(search):true)
+            .Select(s => new ApplicantProfileViewModel
+            {
+                ApplicantProfileId = s.ApplicantProfileId,
+                FullName = s.FullName,
+                FullNameAm = s.FullNameAm,
+                PhoneNumber = s.PhoneNumber,
+                PassportNo = s.PassportNo,
+                Gender = s.Gender,
+                MaritalStatus = s.MaritalStatus,
+                Status = s.Status,
+                ApplicantStatuses = s.ApplicantStatuses.OrderByDescending(q => q.ApplicantStatusId).Take(1).ToList(),
+                ApplicantPlacements = s.ApplicantPlacements,
+                ApplicantDocument = s.ApplicantDocument
+
+            })
+       .ToList();
             if (office != null)
             {
                 if (office.IsHeadOffice)
@@ -43,29 +86,8 @@ namespace NatnaAgencyDigitalSystem.Data.Repositories
 
                 }
             }
-            if(id==1)
-            {
-                applcantProfiles = applcantProfiles.Where(q=>q.ApplicantStatuses.Count()==0).ToList();
-            }
-            else if(id==2)
-            {
-                var appIds = _context.ApplicantStatuses.Where(q => q.OfficeLevel == "Placement" && q.Status == "Assigned").Select(q => q.ApplicantProfileId);
-                applcantProfiles = applcantProfiles.Where(q => appIds.Contains(q.ApplicantProfileId)).ToList();
-            }
-            else if (id == 3)
-            {
-                var appIds = _context.ApplicantStatuses.Where(q => q.OfficeLevel == "Placement" && q.Status == "Selected").Select(q => q.ApplicantProfileId);
-
-                applcantProfiles = applcantProfiles.Where(q => appIds.Contains(q.ApplicantProfileId)).ToList();
-            }
-            else if (id == 4)
-            {
-                var appIds = _context.ApplicantStatuses.Where(q => q.OfficeLevel == "Placement" && q.Status == "Selected").Select(q => q.ApplicantProfileId);
-                applcantProfiles = applcantProfiles.Where(q => appIds.Contains(q.ApplicantProfileId)).ToList();
-            }
             return applcantProfiles
                    .OrderByDescending(c => c.ApplicantProfileId)
-
                    .UsePageable(pageable);
                
         }

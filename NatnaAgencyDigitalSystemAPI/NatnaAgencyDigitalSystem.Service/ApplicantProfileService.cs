@@ -1,8 +1,10 @@
 ﻿using NatnaAgencyDigitalSystem.Api;
 using NatnaAgencyDigitalSystem.Api.Models;
 using NatnaAgencyDigitalSystem.Api.Models.Auth;
+using NatnaAgencyDigitalSystem.Api.Models.Setting;
 using NatnaAgencyDigitalSystem.Api.Services;
 using NatnaAgencyDigitalSystem.Core.Models.Common;
+using NatnaAgencyDigitalSystem.Core.Models.ReadOnlyModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,9 +43,9 @@ namespace NatnaAgencyDigitalSystem.Service
         {
             return await _unitOfWork.ApplicantProfiles.GetAllAsync();
         }
-          public async Task<Page<ApplicantProfile>> GetAllWithStatusAsync(Pageable pageable, User user, int id)
+          public async Task<Page<ApplicantProfileViewModel>> GetAllWithStatusAsync(Pageable pageable, User user, int id,int? officeId, string? search)
         {
-            return await _unitOfWork.ApplicantProfiles.GetAllWithStatusAsync(pageable, user,id);
+            return await _unitOfWork.ApplicantProfiles.GetAllWithStatusAsync(pageable, user,id, officeId, search);
         }
 
         public async Task<ApplicantProfile> GetApplicantProfileById(int id)

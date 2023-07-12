@@ -93,6 +93,9 @@ export class ApplicantListComponent implements OnInit,AfterViewInit,AfterContent
   displayedColumns: string[] = ['select', 'id', 'fullName','phoneNumber', 'passportNumber', 'agentId','process','status','action'];
   dataSource = new MatTableDataSource<ApplicantProfile>();
   @Input() candidateType :any;
+  @Input() pageNumber :any;
+  @Input() totalItems :any;
+  @Input() applicantProfiles :any[];
 
   selection = new SelectionModel<ApplicantProfile>(true, []);
   horizontalPosition: MatSnackBarHorizontalPosition = 'start';
@@ -116,19 +119,15 @@ export class ApplicantListComponent implements OnInit,AfterViewInit,AfterContent
 
 
   placementFormGroup!: FormGroup;
-    public applicantProfiles: any[] = [];
     public searchText!: string;
     public startDate!: string;
     public endDate!: string;
     // public page:any;
-    pageSize = 8;
-    pageNumber = 0;
-    totalItems = 0;
+
     base_url = environment.backend.base_url;
     countries!:{name:string,code:string}[];
     isAnySelected :boolean=false;
     isHeadOffice:boolean=true;
-
     genders!:number[];
     genderList=Gender;
     maritalStatuses!:number[];
@@ -154,7 +153,6 @@ export class ApplicantListComponent implements OnInit,AfterViewInit,AfterContent
 
     ngOnInit() {
 
-      this.getApplicantProfiles(0);
       this.genders= Object.keys(this.genderList).map(key => parseInt(key)).filter(f => !isNaN(Number(f)));
               this.maritalStatuses= Object.keys(this.maritalStatusList).map(key => parseInt(key)).filter(f => !isNaN(Number(f)));
               this.statuses= Object.keys(this.statusList).map(key => parseInt(key)).filter(f => !isNaN(Number(f)));
@@ -170,6 +168,9 @@ export class ApplicantListComponent implements OnInit,AfterViewInit,AfterContent
                 applicantIds: [],
 
                 });
+
+                this.dataSource = new MatTableDataSource( this.applicantProfiles);
+
             }
             ngAfterViewInit(): void {
               //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
@@ -190,21 +191,7 @@ export class ApplicantListComponent implements OnInit,AfterViewInit,AfterContent
 
             }
 
-    public async getApplicantProfiles(pageNo:any): Promise<void> {
-      await this._applicantService.getApplicantRofiles(pageNo,this.pageSize,this.candidateType)
-      .subscribe(data => {
-        this.totalItems =data?.totalItems;
 
-
-          this.applicantProfiles = data?.content;
-
-        this.dataSource = new MatTableDataSource( this.applicantProfiles);
-
-        console.log(data);
-      });
-
-
-    }
     checkRejectStatus(applicantPlacement:any)
     {
       if(applicantPlacement!=null)
@@ -888,17 +875,7 @@ console.log(row);
     }
 
 
-    public onPageChanged(event){
-        this.pageNumber = event;
-        this.getApplicantProfiles(this.pageNumber);
-        window.scrollTo(0,0);
-        // if(this.settings.fixedHeader){
-        //     document.getElementById('main-content').scrollTop = 0;
-        // }
-        // else{
-        //     document.getElementsByClassName('mat-drawer-content')[0].scrollTop = 0;
-        // }
-    }
+
 
     public openApplicantProfileDialog(applicantProfile){
         let dialogRef = this.dialog.open(AddApplicantComponent, {

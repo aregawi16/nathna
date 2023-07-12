@@ -1,40 +1,103 @@
 <mat-card-content>
-  <mat-tab-group>
-    <mat-tab class="custom-mat-tab-header">
+  <form class="user-search" *ngIf="isHeadOffice">
+    <mat-form-field appearance="outline" >
+        <input matInput placeholder="Search user by name..." [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"(ngModelChange)="onChangeUser($event)" >
+    </mat-form-field>
+
+  <mat-form-field appearance="outline" style="margin-left: 10px;">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input  [rangePicker]="picker">
+      <input matStartDate [(ngModel)]="startDate" [ngModelOptions]="{standalone: true}" placeholder="Start date">
+      <input matEndDate [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}" placeholder="End date">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+</mat-form-field>
+
+<mat-form-field appearance="outline" style="margin-left: 10px;">
+  <mat-label>Status</mat-label>
+    <mat-select name="maritalStatus" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOffice($event)">
+      <mat-option *ngFor="let status of statuses"
+      [value]="status">
+{{statusList[status]}}
+</mat-option>
+</mat-select>
+
+  </mat-form-field>
+
+
+  <mat-form-field appearance="outline" style="margin-left: 10px;">
+    <mat-label>Office</mat-label>
+    <mat-select name="officeId" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"  (ngModelChange)="onChangeOffice($event)">
+      <mat-option *ngFor="let office of offices"
+      [value]="office.id">
+{{office.name}}
+</mat-option>
+</mat-select>
+
+  </mat-form-field>
+
+</form>
+<mat-divider></mat-divider>
+  <mat-tab-group (selectedTabChange)="onChangeTab($event)">
+    <mat-tab label="1" class="custom-mat-tab-header" *ngIf="isHeadOffice">
 
       <ng-template mat-tab-label>
         <mat-icon>book</mat-icon>
+        <span [matBadge]="totalItems" matBadgeOverlap="false">
+
         Applicants
+        </span>
       </ng-template>
-<app-applicant-list [candidateType]= "applicant"></app-applicant-list>
+
+
+<app-applicant-list [applicantProfiles]="applicantProfiles" [pageNumber]="pageNumber" [totalItems]="totalItems"></app-applicant-list>
 
 </mat-tab>
-<mat-tab class="custom-mat-tab-header">
+<mat-tab label="2" class="custom-mat-tab-header">
 
   <ng-template mat-tab-label>
     <mat-icon>book</mat-icon>
+    <span [matBadge]="totalItems" matBadgeOverlap="false">
+
     Candidates
+    </span>
   </ng-template>
-<app-applicant-list [candidateType]= "candidate"></app-applicant-list>
+<app-applicant-list [applicantProfiles]="applicantProfiles" [pageNumber]="pageNumber" [totalItems]="totalItems"></app-applicant-list>
 
 </mat-tab>
-  <mat-tab>
+  <mat-tab label="3">
     <ng-template mat-tab-label>
       <mat-icon>folder</mat-icon>
+      <span [matBadge]="totalItems" matBadgeOverlap="false">
+
       Selected
+      </span>
     </ng-template>
-<app-applicant-list [candidateType]= "qualified"></app-applicant-list>
+<app-applicant-list [applicantProfiles]="applicantProfiles" [pageNumber]="pageNumber" [totalItems]="totalItems"></app-applicant-list>
 
   </mat-tab>
 
-  <mat-tab>
+  <mat-tab label="4">
     <ng-template mat-tab-label>
       <mat-icon>folder</mat-icon>
+      <span [matBadge]="totalItems" matBadgeOverlap="false">
+
       Processing
+      </span>
     </ng-template>
-<app-applicant-list [candidateType]= "processing"></app-applicant-list>
+<app-applicant-list [applicantProfiles]="applicantProfiles" [pageNumber]="pageNumber" [totalItems]="totalItems"></app-applicant-list>
 
   </mat-tab>
 
   </mat-tab-group>
+  <div *ngIf="applicantProfiles.length>0" fxLayout="row wrap">
+    <div fxFlex="100" class="p-1">
+        <mat-card class="p-0 text-center">
+            <pagination-controls class="product-pagination" [autoHide]='true' [maxSize]='8' (pageChange)="onPageChanged($event)"></pagination-controls>
+
+
+        </mat-card>
+    </div>
+  </div>
   </mat-card-content>

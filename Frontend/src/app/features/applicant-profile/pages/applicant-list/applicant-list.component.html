@@ -1,55 +1,5 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" class="p-1">
-  <div fxLayout="row">
-      <mat-button-toggle-group #controls="matButtonToggleGroup" appearance="legacy">
-          <mat-button-toggle value="add" [routerLink]="['/applicant-profile/create-new']" *ngIf="isHeadOffice">
-              <mat-icon>person_add</mat-icon>
-          </mat-button-toggle>
-          <mat-button-toggle value="search">
-              <mat-icon>search</mat-icon>
-          </mat-button-toggle>
-          <mat-button-toggle value="date-range">
-            <mat-icon>date_range</mat-icon>
-        </mat-button-toggle>
-        <mat-button-toggle value="created-by">
-          <mat-icon>person</mat-icon>
-      </mat-button-toggle>
-        <mat-button-toggle value="status">
-          <mat-icon>filter_list</mat-icon>
-      </mat-button-toggle>
-      </mat-button-toggle-group>
 
-
-
-  </div>
-  <form class="user-search" [class.show]="controls.value == 'search'">
-      <mat-form-field class="user-search-input">
-          <input matInput placeholder="Search user by name..." [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" name="search">
-      </mat-form-field>
-  </form>
-  <form class="user-search" [class.show]="controls.value == 'date-range'">
-    <mat-form-field appearance="fill">
-      <mat-label>Enter a date range</mat-label>
-      <mat-date-range-input  [rangePicker]="picker">
-        <input matStartDate [(ngModel)]="startDate" [ngModelOptions]="{standalone: true}" placeholder="Start date">
-        <input matEndDate [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}" placeholder="End date">
-      </mat-date-range-input>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
-
-    </mat-form-field>
-  </form>
-  <form class="user-search" [class.show]="controls.value == 'status'">
-    <mat-form-field appearance="fill">
-      <mat-label>Status</mat-label>
-      <mat-select name="maritalStatus" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}">
-        <mat-option *ngFor="let status of statuses"
-        [value]="status">
-  {{statusList[status]}}
-</mat-option>
-</mat-select>
-
-    </mat-form-field>
-  </form>
   <div fxLayout="row" fxLayoutAlign="space-between center">
       <mat-button-toggle-group #viewType="matButtonToggleGroup" appearance="legacy" value="grid">
           <mat-button-toggle value="grid">
@@ -70,8 +20,8 @@
   <div *ngFor="let applicantProfile of applicantProfiles  | paginate: { itemsPerPage: 8, currentPage: pageNumber,totalItems: totalItems }" fxFlex="100" fxFlex.gt-md="25" fxFlex.md="40" class="p-1">
       <mat-card class="p-0">
           <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
-              <h3 *ngIf="!applicantProfile.isDeleted" class="user-name">{{applicantProfile.fullName}}</h3>
-              <!-- <br>{{applicantProfile.fullNameAm}} -->
+              <h3 *ngIf="!applicantProfile.isDeleted" class="user-name">{{applicantProfile.fullName}}<br>{{applicantProfile.fullNameAm}}</h3>
+              <!--  -->
               <!-- <p style="font-size: 3.5vw;"></p> -->
               <h3 *ngIf="applicantProfile.isDeleted" class="user-name">User blocked</h3>
               <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
@@ -107,7 +57,7 @@
               <div fxFlex="30" fxLayout="column" fxLayoutAlign="center center">
                   <div class="user-img">
                       <img *ngIf="applicantProfile?.applicantDocument?.applicantSmallPhotoPath" [src]="host+applicantProfile.applicantDocument?.applicantSmallPhotoPath" class="transition-2" [class.blocked]="applicantProfile.isDeleted">
-                      <img *ngIf="!applicantProfile.image" src="assets/images/others/applicantProfile.jpg" class="transition-2" [class.blocked]="applicantProfile.isDeleted">
+                      <!-- <img *ngIf="!applicantProfile.image" src="assets/images/others/applicantProfile.jpg" class="transition-2" [class.blocked]="applicantProfile.isDeleted"> -->
                       <mat-icon *ngIf="applicantProfile.isDeleted" color="warn">block</mat-icon>
                   </div>
                   <div class="user-social">
@@ -137,8 +87,18 @@
                   </p>
                   <p fxLayout="row" fxLayoutAlign="start center">
                       <mat-icon class="text-muted">wc</mat-icon>
-                      <span>    {{applicantProfile.applicantStatuses[0]?statusList[applicantProfile.applicantStatuses[0].status]:"UnAssigned"}}   </span>
+                      <span>    {{applicantProfile.applicantStatuses[0]?applicantProfile.applicantStatuses[0].officeLevel:"UnAssigned"}}   </span>
                   </p>
+                  <p fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon class="text-muted">wc</mat-icon>
+                    <span>    {{applicantProfile.applicantStatuses[0]?applicantProfile.applicantStatuses[0].status:"UnAssigned"}}   </span>
+                </p>
+                  <p fxLayout="row" fxLayoutAlign="start center" *ngIf="applicantProfile.applicantPlacements[0]!=null">
+                    <mat-icon class="text-muted">wc</mat-icon>
+                    <span>
+                      {{(offices | filterById : applicantProfile.applicantPlacements[0]?.officeId)?.name}}
+                          </span>
+                </p>
               </div>
           </div>
       </mat-card>
@@ -178,7 +138,7 @@
               <div fxFlex="20" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center center">
                   <div class="user-img">
                     <img *ngIf="applicantProfile?.applicantDocument?.applicantSmallPhotoPath" [src]="host+applicantProfile.applicantDocument?.applicantSmallPhotoPath" class="transition-2" [class.blocked]="applicantProfile.isDeleted">
-                    <img *ngIf="!applicantProfile.image" src="assets/img/applicantProfiles/default-applicantProfile.jpg" class="transition-2" [class.blocked]="applicantProfile.isDeleted">
+                    <!-- <img *ngIf="!applicantProfile.image" src="assets/img/applicantProfiles/default-applicantProfile.jpg" class="transition-2" [class.blocked]="applicantProfile.isDeleted"> -->
                       <mat-icon *ngIf="applicantProfile.isDeleted" color="warn">block</mat-icon>
                   </div>
                   <div class="user-social">
@@ -406,13 +366,7 @@
       </mat-card>
   </div>
 </div>
-<div *ngIf="applicantProfiles.length>0" fxLayout="row wrap">
-  <div fxFlex="100" class="p-1">
-      <mat-card class="p-0 text-center">
-          <pagination-controls class="product-pagination" [autoHide]='true' [maxSize]='8' (pageChange)="onPageChanged($event)"></pagination-controls>
-      </mat-card>
-  </div>
-</div>
+
 
 <div *ngIf="!applicantProfiles" fxLayout="column" fxLayoutAlign="center center" class="user-spinner">
   <mat-spinner color="primary"></mat-spinner>

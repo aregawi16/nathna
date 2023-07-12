@@ -81,12 +81,12 @@ placeApplicant(data)
   );
 
 }
-public getApplicantRofiles(pageNo:any,pageSize:any, candidateType:any): Observable<any>
+public getApplicantRofiles(pageNo:any,pageSize:any, candidateType:any,officeId:any,search:any): Observable<any>
 {
   let page = {
   "pageNumber": pageNo,'pageSize':pageSize
 }
-  return this._http.post(HttpApi.listApplicantProfile+'?id='+candidateType,page)
+  return this._http.post(HttpApi.listApplicantProfile+'?id='+candidateType+"&officeId="+officeId+"&search="+search,page)
   .pipe(
     map((response: any) => {
       return response;
