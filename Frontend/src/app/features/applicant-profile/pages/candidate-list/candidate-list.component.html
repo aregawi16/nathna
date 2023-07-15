@@ -44,7 +44,7 @@
 
       <ng-template mat-tab-label>
         <mat-icon>book</mat-icon>
-        <span [matBadge]="totalItems" matBadgeOverlap="false">
+        <span [matBadge]="totalItems" [matBadgeHidden]="selectedTab!=1" matBadgeOverlap="false">
 
         Applicants
         </span>
@@ -58,7 +58,7 @@
 
   <ng-template mat-tab-label>
     <mat-icon>book</mat-icon>
-    <span [matBadge]="totalItems" matBadgeOverlap="false">
+    <span [matBadge]="totalItems" [matBadgeHidden]="selectedTab!=2" matBadgeOverlap="false">
 
     Candidates
     </span>
@@ -69,7 +69,7 @@
   <mat-tab label="3">
     <ng-template mat-tab-label>
       <mat-icon>folder</mat-icon>
-      <span [matBadge]="totalItems" matBadgeOverlap="false">
+      <span [matBadge]="totalItems" [matBadgeHidden]="selectedTab!=3" matBadgeOverlap="false">
 
       Selected
       </span>
@@ -81,7 +81,7 @@
   <mat-tab label="4">
     <ng-template mat-tab-label>
       <mat-icon>folder</mat-icon>
-      <span [matBadge]="totalItems" matBadgeOverlap="false">
+      <span [matBadge]="totalItems" [matBadgeHidden]="selectedTab!=4" matBadgeOverlap="false">
 
       Processing
       </span>
