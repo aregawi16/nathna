@@ -17,6 +17,7 @@ export class ResumeComponent implements OnInit{
 
   @Input() applicantProfile :any;
   base_url = environment.backend.base_url;
+  domain_base_url = environment.url+"applicant-profile/detail/";
 
   resume:any;
   genders!:number[];

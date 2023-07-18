@@ -185,7 +185,7 @@
                   </div>
                   <div  id="qrcode-print" class="qrcode">
                     <qrcode
-                      qrdata="{{resume}}"
+                      [qrdata]="domain_base_url+this.applicantProfile.applicantProfileId"
                       [width]="150"
                       [allowEmptyString]="true"
                       [errorCorrectionLevel]="'M'"
