@@ -13,11 +13,11 @@
   crossorigin="anonymous"
 />
 <mat-card>
-<mat-card-title  style="height: 50px; background-color: #574B9B; display: flex;justify-content: space-between; color: white;align-items: center;">
+<mat-card-title  style="height: 50px;  display: flex;justify-content: space-between; align-items: center;">
 <div>Applicant Detail</div>
-<div *ngIf="checkStatus(applicantProfile)">
-  <button mat-raised-button align="center" (click)="selectApplicant(applicantProfile?.applicantProfileId)" color="primary" title="Select"><mat-icon  class="check">check</mat-icon></button>
-  <button mat-raised-button align="center" (click)="rejectApplicant(applicantProfile?.applicantProfileId)" color="warn" title="Reject"><mat-icon  class="reject">close</mat-icon></button>
+<div *ngIf="selected">
+  <button mat-raised-button align="center" (click)="selectApplicant(applicantProfile?.applicantProfileId)" color="primary" title="Select"><mat-icon  class="check">check</mat-icon>Select</button>
+  <button mat-raised-button align="center" (click)="rejectApplicant(applicantProfile?.applicantProfileId)" color="warn" title="Reject"><mat-icon  class="reject">close</mat-icon>Reject</button>
 </div>
 
 <div *ngIf="checkContractStatus(applicantProfile)">
@@ -117,6 +117,12 @@
         <mat-icon>video_library</mat-icon>
         Video
       </ng-template>
+      <button type="button"
+      mat-raised-button
+            variant="contained"
+      color="primary"
+      (click)="download()"
+>Download Video</button>
       <div class="video-player-wrapper tab-content" style="width:80%;height: 600px; display: flex; justify-content: center;margin-top: 30px;">
         <vg-player>
           <vg-overlay-play></vg-overlay-play>

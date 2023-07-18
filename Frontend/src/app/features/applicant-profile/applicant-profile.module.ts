@@ -82,6 +82,7 @@ import { CandidateListComponent } from './pages/candidate-list/candidate-list.co
     ],
   exports: [
     SharedModule,
+    // FileSaverModule,
     ApplicantProfileRoutingModule
   ],
   providers: [

@@ -107,7 +107,7 @@ namespace NatnaAgencyDigitalSystem.Data.Repositories
                    .Include(m => m.ApplicantInsurances.OrderByDescending(q => q.ApplicantInsuranceId))
                    .Include(m => m.ApplicantLabourOffices.OrderByDescending(q => q.ApplicantLabourOfficeId))
                    .Include(m => m.ApplicantFlightTickets.OrderByDescending(q => q.ApplicantFlightTicketId))
-                   .Include(m => m.ApplicantStatuses.OrderByDescending(q => q.ApplicantStatusId))
+                   .Include(m => m.ApplicantStatuses.OrderByDescending(q => q.ApplicantStatusId).Take(1))
                    .Where(q => q.ApplicantProfileId == id).FirstOrDefaultAsync();
 
 

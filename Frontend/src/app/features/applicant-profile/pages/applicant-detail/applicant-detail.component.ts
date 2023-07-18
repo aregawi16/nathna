@@ -22,6 +22,7 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { ProcessManagementService } from 'src/app/features/process-management/service/process-management.service';
 import { Status } from '../../model/Status.enum';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-applicant-detail',
@@ -32,6 +33,7 @@ export class ApplicantDetailComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'start';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
    applicantProfile !:any;
+   selected :boolean= false;
 
    applicantPlacementStatuses!:number[];
    applicantPlacementStatusList=ApplicantPlacementStatus;
@@ -89,7 +91,6 @@ export class ApplicantDetailComponent implements OnInit {
     private _httpClient: HttpClient,
      private _dialog : MatDialog,
     private _snackBar : MatSnackBar,
-
     private activatedRoute: ActivatedRoute
 
   ) { }
@@ -112,7 +113,13 @@ export class ApplicantDetailComponent implements OnInit {
     else{
       this.getApplicantProfileById(1);
     }
+
+
   });
+}
+
+download() {
+  saveAs(this.base_url+this.applicantProfile.applicantDocument.applicantVideoPath, "image.mp4")
 }
 
 getJobs()
@@ -133,6 +140,7 @@ public getApplicantProfileById(id:any){
     this.experiencedJobDataSource = new MatTableDataSource(data.experiencedJobs);
     this.experiencedJobDataSource.paginator = this.paginator;
     this.experiencedJobDataSource.sort = this.sort;
+    this.checkStatus();
     console.log(data);
   });
 
@@ -227,7 +235,7 @@ public getOffices()
 
     this._processManagementService.selectApplicant(data)
     .subscribe(data => {
-
+      this.selected = false;
           this._snackBar.open('Applicant Selected successfully', 'Undo', {
             duration:10000,
             horizontalPosition: this.horizontalPosition,
@@ -272,20 +280,20 @@ public getOffices()
     }
 
 
- checkStatus(applicantProfile:any)
+ checkStatus()
     {
 let status = this.applicantPlacementStatusList[this.applicantPlacementStatusList.Assigned];
-      if(applicantProfile?.applicantStatuses==null)
+console.log(this.applicantProfile);
+console.log(status);
+      if(this.applicantProfile?.applicantStatuses==null)
       {
-        return false;
+        this.selected =  false;
       }
       else{
-      if(applicantProfile?.applicantStatuses[0]?.status==status)
+      if(this.applicantProfile?.applicantStatuses[0]?.status==status)
       {
-        console.log(applicantProfile);
-        return true;
+        this.selected= true;
       }
-      return false;
     }
     }
     checkContractStatus(applicantProfile:any)
