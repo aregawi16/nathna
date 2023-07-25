@@ -54,6 +54,7 @@ export class ApplicantDetailComponent implements OnInit {
    shareUrl:any;
    name = "Mr";
    base64Image: any;
+
    agents!:DropDownObject[];
    offices!:DropDownObject[];
    genders!:number[];
@@ -371,10 +372,31 @@ public uploadContractDocument(id:any)
   this.prinEelemet = document.getElementById('print-section') as HTMLElement ;
   htmlToImage.toJpeg(this.prinEelemet, { quality: 0.95 })
   .then(function (dataUrl) {
-    console.log(dataUrl);
-    download(dataUrl, 'my-node.jpeg');
-
+    var link = document.createElement('a');
+    link.download = 'my-image-name.jpeg';
+    link.href = dataUrl;
+    link.click();
   });
 }
+
+// getBase64ImageFromURL(url: string) {
+//   return Observable.create((observer: Observer<string>) => {
+//     const img: HTMLImageElement = new Image();
+//     img.crossOrigin = "Anonymous";
+//     img.src = url;
+//     if (!img.complete) {
+//       img.onload = () => {
+//         observer.next(this.getBase64Image(img));
+//         observer.complete();
+//       };
+//       img.onerror = err => {
+//         observer.error(err);
+//       };
+//     } else {
+//       observer.next(this.getBase64Image(img));
+//       observer.complete();
+//     }
+//   });
+// }
 
 }

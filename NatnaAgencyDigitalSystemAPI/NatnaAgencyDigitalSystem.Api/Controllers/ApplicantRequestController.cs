@@ -181,6 +181,9 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
             ApplicantProfileRes.ModifiedBy = "1111";
             ApplicantProfileRes.CreatedDate = DateTime.Now;
             ApplicantProfileRes.ModifiedDate = DateTime.Now;
+            ApplicantProfileRes.DoB = ApplicantProfileRes.DoB.AddDays(1);
+            ApplicantProfileRes.PassportIssueDate = ApplicantProfileRes.PassportIssueDate.AddDays(1);
+            ApplicantProfileRes.PassportExpiryDate = ApplicantProfileRes.PassportExpiryDate.AddDays(1);
 
             //var validationResult = await validator.ValidateAsync(ApplicantProfileRes);
 
