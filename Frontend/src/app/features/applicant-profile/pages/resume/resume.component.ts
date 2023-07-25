@@ -6,6 +6,9 @@ import { Gender } from './../../../../core/constants/gender.enum';
 import { Component, Input, ViewEncapsulation, OnInit } from '@angular/core';
 import { ApplicantProfileService } from '../../services/applicant-profile.service';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
+import * as htmlToImage from 'html-to-image';
+import {download} from 'downloadjs'
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 
 @Component({
   selector: 'app-resume',
@@ -17,9 +20,10 @@ export class ResumeComponent implements OnInit{
 
   @Input() applicantProfile :any;
   base_url = environment.backend.base_url;
-  domain_base_url = environment.url+"applicant-profile/detail/";
+  domain_base_url = environment.domain+"applicant-profile/detail/";
 
   resume:any;
+  prinEelemet:HTMLElement;
   genders!:number[];
   jobs:any[]=[];
   jobListForCvs :any[]=[];
@@ -89,6 +93,15 @@ ngAfterContentInit(): void {
   this.getSkills(this.applicantProfile);
 
 
+}
+downloadCV()
+{
+  this.prinEelemet = document.getElementById('print-section') as HTMLElement ;
+  htmlToImage.toJpeg(this.prinEelemet, { quality: 0.95 })
+  .then(function (dataUrl) {
+    download(dataUrl, 'my-node.jpeg');
+
+  });
 }
 
 getJobs(){

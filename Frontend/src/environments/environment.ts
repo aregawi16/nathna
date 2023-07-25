@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   url: '',
-  //url: 'https://nathanjobs.com/#/',
+  domain: 'https://nathanjobs.com/#/',
     backend: {
     host: 'https://api.nathanjobs.com/api/',
     base_url: 'https://api.nathanjobs.com\\',

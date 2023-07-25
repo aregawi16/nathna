@@ -23,6 +23,9 @@ import { ProcessManagementService } from 'src/app/features/process-management/se
 import { Status } from '../../model/Status.enum';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
 import { saveAs } from 'file-saver';
+import * as htmlToImage from 'html-to-image';
+import {download} from 'downloadjs'
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 
 @Component({
   selector: 'app-applicant-detail',
@@ -34,6 +37,8 @@ export class ApplicantDetailComponent implements OnInit {
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
    applicantProfile !:any;
    selected :boolean= false;
+   prinEelemet:HTMLElement;
+
 
    applicantPlacementStatuses!:number[];
    applicantPlacementStatusList=ApplicantPlacementStatus;
@@ -357,4 +362,19 @@ public uploadContractDocument(id:any)
       return false;
     }
     }
+
+
+
+    downloadCV()
+{
+  console.log("sdfgh");
+  this.prinEelemet = document.getElementById('print-section') as HTMLElement ;
+  htmlToImage.toJpeg(this.prinEelemet, { quality: 0.95 })
+  .then(function (dataUrl) {
+    console.log(dataUrl);
+    download(dataUrl, 'my-node.jpeg');
+
+  });
+}
+
 }

@@ -6,6 +6,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UntypedFormGroup, UntypedFormBuilder, Validators} from '@angular/forms';
 import { User } from '../user/user.model';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-dialog',
@@ -15,11 +16,14 @@ import { User } from '../user/user.model';
 export class UserDialogComponent implements OnInit {
   public userSignupform:UntypedFormGroup;
   public passwordHide:boolean = true;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'start';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   offices!:DropDownObject[];
 
   constructor(public dialogRef: MatDialogRef<UserDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public user: User,
               private _identityService:IdentityService,
+              private _snackBar: MatSnackBar,
               private _settingService:SettingService,
               public fb: UntypedFormBuilder) {
     this.userSignupform = this.fb.group({
@@ -59,8 +63,21 @@ export class UserDialogComponent implements OnInit {
    {
 
      this._identityService.createUser(this.userSignupform.value)
-       .subscribe(data => {
-        // this.user = data;
+       .subscribe({
+        next:(user)=>{
+          //if(user){
+            this.dialogRef.close();
+            return user;
+          //}
+        },
+        error:(err)=>
+        {
+          this._snackBar.open('User Create Failed', 'Undo', {
+            duration:10000,
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition,
+          });
+        }
       });
    }
 

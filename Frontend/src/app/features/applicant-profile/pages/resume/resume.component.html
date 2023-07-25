@@ -11,19 +11,6 @@
             <h4>{{applicantProfile?.firstName}}  {{applicantProfile?.middleName}}</h4>
             <p>Ethiopian</p>
             <div class="contact-section">
-              <!-- <div class="title-section">
-                <div class="line">
-                </div>
-                <h2>Contact</h2>
-                <div class="line">
-                </div>
-              </div> -->
-              <!-- <img src="/assets/facebook.png"> -->
-              <!-- <p class="para">fb.com/g1daniel</p> -->
-              <!-- <img src="/assets/whatsapp.png"> -->
-              <!-- <p class="para">youtube.com/g1daniel</p> -->
-              <!-- <img src="/assets/instagram.png"> -->
-              <!-- <p class="para">fb.com/g1daniel</p> -->
             </div>
           </div>
           <div class="skills-section">
@@ -124,6 +111,8 @@
                <div class="detail">
                  <p class="type-title">Age</p>
                  <p class="para">{{(applicantProfile?.age)}}</p>
+                 <p *ngIf="applicantProfile?.phoneNumber!=null" class="type-title">Phone Number</p>
+                 <p *ngIf="applicantProfile?.phoneNumber!=null" class="para">{{(applicantProfile?.phoneNumber)}}</p>
                </div>
 
                <div class="detail">

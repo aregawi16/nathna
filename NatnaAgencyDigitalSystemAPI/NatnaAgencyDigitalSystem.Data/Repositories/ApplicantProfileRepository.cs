@@ -36,7 +36,7 @@ namespace NatnaAgencyDigitalSystem.Data.Repositories
             if (id == 2)
             {
                 isUpdate = true;
-                    appIds = _context.ApplicantStatuses.Where(q => q.OfficeLevel == "Placement" && q.Status == "Assigned").Select(q => q.ApplicantProfileId);
+                    appIds = _context.ApplicantStatuses.Where(q => q.OfficeLevel == "Placement" && q.Status == "Assigned"&& q.Status != "Selected").Select(q => q.ApplicantProfileId);
             }
             else if (id == 3)
             {
@@ -52,7 +52,7 @@ namespace NatnaAgencyDigitalSystem.Data.Repositories
                 appIds = _context.ApplicantStatuses.Where(q => q.OfficeLevel == "ContractAgreement").Select(q => q.ApplicantProfileId);
             }
             applcantProfiles = _context.ApplicantProfiles
-                .Where(q => isUpdate? appIds.Contains(q.ApplicantProfileId): q.ApplicantStatuses.Count() == 0)
+                .Where(q => isUpdate? appIds.Contains(q.ApplicantProfileId): q.ApplicantStatuses.Count() ==0)
                 .Where(q => officeId!=0? officeAssignedAppIds.Contains(q.ApplicantProfileId):true)
                 .Where(q => search!="null"? q.FirstName.Contains(search):true)
             .Select(s => new ApplicantProfileViewModel

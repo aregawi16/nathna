@@ -5,7 +5,7 @@ export const menuItems = [
      new Menu (20, 'ADMIN_NAV.APPLICANT_PROFILE', "auth/login", null, 'grid_on', null, true, 0,false),
      new Menu (30, 'ADMIN_NAV.CREATE_APPLICANT_PROFILE', "applicant-profile/create-new", null, 'add', null, false, 20),
      new Menu (40, 'ADMIN_NAV.LIST_APPLICANT_PROFILE', "applicant-profile/list", null, 'list', null, false, 20,false),
-     new Menu (140, 'ADMIN_NAV.PRE_FLIGHT_TRAINING', "applicant-profile/preflight-training", null, 'list', null, false, 20),
+    //  new Menu (140, 'ADMIN_NAV.PRE_FLIGHT_TRAINING', "applicant-profile/preflight-training", null, 'list', null, false, 20),
      new Menu (50, 'ADMIN_NAV.APPLICANT_PROFILE_PROCESS', "applicant-profile/process/:id", null, 'trending_up', null, false, 20),
     //  new Menu (51, 'ADMIN_NAV.LETTER', "applicant-profile/process/:id", null, 'report', null, true, 0),
     //  new Menu (52, 'ADMIN_NAV.FINGERPRINT_LETTER', "letter/finger-print", null, 'report', null, false, 51),

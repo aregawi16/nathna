@@ -1,3 +1,4 @@
+import { DialogRef } from '@angular/cdk/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { UserDialogComponent } from './../user-dialog/user-dialog.component';
 import { DropDownObject } from 'src/app/core/models/dropDownObject';
@@ -7,6 +8,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import {Component} from '@angular/core';
 import { SettingService } from 'src/app/features/setting/setting.service';
 import { ConfirmDialogComponent } from 'src/app/shared/components/confirm-dialog/confirm-dialog.component';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 
 
@@ -36,10 +38,12 @@ export class UserComponent {
   dataSource = new MatTableDataSource<User>();
   selection = new SelectionModel<User>(true, []);
   offices!:DropDownObject[];
-
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
   constructor(
     private _identityService:IdentityService,
     public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
     private _settingService:SettingService
 
     ) { }
@@ -88,12 +92,28 @@ export class UserComponent {
         data: user
     });
 
-    dialogRef.afterClosed().subscribe(user => {
+    dialogRef.afterClosed().subscribe({
+      next:(user)=>{
+        this._snackBar.open('User Create Succeed', 'Undo', {
+          duration:10000,
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+        });
+        window.location.reload();
         if(user){
-          // this.get;
+
+          console.log(user)
+         // this.dialog.closeAll();
+          this.getOffices();
+
         }
-        this.getOffices();
-    });
+      },
+      error:(err)=>
+      {
+
+      }
+
+   });
 }
 editUser(user:any)
 {
