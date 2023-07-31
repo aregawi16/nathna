@@ -1,0 +1,10 @@
+
+
+{
+  "/": {
+    "target": "https://api.nathanjobs.com",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

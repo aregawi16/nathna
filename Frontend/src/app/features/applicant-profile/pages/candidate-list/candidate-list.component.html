@@ -1,10 +1,10 @@
 <mat-card-content>
   <form class="user-search" *ngIf="isHeadOffice">
-    <mat-form-field appearance="outline" >
+    <mat-form-field appearance="fill" >
         <input matInput placeholder="Search user by name..." [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"(ngModelChange)="onChangeUser($event)" >
     </mat-form-field>
 
-  <mat-form-field appearance="outline" style="margin-left: 10px;">
+  <mat-form-field appearance="fill" style="margin-left: 10px;">
     <mat-label>Enter a date range</mat-label>
     <mat-date-range-input  [rangePicker]="picker">
       <input matStartDate [(ngModel)]="startDate" [ngModelOptions]="{standalone: true}" placeholder="Start date">
@@ -14,7 +14,7 @@
     <mat-date-range-picker #picker></mat-date-range-picker>
 </mat-form-field>
 
-<mat-form-field appearance="outline" style="margin-left: 10px;">
+<mat-form-field appearance="fill" style="margin-left: 10px;">
   <mat-label>Status</mat-label>
     <mat-select name="maritalStatus" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOffice($event)">
       <mat-option *ngFor="let status of statuses"
@@ -26,7 +26,7 @@
   </mat-form-field>
 
 
-  <mat-form-field appearance="outline" style="margin-left: 10px;">
+  <mat-form-field appearance="fill" style="margin-left: 10px;">
     <mat-label>Office</mat-label>
     <mat-select name="officeId" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"  (ngModelChange)="onChangeOffice($event)">
       <mat-option *ngFor="let office of offices"
@@ -44,7 +44,8 @@
 
       <ng-template mat-tab-label>
         <mat-icon>book</mat-icon>
-        <span [matBadge]="totalItems" [matBadgeHidden]="selectedTab!=1" matBadgeOverlap="false">
+        <span [matBadge]="totalItems" [matBadgeHidden]="selectedTab!=1"  matBadgeOverlap="false" matBadgeSize="large">
+
 
         Applicants
         </span>

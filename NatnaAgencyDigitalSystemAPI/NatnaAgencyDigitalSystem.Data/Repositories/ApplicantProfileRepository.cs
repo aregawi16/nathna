@@ -29,6 +29,8 @@ namespace NatnaAgencyDigitalSystem.Data.Repositories
             IEnumerable<int> appIds = null;
             Boolean isUpdate = false;
             IEnumerable<int> officeAssignedAppIds = new List<int>();
+            if (search == "null")
+                search = null;
             if (officeId!=0)
             {
                 officeAssignedAppIds = _context.ApplicantPlacements.Where(q => q.OfficeId==officeId).Select(s=>s.ApplicantProfileId);
@@ -54,7 +56,7 @@ namespace NatnaAgencyDigitalSystem.Data.Repositories
             applcantProfiles = _context.ApplicantProfiles
                 .Where(q => isUpdate? appIds.Contains(q.ApplicantProfileId): q.ApplicantStatuses.Count() ==0)
                 .Where(q => officeId!=0? officeAssignedAppIds.Contains(q.ApplicantProfileId):true)
-                .Where(q => search!="null"? q.FirstName.Contains(search):true)
+                .Where(q => search!=null? q.FirstName.Contains(search):true)
             .Select(s => new ApplicantProfileViewModel
             {
                 ApplicantProfileId = s.ApplicantProfileId,

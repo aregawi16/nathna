@@ -94,7 +94,7 @@ public getApplicantRofiles(pageNo:any,pageSize:any, candidateType:any,officeId:a
   );
 }
 
-public getApplicantRofileById(id:any)
+public getApplicantRofileById(id:any): Observable<any>
 {
   return this._http.get(HttpApi.createApplicantProfile+'/'+id)
   .pipe(

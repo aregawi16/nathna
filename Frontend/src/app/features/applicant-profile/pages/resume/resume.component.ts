@@ -3,12 +3,11 @@ import { Religion } from './../../../../core/constants/religion.enum';
 import { MaritalStatus } from './../../../../core/constants/marital-status.enum';
 import { Status, ApplicantPlacementStatus } from './../../model/Status.enum';
 import { Gender } from './../../../../core/constants/gender.enum';
-import { Component, Input, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, Input, ViewEncapsulation, OnInit, SimpleChange } from '@angular/core';
 import { ApplicantProfileService } from '../../services/applicant-profile.service';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
-import * as htmlToImage from 'html-to-image';
-import {download} from 'downloadjs'
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+import * as QRCode from 'qrcode';
+
 
 @Component({
   selector: 'app-resume',
@@ -21,7 +20,7 @@ export class ResumeComponent implements OnInit{
   @Input() applicantProfile :any;
   base_url = environment.backend.base_url;
   domain_base_url = environment.domain+"applicant-profile/detail/";
-
+  candidate: any;
   resume:any;
   prinEelemet:HTMLElement;
   genders!:number[];
@@ -57,9 +56,14 @@ export class ResumeComponent implements OnInit{
   marginBottom = 0;
   marginLeft = -5;
   marginRight = 0;
-
+  qrCodeDataUrl:any;
+  shareUrl :any = null;
   get values(): string[] {
     return this.applicantProfile?.passportNo.split('\n');
+  }
+  get ()
+  {
+
   }
   codeList: string[] = [
     '', 'CODE128',
@@ -79,6 +83,25 @@ export class ResumeComponent implements OnInit{
     ) {
 
     }
+    ngOnChanges(changes: SimpleChange) {
+      console.log(this.applicantProfile);
+this.generateQRCode();
+
+    }
+
+    generateQRCode() {
+      this.shareUrl = "https://nathanjobs.com/#/applicant-profile/detail/"+this.applicantProfile?.applicantProfileId;
+
+      QRCode.toDataURL(this.shareUrl , (err, url) => {
+        if (err) {
+          console.error(err);
+        } else {
+          this.qrCodeDataUrl = url;
+        }
+      });
+    }
+
+
 
 ngOnInit(): void
 {
@@ -86,7 +109,10 @@ ngOnInit(): void
   this.resume = "<html><h5>Hello</h5></html>";
 
   this.getJobs();
+
 }
+
+
 ngAfterContentInit(): void {
   //Called after ngOnInit when the component's or directive's content has been initialized.
   //Add 'implements AfterContentInit' to the class.
@@ -96,18 +122,20 @@ ngAfterContentInit(): void {
 }
 downloadCV()
 {
-  this.prinEelemet = document.getElementById('print-section') as HTMLElement ;
-  htmlToImage.toJpeg(this.prinEelemet, { quality: 0.95 })
-  .then(function (dataUrl) {
-    download(dataUrl, 'my-node.jpeg');
 
-  });
 }
 
 getJobs(){
   this._applicantProfileService.getCommonJobs()
-    .subscribe(data => {
-      this.jobs = data;
+    .subscribe({
+      next:(data)=>{
+        this.jobs = data;
+
+      },
+      error:(err)=>{
+        console.log();
+      }
+
     }
 );
 }

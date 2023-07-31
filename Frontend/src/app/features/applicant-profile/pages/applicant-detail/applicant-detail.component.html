@@ -37,12 +37,15 @@
       </ng-template>
   <div align="end">
     <button
+    mat-raised-button
     printSectionId="print-section"
     [useExistingCss]="true"
       ngxPrint>
       <mat-icon>print</mat-icon>
+      Pdf
     </button>
-    <button type="button" (click)="downloadCV()">Download CV</button>
+    <button     mat-raised-button
+    type="button" (click)="downloadCV()"><mat-icon>cloud_download</mat-icon>Image</button>
     <share-buttons theme="circles-dark"
     [include]="['copy', 'facebook', 'email', 'messenger', 'print',  'telegram',  'whatsapp']"
     [showIcon]="true"
@@ -52,8 +55,8 @@
     class="pt-5">
   </share-buttons>
   </div>
-  <div id="print-section">
-<app-resume [applicantProfile]= "applicantProfile"></app-resume>
+  <div #screen id="print-section">
+<app-resume    [applicantProfile]= "applicantProfile"></app-resume>
   </div>
 </mat-tab>
   <mat-tab>
@@ -92,7 +95,7 @@
       </ng-template>
       <div class="mat-elevation-z8 tab-content" width="70%">
         <ngx-imgPdf-viewer
-        [documentURL]="base_url+applicantProfile.applicantDocument.applicantSmallPhotoPath"
+        [documentURL]=" base_url+applicantProfile.applicantDocument.applicantContactFilePath"
         [docPreviewConfig]="docPreviewConfig"
       ></ngx-imgPdf-viewer>
    </div>
@@ -145,7 +148,7 @@
             <vg-fullscreen></vg-fullscreen>
           </vg-controls>
           <video [vgMedia]="$any(media)" #media id="singleVideo" preload="auto">
-            <source [src]="base_url+applicantProfile.applicantDocument.applicantVideoPath" type="video/mp4">
+            <source [src]="videoUrl" type="video/mp4">
             <!-- <source src="http://static.videogular.com/assets/videos/videogular.ogg" type="video/ogg">
             <source src="http://static.videogular.com/assets/videos/videogular.webm" type="video/webm"> -->
             <!-- <track kind="subtitles" label="English" src="http://static.videogular.com/assets/subs/pale-blue-dot.vtt"
@@ -198,5 +201,10 @@
 
     </mat-tab>
   </mat-tab-group>
+
+  <div id="download">
+    <img #canvas>
+    <a #downloadLink></a>
+  </div>
   </mat-card-content>
 

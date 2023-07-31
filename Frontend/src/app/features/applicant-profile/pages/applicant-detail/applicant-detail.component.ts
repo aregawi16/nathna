@@ -15,17 +15,16 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { ApplicantProfileService } from './../../services/applicant-profile.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, SimpleChange } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { DocPreviewConfig } from 'img-pdf-viewer';
 import { DialogRef } from '@angular/cdk/dialog';
 import { ProcessManagementService } from 'src/app/features/process-management/service/process-management.service';
 import { Status } from '../../model/Status.enum';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
-import { saveAs } from 'file-saver';
-import * as htmlToImage from 'html-to-image';
-import {download} from 'downloadjs'
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+import * as FileSaver from 'file-saver';
+import html2canvas from 'html2canvas';
+
 
 @Component({
   selector: 'app-applicant-detail',
@@ -38,6 +37,9 @@ export class ApplicantDetailComponent implements OnInit {
    applicantProfile !:any;
    selected :boolean= false;
    prinEelemet:HTMLElement;
+   @ViewChild('screen') screen: ElementRef;
+   @ViewChild('canvas') canvas: ElementRef;
+   @ViewChild('downloadLink') downloadLink: ElementRef;
 
 
    applicantPlacementStatuses!:number[];
@@ -66,6 +68,11 @@ export class ApplicantDetailComponent implements OnInit {
    maritalStatuses!:number[];
    maritalStatusList=MaritalStatus;
    religions!:number[];
+   idUrl:any=null;
+   videoUrl:any=null;
+   passportUrl:any=null;
+   contactUrl:any=null;
+   fullPhotoUrl:any=null;
    religionList=Religion;
    workExperienceDataSource!: MatTableDataSource<any>;
    experiencedJobDataSource!: MatTableDataSource<any>;
@@ -99,7 +106,23 @@ export class ApplicantDetailComponent implements OnInit {
     private _snackBar : MatSnackBar,
     private activatedRoute: ActivatedRoute
 
-  ) { }
+  ) {
+    this.activatedRoute.params.subscribe(params => {
+      if(params['id']){
+        this.getApplicantProfileById(params['id']);
+      }
+      else{
+        this.getApplicantProfileById(1);
+      }
+
+
+    });
+  }
+  ngOnChanges(changes: SimpleChange): void {
+
+
+  }
+
 
 
   ngOnInit(): void {
@@ -110,44 +133,62 @@ export class ApplicantDetailComponent implements OnInit {
     this.getOffices();
      this.isHeadOffice = this._authService.isHeadOffice();
 
-
-  this.activatedRoute.params.subscribe(params => {
-    if(params['id']){
-      this.shareUrl = "https://nathanjobs.com/#/applicant-profile/detail/"+params['id'];
-      this.getApplicantProfileById(params['id']);
-    }
-    else{
-      this.getApplicantProfileById(1);
-    }
+     this.activatedRoute.params.subscribe(params => {
+      if(params['id']){
+        this.getApplicantProfileById(params['id']);
+      }
+      else{
+        this.getApplicantProfileById(1);
+      }
 
 
-  });
+    });
+
 }
 
 download() {
-  saveAs(this.base_url+this.applicantProfile.applicantDocument.applicantVideoPath, "image.mp4")
+  FileSaver.saveAs(this.base_url+this.applicantProfile.applicantDocument.applicantVideoPath, "image.mp4")
 }
 
 getJobs()
 {
 this._applicantService.getCommonJobs()
-.subscribe(data => {
+.subscribe({
+  next:(data)=>{
+
   this.jobs = data;
+  },
+  error:(err)=>{
+
+  }
 });
 }
-public getApplicantProfileById(id:any){
-  this._applicantService.getApplicantRofileById(id)
-  .subscribe(data => {
-    this.applicantProfile = data;
-    this.workExperienceDataSource = new MatTableDataSource(data.workExperiences);
-    this.workExperienceDataSource.paginator = this.paginator;
-    this.workExperienceDataSource.sort = this.sort;
+public async getApplicantProfileById(id:any){
+  await this._applicantService.getApplicantRofileById(id)
+  .subscribe( {
+    next:(data)=>{
+      this.applicantProfile = data;
+      this.workExperienceDataSource = new MatTableDataSource(data?.workExperiences);
+      this.workExperienceDataSource.paginator = this.paginator;
+      this.workExperienceDataSource.sort = this.sort;
 
-    this.experiencedJobDataSource = new MatTableDataSource(data.experiencedJobs);
-    this.experiencedJobDataSource.paginator = this.paginator;
-    this.experiencedJobDataSource.sort = this.sort;
-    this.checkStatus();
-    console.log(data);
+      this.experiencedJobDataSource = new MatTableDataSource(data?.experiencedJobs);
+      this.experiencedJobDataSource.paginator = this.paginator;
+      this.experiencedJobDataSource.sort = this.sort;
+      this.passportUrl = this.base_url+this.applicantProfile.applicantDocument.applicantPassportFilePath
+      this.idUrl = this.base_url+this.applicantProfile.applicantDocument.applicantIdFilePath
+      this.fullPhotoUrl = this.base_url+this.applicantProfile.applicantDocument.applicantFullPhotoPath;
+      this.videoUrl = this.base_url+this.applicantProfile.applicantDocument.applicantVideoPath;
+      this.contactUrl = this.base_url+this.applicantProfile.applicantDocument.applicantContactFilePath;
+      console.log(this.passportUrl);
+      this.checkStatus();
+      console.log(data);
+    },
+    error:(err)=>
+    {
+      console.log(err);
+    }
+
   });
 
 }
@@ -218,8 +259,14 @@ public getOffices()
     {
 
       this._settingService.getOfficeList()
-        .subscribe(data => {
+        .subscribe({
+          next:(data)=>{
+
          this.offices = data;
+          },
+          error:(err)=>{
+
+          }
        });
     }
 
@@ -368,15 +415,13 @@ public uploadContractDocument(id:any)
 
     downloadCV()
 {
-  console.log("sdfgh");
-  this.prinEelemet = document.getElementById('print-section') as HTMLElement ;
-  htmlToImage.toJpeg(this.prinEelemet, { quality: 0.95 })
-  .then(function (dataUrl) {
-    var link = document.createElement('a');
-    link.download = 'my-image-name.jpeg';
-    link.href = dataUrl;
-    link.click();
-  });
+  const element  = this.screen.nativeElement;
+
+  html2canvas(element).then((canvas) => {
+      canvas.toBlob((blob) => {
+        FileSaver.saveAs(blob, 'element.png');
+      }, 'image/png');
+    });
 }
 
 // getBase64ImageFromURL(url: string) {
