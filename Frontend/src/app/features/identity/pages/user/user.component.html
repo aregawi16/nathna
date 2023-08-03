@@ -2,79 +2,40 @@
  <button mat-button value="add" (click)="openUserDialog(null)">
   <mat-icon>person_add</mat-icon>
 </button>
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-  <!-- Checkbox Column -->
-  <ng-container matColumnDef="select">
-    <th mat-header-cell *matHeaderCellDef>
-      <mat-checkbox (change)="$event ? masterToggle() : null"
-                    [checked]="selection.hasValue() && isAllSelected()"
-                    [indeterminate]="selection.hasValue() && !isAllSelected()">
-      </mat-checkbox>
-    </th>
-    <td mat-cell *matCellDef="let row">
-      <mat-checkbox (click)="$event.stopPropagation()"
-                    (change)="$event ? selection.toggle(row) : null"
-                    [checked]="selection.isSelected(row)">
-      </mat-checkbox>
-    </td>
-  </ng-container>
 
-  <!-- Position Column -->
-  <!-- <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> No. </th>
-    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-  </ng-container> -->
+<div class="mat-table admin-table">
+  <div class="mat-header-row">
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="userName">
-    <th mat-header-cell *matHeaderCellDef> User Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
-  </ng-container>
+      <div class="mat-header-cell">User Name</div>
+      <div class="mat-header-cell">Email</div>
+      <div class="mat-header-cell">Full Name</div>
+      <div class="mat-header-cell">Office</div>
 
-   <!-- Email Column -->
-   <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef> Email </th>
-    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-  </ng-container>
+      <div class="mat-header-cell">Action</div>
+  </div>
+  <div *ngFor="let user of users" class="mat-row">
 
-  <!-- Weight Column -->
-  <ng-container matColumnDef="fullName">
-    <th mat-header-cell *matHeaderCellDef> Full Name </th>
-    <td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="officeId">
-    <th mat-header-cell *matHeaderCellDef> Office </th>
-    <td mat-cell *matCellDef="let element">
-              {{(offices | filterById : element.officeId)?.name}}
-  </td>
-  </ng-container>
-
-  <ng-container matColumnDef="action">
-    <th mat-header-cell *matHeaderCellDef> Action </th>
-    <td mat-cell *matCellDef="let element">
+      <div class="mat-cell">{{user.userName}} </div>
+      <div class="mat-cell">{{user.email}}</div>
+      <div class="mat-cell">{{user.fullName}}</div>
+      <div class="mat-cell">{{(offices | filterById : user.officeId)?.name}}</div>
       <div class="mat-cell">
-        <div class="p-0 actions">
+          <div class="p-0 actions">
+            <button mat-mini-fab matTooltip="Edit" color="primary" (click)="editUser(user)" class="mx-1">
+              <mat-icon>mode_edit</mat-icon>
+          </button>
+           <button mat-mini-fab matTooltip="Delete" class="mx-1" color="warn" (click)="deleteUser(user)">
+              <mat-icon>delete</mat-icon>
+          </button>
+          </div>
+      </div>
+  </div>
+</div>
 
 
-          <button mat-mini-fab matTooltip="Edit" color="primary" (click)="editUser(element)" class="mx-1">
-            <mat-icon>mode_edit</mat-icon>
-        </button>
-         <button mat-mini-fab matTooltip="Delete" class="mx-1" color="warn" (click)="deleteUser(element)">
-            <mat-icon>delete</mat-icon>
-        </button>
-        </div>
-        </div>
-  </td>
-  </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"
-      (click)="selection.toggle(row)">
-  </tr>
 
-</table>
 
 
 <!-- Copyright 2018 Google Inc. All Rights Reserved.

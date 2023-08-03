@@ -31,12 +31,17 @@
             font-size: 25px;
             color: #06407a !important;
             border-radius: 50%;
+        }&.hover
+        {
+
         }
         &.expanded{
             .menu-expand-icon{
                 -webkit-transform: rotate(180deg);
                 -moz-transform: rotate(180deg);
                 transform: rotate(180deg);
+                color: #ffffff !important;
+
             }
         }
     }

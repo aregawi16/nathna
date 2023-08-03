@@ -5,6 +5,7 @@ export class HttpApi {
   static oauthLogin = 'Auth/SignIn';
   static userRegister = 'Auth/SignUp';
   static userList = 'Auth/List';
+  static userDelete = 'Auth/delete/';
   static userRole = 'Auth/Roles';
   static getUserRole = 'Auth/GetRoles';
 

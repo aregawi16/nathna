@@ -13,7 +13,7 @@ using NatnaAgencyDigitalSystem.Api.Models.Auth;
 using NatnaAgencyDigitalSystem.Api.Models;
 using NatnaAgencyDigitalSystem.Data;
 using AutoMapper;
-using NatnaAgencyDigitalSystem.Api.Services;
+using NatnaAgencyDigitalSystem.Service.Services;
 
 namespace NatnaAgencyDigitalSystem.Api.Helper
 {

@@ -38,7 +38,8 @@ namespace NatnaAgencyDigitalSystem.Data.Repositories
             if (id == 2)
             {
                 isUpdate = true;
-                    appIds = _context.ApplicantStatuses.Where(q => q.OfficeLevel == "Placement" && q.Status == "Assigned"&& q.Status != "Selected").Select(q => q.ApplicantProfileId);
+                    var aappIds = _context.ApplicantStatuses.Where(q => q.OfficeLevel == "Placement" && q.Status == "Selected").Select(q => q.ApplicantProfileId);
+                    appIds = _context.ApplicantStatuses.Where(q => q.OfficeLevel == "Placement" && q.Status == "Assigned"&& !aappIds.Contains(q.ApplicantProfileId)).Select(q => q.ApplicantProfileId);
             }
             else if (id == 3)
             {

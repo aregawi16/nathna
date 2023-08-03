@@ -39,7 +39,7 @@
 
 </form>
 <mat-divider></mat-divider>
-  <mat-tab-group (selectedTabChange)="onChangeTab($event)">
+  <mat-tab-group (selectedTabChange)="onChangeTab($event)"  mat-align-tabs="start">
     <mat-tab label="1" class="custom-mat-tab-header" *ngIf="isHeadOffice">
 
       <ng-template mat-tab-label>

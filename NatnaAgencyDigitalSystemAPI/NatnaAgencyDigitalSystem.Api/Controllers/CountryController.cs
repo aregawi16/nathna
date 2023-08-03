@@ -6,7 +6,7 @@ using NatnaAgencyDigitalSystem.Api.Resources;
 using NatnaAgencyDigitalSystem.Api.Validators;
 using NatnaAgencyDigitalSystem.Api.Models;
 using NatnaAgencyDigitalSystem.Api.Models.Setting;
-using NatnaAgencyDigitalSystem.Api.Services;
+using NatnaAgencyDigitalSystem.Service.Services;
 
 namespace NatnaAgencyDigitalSystem.Api.Controllers
 {

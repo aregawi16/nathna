@@ -128,5 +128,8 @@
     .menu-item .mdc-button:not(.active-link) .menu-icon{
         color: mat.get-color-from-palette($primary);
     }
+    .menu-item .mdc-button:is(.active-link) .menu-icon{
+        color: white !important;
+    }
 
 }

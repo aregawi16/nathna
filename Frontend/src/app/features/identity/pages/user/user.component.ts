@@ -34,9 +34,8 @@ export interface User {
 
 
 export class UserComponent {
-  displayedColumns: string[] = ['select', 'userName','email', 'fullName', 'officeId','action'];
-  dataSource = new MatTableDataSource<User>();
   selection = new SelectionModel<User>(true, []);
+  users:any[]=[];
   offices!:DropDownObject[];
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -55,26 +54,20 @@ export class UserComponent {
     this.getUsers();
     this.getOffices();
   }
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
-  }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
-  }
 
   public getUsers()
    {
 
      this._identityService.getUserList()
-       .subscribe(data => {
-        this.dataSource = new MatTableDataSource(data);
+       .subscribe( {
+        next:(data)=>{
+this.users = data;
+        },
+        error:(err)=>
+        {
+
+        }
       });
    }
 
@@ -99,9 +92,9 @@ export class UserComponent {
           horizontalPosition: this.horizontalPosition,
           verticalPosition: this.verticalPosition,
         });
-        window.location.reload();
+       // window.location.reload();
         if(user){
-
+         this.users.push(user);
           console.log(user)
          // this.dialog.closeAll();
           this.getOffices();

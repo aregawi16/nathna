@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NatnaAgencyDigitalSystem.Api.Services
+namespace NatnaAgencyDigitalSystem.Service.Services
 {
     public interface IApplicantProfileService
     {

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using NatnaAgencyDigitalSystem.Api.Resources;
 using NatnaAgencyDigitalSystem.Api.Validators;
 using NatnaAgencyDigitalSystem.Api.Models;
-using NatnaAgencyDigitalSystem.Api.Services;
+using NatnaAgencyDigitalSystem.Service.Services;
 using NatnaAgencyDigitalSystem.Data;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 using System.IdentityModel.Tokens.Jwt;
@@ -159,7 +159,7 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "Test")]
+        [Authorize(Roles = "OnlyTest")]
         public async Task<ActionResult<ApplicantProfile>> GetApplicantProfileById(int id)
         {
             var ApplicantProfile = await _ApplicantProfileService.GetWithWorkExperienceByIdAsync(id);

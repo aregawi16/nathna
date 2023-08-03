@@ -14,7 +14,7 @@ using Microsoft.OpenApi.Models;
 using NatnaAgencyDigitalSystem.Api;
 using NatnaAgencyDigitalSystem.Api.Models.Auth;
 using NatnaAgencyDigitalSystem.Api.Repositories;
-using NatnaAgencyDigitalSystem.Api.Services;
+using NatnaAgencyDigitalSystem.Service.Services;
 using NatnaAgencyDigitalSystem.Data;
 using NatnaAgencyDigitalSystem.Data.Repositories;
 using NatnaAgencyDigitalSystem.Service;

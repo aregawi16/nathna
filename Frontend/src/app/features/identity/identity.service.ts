@@ -35,7 +35,7 @@ constructor(
   }
   public deleteUser(id:any)
   {
-    return this._http.delete(HttpApi.userRegister+'/'+id)
+    return this._http.delete(HttpApi.userDelete+id)
     .pipe(
       map((response) => {
         return response;

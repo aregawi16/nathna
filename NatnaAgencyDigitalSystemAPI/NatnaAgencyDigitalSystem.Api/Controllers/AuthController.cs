@@ -17,6 +17,7 @@ using NatnaAgencyDigitalSystem.Api.Models.Auth;
 using NatnaAgencyDigitalSystem.Api.Models.Setting;
 using Microsoft.EntityFrameworkCore;
 using NatnaAgencyDigitalSystem.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace NatnaAgencyDigitalSystem.Api.Controllers
 {
@@ -55,11 +56,24 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
             return Ok(users);
         }
         [HttpDelete("delete/{id}")]
-        public async Task<ActionResult<User>> DeleteUser()
+        [Authorize(Roles = "OnlyTest")]
+        public async Task<ActionResult<User>> DeleteUser(Guid id)
         {
-            var user = _userManager.Users.FirstOrDefault();
-             
-            return Ok(user);
+            var user =  _userManager.Users.FirstOrDefault(q=>q.Id==id);
+            // Delete the user
+            var result = await _userManager.DeleteAsync(user);
+
+            if (result.Succeeded)
+            {
+                // User deleted successfully
+                return Ok();
+            }
+            else
+            {
+                // Failed to delete the user
+                return BadRequest(result.Errors);
+            }
+
         }
 
         [HttpPost("SignUp")]
