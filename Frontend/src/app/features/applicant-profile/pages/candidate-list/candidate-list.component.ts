@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { ApplicantProfileService } from '../../services/applicant-profile.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
@@ -10,7 +10,9 @@ import { DropDownObject } from 'src/app/core/models/dropDownObject';
 @Component({
   selector: 'app-candidate-list',
   templateUrl: './candidate-list.component.html',
-  styleUrls: ['./candidate-list.component.scss']
+  styleUrls: ['./candidate-list.component.scss'],
+  encapsulation: ViewEncapsulation.None
+
 })
 export class CandidateListComponent implements OnInit {
 

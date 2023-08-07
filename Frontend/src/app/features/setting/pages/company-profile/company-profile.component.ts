@@ -7,4 +7,19 @@ import { Component } from '@angular/core';
 })
 export class CompanyProfileComponent {
 
+  companyProfiles:any[]=[];
+
+
+  openCompanyProfileDialog(companyProfile:any)
+  {
+
+  }
+  editCompanyProfile(companyProfile:any)
+  {
+
+  }
+  deleteCompanyProfile(companyProfile:any)
+  {
+
+  }
 }

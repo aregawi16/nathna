@@ -24,6 +24,6 @@ export const menuItems = [
     new Menu (720, 'ADMIN_NAV.COUNTRY', '/setting/country', null, 'location_on', null, false, 70),
     new Menu (730, 'ADMIN_NAV.AGENT', '/setting/agent', null, 'settings', null, false, 70),
     new Menu (740, 'ADMIN_NAV.JOB', '/setting/job', null, 'settings', null, false, 70),
-    new Menu (740, 'ADMIN_NAV.COMPANY_PROFILE', '/settings/job', null, 'home', null, false, 70),
+    new Menu (740, 'ADMIN_NAV.COMPANY_PROFILE', '/setting/company-profile', null, 'home', null, false, 70),
 
 ]

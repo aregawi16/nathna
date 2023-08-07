@@ -1,11 +1,17 @@
 <mat-card-content>
   <form class="user-search" *ngIf="isHeadOffice">
-    <mat-form-field appearance="fill" >
-        <input matInput placeholder="Search user by name..." [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"(ngModelChange)="onChangeUser($event)" >
+    <mat-form-field appearance="outline">
+      <mat-icon matPrefix>search</mat-icon>
+      <input matInput placeholder="Search" type="text"  [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"(ngModelChange)="onChangeUser($event)">
+      <!-- Replace "search" with the appropriate icon name if you want a different icon -->
+      <!-- matPrefix adds the icon at the beginning of the input -->
     </mat-form-field>
+    <!-- <mat-form-field appearance="outline" >
+        <input matInput placeholder="Search..." >
+    </mat-form-field> -->
 
-  <mat-form-field appearance="fill" style="margin-left: 10px;">
-    <mat-label>Enter a date range</mat-label>
+  <mat-form-field appearance="outline" style="margin-left: 10px;">
+    <mat-label>Start Date - End Date</mat-label>
     <mat-date-range-input  [rangePicker]="picker">
       <input matStartDate [(ngModel)]="startDate" [ngModelOptions]="{standalone: true}" placeholder="Start date">
       <input matEndDate [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}" placeholder="End date">
@@ -14,7 +20,7 @@
     <mat-date-range-picker #picker></mat-date-range-picker>
 </mat-form-field>
 
-<mat-form-field appearance="fill" style="margin-left: 10px;">
+<mat-form-field appearance="outline" style="margin-left: 10px;">
   <mat-label>Status</mat-label>
     <mat-select name="maritalStatus" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOffice($event)">
       <mat-option *ngFor="let status of statuses"
@@ -26,9 +32,9 @@
   </mat-form-field>
 
 
-  <mat-form-field appearance="fill" style="margin-left: 10px;">
+  <mat-form-field appearance="outline" style="margin-left: 10px;">
     <mat-label>Office</mat-label>
-    <mat-select name="officeId" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"  (ngModelChange)="onChangeOffice($event)">
+    <mat-select name="officeId" [(ngModel)]="searchText"   (ngModelChange)="onChangeOffice($event)">
       <mat-option *ngFor="let office of offices"
       [value]="office.id">
 {{office.name}}
@@ -39,16 +45,18 @@
 
 </form>
 <mat-divider></mat-divider>
+
   <mat-tab-group (selectedTabChange)="onChangeTab($event)"  mat-align-tabs="start">
     <mat-tab label="1" class="custom-mat-tab-header" *ngIf="isHeadOffice">
 
       <ng-template mat-tab-label>
         <mat-icon>book</mat-icon>
-        <span [matBadge]="totalItems" [matBadgeHidden]="selectedTab!=1"  matBadgeOverlap="false" matBadgeSize="large">
+        <span>
 
 
         Applicants
         </span>
+        <div *ngIf="selectedTab==1" class="p-0.5 mx-1 bg-sky-900 text-white rounded" >{{totalItems}}</div>
       </ng-template>
 
 
@@ -59,10 +67,11 @@
 
   <ng-template mat-tab-label>
     <mat-icon>book</mat-icon>
-    <span [matBadge]="totalItems" [matBadgeHidden]="selectedTab!=2" matBadgeOverlap="false">
-
+<span>
     Candidates
     </span>
+    <div *ngIf="selectedTab==2" class="p-0.5 mx-1 bg-sky-900 text-white rounded" >{{totalItems}}</div>
+
   </ng-template>
 <app-applicant-list [applicantProfiles]="applicantProfiles" [pageNumber]="pageNumber" [totalItems]="totalItems"></app-applicant-list>
 
@@ -70,10 +79,11 @@
   <mat-tab label="3">
     <ng-template mat-tab-label>
       <mat-icon>folder</mat-icon>
-      <span [matBadge]="totalItems" [matBadgeHidden]="selectedTab!=3" matBadgeOverlap="false">
-
+<span>
       Selected
       </span>
+      <div *ngIf="selectedTab==3" class="p-0.5 mx-1 bg-sky-900 text-white rounded" >{{totalItems}}</div>
+
     </ng-template>
 <app-applicant-list [applicantProfiles]="applicantProfiles" [pageNumber]="pageNumber" [totalItems]="totalItems"></app-applicant-list>
 
@@ -82,10 +92,11 @@
   <mat-tab label="4">
     <ng-template mat-tab-label>
       <mat-icon>folder</mat-icon>
-      <span [matBadge]="totalItems" [matBadgeHidden]="selectedTab!=4" matBadgeOverlap="false">
-
+<span>
       Processing
       </span>
+      <div *ngIf="selectedTab==4" class="p-0.5 mx-1 bg-sky-900 text-white rounded" >{{totalItems}}</div>
+
     </ng-template>
 <app-applicant-list [applicantProfiles]="applicantProfiles" [pageNumber]="pageNumber" [totalItems]="totalItems"></app-applicant-list>
 

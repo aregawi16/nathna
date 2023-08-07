@@ -1,1 +1,51 @@
-<p>company-profile works!</p>
+
+<button mat-button value="add" (click)="openCompanyProfileDialog(null)">
+  <mat-icon>add_circle</mat-icon>
+</button>
+
+
+<div class="mat-table admin-table">
+  <div class="mat-header-row">
+
+      <div class="mat-header-cell"> Name</div>
+      <div class="mat-header-cell"> Name Amharic</div>
+      <div class="mat-header-cell">Address</div>
+      <div class="mat-header-cell">License Number</div>
+      <div class="mat-header-cell">Email</div>
+      <div class="mat-header-cell">General Manager</div>
+      <div class="mat-header-cell">Telephone</div>
+      <div class="mat-header-cell">Fax</div>
+
+      <div class="mat-header-cell">Action</div>
+  </div>
+  <div *ngFor="let companyProfile of companyProfiles" class="mat-row">
+
+      <div class="mat-cell">{{companyProfile.name}} </div>
+      <div class="mat-cell">{{companyProfile.nameAm}}</div>
+      <div class="mat-cell">{{companyProfile.address}}</div>
+      <div class="mat-cell">{{companyProfile.licenseNumber}}</div>
+      <div class="mat-cell">{{companyProfile.email}}</div>
+      <div class="mat-cell">{{companyProfile.generalManager}}</div>
+      <div class="mat-cell">{{companyProfile.telephone}}</div>
+      <div class="mat-cell">{{companyProfile.fax}}</div>
+      <div class="mat-cell">
+          <div class="p-0 actions">
+            <button mat-mini-fab matTooltip="Edit" color="primary" (click)="editCompanyProfile(companyProfile)" class="mx-1">
+              <mat-icon>mode_edit</mat-icon>
+          </button>
+           <button mat-mini-fab matTooltip="Delete" class="mx-1" color="warn" (click)="deleteCompanyProfile(companyProfile)">
+              <mat-icon>delete</mat-icon>
+          </button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- Copyright 2018 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

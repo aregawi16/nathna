@@ -8,6 +8,7 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
 import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -25,6 +26,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     CoreRoutingModule,
+    MatIconModule,
     SharedModule
   ],
   bootstrap: [CoreComponent]

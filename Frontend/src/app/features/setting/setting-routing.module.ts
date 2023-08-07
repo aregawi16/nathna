@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { JobComponent } from './pages/job/job.component';
 import { AgentComponent } from './pages/agent/agent.component';
+import { CompanyProfileComponent } from './pages/company-profile/company-profile.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,13 @@ const routes: Routes = [
         path: 'office',
         component: OfficeComponent,
         data: { breadcrumb: 'Office' }
+
+      }
+      ,
+      {
+        path: 'company-profile',
+        component: CompanyProfileComponent,
+        data: { breadcrumb: 'Company Profile' }
 
       }
     ]
