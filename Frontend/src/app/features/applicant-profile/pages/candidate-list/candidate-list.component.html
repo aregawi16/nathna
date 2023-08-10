@@ -46,64 +46,38 @@
 </form>
 <mat-divider></mat-divider>
 
-  <mat-tab-group (selectedTabChange)="onChangeTab($event)"  mat-align-tabs="start">
-    <mat-tab label="1" class="custom-mat-tab-header" *ngIf="isHeadOffice">
-
-      <ng-template mat-tab-label>
-        <mat-icon>book</mat-icon>
-        <span>
-
-
-        Applicants
-        </span>
-        <div *ngIf="selectedTab==1" class="p-0.5 mx-1 bg-sky-900 text-white rounded" >{{totalItems}}</div>
-      </ng-template>
+  <tabset #tabs>
+    <tab (selectTab)="onChangeTab(4)">
+      <ng-template tabHeading><i class="bi bi-envelope-check-fill p-1"></i>Processing <span *ngIf="selectedTab==4" class="badge bg-slate-900">{{totalItems}}</span></ng-template>
 
 
 <app-applicant-list [applicantProfiles]="applicantProfiles" [pageNumber]="pageNumber" [totalItems]="totalItems"></app-applicant-list>
 
-</mat-tab>
-<mat-tab label="2" class="custom-mat-tab-header">
+  </tab>
 
-  <ng-template mat-tab-label>
-    <mat-icon>book</mat-icon>
-<span>
-    Candidates
-    </span>
-    <div *ngIf="selectedTab==2" class="p-0.5 mx-1 bg-sky-900 text-white rounded" >{{totalItems}}</div>
-
-  </ng-template>
+<tab (selectTab)="onChangeTab(3)">
+  <ng-template tabHeading><i class="bi bi-person-fill-check  p-1"></i>Selected <span *ngIf="selectedTab==3" class="badge bg-slate-900">{{totalItems}}</span></ng-template>
 <app-applicant-list [applicantProfiles]="applicantProfiles" [pageNumber]="pageNumber" [totalItems]="totalItems"></app-applicant-list>
 
-</mat-tab>
-  <mat-tab label="3">
-    <ng-template mat-tab-label>
-      <mat-icon>folder</mat-icon>
-<span>
-      Selected
-      </span>
-      <div *ngIf="selectedTab==3" class="p-0.5 mx-1 bg-sky-900 text-white rounded" >{{totalItems}}</div>
+</tab>
+<tab (selectTab)="onChangeTab(2)">
+  <ng-template tabHeading><i class="bi bi-send-check  p-1"></i>Candidates <span *ngIf="selectedTab==2" class="badge bg-slate-900">{{totalItems}}</span></ng-template>
 
-    </ng-template>
 <app-applicant-list [applicantProfiles]="applicantProfiles" [pageNumber]="pageNumber" [totalItems]="totalItems"></app-applicant-list>
 
-  </mat-tab>
+</tab>
+<tab (selectTab)="onChangeTab(1)"   *ngIf="isHeadOffice"   >
+  <ng-template tabHeading><i class="bi bi-person-plus-fill p-1"></i>Applicants <span *ngIf="selectedTab==1" class="badge bg-slate-900">{{totalItems}}</span></ng-template>
 
-  <mat-tab label="4">
-    <ng-template mat-tab-label>
-      <mat-icon>folder</mat-icon>
-<span>
-      Processing
-      </span>
-      <div *ngIf="selectedTab==4" class="p-0.5 mx-1 bg-sky-900 text-white rounded" >{{totalItems}}</div>
 
-    </ng-template>
 <app-applicant-list [applicantProfiles]="applicantProfiles" [pageNumber]="pageNumber" [totalItems]="totalItems"></app-applicant-list>
 
-  </mat-tab>
+</tab>
 
-  </mat-tab-group>
-  <div *ngIf="applicantProfiles.length>0" fxLayout="row wrap">
+
+
+  </tabset>
+  <div *ngIf="applicantProfiles.length>0" class="row">
     <div fxFlex="100" class="p-1">
         <mat-card class="p-0 text-center">
             <pagination-controls class="product-pagination" [autoHide]='true' [maxSize]='8' (pageChange)="onPageChanged($event)"></pagination-controls>

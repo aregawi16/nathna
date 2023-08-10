@@ -42,7 +42,7 @@
     </form>
 </div>
 <div mat-dialog-actions>
-    <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+    <div class="row" class="d-flex justify-content-between align-items-center" class="w-100">
       <button mat-raised-button color="warn" (click)="close()">Cancel</button>
 
         <button mat-raised-button color="primary"  (click)="createUser()" [disabled]="!userSignupform.valid">

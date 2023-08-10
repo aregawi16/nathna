@@ -79,7 +79,7 @@ export interface ApplicantProfileSettings{
   joinedDate: string;
 }
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-applicant-list',
   templateUrl: './applicant-list.component.html',
   styleUrls: ['./applicant-list.component.scss']

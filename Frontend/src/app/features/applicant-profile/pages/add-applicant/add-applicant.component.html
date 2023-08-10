@@ -1,67 +1,69 @@
 
 <mat-card-content class>
 
-<mat-stepper role="tab" aria-selected="true">
+<mat-stepper role="tab" aria-selected="true" class="card">
   <form [formGroup]="personalInfoFormGroup"  #formItemDirective="ngForm" enctype="multipart/form-data">
 
-  <mat-step label="Step 1" state="phone"  >
+  <mat-step label="Step 1" state="phone" class="card-header-tabs">
       <ng-template matStepLabel>Passport Detail</ng-template>
       <div>
 
-  <div fxLayout="row wrap" class="mt-2">
-    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+  <div class="row mt-2">
+
+    <div class="col-sm-3 col-md-3 col-lg-3">
         <mat-form-field appearance="outline" class="w-100">
         <mat-label>First Name</mat-label>
+
         <input matInput placeholder="First name" pattern="[a-zA-Z][a-zA-Z ]+"
          (change)="generateRefNo()" formControlName="firstName" required>
       </mat-form-field>
       </div>
-      <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+      <div class="col-sm-3 col-md-3 col-lg-3">
 
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Middle Name</mat-label>
         <input matInput placeholder="Middle name"  pattern="[a-zA-Z][a-zA-Z ]+" (change)="generateRefNo()" formControlName="middleName" required>
       </mat-form-field>
       </div>
-      <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+      <div class="col-sm-3 col-md-3 col-lg-3">
 
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Last Name</mat-label>
         <input matInput placeholder="Last name" pattern="[a-zA-Z][a-zA-Z ]+" formControlName="lastName" (change)="generateRefNo()" required>
       </mat-form-field>
       </div>
-      <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+      <div class="col-sm-3 col-md-3 col-lg-3">
 
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Phone Number</mat-label>
-        <input matInput placeholder="Phone Number" formControlName="phoneNumber" (change)="generateRefNo()" >
+        <input matInput placeholder="Phone Number" formControlName="phoneNumber" (change)="generateRefNo()">
         <span matPrefix class="text-prefix"> +251</span>
 
       </mat-form-field>
 </div>
 </div>
-<div fxLayout="row wrap" class="mt-2">
-  <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+<div class="row mt-2">
+  <div class="col-sm-3 col-md-3 col-lg-3">
           <mat-form-field appearance="outline" class="w-100">
         <mat-label>ስም</mat-label>
         <input matInput placeholder="ስም" (change)="generateRefNo()" formControlName="firstNameAm" required>
       </mat-form-field>
       </div>
-      <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+      <div class="col-sm-3 col-md-3 col-lg-3">
 
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>የኣባት ስም</mat-label>
         <input matInput placeholder="የኣባት ስም" (change)="generateRefNo()" formControlName="middleNameAm" required>
       </mat-form-field>
       </div>
-      <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+      <div class="col-sm-3 col-md-3 col-lg-3">
 
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>የኣያት ስም</mat-label>
         <input matInput placeholder="የኣያት ስም" formControlName="lastNameAm" (change)="generateRefNo()" required>
       </mat-form-field>
       </div>
-      <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+      <div class="col-sm-3 col-md-3 col-lg-3">
 
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Passport No</mat-label>
@@ -72,8 +74,8 @@
       </div>
     </div>
 
-    <div fxLayout="row wrap" class="mt-2">
-      <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+    <div class="row mt-2">
+      <div class="col-sm-3 col-md-3 col-lg-3">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Date Of Birth</mat-label>
         <input matInput [matDatepicker]="picker1" formControlName="doB">
@@ -82,7 +84,7 @@
 
     </mat-form-field>
     </div>
-    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+    <div class="col-sm-3 col-md-3 col-lg-3">
 
 
         <mat-form-field appearance="outline" class="w-100">
@@ -94,7 +96,7 @@
 
       </mat-form-field>
     </div>
-    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+    <div class="col-sm-3 col-md-3 col-lg-3">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Passport Expiry Date</mat-label>
           <input matInput [matDatepicker]="picker2" formControlName="passportExpiryDate">
@@ -102,8 +104,7 @@
           <mat-datepicker #picker2 color="primary"></mat-datepicker>
       </mat-form-field>
     </div>
-
-    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+    <div class="col-sm-3 col-md-3 col-lg-3">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Gender</mat-label>
         <mat-select formControlName="gender" required>
@@ -117,9 +118,10 @@
       </div>
     </div>
 
-        <div>
-          <button mat-button matStepperNext>Next</button>
+    <div class="stepper-btn">
 
+          <button mat-button></button>
+          <button mat-button matStepperNext>Next</button>
           <!-- <button  mat-button matStepperNext><mat-icon style="font-size: 30px;width: 30px;height: 30px;">skip_next</mat-icon> -->
           <!-- </button> -->
 
@@ -127,15 +129,15 @@
       </div>
 
   </mat-step>
-  <mat-step label="Step 2" state="phone"  >
+  <mat-step label="Step 2" state="phone" class="card-header-tabs">
     <ng-template matStepLabel>Personal Detail</ng-template>
     <div>
 
 
 
-<div fxLayout="row wrap" class="mt-2">
+<div class="row mt-2">
 
-    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+    <div class="col-sm-3 col-md-3 col-lg-3">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Country</mat-label>
         <mat-select formControlName="countryId" required>
@@ -146,7 +148,7 @@
       </mat-form-field>
 
     </div>
-    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+    <div class="col-sm-3 col-md-3 col-lg-3">
 
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Marital Status</mat-label>
@@ -158,14 +160,14 @@
     </mat-select>
     </mat-form-field>
   </div>
-  <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+  <div class="col-sm-3 col-md-3 col-lg-3">
 
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>No of Children</mat-label>
       <input matInput placeholder="No of Children" formControlName="noOfChildren" type="number" required>
     </mat-form-field>
   </div>
-  <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+  <div class="col-sm-3 col-md-3 col-lg-3">
 
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Religion</mat-label>
@@ -178,14 +180,14 @@
     </mat-form-field>
   </div>
   </div>
-  <div fxLayout="row wrap" class="mt-2">
-    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+  <div class="row mt-2">
+    <div class="col-sm-3 col-md-3 col-lg-3">
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Reference No</mat-label>
       <input matInput placeholder="Reference No" formControlName="referenceNo"   [value]="refNo"  required>
     </mat-form-field>
     </div>
-    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+    <div class="col-sm-3 col-md-3 col-lg-3">
 
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Priority</mat-label>
@@ -198,7 +200,7 @@
 
     </mat-form-field>
   </div>
-  <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+  <div class="col-sm-3 col-md-3 col-lg-3">
 
 
     <mat-form-field appearance="outline" class="w-100">
@@ -212,22 +214,22 @@
 
     </mat-form-field>
   </div>
-  <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+  <div class="col-sm-3 col-md-3 col-lg-3">
 
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Height(m)</mat-label>
-      <input matInput placeholder="Height" formControlName="height" type="number" >
+      <input matInput placeholder="Height" formControlName="height" type="number">
     </mat-form-field>
   </div>
   </div>
-  <div fxLayout="row wrap" class="mt-2">
-    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+  <div class="row mt-2">
+    <div class="col-sm-3 col-md-3 col-lg-3">
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Weight(Kg)</mat-label>
       <input matInput placeholder="Weight" formControlName="weight"  type="number">
     </mat-form-field>
     </div>
-    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+    <div class="col-sm-3 col-md-3 col-lg-3">
 
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Region</mat-label>
@@ -235,14 +237,14 @@
 
     </mat-form-field>
   </div>
-  <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+  <div class="col-sm-3 col-md-3 col-lg-3">
 
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Zone</mat-label>
       <input matInput placeholder="Zone" formControlName="wereda"   required>
     </mat-form-field>
   </div>
-  <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+  <div class="col-sm-3 col-md-3 col-lg-3">
 
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Wereda</mat-label>
@@ -252,18 +254,18 @@
   </div>
   </div>
   <div class="stepper-btn">
-    <button mat-button matStepperPrevious alig>Back</button>
-    <button mat-button matStepperNext>Next</button>
+    <button mat-button matStepperPrevious>Back</button>
+      <button mat-button matStepperNext>Next</button>
   </div>
     </div>
 
 </mat-step>
-  <mat-step label="Step 3" state="phone"  >
+  <mat-step label="Step 3" state="phone" class="card-header-tabs" >
     <ng-template matStepLabel>Education Data</ng-template>
-    <div class="mat-elevation-z8 personal-dtail-container">
+    <div class=" personal-dtail-container">
       <form formGroupName="educationData">
-        <div fxLayout="row wrap" class="mt-2">
-          <div fxFlex="100" fxFlex.gt-sm="33" class="px-1">
+        <div class="row mt-2">
+          <div class="col-sm-4 col-md-4 col-lg-4">
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Qualification Type</mat-label>
       <mat-select formControlName="qualificationType">
@@ -274,7 +276,7 @@
     </mat-select>
   </mat-form-field>
     </div>
-    <div fxFlex="100" fxFlex.gt-sm="33" class="px-1">
+    <div class="col-sm-4 col-md-4 col-lg-4">
 
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Level Of Qualification</mat-label>
@@ -286,7 +288,7 @@
       </mat-select>
     </mat-form-field>
   </div>
-  <div fxFlex="100" fxFlex.gt-sm="33" class="px-1">
+  <div class="col-sm-4 col-md-4 col-lg-4">
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Year Completed</mat-label>
       <input matInput placeholder="Year Completed"  formControlName="yearCompleted">
@@ -294,8 +296,8 @@
   </div>
   </div>
 
-  <div fxLayout="row wrap" class="mt-2">
-    <div fxFlex="100" fxFlex.gt-sm="49" class="px-1">
+  <div class="row mt-2">
+    <div class="col-sm-6 col-md-6 col-lg-6">
 
         <mat-form-field appearance="outline" class="w-100">
       <mat-label>Award</mat-label>
@@ -304,7 +306,7 @@
 
     </mat-form-field>
 </div>
-<div fxFlex="100" fxFlex.gt-sm="49" class="px-1">
+<div class="col-sm-6 col-md-6 col-lg-6">
 
     <mat-form-field appearance="outline" class="w-100">
       <mat-label>Professional Skill</mat-label>
@@ -316,8 +318,7 @@
 
   </div>
     <div>
-      <div>
-
+      <div class="stepper-btn">
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button matStepperNext>Next</button>
 
@@ -326,17 +327,17 @@
 
 </mat-step>
 
-  <mat-step label="Step 4" state="school"  >
+  <mat-step label="Step 4" state="school" class="card-header-tabs" >
     <ng-template matStepLabel>Work Experience</ng-template>
 
-    <div class="mat-elevation-z8 personal-dtail-container">
+    <div class=" personal-dtail-container">
 
     <!-- <form formGroupName="workExperiences"> -->
       <div formArrayName="workExperiences">
 
            <div *ngFor="let row of personalInfoFormGroup['controls']['workExperiences']['controls'] let i = index" [formGroupName]="i">
-            <div fxLayout="row wrap" class="mt-2">
-              <div fxFlex="100" fxFlex.gt-sm="20" class="px-1">
+            <div class="row mt-2">
+              <div class="col-sm-3 col-md-3 col-lg-3">
                 <mat-form-field appearance="outline" class="w-100">
           <mat-label>Duration</mat-label>
           <input matInput placeholder="Duration
@@ -346,25 +347,8 @@
 
       </mat-form-field>
       </div>
-              <!-- <div fxFlex="100" fxFlex.gt-sm="20" class="px-1">
-          <mat-form-field appearance="outline" class="w-100">
-    <mat-label>Start Date</mat-label>
-    <input matInput [matDatepicker]="startdate" formControlName="startDate" placeholder="Start Date">
-    <mat-datepicker-toggle matIconSuffix [for]="startdate"></mat-datepicker-toggle>
-    <mat-datepicker #startdate color="primary"></mat-datepicker>
 
-</mat-form-field>
-</div> -->
-<!-- <div fxFlex="100" fxFlex.gt-sm="20" class="px-1">
-
-  <mat-form-field appearance="outline" class="w-100">
-    <mat-label>End Date</mat-label>
-    <input matInput [matDatepicker]="enddate" formControlName="endDate" placeholder="End Date">
-    <mat-datepicker-toggle matIconSuffix [for]="enddate"></mat-datepicker-toggle>
-    <mat-datepicker #enddate color="primary"></mat-datepicker>
-</mat-form-field>
-</div> -->
-<div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+<div class="col-sm-3 col-md-3 col-lg-3">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Country</mat-label>
         <mat-select formControlName="country">
@@ -374,7 +358,7 @@
       </mat-select>
       </mat-form-field>
     </div>
-    <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+    <div class="col-sm-3 col-md-3 col-lg-3">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Job</mat-label>
         <mat-select formControlName="jobs"  (selectionChange)="onChangeJob(i,$event);" multiple>
@@ -387,7 +371,7 @@
         <input matInput placeholder="Job" formControlName="jobDescription" required> -->
       </mat-form-field>
       </div>
-      <div fxFlex="100" fxFlex.gt-sm="10" class="px-1">
+      <div class="col-sm-3 col-md-3 col-lg-3 align-items-end">
 
       <button (click)="onDeleteRow(i)" mat-button><mat-icon id="delete-icon">delete</mat-icon></button>
 </div>
@@ -405,53 +389,53 @@
       <button mat-button matStepperNext>Next</button>
     </div>
   </mat-step>
-  <mat-step label="Step 5" state="contact_phone"  >
+  <mat-step label="Step 5" state="contact_phone" class="card-header-tabs">
     <ng-template matStepLabel>Contact Person</ng-template>
-    <div class="mat-elevation-z8 personal-dtail-container">
+    <div class=" personal-dtail-container">
       <form formGroupName="contactPerson">
-        <div fxLayout="row wrap" class="mt-2">
-        <div fxFlex="100" fxFlex.gt-sm="33" class="px-1">
+        <div class="row mt-2">
+        <div class="col-sm-4 col-md-4 col-lg-4">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Full Name</mat-label>
-        <input matInput placeholder="Full Name" formControlName="fullName" >
+        <input matInput placeholder="Full Name" formControlName="fullName">
       </mat-form-field>
 </div>
-<div fxFlex="100" fxFlex.gt-sm="33" class="px-1">
+<div class="col-sm-4 col-md-4 col-lg-4">
   <mat-form-field appearance="outline" class="w-100">
         <mat-label>Phone Number</mat-label>
-        <input matInput placeholder="Phone Number" formControlName="phoneNumber" >
+        <input matInput placeholder="Phone Number" formControlName="phoneNumber">
       </mat-form-field>
 </div>
-<div fxFlex="100" fxFlex.gt-sm="33" class="px-1">
+<div class="col-sm-4 col-md-4 col-lg-4">
   <mat-form-field appearance="outline" class="w-100">
         <mat-label>Email</mat-label>
-        <input matInput placeholder="Email" formControlName="email" >
+        <input matInput placeholder="Email" formControlName="email">
       </mat-form-field>
 
     </div>
     </div>
 
-    <div fxLayout="row wrap" class="mt-2">
-      <div fxFlex="100" fxFlex.gt-sm="33" class="px-1">
+    <div class="row mt-2">
+      <div class="col-sm-4 col-md-4 col-lg-4">
   <mat-form-field appearance="outline" class="w-100">
     <mat-label>Region</mat-label>
-    <input matInput placeholder="Region" formControlName="city" >
+    <input matInput placeholder="Region" formControlName="city">
   </mat-form-field>
 
 </div>
 
-<div fxFlex="100" fxFlex.gt-sm="33" class="px-1">
+<div class="col-sm-4 col-md-4 col-lg-4">
   <mat-form-field appearance="outline" class="w-100">
   <mat-label>Zone</mat-label>
-  <input matInput placeholder="Zone" formControlName="wereda" >
+  <input matInput placeholder="Zone" formControlName="wereda">
 </mat-form-field>
 
 </div>
 
-<div fxFlex="100" fxFlex.gt-sm="33" class="px-1">
+<div class="col-sm-4 col-md-4 col-lg-4">
   <mat-form-field appearance="outline" class="w-100">
   <mat-label>Wereda</mat-label>
-  <input matInput placeholder="Wereda" formControlName="kebelle" >
+  <input matInput placeholder="Wereda" formControlName="kebelle">
 </mat-form-field>
 
 </div>
@@ -463,24 +447,24 @@
       <button mat-button matStepperNext>Next</button>
     </div>
   </mat-step>
-  <!-- <mat-step label="Step 5" state="group_work"  >
+  <!-- <mat-step label="Step 5" state="group_work" >
     <ng-template matStepLabel>Experienced Job</ng-template>
 
-    <div class="mat-elevation-z8 personal-dtail-container">
+    <div class=" personal-dtail-container">
 
       <div formArrayName="experiencedJobs">
 
-        <div fxLayout="row wrap" class="mt-2">
+        <div class="row mt-2">
           <div *ngFor="let row of personalInfoFormGroup['controls']['experiencedJobs']['controls'] let i = index" [formGroupName]="i" class="ex-job-container">
-          <div fxFlex="100" fxFlex.gt-sm="10" class="px-1">
+          <div class="col-sm-1 col-md-1 col-lg-1">
 
               <input matInput placeholder="Job" value="row.commonJobId.value" formControlName="commonJobId"ngModel *ngIf="hidden">
 
           </div>
 
-          <div fxFlex="40%">
+          <div col-sm-6 col-md-6 col-lg-6>
              <mat-checkbox
-            class="w-100"
+
             formControlName="haveExperience"
             (change)="checkExp(row)"
             color="primary">
@@ -500,27 +484,27 @@
         <button mat-button matStepperNext>Next</button>
     </div>
   </mat-step> -->
-  <mat-step label="Step 6" state="school"  >
+  <mat-step label="Step 6" state="school" class="card-header-tabs">
     <ng-template matStepLabel>Insurance Benificiary</ng-template>
 
-    <div class="mat-elevation-z8 personal-dtail-container">
+    <div class=" personal-dtail-container">
 
       <div formArrayName="insuranceBeneficiaries">
 
            <div *ngFor="let row of personalInfoFormGroup['controls']['insuranceBeneficiaries']['controls'] let i = index" [formGroupName]="i">
-            <div fxLayout="row wrap" class="mt-2">
-              <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+            <div class="row mt-2">
+              <div class="col-sm-3 col-md-3 col-lg-3">
           <mat-form-field appearance="outline" class="w-100">
     <mat-label>Full Name</mat-label>
     <input matInput placeholder="Full Name" formControlName="fullName">
 
 </mat-form-field>
 </div>
-<div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+<div class="col-sm-3 col-md-3 col-lg-3">
 
   <mat-form-field appearance="outline" class="w-100">
     <mat-label>Relationship</mat-label>
-    <mat-select formControlName="relationship" >
+    <mat-select formControlName="relationship">
       <mat-option *ngFor="let relationship of relationships"
       [value]="relationship">
 {{relationshipList[relationship]}}
@@ -528,7 +512,7 @@
   </mat-select>
 </mat-form-field>
 </div>
-<div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+<div class="col-sm-3 col-md-3 col-lg-3">
 
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Address</mat-label>
@@ -536,14 +520,14 @@
 
       </mat-form-field>
       </div>
-      <div fxFlex="100" fxFlex.gt-sm="15" class="px-1">
+      <div class="col-sm-2 col-md-2 col-lg-2">
 
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Percent(%)</mat-label>
-        <input matInput placeholder="Percent" formControlName="percent" >
+        <input matInput placeholder="Percent" formControlName="percent">
       </mat-form-field>
       </div>
-      <div fxFlex="100" fxFlex.gt-sm="10" class="px-1">
+      <div class="col-sm-1 col-md-1 col-lg-1">
 
       <button (click)="onDeleteInsuranceRow(i)" mat-button><mat-icon id="delete-icon">delete</mat-icon></button>
 </div>
@@ -564,48 +548,48 @@
 
 </form>
 
-  <mat-step label="Step 7" state="cloud_upload"  >
+  <mat-step label="Step 7" state="cloud_upload" class="card-header-tabs">
     <ng-template matStepLabel>Documents</ng-template>
-    <div class="mat-elevation-z8 personal-dtail-container">
+    <div class=" personal-dtail-container">
 
     <form [formGroup]="documentFormGroup"  #formItemDirective="ngForm">
-      <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
-        <div class="image-upload" fxFlex="40%">
-          <mat-label>Applicant Passport</mat-label>
+      <div  class="row m-2">
+        <div class="col-sm-4 col-md-4 col-lg-4 d-flex justify-content-around">
+          <mat-label class="doc-label p-1 mb-2">Applicant Passport</mat-label>
           <app-image-uploader (change)="onChangeApplicantPassport($event)" accept="image/*"></app-image-uploader>
 
         </div>
-        <div class="image-upload" fxFlex="40%">
-          <mat-label>Applicant ID</mat-label>
+        <div class="col-sm-4 col-md-4 col-lg-4 d-flex justify-content-around">
+          <mat-label class="doc-label p-2 mb-2">Applicant ID</mat-label>
           <app-image-uploader (change)="onChangeApplicantId($event)" accept="image/*"></app-image-uploader>
 
         </div>
-        </div>
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
 
-        <div class="image-upload" fxFlex="40%">
-          <mat-label>Contact Person Id Or Passport</mat-label>
+        <div class="col-sm-4 col-md-4 col-lg-4 d-flex justify-content-around">
+          <mat-label class="doc-label p-1 mb-2">Contact Person Id Or Passport</mat-label>
           <app-image-uploader (change)="onChangeContactId($event)" accept="image/*"></app-image-uploader>
 
 
         </div>
-        <div class="image-upload" fxFlex="40%">
+        </div>
+        <div  class="row m-2">
 
-          <mat-label>Applicant Short Photo</mat-label>
+        <div class="col-sm-4 col-md-4 col-lg-4 d-flex justify-content-around">
+
+          <mat-label class="doc-label p-1 mb-2">Applicant Short Photo</mat-label>
           <app-image-uploader (change)="onChangeApplicantShortPhoto($event)" accept="image/*"></app-image-uploader>
 
 
         </div>
-      </div>
-      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
 
-      <div class="image-upload" fxFlex="40%">
-        <mat-label>Applicant Full Photo</mat-label>
+
+        <div class="col-sm-4 col-md-4 col-lg-4 d-flex justify-content-around">
+          <mat-label  class="doc-label p-1 mb-2">Applicant Full Photo</mat-label>
         <app-image-uploader (change)="onChangeApplicantFullPhoto($event)"  accept="image/*"></app-image-uploader>
 </div>
-<div class="image-upload" fxFlex="40%">
+<div class="col-sm-4 col-md-4 col-lg-4 d-flex justify-content-around">
 
-        <mat-label>Applicant Video</mat-label>
+        <mat-label class="doc-label p-3 mb-2">Applicant Video</mat-label>
         <app-image-uploader (change)="onChangeApplicantVideo($event)" accept="video/*"></app-image-uploader>
 
 </div>

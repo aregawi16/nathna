@@ -4,8 +4,8 @@
 
   <div mat-dialog-content>
 
-    <div fxLayout="row wrap" class="mt-2">
-      <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+    <div class="row" class="mt-2">
+      <div class="col-sm-6 col-md-6 col-lg-6" class="px-1">
           <mat-form-field appearance="outline" class="w-100">
       <mat-label>Scheduled Date</mat-label>
       <input matInput [matDatepicker]="picker1" formControlName="scheduledDate">
@@ -13,15 +13,15 @@
       <mat-datepicker #picker1 color="primary"></mat-datepicker>
   </mat-form-field>
     </div>
-    <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
+    <div class="col-sm-6 col-md-6 col-lg-6" class="px-1">
       <mat-form-field appearance="outline" class="w-100">
       <mat-label>Place</mat-label>
       <input matInput placeholder="Place" formControlName="place" required>
     </mat-form-field>
     </div>
     </div>
-    <div fxLayout="row wrap" class="mt-2">
-      <div fxFlex="100" fxFlex.gt-sm="100" class="px-1">
+    <div class="row" class="mt-2">
+      <div class="col-sm-12 col-md-12 col-lg-12" class="px-1">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Trainees</mat-label>
 
@@ -34,9 +34,9 @@
       </mat-select>    </mat-form-field>
     </div>
     </div>
-    <div fxLayout="row wrap" class="mt-2">
+    <div class="row" class="mt-2">
 
-    <div fxFlex="100" fxFlex.gt-sm="100" class="px-1">
+    <div class="col-sm-12 col-md-12 col-lg-12" class="px-1">
       <mat-form-field appearance="outline" class="w-100">
       <mat-label>Description</mat-label>
       <input matInput placeholder="Description" formControlName="description" required>
@@ -44,9 +44,9 @@
 </div>
 </div>
 
-    <div  fxLayout="row"  fxLayoutAlign="end center">
+    <div  class="row"  class="d-flex justify-content-end align-items-center">
       <div mat-dialog-actions>
-        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+        <div class="row" class="d-flex justify-content-between align-items-center" class="w-100">
           <button mat-raised-button color="warn" type="button" mat-dialog-close>
             Close
           </button>

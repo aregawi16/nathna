@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Upload Document</h1>
 <mat-divider></mat-divider>
 <form [formGroup]="verifiedDocumentFormGroup" (ngSubmit)="uploadDocument()">
-  <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
+  <div  class="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
     <div class="image-upload" fxFlex="90%">
 
       <label>Medical Document</label>
@@ -10,7 +10,7 @@
       <input type="file" (change)="onChangeMedical($event)" accept="image/*"    required/>
     </div>
     </div>
-    <div  fxLayout="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
+    <div  class="row" fxLayout.xs="column" fxLayoutWrap  fxLayoutAlign="center">
 
     <div class="image-upload" fxFlex="90%">
       <label>Police Clearance</label>
@@ -21,9 +21,9 @@
     </div>
     <mat-divider></mat-divider>
 
-    <div  fxLayout="row"  fxLayoutAlign="end center">
+    <div  class="row"  class="d-flex justify-content-end align-items-center">
       <div mat-dialog-actions>
-        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
+        <div class="row" class="d-flex justify-content-between align-items-center" class="w-100">
           <button mat-raised-button color="warn" type="button" mat-dialog-close>
             Close
           </button>

@@ -256,7 +256,7 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "OnlyTest")]
+        //[Authorize(Roles = "OnlyTest")]
         public async Task<IActionResult> DeleteApplicantProfile(int id)
         {
             var ApplicantProfile = await _ApplicantProfileService.GetApplicantProfileById(id);

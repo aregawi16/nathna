@@ -23,7 +23,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
@@ -54,6 +53,7 @@ import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
 
 
+
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -61,6 +61,9 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { ImageUploaderComponent } from './components/image-uploader/image-uploader.component';
 import { ReportHeaderComponent } from './components/report-header/report-header.component';
 import {MatBadgeModule} from '@angular/material/badge';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   wheelPropagation: true,
@@ -78,6 +81,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   imports: [
     CommonModule,
     FormsModule,
+    TabsModule,
+    NgbModule,
     ReactiveFormsModule,
     MatCardModule,
     MatListModule,
@@ -88,6 +93,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatInputModule,
     MatMenuModule,
     HttpClientModule,
+
     // SnackBarComponent,
     RouterModule,
     MatButtonModule,
@@ -102,7 +108,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatProgressBarModule,
     MatProgressSpinnerModule,
     PipesModule,
-    FlexLayoutModule,
     PerfectScrollbarModule,
     MatSidenavModule,
     MatSlideToggleModule,
@@ -143,7 +148,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatProgressBarModule,
     MatProgressSpinnerModule,
     PipesModule,
-    FlexLayoutModule,
     PerfectScrollbarModule,
     MatSidenavModule,
     MatSlideToggleModule,
@@ -169,6 +173,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
+    NgbModule,
+    TabsModule,
     MatCheckboxModule,
     MatChipsModule,
     MatStepperModule,

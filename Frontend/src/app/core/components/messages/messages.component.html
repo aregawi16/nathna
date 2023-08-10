@@ -13,7 +13,7 @@
                       <button mat-button *ngFor="let message of messages">
                           <img src="{{ ( message.image || (message.name | profilePicture)) }}" width="50">
                           <div fxLayout="column" fxLayoutAlign="none" class="w-100">
-                              <div fxLayout="row" fxLayoutAlign="space-between start">
+                              <div class="row" fxLayoutAlign="space-between start">
                                   <span class="name">{{message.name}}</span>
                                   <span class="info"><mat-icon>access_time</mat-icon> {{message.time}}</span>
                               </div>
@@ -31,7 +31,7 @@
                   <div fxLayout="column" fxLayoutAlign="none">
                       <button mat-button *ngFor="let file of files">
                           <div fxLayout="column" fxLayoutAlign="none" class="w-100">
-                              <div fxLayout="row" fxLayoutAlign="space-between start">
+                              <div class="row" fxLayoutAlign="space-between start">
                                   <span class="name">{{file.text}}</span>
                                   <span class="info">{{file.size}}</span>
                               </div>
@@ -53,7 +53,7 @@
                 <mat-card class="content">
                   <div fxLayout="column" fxLayoutAlign="none">
                       <button mat-button *ngFor="let meeting of meetings">
-                          <div fxLayout="column" fxLayoutAlign="center center" class="row-1">
+                          <div fxLayout="column" class="d-flex justify-content-center align-items-center" class="row-1">
                               <span class="name">{{meeting.day}}</span>
                               <span class="name">{{meeting.month}}</span>
                           </div>

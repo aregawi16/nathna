@@ -17,9 +17,9 @@
             <h3 class="main-title">Skills</h3>
             <ul>
                 <li *ngFor="let item of getSkills(applicantProfile?.workExperiences)" >
-                  <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="gappx">
-                    <div fxFlex="100" fxFlex.gt-sm="60" class="px-1"> <p class="skill-title">{{item}}</p></div>
-                    <div fxFlex="100" fxFlex.gt-sm="50"><mat-icon style="color: #ffc20b">
+                  <div class="row" class="d-flex justify-content-start align-items-start" fxLayoutGap="gappx">
+                    <div class="col-sm-8 col-md-8 col-lg-8" class="px-1"> <p class="skill-title">{{item}}</p></div>
+                    <div class="col-sm-6 col-md-6 col-lg-6"><mat-icon style="color: #ffc20b">
                       star
                     </mat-icon> </div>
                   </div>
@@ -35,9 +35,9 @@
           <h3 class="main-title">Language</h3>
           <ul>
               <li>
-                <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="gappx">
-                  <div fxFlex="100" fxFlex.gt-sm="60" class="px-1"> <p class="skill-title">Arabic</p></div>
-                  <div fxFlex="100" fxFlex.gt-sm="50"><mat-icon style="color: #ffc20b">
+                <div class="row" class="d-flex justify-content-start align-items-start" fxLayoutGap="gappx">
+                  <div class="col-sm-8 col-md-8 col-lg-8" class="px-1"> <p class="skill-title">Arabic</p></div>
+                  <div class="col-sm-6 col-md-6 col-lg-6"><mat-icon style="color: #ffc20b">
                     stars
                   </mat-icon> </div>
                 </div>
@@ -57,8 +57,8 @@
       <div class="right-main-content">
           <section class="about sect">
             <div class="row wrap">
-              <div fxFlex="100" fxFlex.gt-sm="60"> <h5 class="right-title" >Passport Details </h5></div>
-              <div fxFlex="100" fxFlex.gt-sm="25"> <ngx-barcode *ngFor="let bcValue of values" [bc-value]="'EP'+bcValue"  [bc-line-color]="lineColor"
+              <div class="col-sm-8 col-md-8 col-lg-8"> <h5 class="right-title" >Passport Details </h5></div>
+              <div class="col-sm-3 col-md-3 col-lg-3"> <ngx-barcode *ngFor="let bcValue of values" [bc-value]="'EP'+bcValue"  [bc-line-color]="lineColor"
                 [bc-width]="widthone" [bc-height]="height" [bc-display-value]="displayValueT" [bc-font-options]="fontOptions" [bc-font]="font"
                 [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"
                 [bc-margin]="margin" [bc-margin-top]="marginTop" [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight">
@@ -158,8 +158,8 @@
               <div class="title-bottom-line"></div>
 
               <div class="timeline">
-                <div fxLayout="row wrap">
-                  <div fxFlex="100" fxFlex.gt-sm="40" class="px-1">
+                <div class="row">
+                  <div class="col-sm-4 col-md-4 col-lg-4" class="px-1">
                   <div class="right-tl-content" *ngFor="let workExp of applicantProfile?.workExperiences">
                       <div class="tl-content"  >
                           <h6 class="tl-title-2">{{workExp?.country}}</h6>
@@ -190,7 +190,7 @@
                   </div>
                 </div>
 
-                <div fxFlex="100" fxFlex.gt-sm="60" class="px-1">
+                <div class="col-sm-8 col-md-8 col-lg-8" class="px-1">
                  <img [src]="base_url+applicantProfile?.applicantDocument?.applicantFullPhotoPath" class="full-photo" >
                   </div>
                 </div>
@@ -200,28 +200,28 @@
 
           </section>
           <div class="row wrap">
-            <div fxFlex="100" fxFlex.gt-sm="25">
+            <div class="col-sm-3 col-md-3 col-lg-3">
               <ngx-barcode class="w-100" *ngFor="let bcValue of values" [bc-value]="bcValue"  [bc-line-color]="lineColor"
               [bc-width]="width" [bc-height]="heightl" [bc-display-value]="displayValue" [bc-font-options]="fontOptions" [bc-font]="font"
               [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"
               [bc-margin]="margin" [bc-margin-top]="marginTop" [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight">
             </ngx-barcode>
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="25">
+            <div class="col-sm-3 col-md-3 col-lg-3">
               <ngx-barcode class="w-100" *ngFor="let bcValue of values" [bc-value]="bcValue"  [bc-line-color]="lineColor"
               [bc-width]="width" [bc-height]="heightl" [bc-display-value]="displayValue" [bc-font-options]="fontOptions" [bc-font]="font"
               [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"
               [bc-margin]="margin" [bc-margin-top]="marginTop" [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight">
             </ngx-barcode>
             </div>
-            <div fxFlex="100" fxFlex.gt-sm="25">
+            <div class="col-sm-3 col-md-3 col-lg-3">
               <ngx-barcode class="w-100" *ngFor="let bcValue of values" [bc-value]="bcValue"  [bc-line-color]="lineColor"
               [bc-width]="width" [bc-height]="heightl" [bc-display-value]="displayValue" [bc-font-options]="fontOptions" [bc-font]="font"
               [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"
               [bc-margin]="margin" [bc-margin-top]="marginTop" [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight">
             </ngx-barcode>
             </div>
-            <!-- <div fxFlex="100" fxFlex.gt-sm="25">
+            <!-- <div class="col-sm-3 col-md-3 col-lg-3">
               <ngx-barcode class="w-100" *ngFor="let bcValue of values" [bc-value]="bcValue"  [bc-line-color]="lineColor"
               [bc-width]="width" [bc-height]="height" [bc-display-value]="displayValue" [bc-font-options]="fontOptions" [bc-font]="font"
               [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"

@@ -1,6 +1,6 @@
-<div fxLayout="row" fxLayoutAlign="space-between center" class="p-1">
+<div class="row" class="d-flex justify-content-between align-items-center" class="p-1">
 
-  <div fxLayout="row" fxLayoutAlign="space-between center">
+  <div class="row" class="d-flex justify-content-end align-items-stat">
       <mat-button-toggle-group #viewType="matButtonToggleGroup" appearance="legacy" value="grid">
           <mat-button-toggle value="grid">
               <mat-icon>view_module</mat-icon>
@@ -14,84 +14,115 @@
   </div>
 </div>
 
-<div *ngIf="viewType.value == 'grid'" fxLayout="row wrap">
-  <div *ngFor="let applicantProfile of applicantProfiles  | paginate: { itemsPerPage: 8, currentPage: pageNumber,totalItems: totalItems }" fxFlex="100" fxFlex.gt-md="25" fxFlex.md="40" class="p-1">
-      <mat-card class="p-0">
-          <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
-              <h3 *ngIf="!applicantProfile.isDeleted" class="user-name">{{applicantProfile.fullName}}<br>{{applicantProfile.fullNameAm}}</h3>
-              <!--  -->
+<div *ngIf="viewType.value == 'grid'" class="card p-1">
+<div  class="row">
+  <div   *ngFor="let applicantProfile of applicantProfiles  | paginate: { itemsPerPage: 8, currentPage: pageNumber,totalItems: totalItems }"  class="col-sm-3 col-lg-3  mb-3 rounded-circle">
+      <div class="card">
+          <div class="card-header text-white d-flex justify-content-between align-items-start" style="background-color: #06407a;">
+             <div>
+               <h6 *ngIf="!applicantProfile.isDeleted">{{applicantProfile.fullName}}</h6>
+              <h6 *ngIf="!applicantProfile.isDeleted">{{applicantProfile.fullNameAm}}</h6>
+            </div>   <!--  -->
               <!-- <p style="font-size: 3.5vw;"></p> -->
-              <h3 *ngIf="applicantProfile.isDeleted" class="user-name">User blocked</h3>
+              <h5 *ngIf="applicantProfile.isDeleted" class="user-name">User blocked</h5>
               <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
                   <mat-icon>more_vert</mat-icon>
               </button>
           </div>
-          <mat-menu #menu="matMenu" xPosition="before" overlapTrigger="true">
-              <span (mouseleave)="menuTrigger.closeMenu()">
-                  <button mat-menu-item (click)="openApplicantProfileDialog(applicantProfile)" *ngIf="isHeadOffice">
-                      <mat-icon>mode_edit</mat-icon>
-                      <span>Edit</span>
-                  </button>
-                  <button *ngIf="checkDeleteStatus(applicantProfile.applicantStatuses[0]) && isHeadOffice"  mat-menu-item (click)="deleteApplicantProfile(applicantProfile.applicantProfileId)">
-                    <mat-icon>delete</mat-icon>
-                      <span>Delete</span>
-                  </button>
-                  <button *ngIf="checkRejectStatus(applicantProfile.applicantStatuses[0]) && isHeadOffice"  mat-menu-item (click)="rejectApplicantProfile(applicantProfile.applicantProfileId)">
-                    <mat-icon>cancel</mat-icon>
-                      <span>Reject</span>
-                  </button>
-                  <a mat-menu-item [routerLink]="['/applicant-profile/detail', applicantProfile.applicantProfileId]">
-                    <mat-icon>details</mat-icon>
-                    <span>Detail</span>
-                </a>
 
-                  <a mat-menu-item [routerLink]="['/applicant-profile/process', applicantProfile.applicantProfileId]">
-                    <mat-icon>trending_up</mat-icon>
-                    <span>Process</span>
-                </a>
-              </span>
-          </mat-menu>
-          <div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">
-              <div fxFlex="30" fxLayout="column" fxLayoutAlign="center center">
+          <mat-menu #menu="matMenu" xPosition="before"  overlapTrigger="true">
+            <span (mouseleave)="menuTrigger.closeMenu()">
+          <button mat-mini-fab matTooltip="Edit" color="primary" (click)="openApplicantProfileDialog(applicantProfile);" class="mx-1" *ngIf="isHeadOffice">
+            <mat-icon>mode_edit</mat-icon>
+        </button>
+        <!-- <button mat-mini-fab matTooltip="Delete" class="mx-1" color="warn" *ngIf="checkDeleteStatus(applicantProfile.applicantStatuses[0])" (click)="deleteApplicantProfile(applicantProfile.applicantProfileId)">
+            <mat-icon>delete</mat-icon>
+        </button> -->
+
+        <button  mat-mini-fab matTooltip="Upload Verified Document" class="mx-1" color="primary" *ngIf="checkUploadStatus(applicantProfile.applicantStatuses[0])" (click)="uploadVerifiedDocument(applicantProfile.applicantProfileId)">
+            <mat-icon ><mat-icon>cloud_upload</mat-icon>
+          </mat-icon>
+        </button>
+        <button  mat-mini-fab matTooltip="Upload Contract" class="mx-1" color="primary" *ngIf="checkContractStatus(applicantProfile)" (click)="uploadContractDocument(applicantProfile.applicantProfileId)">
+            <mat-icon ><mat-icon>cloud_upload</mat-icon>
+          </mat-icon>
+        </button>
+        <button mat-mini-fab matTooltip="Accept Contract" class="mx-1" color="primary"  *ngIf="checkReceieveContractStatus(applicantProfile.applicantStatuses[0])" (click)="receieveContractDocument(applicantProfile.applicantProfileId)">
+          <mat-icon >check</mat-icon>
+      </button>
+        <button mat-mini-fab matTooltip="Verify Contract" class="mx-1" color="primary"  *ngIf="checkVerifyContractStatus(applicantProfile.applicantStatuses[0])" (click)="verifyContractDocument(applicantProfile.applicantProfileId)">
+          <mat-icon >check</mat-icon>
+      </button>
+        <button mat-mini-fab matTooltip="Request Insurance" class="mx-1" color="primary"  *ngIf="checkInsuranceStatus(applicantProfile.applicantStatuses[0])" (click)="requestInsurance(applicantProfile.applicantProfileId)">
+          <mat-icon >directions</mat-icon>
+      </button>
+        <button mat-mini-fab matTooltip="Complete Insurance" class="mx-1" color="primary"  *ngIf="checkCompleteInsuranceStatus(applicantProfile.applicantStatuses[0])" (click)="completeInsurance(applicantProfile.applicantProfileId)">
+          <mat-icon >directions</mat-icon>
+      </button>
+      <button mat-mini-fab matTooltip="Request COC" class="mx-1" color="primary"  *ngIf="checkCocStatus(applicantProfile.applicantStatuses[0])" (click)="requestCoc(applicantProfile.applicantProfileId)">
+        <mat-icon >directions</mat-icon>
+    </button>
+    <button mat-mini-fab matTooltip="Complete COC" class="mx-1" color="primary"  *ngIf="checkCompleteCocStatus(applicantProfile.applicantStatuses[0])" (click)="completeCoc(applicantProfile.applicantProfileId)">
+      <mat-icon >directions</mat-icon>
+  </button>
+        <button mat-mini-fab matTooltip="Request Yellow Card" class="mx-1"  [ngStyle]="{'background-color':'yellow'}"  *ngIf="checkRequestYellowCardStatus(applicantProfile.applicantStatuses[0])" (click)="requestYellowCard(applicantProfile.applicantProfileId)">
+          <mat-icon >redo</mat-icon>
+      </button>
+        <button mat-mini-fab matTooltip="Receieve Yellow Card" class="mx-1" [ngStyle]="{'background-color':'yellow'}"  *ngIf="checkGetYellowCardStatus(applicantProfile.applicantStatuses[0])" (click)="receiveYellowCard(applicantProfile.applicantProfileId)">
+          <mat-icon >redo</mat-icon>
+      </button>
+        <button mat-mini-fab matTooltip="Verify Ticket" class="mx-1" color="primary"  *ngIf="checkTicketStatus(applicantProfile.applicantStatuses[0])" (click)="verifyFlightTicket(applicantProfile.applicantProfileId)">
+          <mat-icon >airplanemode_active</mat-icon>
+      </button>
+        <button mat-mini-fab matTooltip="Start Flight" class="mx-1" color="primary"  *ngIf="checkFlightStatus(applicantProfile.applicantStatuses[0])" (click)="startFlight(applicantProfile.applicantProfileId)">
+          <mat-icon >airplanemode_active</mat-icon>
+      </button>
+        <button mat-mini-fab matTooltip="Arrived" class="mx-1" color="primary"  *ngIf="checkArrivalStatus(applicantProfile.applicantStatuses[0])" (click)="confirmArrival(applicantProfile.applicantProfileId)">
+          <mat-icon >airplanemode_active</mat-icon>
+      </button>
+
+        <button mat-mini-fab matTooltip="Detail" class="mx-1"  [ngStyle]="{'color':'green'}" [routerLink]="['/applicant-profile/detail', applicantProfile.applicantProfileId]">
+          <mat-icon>visibility</mat-icon>
+      </button>
+        <button mat-mini-fab matTooltip="Process" class="mx-1"  [ngStyle]="{'color':'Blue'}" [routerLink]="['/applicant-profile/process', applicantProfile.applicantProfileId]">
+          <mat-icon>trending_down</mat-icon>
+      </button>
+      </span>
+      </mat-menu>
+          <div class="card-body row user-content" >
+              <div  class="col-6 flex-column d-flex align-items-center justify-content-center">
                   <div class="user-img">
                       <img *ngIf="applicantProfile?.applicantDocument?.applicantSmallPhotoPath" [src]="host+applicantProfile.applicantDocument?.applicantSmallPhotoPath" class="transition-2" [class.blocked]="applicantProfile.isDeleted">
-                      <!-- <img *ngIf="!applicantProfile.image" src="assets/images/others/applicantProfile.jpg" class="transition-2" [class.blocked]="applicantProfile.isDeleted"> -->
                       <mat-icon *ngIf="applicantProfile.isDeleted" color="warn">block</mat-icon>
-                  </div>
+                    </div>
+
                   <div class="user-social">
                       <mat-slide-toggle color="primary" [checked]="applicantProfile.isDeleted" (change)="applicantProfile.isDeleted = !applicantProfile.isDeleted"></mat-slide-toggle>
                   </div>
               </div>
-              <div fxFlex="70" fxLayout="column" class="user-details transition-2" [class.blocked]="applicantProfile.isDeleted">
-                  <!-- <p fxLayout="row" fxLayoutAlign="start center">
+              <div class="col-6 user-details transition-2"  [class.blocked]="applicantProfile.isDeleted">
+                  <!-- <p class="row" class="d-flex justify-content-start align-items-center">
                       <mat-icon class="text-muted">where_to_vote</mat-icon>
                       <span>{{applicantProfile.nationality}}</span>
                   </p> -->
-                  <p fxLayout="row" fxLayoutAlign="start center">
+                  <p  class="d-flex justify-content-start align-items-center">
                       <mat-icon class="text-muted">mail_outline</mat-icon>
                       <span>{{applicantProfile.passportNo}}</span>
                   </p>
-                  <p fxLayout="row" fxLayoutAlign="start center">
+                  <p class="d-flex justify-content-start align-items-center">
                       <mat-icon class="text-muted">call</mat-icon>
                       <span>{{applicantProfile.phoneNumber}}</span>
                   </p>
-                  <p fxLayout="row" fxLayoutAlign="start center">
+                  <p class="d-flex justify-content-start align-items-center">
                       <mat-icon class="text-muted">people</mat-icon>
                       <span>    {{genderList[applicantProfile.gender]}}   </span>
                   </p>
-                  <p fxLayout="row" fxLayoutAlign="start center">
+                  <p  class="d-flex justify-content-start align-items-center">
                       <mat-icon class="text-muted">wc</mat-icon>
                       <span>    {{maritalStatusList[applicantProfile.maritalStatus]}}   </span>
                   </p>
-                  <p fxLayout="row" fxLayoutAlign="start center">
-                      <mat-icon class="text-muted">wc</mat-icon>
-                      <span>    {{applicantProfile.applicantStatuses[0]?applicantProfile.applicantStatuses[0].officeLevel:"UnAssigned"}}   </span>
-                  </p>
-                  <p fxLayout="row" fxLayoutAlign="start center">
-                    <mat-icon class="text-muted">wc</mat-icon>
-                    <span>    {{applicantProfile.applicantStatuses[0]?applicantProfile.applicantStatuses[0].status:"UnAssigned"}}   </span>
-                </p>
-                  <p fxLayout="row" fxLayoutAlign="start center" *ngIf="applicantProfile.applicantPlacements[0]!=null">
+
+                  <p class="d-flex justify-content-start align-items-center" *ngIf="applicantProfile.applicantPlacements[0]!=null">
                     <mat-icon class="text-muted">wc</mat-icon>
                     <span>
                       {{(offices | filterById : applicantProfile.applicantPlacements[0]?.officeId)?.name}}
@@ -99,15 +130,31 @@
                 </p>
               </div>
           </div>
-      </mat-card>
+          <div class="card-footer d-flex justify-content-between align-items-start">
+            <p>
+              <mat-icon class="text-muted">wc</mat-icon>
+              <span>    {{applicantProfile.applicantStatuses[0]?applicantProfile.applicantStatuses[0].officeLevel:"UnAssigned"}}   </span>
+          </p>
+
+            <p>
+              <mat-icon class="text-muted">wc</mat-icon>
+              <span>    {{applicantProfile.applicantStatuses[0]?applicantProfile.applicantStatuses[0].status:"UnAssigned"}}   </span>
+          </p>
+
+          </div>
+      </div>
   </div>
+</div>
+<div class="row" *ngIf="applicantProfiles.length == 0">
+<p color="red"><i class="bi bi-exclamation-triangle-fill"></i>Records Not Found</p>
+</div>
 </div>
 
 
-<div *ngIf="viewType.value == 'table'" fxLayout="row wrap">
+<div *ngIf="viewType.value == 'table'" class="row">
    <div  fxFlex="100" class="p-1" >
       <mat-card class="p-0">
-        <div *ngIf="isAnySelected&&isHeadOffice" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="start">
+        <div *ngIf="isAnySelected&&isHeadOffice" class="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="start">
           <div [formGroup]="placementFormGroup">
 
    <mat-form-field appearance="outline">
@@ -129,7 +176,7 @@
 
         <div class="p-1">
           <mat-card class="p-0">
-              <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="w-100 p-2">
+              <div class="row" class="d-flex justify-content-between align-items-center" class="w-100 p-2">
                   <h2>Labour List</h2>
                   <button mat-raised-button color="primary" [routerLink]="['/applicant-profile/create-new']" *ngIf="isHeadOffice">Add New</button>
               </div>
@@ -245,7 +292,7 @@
 </div>
 
 
-<div *ngIf="!applicantProfiles" fxLayout="column" fxLayoutAlign="center center" class="user-spinner">
+<div *ngIf="!applicantProfiles" fxLayout="column" class="d-flex justify-content-center align-items-center" class="user-spinner">
   <mat-spinner color="primary"></mat-spinner>
 </div>
 

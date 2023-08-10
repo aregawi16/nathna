@@ -1,7 +1,7 @@
 <div class="mat-elevation-z8">
     <button><mat-icon (click)="AddNewRow()" class="add-button">add_box</mat-icon></button>
     <br />
-    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="Start">
+    <div class="container" class="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="Start">
       <mat-form-field fxFlex="70%">
       <mat-label>Filter</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>

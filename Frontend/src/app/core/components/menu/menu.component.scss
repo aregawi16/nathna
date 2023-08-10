@@ -67,6 +67,11 @@
         transition: max-height 0.25s ease-in;
     }
 }
+.icon-bold {
+  font-weight: bold;
+  color: #06407a !important;
+  font-size: 20px; /* Increase the size as desired */
+}
 
 // .mat-mdc-button {
 //     &>.mat-icon {

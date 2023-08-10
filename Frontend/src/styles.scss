@@ -10,7 +10,7 @@
 @import "../node_modules/tailwindcss/base";
 @import "../node_modules/tailwindcss/components";
 @import "../node_modules/tailwindcss/utilities";
-
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 @import "../node_modules/ngx-sharebuttons/themes/circles.scss";
 @import  "../node_modules/ngx-sharebuttons/themes/modern.scss";
 
@@ -20,6 +20,9 @@
   color-adjust: exact;
   -webkit-print-color-adjust: exact;
   print-color-adjust: exact;
+}
+body{
+  background: #f7f7ff;
 }
 .material-icons {
   // font-family: 'Material Icons';

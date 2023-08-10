@@ -41,17 +41,12 @@ export class CandidateListComponent implements OnInit {
             {
             }
 
-  onChangeTab(event: MatTabChangeEvent) {
+  onChangeTab(tab: any) {
     this.pageNumber = 1;
-    const tab = event.tab.textLabel;
     console.log(tab);
     this.selectedTab = tab;
     this.getApplicantProfiles(0,this.selectedTab,this.officeId);
 
-    if(tab===" Tab 1")
-     {
-       console.log("function want to implement");
-      }
   }
   public onPageChanged(event){
     this.pageNumber = event;
@@ -65,15 +60,9 @@ export class CandidateListComponent implements OnInit {
     // }
 }
  ngOnInit(): void {
-  if(this._authService.isHeadOffice())
-  {
-    this.selectedTab =1
-  }
-  else
-  {
-    this.selectedTab =2
 
-  }
+    this.selectedTab =4
+
   this.getApplicantProfiles(0,this.selectedTab,this.officeId);
   this.isHeadOffice = this._authService.isHeadOffice();
 
