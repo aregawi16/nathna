@@ -108,6 +108,11 @@ this.users = data;
 
    });
 }
+applyFilter(event: Event) {
+  //  debugger;
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.users =  this.users.filter(q=>q.userName==filterValue);
+}
 editUser(user:any)
 {
 

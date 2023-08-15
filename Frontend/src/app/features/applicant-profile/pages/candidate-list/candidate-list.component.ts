@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/features/auth/services/auth.service';
 import { Status } from '../../model/Status.enum';
 import { SettingService } from 'src/app/features/setting/setting.service';
 import { DropDownObject } from 'src/app/core/models/dropDownObject';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { FilterComponent } from './filter/filter.component';
 
 @Component({
   selector: 'app-candidate-list',
@@ -35,6 +37,8 @@ export class CandidateListComponent implements OnInit {
   constructor(
            public _applicantService: ApplicantProfileService,
            private _authService: AuthService,
+           public dialog: MatDialog,
+           public _dialogRef: MatDialogRef<any>,
            public _settingService: SettingService,
 
            )
@@ -69,6 +73,20 @@ export class CandidateListComponent implements OnInit {
   this.statuses= Object.keys(this.statusList).map(key => parseInt(key)).filter(f => !isNaN(Number(f)));
 this.getOffices();
  }
+ openFilter()
+ {
+  const dialogRef = this.dialog.open(FilterComponent, {
+    maxWidth: "400",
+    data:"id"
+
+  });
+
+  dialogRef.afterClosed().subscribe(dialogResult => {
+    if(dialogResult){
+
+    }
+  });
+ }
  public getOffices()
  {
 
@@ -78,6 +96,7 @@ this.getOffices();
     });
  }
  onChangeUser(search:any){
+  if(search.length>2)
   this.getApplicantProfiles(this.pageNumber,this.selectedTab,this.officeId,search);
 
  }

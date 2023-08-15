@@ -36,6 +36,7 @@ import { CompletePreflightTrainingDialogComponent } from './pages/pre-flight-tra
 import { QRCodeModule } from 'angularx-qrcode';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { CandidateListComponent } from './pages/candidate-list/candidate-list.component';
+import { ApplicantProfileRsolver } from './pages/candidate-list/applicant-profile-resolver';
 
 
 
@@ -87,6 +88,8 @@ import { CandidateListComponent } from './pages/candidate-list/candidate-list.co
   ],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },
+     { provide: ApplicantProfileRsolver},
+
     { provide: MatDialogRef, useValue: {} }
   ]
 ,

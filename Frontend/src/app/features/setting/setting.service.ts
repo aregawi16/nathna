@@ -178,42 +178,6 @@ export class SettingService {
 
 // Role API
 
-public getRoleList()
-{
-  return this._http.get<DropDownObject[]>(HttpApi.userRole)
-  .pipe(
-    map((response: DropDownObject[]) => {
-      return response;
-    })
-  );
-}
-public getRoles()
-{
-  return this._http.get<Role[]>(HttpApi.getUserRole)
-  .pipe(
-    map((response: Role[]) => {
-      return response;
-    })
-  );
-}
-public createRole(data:Role)
-{
-  return this._http.post<Role>(HttpApi.userRole,data)
-  .pipe(
-    map((response: Role) => {
-      console.log(response);
-      return response;
-    })
-  );
-}
-public deleteRole(id:any)
-{
-  return this._http.delete<Role>(HttpApi.userRole+'/'+id)
-  .pipe(
-    map((response: Role) => {
 
-    })
-  );
-}
 
 }

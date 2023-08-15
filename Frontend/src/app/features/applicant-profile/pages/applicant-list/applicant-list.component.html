@@ -32,60 +32,60 @@
 
           <mat-menu #menu="matMenu" xPosition="before"  overlapTrigger="true">
             <span (mouseleave)="menuTrigger.closeMenu()">
-          <button mat-mini-fab matTooltip="Edit" color="primary" (click)="openApplicantProfileDialog(applicantProfile);" class="mx-1" *ngIf="isHeadOffice">
-            <mat-icon>mode_edit</mat-icon>
+          <button  mat-menu-item color="primary" (click)="openApplicantProfileDialog(applicantProfile);" class="mx-1" *ngIf="isHeadOffice">
+            <mat-icon>mode_edit</mat-icon>Edit
         </button>
-        <!-- <button mat-mini-fab matTooltip="Delete" class="mx-1" color="warn" *ngIf="checkDeleteStatus(applicantProfile.applicantStatuses[0])" (click)="deleteApplicantProfile(applicantProfile.applicantProfileId)">
-            <mat-icon>delete</mat-icon>
-        </button> -->
+        <button  mat-menu-item class="mx-1" color="warn" *ngIf="checkDeleteStatus(applicantProfile.applicantStatuses[0])" (click)="deleteApplicantProfile(applicantProfile.applicantProfileId)">
+            <mat-icon>delete</mat-icon>Delete
+        </button>
 
-        <button  mat-mini-fab matTooltip="Upload Verified Document" class="mx-1" color="primary" *ngIf="checkUploadStatus(applicantProfile.applicantStatuses[0])" (click)="uploadVerifiedDocument(applicantProfile.applicantProfileId)">
-            <mat-icon ><mat-icon>cloud_upload</mat-icon>
+        <button mat-menu-item  class="mx-1" color="primary" *ngIf="checkUploadStatus(applicantProfile.applicantStatuses[0])" (click)="uploadVerifiedDocument(applicantProfile.applicantProfileId)">
+            <mat-icon>cloud_upload</mat-icon>Upload Verified Document
+
+        </button>
+        <button  mat-menu-item  class="mx-1" color="primary" *ngIf="checkContractStatus(applicantProfile)" (click)="uploadContractDocument(applicantProfile.applicantProfileId)">
+            <mat-icon ><mat-icon>cloud_upload</mat-icon>Upload Contract
           </mat-icon>
         </button>
-        <button  mat-mini-fab matTooltip="Upload Contract" class="mx-1" color="primary" *ngIf="checkContractStatus(applicantProfile)" (click)="uploadContractDocument(applicantProfile.applicantProfileId)">
-            <mat-icon ><mat-icon>cloud_upload</mat-icon>
-          </mat-icon>
-        </button>
-        <button mat-mini-fab matTooltip="Accept Contract" class="mx-1" color="primary"  *ngIf="checkReceieveContractStatus(applicantProfile.applicantStatuses[0])" (click)="receieveContractDocument(applicantProfile.applicantProfileId)">
-          <mat-icon >check</mat-icon>
+        <button  mat-menu-item class="mx-1" color="primary"  *ngIf="checkReceieveContractStatus(applicantProfile.applicantStatuses[0])" (click)="receieveContractDocument(applicantProfile.applicantProfileId)">
+          <mat-icon >check</mat-icon>Accept Contract
       </button>
-        <button mat-mini-fab matTooltip="Verify Contract" class="mx-1" color="primary"  *ngIf="checkVerifyContractStatus(applicantProfile.applicantStatuses[0])" (click)="verifyContractDocument(applicantProfile.applicantProfileId)">
-          <mat-icon >check</mat-icon>
+        <button  mat-menu-item  class="mx-1" color="primary"  *ngIf="checkVerifyContractStatus(applicantProfile.applicantStatuses[0])" (click)="verifyContractDocument(applicantProfile.applicantProfileId)">
+          <mat-icon >check</mat-icon>Verify Contract
       </button>
-        <button mat-mini-fab matTooltip="Request Insurance" class="mx-1" color="primary"  *ngIf="checkInsuranceStatus(applicantProfile.applicantStatuses[0])" (click)="requestInsurance(applicantProfile.applicantProfileId)">
-          <mat-icon >directions</mat-icon>
+        <button  mat-menu-item  class="mx-1" color="primary"  *ngIf="checkInsuranceStatus(applicantProfile.applicantStatuses[0])" (click)="requestInsurance(applicantProfile.applicantProfileId)">
+          <mat-icon >directions</mat-icon>Request Insurance
       </button>
-        <button mat-mini-fab matTooltip="Complete Insurance" class="mx-1" color="primary"  *ngIf="checkCompleteInsuranceStatus(applicantProfile.applicantStatuses[0])" (click)="completeInsurance(applicantProfile.applicantProfileId)">
-          <mat-icon >directions</mat-icon>
+        <button  mat-menu-item class="mx-1" color="primary"  *ngIf="checkCompleteInsuranceStatus(applicantProfile.applicantStatuses[0])" (click)="completeInsurance(applicantProfile.applicantProfileId)">
+          <mat-icon >directions</mat-icon>Complete Insurance
       </button>
-      <button mat-mini-fab matTooltip="Request COC" class="mx-1" color="primary"  *ngIf="checkCocStatus(applicantProfile.applicantStatuses[0])" (click)="requestCoc(applicantProfile.applicantProfileId)">
-        <mat-icon >directions</mat-icon>
+      <button  mat-menu-item  class="mx-1" color="primary"  *ngIf="checkCocStatus(applicantProfile.applicantStatuses[0])" (click)="requestCoc(applicantProfile.applicantProfileId)">
+        <mat-icon >directions</mat-icon>Request COC
     </button>
-    <button mat-mini-fab matTooltip="Complete COC" class="mx-1" color="primary"  *ngIf="checkCompleteCocStatus(applicantProfile.applicantStatuses[0])" (click)="completeCoc(applicantProfile.applicantProfileId)">
-      <mat-icon >directions</mat-icon>
+    <button  mat-menu-item  class="mx-1" color="primary"  *ngIf="checkCompleteCocStatus(applicantProfile.applicantStatuses[0])" (click)="completeCoc(applicantProfile.applicantProfileId)">
+      <mat-icon >directions</mat-icon>Complete COC
   </button>
-        <button mat-mini-fab matTooltip="Request Yellow Card" class="mx-1"  [ngStyle]="{'background-color':'yellow'}"  *ngIf="checkRequestYellowCardStatus(applicantProfile.applicantStatuses[0])" (click)="requestYellowCard(applicantProfile.applicantProfileId)">
-          <mat-icon >redo</mat-icon>
+        <button  mat-menu-item class="mx-1"  [ngStyle]="{'background-color':'yellow'}"  *ngIf="checkRequestYellowCardStatus(applicantProfile.applicantStatuses[0])" (click)="requestYellowCard(applicantProfile.applicantProfileId)">
+          <mat-icon >redo</mat-icon>Request Yellow Card
       </button>
-        <button mat-mini-fab matTooltip="Receieve Yellow Card" class="mx-1" [ngStyle]="{'background-color':'yellow'}"  *ngIf="checkGetYellowCardStatus(applicantProfile.applicantStatuses[0])" (click)="receiveYellowCard(applicantProfile.applicantProfileId)">
-          <mat-icon >redo</mat-icon>
+        <button  mat-menu-item class="mx-1" [ngStyle]="{'background-color':'yellow'}"  *ngIf="checkGetYellowCardStatus(applicantProfile.applicantStatuses[0])" (click)="receiveYellowCard(applicantProfile.applicantProfileId)">
+          <mat-icon >redo</mat-icon>Receieve Yellow Card
       </button>
-        <button mat-mini-fab matTooltip="Verify Ticket" class="mx-1" color="primary"  *ngIf="checkTicketStatus(applicantProfile.applicantStatuses[0])" (click)="verifyFlightTicket(applicantProfile.applicantProfileId)">
-          <mat-icon >airplanemode_active</mat-icon>
+        <button  mat-menu-item  class="mx-1" color="primary"  *ngIf="checkTicketStatus(applicantProfile.applicantStatuses[0])" (click)="verifyFlightTicket(applicantProfile.applicantProfileId)">
+          <mat-icon >airplanemode_active</mat-icon>Verify Ticket
       </button>
-        <button mat-mini-fab matTooltip="Start Flight" class="mx-1" color="primary"  *ngIf="checkFlightStatus(applicantProfile.applicantStatuses[0])" (click)="startFlight(applicantProfile.applicantProfileId)">
-          <mat-icon >airplanemode_active</mat-icon>
+        <button  mat-menu-item class="mx-1" color="primary"  *ngIf="checkFlightStatus(applicantProfile.applicantStatuses[0])" (click)="startFlight(applicantProfile.applicantProfileId)">
+          <mat-icon >airplanemode_active</mat-icon>Start Flight
       </button>
-        <button mat-mini-fab matTooltip="Arrived" class="mx-1" color="primary"  *ngIf="checkArrivalStatus(applicantProfile.applicantStatuses[0])" (click)="confirmArrival(applicantProfile.applicantProfileId)">
-          <mat-icon >airplanemode_active</mat-icon>
+        <button  mat-menu-item  class="mx-1" color="primary"  *ngIf="checkArrivalStatus(applicantProfile.applicantStatuses[0])" (click)="confirmArrival(applicantProfile.applicantProfileId)">
+          <mat-icon >airplanemode_active</mat-icon>Arrived
       </button>
 
-        <button mat-mini-fab matTooltip="Detail" class="mx-1"  [ngStyle]="{'color':'green'}" [routerLink]="['/applicant-profile/detail', applicantProfile.applicantProfileId]">
-          <mat-icon>visibility</mat-icon>
+        <button  mat-menu-item class="mx-1"  [ngStyle]="{'color':'green'}" [routerLink]="['/applicant-profile/detail', applicantProfile.applicantProfileId]">
+          <mat-icon>visibility</mat-icon>Detail
       </button>
-        <button mat-mini-fab matTooltip="Process" class="mx-1"  [ngStyle]="{'color':'Blue'}" [routerLink]="['/applicant-profile/process', applicantProfile.applicantProfileId]">
-          <mat-icon>trending_down</mat-icon>
+        <button  mat-menu-item  class="mx-1"  [ngStyle]="{'color':'Blue'}" [routerLink]="['/applicant-profile/process', applicantProfile.applicantProfileId]">
+          <mat-icon>trending_down</mat-icon>Process
       </button>
       </span>
       </mat-menu>
@@ -130,7 +130,7 @@
                 </p>
               </div>
           </div>
-          <div class="card-footer d-flex justify-content-between align-items-start">
+          <div class="card-footer d-flex justify-content-between align-items-start" *ngIf="applicantProfile.applicantStatuses[0]?.officeLevel!='Placement'">
             <p>
               <mat-icon class="text-muted">wc</mat-icon>
               <span>    {{applicantProfile.applicantStatuses[0]?applicantProfile.applicantStatuses[0].officeLevel:"UnAssigned"}}   </span>
@@ -221,60 +221,60 @@
                             </button>
                             <mat-menu #menu="matMenu" xPosition="before"  overlapTrigger="true">
                               <span (mouseleave)="menuTrigger.closeMenu()">
-                            <button mat-mini-fab matTooltip="Edit" color="primary" (click)="openApplicantProfileDialog(applicantProfile);" class="mx-1" *ngIf="isHeadOffice">
-                              <mat-icon>mode_edit</mat-icon>
+                            <button  mat-menu-item color="primary" (click)="openApplicantProfileDialog(applicantProfile);" class="mx-1" *ngIf="isHeadOffice">
+                              <mat-icon>mode_edit</mat-icon>Edit
                           </button>
-                          <!-- <button mat-mini-fab matTooltip="Delete" class="mx-1" color="warn" *ngIf="checkDeleteStatus(applicantProfile.applicantStatuses[0])" (click)="deleteApplicantProfile(applicantProfile.applicantProfileId)">
-                              <mat-icon>delete</mat-icon>
-                          </button> -->
+                          <button  mat-menu-item class="mx-1" color="warn" *ngIf="checkDeleteStatus(applicantProfile.applicantStatuses[0])" (click)="deleteApplicantProfile(applicantProfile.applicantProfileId)">
+                              <mat-icon>delete</mat-icon>Delete
+                          </button>
 
-                          <button  mat-mini-fab matTooltip="Upload Verified Document" class="mx-1" color="primary" *ngIf="checkUploadStatus(applicantProfile.applicantStatuses[0])" (click)="uploadVerifiedDocument(applicantProfile.applicantProfileId)">
-                              <mat-icon ><mat-icon>cloud_upload</mat-icon>
+                          <button mat-menu-item  class="mx-1" color="primary" *ngIf="checkUploadStatus(applicantProfile.applicantStatuses[0])" (click)="uploadVerifiedDocument(applicantProfile.applicantProfileId)">
+                              <mat-icon>cloud_upload</mat-icon>Upload Verified Document
+
+                          </button>
+                          <button  mat-menu-item  class="mx-1" color="primary" *ngIf="checkContractStatus(applicantProfile)" (click)="uploadContractDocument(applicantProfile.applicantProfileId)">
+                              <mat-icon ><mat-icon>cloud_upload</mat-icon>Upload Contract
                             </mat-icon>
                           </button>
-                          <button  mat-mini-fab matTooltip="Upload Contract" class="mx-1" color="primary" *ngIf="checkContractStatus(applicantProfile)" (click)="uploadContractDocument(applicantProfile.applicantProfileId)">
-                              <mat-icon ><mat-icon>cloud_upload</mat-icon>
-                            </mat-icon>
-                          </button>
-                          <button mat-mini-fab matTooltip="Accept Contract" class="mx-1" color="primary"  *ngIf="checkReceieveContractStatus(applicantProfile.applicantStatuses[0])" (click)="receieveContractDocument(applicantProfile.applicantProfileId)">
-                            <mat-icon >check</mat-icon>
+                          <button  mat-menu-item class="mx-1" color="primary"  *ngIf="checkReceieveContractStatus(applicantProfile.applicantStatuses[0])" (click)="receieveContractDocument(applicantProfile.applicantProfileId)">
+                            <mat-icon >check</mat-icon>Accept Contract
                         </button>
-                          <button mat-mini-fab matTooltip="Verify Contract" class="mx-1" color="primary"  *ngIf="checkVerifyContractStatus(applicantProfile.applicantStatuses[0])" (click)="verifyContractDocument(applicantProfile.applicantProfileId)">
-                            <mat-icon >check</mat-icon>
+                          <button  mat-menu-item  class="mx-1" color="primary"  *ngIf="checkVerifyContractStatus(applicantProfile.applicantStatuses[0])" (click)="verifyContractDocument(applicantProfile.applicantProfileId)">
+                            <mat-icon >check</mat-icon>Verify Contract
                         </button>
-                          <button mat-mini-fab matTooltip="Request Insurance" class="mx-1" color="primary"  *ngIf="checkInsuranceStatus(applicantProfile.applicantStatuses[0])" (click)="requestInsurance(applicantProfile.applicantProfileId)">
-                            <mat-icon >directions</mat-icon>
+                          <button  mat-menu-item  class="mx-1" color="primary"  *ngIf="checkInsuranceStatus(applicantProfile.applicantStatuses[0])" (click)="requestInsurance(applicantProfile.applicantProfileId)">
+                            <mat-icon >directions</mat-icon>Request Insurance
                         </button>
-                          <button mat-mini-fab matTooltip="Complete Insurance" class="mx-1" color="primary"  *ngIf="checkCompleteInsuranceStatus(applicantProfile.applicantStatuses[0])" (click)="completeInsurance(applicantProfile.applicantProfileId)">
-                            <mat-icon >directions</mat-icon>
+                          <button  mat-menu-item class="mx-1" color="primary"  *ngIf="checkCompleteInsuranceStatus(applicantProfile.applicantStatuses[0])" (click)="completeInsurance(applicantProfile.applicantProfileId)">
+                            <mat-icon >directions</mat-icon>Complete Insurance
                         </button>
-                        <button mat-mini-fab matTooltip="Request COC" class="mx-1" color="primary"  *ngIf="checkCocStatus(applicantProfile.applicantStatuses[0])" (click)="requestCoc(applicantProfile.applicantProfileId)">
-                          <mat-icon >directions</mat-icon>
+                        <button  mat-menu-item  class="mx-1" color="primary"  *ngIf="checkCocStatus(applicantProfile.applicantStatuses[0])" (click)="requestCoc(applicantProfile.applicantProfileId)">
+                          <mat-icon >directions</mat-icon>Request COC
                       </button>
-                      <button mat-mini-fab matTooltip="Complete COC" class="mx-1" color="primary"  *ngIf="checkCompleteCocStatus(applicantProfile.applicantStatuses[0])" (click)="completeCoc(applicantProfile.applicantProfileId)">
-                        <mat-icon >directions</mat-icon>
+                      <button  mat-menu-item  class="mx-1" color="primary"  *ngIf="checkCompleteCocStatus(applicantProfile.applicantStatuses[0])" (click)="completeCoc(applicantProfile.applicantProfileId)">
+                        <mat-icon >directions</mat-icon>Complete COC
                     </button>
-                          <button mat-mini-fab matTooltip="Request Yellow Card" class="mx-1"  [ngStyle]="{'background-color':'yellow'}"  *ngIf="checkRequestYellowCardStatus(applicantProfile.applicantStatuses[0])" (click)="requestYellowCard(applicantProfile.applicantProfileId)">
-                            <mat-icon >redo</mat-icon>
+                          <button  mat-menu-item class="mx-1"  [ngStyle]="{'background-color':'yellow'}"  *ngIf="checkRequestYellowCardStatus(applicantProfile.applicantStatuses[0])" (click)="requestYellowCard(applicantProfile.applicantProfileId)">
+                            <mat-icon >redo</mat-icon>Request Yellow Card
                         </button>
-                          <button mat-mini-fab matTooltip="Receieve Yellow Card" class="mx-1" [ngStyle]="{'background-color':'yellow'}"  *ngIf="checkGetYellowCardStatus(applicantProfile.applicantStatuses[0])" (click)="receiveYellowCard(applicantProfile.applicantProfileId)">
-                            <mat-icon >redo</mat-icon>
+                          <button  mat-menu-item class="mx-1" [ngStyle]="{'background-color':'yellow'}"  *ngIf="checkGetYellowCardStatus(applicantProfile.applicantStatuses[0])" (click)="receiveYellowCard(applicantProfile.applicantProfileId)">
+                            <mat-icon >redo</mat-icon>Receieve Yellow Card
                         </button>
-                          <button mat-mini-fab matTooltip="Verify Ticket" class="mx-1" color="primary"  *ngIf="checkTicketStatus(applicantProfile.applicantStatuses[0])" (click)="verifyFlightTicket(applicantProfile.applicantProfileId)">
-                            <mat-icon >airplanemode_active</mat-icon>
+                          <button  mat-menu-item  class="mx-1" color="primary"  *ngIf="checkTicketStatus(applicantProfile.applicantStatuses[0])" (click)="verifyFlightTicket(applicantProfile.applicantProfileId)">
+                            <mat-icon >airplanemode_active</mat-icon>Verify Ticket
                         </button>
-                          <button mat-mini-fab matTooltip="Start Flight" class="mx-1" color="primary"  *ngIf="checkFlightStatus(applicantProfile.applicantStatuses[0])" (click)="startFlight(applicantProfile.applicantProfileId)">
-                            <mat-icon >airplanemode_active</mat-icon>
+                          <button  mat-menu-item class="mx-1" color="primary"  *ngIf="checkFlightStatus(applicantProfile.applicantStatuses[0])" (click)="startFlight(applicantProfile.applicantProfileId)">
+                            <mat-icon >airplanemode_active</mat-icon>Start Flight
                         </button>
-                          <button mat-mini-fab matTooltip="Arrived" class="mx-1" color="primary"  *ngIf="checkArrivalStatus(applicantProfile.applicantStatuses[0])" (click)="confirmArrival(applicantProfile.applicantProfileId)">
-                            <mat-icon >airplanemode_active</mat-icon>
+                          <button  mat-menu-item  class="mx-1" color="primary"  *ngIf="checkArrivalStatus(applicantProfile.applicantStatuses[0])" (click)="confirmArrival(applicantProfile.applicantProfileId)">
+                            <mat-icon >airplanemode_active</mat-icon>Arrived
                         </button>
 
-                          <button mat-mini-fab matTooltip="Detail" class="mx-1"  [ngStyle]="{'color':'green'}" [routerLink]="['/applicant-profile/detail', applicantProfile.applicantProfileId]">
-                            <mat-icon>visibility</mat-icon>
+                          <button  mat-menu-item class="mx-1"  [ngStyle]="{'color':'green'}" [routerLink]="['/applicant-profile/detail', applicantProfile.applicantProfileId]">
+                            <mat-icon>visibility</mat-icon>Detail
                         </button>
-                          <button mat-mini-fab matTooltip="Process" class="mx-1"  [ngStyle]="{'color':'Blue'}" [routerLink]="['/applicant-profile/process', applicantProfile.applicantProfileId]">
-                            <mat-icon>trending_down</mat-icon>
+                          <button  mat-menu-item  class="mx-1"  [ngStyle]="{'color':'Blue'}" [routerLink]="['/applicant-profile/process', applicantProfile.applicantProfileId]">
+                            <mat-icon>trending_down</mat-icon>Process
                         </button>
                         </span>
                         </mat-menu>

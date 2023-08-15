@@ -1,47 +1,16 @@
 <mat-card-content>
   <form class="user-search" *ngIf="isHeadOffice">
-    <mat-form-field appearance="outline">
-      <mat-icon matPrefix>search</mat-icon>
-      <input matInput placeholder="Search" type="text"  [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"(ngModelChange)="onChangeUser($event)">
-      <!-- Replace "search" with the appropriate icon name if you want a different icon -->
-      <!-- matPrefix adds the icon at the beginning of the input -->
-    </mat-form-field>
-    <!-- <mat-form-field appearance="outline" >
-        <input matInput placeholder="Search..." >
-    </mat-form-field> -->
+    <div class="row">
+    <div class="col-sm-11 col-md-11 col-lg-11 form-group has-search" >
+      <span class="fa fa-search form-control-feedback"></span>
+      <input class="form-control form-control-lg my-2 border " type="search" placeholder="Search"  [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"(ngModelChange)="onChangeUser($event)" id="example-search-input">
+    </div>
+    <div class="col-sm-1 col-md-1 col-lg-1 my-2">
+      <button class="btn btn-sm" (click)="openFilter()"><i class="bi bi-filter-square-fill fs-3"></i>
+      </button>
+    </div>
+  </div>
 
-  <mat-form-field appearance="outline" style="margin-left: 10px;">
-    <mat-label>Start Date - End Date</mat-label>
-    <mat-date-range-input  [rangePicker]="picker">
-      <input matStartDate [(ngModel)]="startDate" [ngModelOptions]="{standalone: true}" placeholder="Start date">
-      <input matEndDate [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}" placeholder="End date">
-    </mat-date-range-input>
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-date-range-picker #picker></mat-date-range-picker>
-</mat-form-field>
-
-<mat-form-field appearance="outline" style="margin-left: 10px;">
-  <mat-label>Status</mat-label>
-    <mat-select name="maritalStatus" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" (ngModelChange)="onChangeOffice($event)">
-      <mat-option *ngFor="let status of statuses"
-      [value]="status">
-{{statusList[status]}}
-</mat-option>
-</mat-select>
-
-  </mat-form-field>
-
-
-  <mat-form-field appearance="outline" style="margin-left: 10px;">
-    <mat-label>Office</mat-label>
-    <mat-select name="officeId" [(ngModel)]="searchText"   (ngModelChange)="onChangeOffice($event)">
-      <mat-option *ngFor="let office of offices"
-      [value]="office.id">
-{{office.name}}
-</mat-option>
-</mat-select>
-
-  </mat-form-field>
 
 </form>
 <mat-divider></mat-divider>

@@ -1,22 +1,23 @@
-<div class="mat-elevation-z8">
-  <button><mat-icon (click)="AddNewRow()" class="add-button">add_box</mat-icon></button>
-  <br />
-  <div class="container" class="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="Start">
-    <mat-form-field fxFlex="70%">
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-  </mat-form-field>
-  <div fxFlex="20%">
+<div class="card p-2">
+  <div class="row">
+    <div class="col-sm-11 col-md-11 col-lg-11">
+      <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search....." #input>
+    </mat-form-field>
 
+
+    </div>
+    <div class="col-sm-1 col-md-1 col-lg-1">
+      <button class="btn btn-outline-info" (click)="AddNewRow()"><mat-icon  class="add-button">add_box</mat-icon></button>
+
+    </div>
   </div>
-  <mat-form-field fxFlex="10%">
-    <mat-label>Go to Page</mat-label>
-    <input matInput type="number" placeholder="Enter page number" [(ngModel)]="pageNumber" (ngModelChange)="goToPage()">
-  </mat-form-field>
-  </div>
+  <div class="row">
+
   <form [formGroup]="OfficeForm" autocomplete="off">
     <ng-container formArrayName="OfficeFormRows">
-      <table #table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <table #table mat-table [dataSource]="dataSource">
 
         <!-- Position Column -->
         <ng-container matColumnDef="id">
@@ -162,6 +163,7 @@
       </table>
     </ng-container>
   </form>
+  </div>
   <mat-card *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center">
   <mat-progress-spinner
     color="primary"

@@ -1,4 +1,3 @@
-import { SettingService } from './../../../setting/setting.service';
 import { DropDownObject } from 'src/app/core/models/dropDownObject';
 import { ConfirmDialogComponent } from './../../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
@@ -7,6 +6,7 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, FormArray, AbstractControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { IdentityService } from '../../identity.service';
 
 export class Role
 {
@@ -38,7 +38,7 @@ export class RoleComponent {
        private fb: FormBuilder,
        public dialog: MatDialog,
        private _snackBar: MatSnackBar,
-       private _settingService: SettingService,
+       private _identityService: IdentityService,
        private _formBuilder: FormBuilder){
 
    }
@@ -48,7 +48,7 @@ export class RoleComponent {
        this.RoleForm = this._formBuilder.group({
          RoleFormRows: this._formBuilder.array([])
        });
-       this._settingService.getRoles()
+       this._identityService.getRoles()
        .subscribe(data => {
          this.roles = data;
          this.RoleForm = this.fb.group({
@@ -128,7 +128,7 @@ export class RoleComponent {
      // On click of correct button in table (after click on edit) this method will call
      SaveRoleForm(RoleFormElement, i) {
 
-       this._settingService.createRole(RoleFormElement.get('RoleFormRows').at(i).value)
+       this._identityService.createRole(RoleFormElement.get('RoleFormRows').at(i).value)
        .subscribe(data => {
          RoleFormElement.get('RoleFormRows').at(i).controls.id.setValue(data.id);
 
@@ -155,7 +155,7 @@ export class RoleComponent {
        });
        dialogRef.afterClosed().subscribe(dialogResult => {
          if(dialogResult){
-           this._settingService.deleteRole(RoleFormElement.get('RoleFormRows').at(i).controls.id.value)
+           this._identityService.deleteRole(RoleFormElement.get('RoleFormRows').at(i).controls.id.value)
            .subscribe( ()=> {
              console.log(this.roles );
              const index: number = this.roles.findIndex(x => x.id == RoleFormElement.get('RoleFormRows').at(i).controls.id.value);

@@ -5,16 +5,16 @@
 export const environment = {
   production: false,
   url: '',
-  domain: 'https://localhost:7224/#/',
+  domain: 'http://api.nathanjobs.com/#/',
     backend: {
-    host: 'https://localhost:7224/api/',
-    base_url: 'https://localhost:7224\\',
+    host: 'http://api.nathanjobs.com/api/',
+    base_url: 'http://api.nathanjobs.com\\',
 
   },
-  reportingRestUrl:'https://localhost:7224/api/reports',
+  reportingRestUrl:'http://api.nathanjobs.com/api/reports',
 
   oauth: {
-    host: 'https://localhost:7224/api/',
+    host: 'http://api.nathanjobs.com/api/',
     client_id: '2',
     client_secret: 'tsN80QNwTawD3WZSX2uziOFI6HstTEs2bXBqsCyv',
     scope: '*',

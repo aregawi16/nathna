@@ -56,8 +56,8 @@
     </div> -->
       <div class="right-main-content">
           <section class="about sect">
-            <div class="row wrap">
-              <div class="col-sm-8 col-md-8 col-lg-8"> <h5 class="right-title" >Passport Details </h5></div>
+            <div class="row ">
+              <div class="col-sm-7 col-md-7 col-lg-7"> <h5 class="right-title" >Passport Details </h5></div>
               <div class="col-sm-3 col-md-3 col-lg-3"> <ngx-barcode *ngFor="let bcValue of values" [bc-value]="'EP'+bcValue"  [bc-line-color]="lineColor"
                 [bc-width]="widthone" [bc-height]="height" [bc-display-value]="displayValueT" [bc-font-options]="fontOptions" [bc-font]="font"
                 [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"
@@ -159,7 +159,7 @@
 
               <div class="timeline">
                 <div class="row">
-                  <div class="col-sm-4 col-md-4 col-lg-4" class="px-1">
+                  <div class="col-sm-3 col-md-3 col-lg-3">
                   <div class="right-tl-content" *ngFor="let workExp of applicantProfile?.workExperiences">
                       <div class="tl-content"  >
                           <h6 class="tl-title-2">{{workExp?.country}}</h6>
@@ -190,7 +190,7 @@
                   </div>
                 </div>
 
-                <div class="col-sm-8 col-md-8 col-lg-8" class="px-1">
+                <div class="col-sm-4 col-md-4 col-lg-4">
                  <img [src]="base_url+applicantProfile?.applicantDocument?.applicantFullPhotoPath" class="full-photo" >
                   </div>
                 </div>
@@ -199,7 +199,7 @@
 
 
           </section>
-          <div class="row wrap">
+          <div class="row">
             <div class="col-sm-3 col-md-3 col-lg-3">
               <ngx-barcode class="w-100" *ngFor="let bcValue of values" [bc-value]="bcValue"  [bc-line-color]="lineColor"
               [bc-width]="width" [bc-height]="heightl" [bc-display-value]="displayValue" [bc-font-options]="fontOptions" [bc-font]="font"

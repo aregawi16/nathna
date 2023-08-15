@@ -1,11 +1,22 @@
 
- <button mat-button value="add" (click)="openUserDialog(null)">
-  <mat-icon>person_add</mat-icon>
-</button>
+<div class="card p-2">
+  <div class="row">
+    <div class="col-sm-11 col-md-11 col-lg-11">
+      <mat-form-field class="w-100">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search....." #input>
+    </mat-form-field>
 
+
+    </div>
+    <div class="col-sm-1 col-md-1 col-lg-1">
+      <button class="btn btn-outline-info" (click)="openUserDialog(null)"><mat-icon  class="add-button">add_box</mat-icon></button>
+
+    </div>
+  </div>
 
 <div class="mat-table admin-table">
-  <div class="mat-header-row">
+  <div class="mat-header-row k-font-weight-bold">
 
       <div class="mat-header-cell">User Name</div>
       <div class="mat-header-cell">Email</div>
@@ -22,17 +33,17 @@
       <div class="mat-cell">{{(offices | filterById : user.officeId)?.name}}</div>
       <div class="mat-cell">
           <div class="p-0 actions">
-            <button mat-mini-fab matTooltip="Edit" color="primary" (click)="editUser(user)" class="mx-1">
+            <button mat-icon-button matTooltip="Edit" color="primary" (click)="editUser(user)" class="mx-1">
               <mat-icon>mode_edit</mat-icon>
           </button>
-           <button mat-mini-fab matTooltip="Delete" class="mx-1" color="warn" (click)="deleteUser(user)">
+           <button mat-icon-button matTooltip="Delete" class="mx-1" color="warn" (click)="deleteUser(user)">
               <mat-icon>delete</mat-icon>
           </button>
           </div>
       </div>
   </div>
 </div>
-
+</div>
 
 
 

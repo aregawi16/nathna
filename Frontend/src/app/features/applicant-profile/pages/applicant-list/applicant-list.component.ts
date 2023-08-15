@@ -33,6 +33,8 @@ export interface ApplicantProfile {
   applicantProfilename: string;
   password: string;
   fullName: string;
+  officeLevel: string;
+  status: string;
   applicantDocument: ApplicantDocument;
   applicantPlacement:ApplicantPlaceMent
   isDeleted:Boolean

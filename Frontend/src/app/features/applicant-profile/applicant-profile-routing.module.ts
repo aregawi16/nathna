@@ -7,6 +7,7 @@ import { AddApplicantComponent } from './pages/add-applicant/add-applicant.compo
 import { ApplicantListComponent } from './pages/applicant-list/applicant-list.component';
 import { ProcessManagementComponent } from './pages/process-management/process-management.component';
 import { CandidateListComponent } from './pages/candidate-list/candidate-list.component';
+import { ApplicantProfileRsolver } from './pages/candidate-list/applicant-profile-resolver';
 
 const routes: Routes = [
   {
@@ -20,9 +21,12 @@ const routes: Routes = [
       },
       {
         path: 'list',
-        component: CandidateListComponent
+        component: CandidateListComponent,
+        resolve: {
+          data: ApplicantProfileRsolver, // Resolver service
+        },
 
-        ,
+
         data: { breadcrumb: 'List' }
       },
       {
