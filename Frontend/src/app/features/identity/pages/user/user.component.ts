@@ -87,13 +87,14 @@ this.users = data;
 
     dialogRef.afterClosed().subscribe({
       next:(user)=>{
-        this._snackBar.open('User Create Succeed', 'Undo', {
-          duration:10000,
-          horizontalPosition: this.horizontalPosition,
-          verticalPosition: this.verticalPosition,
-        });
+
        // window.location.reload();
         if(user){
+          this._snackBar.open('User Create Succeed', 'Undo', {
+            duration:10000,
+            horizontalPosition: this.horizontalPosition,
+            verticalPosition: this.verticalPosition,
+          });
          this.users.push(user);
           console.log(user)
          // this.dialog.closeAll();

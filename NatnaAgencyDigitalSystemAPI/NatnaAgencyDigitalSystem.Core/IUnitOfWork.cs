@@ -10,6 +10,7 @@ namespace NatnaAgencyDigitalSystem.Api
 {
     public interface IUnitOfWork : IDisposable
     {
+        //INotificationRepository Notifications { get; }
         ICompanyProfileRepository CompanyProfiles { get; }
         IApplicantProfileRepository ApplicantProfiles { get; }
         ICommonJobRepository CommonJobs { get; }

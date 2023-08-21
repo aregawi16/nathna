@@ -34,7 +34,7 @@ namespace NatnaAgencyDigitalSystem.Api.Models
         public string Image => "assets/images/profile/ashley.jpg";
         public string FirstName { get; set; }
         [NotMapped]
-        public string FullName => $"{FirstName} {MiddleName} {LastName}";
+        public string FullName => $"{char.ToUpper(FirstName[0]) + FirstName.Substring(1).ToLower()} {char.ToUpper(MiddleName[0]) + MiddleName.Substring(1).ToLower()} {char.ToUpper(LastName[0]) + LastName.Substring(1).ToLower()}";
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string FirstNameAm { get; set; }

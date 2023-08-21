@@ -1,6 +1,6 @@
 
-<div class="row">
-  <div class="col-sm-4 col-md-4 col-lg-4" style="background-color: #06407a;color: white;border-radius: 20px;">
+<main class="main-content">
+  <section class="left-section">
       <div class="left-content">
           <div class="profile">
               <div class="image">
@@ -13,7 +13,7 @@
             <div class="contact-section">
             </div>
           </div>
-          <div class="d-flex justify-content-center align-items-center">
+          <div class="skills-section">
             <h3 class="main-title">Skills</h3>
             <ul>
                 <li *ngFor="let item of getSkills(applicantProfile?.workExperiences)" >
@@ -50,12 +50,13 @@
       </div> -->
 
       </div>
-  </div>
-  <div class="col-sm-8 col-md-8 col-lg-8">
-
+  </section>
+  <section class="right-section">
+    <!-- <div class="name-section">
+    </div> -->
       <div class="right-main-content">
           <section class="about sect">
-            <div class="row d-flex justify-content-between align-items-start">
+            <div class="row ">
               <div class="col-sm-7 col-md-7 col-lg-7"> <h5 class="right-title" >Passport Details </h5></div>
               <div class="col-sm-3 col-md-3 col-lg-3"> <ngx-barcode *ngFor="let bcValue of values" [bc-value]="'EP'+bcValue"  [bc-line-color]="lineColor"
                 [bc-width]="widthone" [bc-height]="height" [bc-display-value]="displayValueT" [bc-font-options]="fontOptions" [bc-font]="font"
@@ -158,7 +159,7 @@
 
               <div class="timeline">
                 <div class="row">
-                  <div class="col-sm-5 col-md-5 col-lg-5">
+                  <div class="col-sm-3 col-md-3 col-lg-3">
                   <div class="right-tl-content" *ngFor="let workExp of applicantProfile?.workExperiences">
                       <div class="tl-content"  >
                           <h6 class="tl-title-2">{{workExp?.country}}</h6>
@@ -189,7 +190,7 @@
                   </div>
                 </div>
 
-                <div class="col-sm-7 col-md-7 col-lg-7">
+                <div class="col-sm-9 col-md-9 col-lg-9">
                  <img [src]="base_url+applicantProfile?.applicantDocument?.applicantFullPhotoPath" class="full-photo" >
                   </div>
                 </div>
@@ -199,21 +200,21 @@
 
           </section>
           <div class="row">
-            <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="col-sm-3 col-md-3 col-lg-3">
               <ngx-barcode class="w-100" *ngFor="let bcValue of values" [bc-value]="bcValue"  [bc-line-color]="lineColor"
               [bc-width]="width" [bc-height]="heightl" [bc-display-value]="displayValue" [bc-font-options]="fontOptions" [bc-font]="font"
               [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"
               [bc-margin]="margin" [bc-margin-top]="marginTop" [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight">
             </ngx-barcode>
             </div>
-            <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="col-sm-3 col-md-3 col-lg-3">
               <ngx-barcode class="w-100" *ngFor="let bcValue of values" [bc-value]="bcValue"  [bc-line-color]="lineColor"
               [bc-width]="width" [bc-height]="heightl" [bc-display-value]="displayValue" [bc-font-options]="fontOptions" [bc-font]="font"
               [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"
               [bc-margin]="margin" [bc-margin-top]="marginTop" [bc-margin-bottom]="marginBottom" [bc-margin-left]="marginLeft" [bc-margin-right]="marginRight">
             </ngx-barcode>
             </div>
-            <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="col-sm-3 col-md-3 col-lg-3">
               <ngx-barcode class="w-100" *ngFor="let bcValue of values" [bc-value]="bcValue"  [bc-line-color]="lineColor"
               [bc-width]="width" [bc-height]="heightl" [bc-display-value]="displayValue" [bc-font-options]="fontOptions" [bc-font]="font"
               [bc-text-align]="textAlign" [bc-text-position]="textPosition" [bc-text-margin]="textMargin" [bc-font-size]="fontSize" [bc-background]="background"
@@ -229,8 +230,8 @@
             </div> -->
                           </div>
       </div>
-  </div>
-</div>
+  </section>
+</main>
 
 
 

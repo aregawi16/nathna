@@ -7,6 +7,7 @@ import { IdentityRoutingModule } from './identity-routing.module';
 import { UserComponent } from './pages/user/user.component';
 import { RoleComponent } from './pages/role/role.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   ],
   imports: [
     CommonModule,
+    NgbModule,
     SharedModule,
     IdentityRoutingModule
   ]

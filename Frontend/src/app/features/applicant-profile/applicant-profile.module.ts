@@ -37,6 +37,7 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { NgxBarcodeModule } from 'ngx-barcode';
 import { CandidateListComponent } from './pages/candidate-list/candidate-list.component';
 import { ApplicantProfileRsolver } from './pages/candidate-list/applicant-profile-resolver';
+import { SignalRService } from './services/signalr.service';
 
 
 
@@ -89,6 +90,8 @@ import { ApplicantProfileRsolver } from './pages/candidate-list/applicant-profil
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },
      { provide: ApplicantProfileRsolver},
+     { provide: SignalRService},
+
 
     { provide: MatDialogRef, useValue: {} }
   ]

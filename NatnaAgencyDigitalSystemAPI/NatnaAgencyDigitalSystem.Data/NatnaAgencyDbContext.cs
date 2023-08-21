@@ -15,6 +15,7 @@ namespace NatnaAgencyDigitalSystem.Data
 
 
         public DbSet<ApplicantProfile> ApplicantProfiles { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
         public DbSet<CompanyProfile> CompanyProfiles { get; set; }
         public DbSet<WorkExperience> WorkExperiences { get; set; }
         public DbSet<EducationHistory> EducationHistorys { get; set; }

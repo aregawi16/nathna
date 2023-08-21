@@ -216,6 +216,7 @@ export class ApplicantListComponent implements OnInit,AfterViewInit,AfterContent
     }
 
 
+
     checkReceieveContractStatus(applicantPlacement:any)
     {
       let status = this.applicantContractStatusList[this.applicantContractStatusList.Ready];

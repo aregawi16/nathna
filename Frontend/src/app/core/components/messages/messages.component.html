@@ -3,26 +3,26 @@
 </button>
 <mat-menu #messagesMenu="matMenu" [overlapTrigger]="false" class="toolbar-dropdown-menu messages">
     <span (mouseleave)="messagesMenuTrigger.closeMenu()">
-        <mat-tab-group backgroundColor="primary" (click)="stopClickPropagate($event)" [selectedIndex]="selectedTab">
-            <mat-tab>
+        <!-- <mat-tab-group backgroundColor="primary" (click)="stopClickPropagate($event)" [selectedIndex]="selectedTab">
+            <mat-tab> -->
                 <ng-template mat-tab-label>
                     <mat-icon>message</mat-icon>
                 </ng-template>
                 <mat-card class="content">
                   <div fxLayout="column" fxLayoutAlign="none">
-                      <button mat-button *ngFor="let message of messages">
-                          <img src="{{ ( message.image || (message.name | profilePicture)) }}" width="50">
+                      <button mat-button *ngFor="let message of notifications">
+                          <!-- <img src="{{ ( message.image || (message.name | profilePicture)) }}" width="50"> -->
                           <div fxLayout="column" fxLayoutAlign="none" class="w-100">
                               <div class="row" fxLayoutAlign="space-between start">
-                                  <span class="name">{{message.name}}</span>
-                                  <span class="info"><mat-icon>access_time</mat-icon> {{message.time}}</span>
+                                  <span class="name">{{message?.message}}</span>
+                                  <!-- <span class="info"><mat-icon>access_time</mat-icon> {{message.time}}</span> -->
                               </div>
-                              <span class="text text-muted">{{message.text}}</span>
+                              <!-- <span class="text text-muted">{{message.text}}</span> -->
                           </div>
                       </button>
                     </div>
                 </mat-card>
-            </mat-tab>
+            <!-- </mat-tab>
             <mat-tab>
                 <ng-template mat-tab-label>
                     <mat-icon>description</mat-icon>
@@ -65,6 +65,6 @@
                     </div>
                 </mat-card>
             </mat-tab>
-        </mat-tab-group>
+        </mat-tab-group> -->
     </span>
 </mat-menu>

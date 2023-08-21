@@ -17,7 +17,7 @@
 
   <tabset #tabs>
     <tab (selectTab)="onChangeTab(4)">
-      <ng-template tabHeading><i class="bi bi-envelope-check-fill p-1"></i>Processing <span *ngIf="selectedTab==4" class="badge bg-slate-900">{{totalItems}}</span></ng-template>
+      <ng-template tabHeading><i class="bi bi-envelope-check-fill p-1"></i>Processing <span *ngIf="selectedTab==4" class="badge bg-secondary">{{totalItems}}</span></ng-template>
 
 
 <app-applicant-list [applicantProfiles]="applicantProfiles" [pageNumber]="pageNumber" [totalItems]="totalItems"></app-applicant-list>
@@ -25,18 +25,18 @@
   </tab>
 
 <tab (selectTab)="onChangeTab(3)">
-  <ng-template tabHeading><i class="bi bi-person-fill-check  p-1"></i>Selected <span *ngIf="selectedTab==3" class="badge bg-slate-900">{{totalItems}}</span></ng-template>
+  <ng-template tabHeading><i class="bi bi-person-fill-check  p-1"></i>Selected <span *ngIf="selectedTab==3" class="badge bg-secondary">{{totalItems}}</span></ng-template>
 <app-applicant-list [applicantProfiles]="applicantProfiles" [pageNumber]="pageNumber" [totalItems]="totalItems"></app-applicant-list>
 
 </tab>
 <tab (selectTab)="onChangeTab(2)">
-  <ng-template tabHeading><i class="bi bi-send-check  p-1"></i>Candidates <span *ngIf="selectedTab==2" class="badge bg-slate-900">{{totalItems}}</span></ng-template>
+  <ng-template tabHeading><i class="bi bi-send-check  p-1"></i>Candidates <span *ngIf="selectedTab==2" class="badge bg-secondary">{{totalItems}}</span></ng-template>
 
 <app-applicant-list [applicantProfiles]="applicantProfiles" [pageNumber]="pageNumber" [totalItems]="totalItems"></app-applicant-list>
 
 </tab>
 <tab (selectTab)="onChangeTab(1)"   *ngIf="isHeadOffice"   >
-  <ng-template tabHeading><i class="bi bi-person-plus-fill p-1"></i>Applicants <span *ngIf="selectedTab==1" class="badge bg-slate-900">{{totalItems}}</span></ng-template>
+  <ng-template tabHeading><i class="bi bi-person-plus-fill p-1"></i>Applicants <span *ngIf="selectedTab==1" class="badge bg-secondary">{{totalItems}}</span></ng-template>
 
 
 <app-applicant-list [applicantProfiles]="applicantProfiles" [pageNumber]="pageNumber" [totalItems]="totalItems"></app-applicant-list>

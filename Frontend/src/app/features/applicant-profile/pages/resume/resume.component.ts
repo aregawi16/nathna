@@ -41,7 +41,7 @@ export class ResumeComponent implements OnInit{
   width = 2;
   widthone = 1;
   height = 20;
-  heightl = 72;
+  heightl = 15;
   displayValue = false;
   displayValueT = true;
   fontOptions = '';

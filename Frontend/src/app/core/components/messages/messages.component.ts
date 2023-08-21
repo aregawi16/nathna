@@ -4,6 +4,8 @@ import { File } from './file';
 import { Meeting } from './meeting';
 import { Message } from './message';
 import { MessagesService } from './messages.service';
+import { Notification } from 'src/app/features/applicant-profile/model/notification';
+import { SignalRService } from 'src/app/features/applicant-profile/services/signalr.service';
 
 @Component({
   selector: 'app-messages',
@@ -15,16 +17,23 @@ import { MessagesService } from './messages.service';
 export class MessagesComponent implements OnInit {
   @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
   public selectedTab:number=1;
-  public messages:Array<Message>;
-  public files:Array<File>;
+  public notifications: Notification[] = [];
+
+ public files:Array<File>;
   public meetings:Array<Meeting>;
-  constructor(private messagesService:MessagesService) {
-    this.messages = messagesService.getMessages();
-    this.files = messagesService.getFiles();
+  constructor(private messagesService:MessagesService,
+    private signalRService: SignalRService) {
+
+          this.files = messagesService.getFiles();
     this.meetings = messagesService.getMeetings();
   }
 
   ngOnInit() {
+    this.signalRService.startConnection().then(() => {
+      this.signalRService.addNotificationListener((notification: Notification) => {
+        this.notifications.push(notification);
+      });
+    });
   }
 
   openMessagesMenu() {
@@ -39,6 +48,9 @@ export class MessagesComponent implements OnInit {
   stopClickPropagate(event: any){
     event.stopPropagation();
     event.preventDefault();
+  }
+  ngOnDestroy(): void {
+    this.signalRService.stopConnection();
   }
 
 }

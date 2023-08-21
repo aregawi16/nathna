@@ -5,42 +5,93 @@
 </div>
 <div class="card-body">
   <form [formGroup]="userSignupform" class="user-form">
-    <div fxLayout="column" class="form-field-outer">
-      <mat-form-field class="w-100">
-        <input matInput placeholder="First Name" formControlName="firstName">
-    </mat-form-field>
-    <mat-form-field class="w-100">
-        <input matInput placeholder="Middle Name" formControlName="middleName">
-    </mat-form-field>
-    <mat-form-field class="w-100">
-      <input matInput placeholder="Last Name" formControlName="lastName">
-  </mat-form-field>
-    <mat-form-field class="w-100">
-      <input matInput placeholder="E-mail" formControlName="email">
-  </mat-form-field>
+    <div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6">
 
-  <mat-form-field class="w-100">
-    <mat-select formControlName="officeId" placeholder="Office" required>
-      <mat-option *ngFor="let office of offices"
-      [value]="office.id">
-{{office.name}}
-</mat-option>
-  </mat-select>
-</mat-form-field>
+      <div class="form-group">
+        <label for="firstName">First Name</label>
 
-        <mat-form-field class="w-100">
-            <!-- <mat-place><mat-icon>person</mat-icon> Username</mat-place> -->
-            <input matInput formControlName="userName" placeholder="User Name" required>
-            <mat-error *ngIf="userSignupform.controls.userName.errors?.required">Username is required</mat-error>
-            <mat-error *ngIf="userSignupform.controls.userName.hasError('minlength')">Username isn't long enough, minimum of 5 characters</mat-error>
-        </mat-form-field>
-        <mat-form-field class="w-100">
-            <!-- <mat-placeholder><mat-icon>vpn_key</mat-icon> Password</mat-placeholder> -->
-            <input matInput formControlName="password" placeholder="Password" required [type]="passwordHide ? 'password' : 'text'">
-            <mat-icon matSuffix (click)="passwordHide = !passwordHide">{{passwordHide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                <input  class="form-control" placeholder="First Name" formControlName="firstName">
+    </div>
+
+      </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+      <div class="form-group">
+        <label for="middleName">Middle Name</label>
+        <input class="form-control" placeholder="Middle Name" formControlName="middleName">
+    </div>
+      </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-6">
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+
+            <input class="form-control" placeholder="Last Name" formControlName="lastName">
+        </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group">
+              <label for="email">E-mail</label>
+
+              <input  class="form-control" placeholder="E-mail" formControlName="email">
+          </div>
+          </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+              <div class="form-group">
+                <label for="office">Office</label>
+
+                <select class="form-control" formControlName="officeId" placeholder="Office" required>
+                  <option *ngFor="let office of offices"
+                  [value]="office.id">
+            {{office.name}}
+            </option>
+              </select>
+            </div>
+              </div>
+              <div class="col-sm-6 col-md-6 col-lg-6">
+                <div class="form-group">
+                  <label for="userName">User Name</label>
+                  <input  class="form-control" formControlName="userName" placeholder="User Name" required>
+                  <mat-error *ngIf="userSignupform.controls.userName.errors?.required">Username is required</mat-error>
+                  <mat-error *ngIf="userSignupform.controls.userName.hasError('minlength')">Username isn't long enough, minimum of 5 characters</mat-error>
+              </div>
+              </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-6">
+
+
+
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input class="form-control" formControlName="password" placeholder="Password" required [type]="passwordHide ? 'password' : 'text'">
+            <!-- <mat-icon matSuffix (click)="passwordHide = !passwordHide">{{passwordHide ? 'visibility' : 'visibility_off'}}</mat-icon> -->
             <mat-error *ngIf="userSignupform.controls.password.errors?.required">Password is required</mat-error>
             <mat-error *ngIf="userSignupform.controls.password.hasError('minlength')">Password isn't long enough, minimum of 6 characters</mat-error>
-        </mat-form-field>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6">
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+            formControlName="confirmPassword"
+            id="confirmPassword"
+            type="password"
+            class="form-control">
+        <div *ngIf="f.confirmPassword.touched && f.confirmPassword.invalid" class="alert alert-danger">
+            <div *ngIf="f.confirmPassword.errors?.required">Password is required.</div>
+            <div *ngIf="f.confirmPassword.errors?.confirmedValidator">Password and Confirm Password must be match.</div>
+        </div>
+    </div>
+
+    </div>
     </div>
 
 </form>

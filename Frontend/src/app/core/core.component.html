@@ -1,8 +1,9 @@
 
-<mat-toolbar style="background-color:#06407a;"  class="row admin-toolbar mat-elevation-z2 w-100">
+<mat-toolbar style="background-color:#06407a;"  class="admin-toolbar  w-100">
+  <div class="row">
     <div class="col-sm-3 col-md-3 col-lg-3 d-flex justify-content-between align-items-start">
       <div class="logo-section">
-          <a routerLink="/admin" class="row" class="d-flex justify-content-start align-items-center" class="logo">
+          <a routerLink="/admin"  class="logo d-flex justify-content-start align-items-center">
               <p>Nathan</p>
           </a>
       </div>
@@ -23,7 +24,7 @@
       </button>
       <a mat-icon-button routerLink="/"><mat-icon>home</mat-icon></a>                  -->
   </div>
-      <div  class="col-sm-9 col-md-9 col-lg-89 d-flex justify-content-end align-items-end">
+      <div  class="col-sm-9 col-md-9 col-lg-9 d-flex justify-content-end align-items-end">
 
           <div class="search-bar">
               <form method="get">
@@ -35,9 +36,10 @@
           </div>
           <!-- <app-lang fxShow="false" fxShow.gt-xs></app-lang> -->
           <app-fullscreen></app-fullscreen>
-          <!-- <app-messages fxShow="false" fxShow.gt-xs></app-messages> -->
+          <app-messages fxShow="false" fxShow.gt-xs></app-messages>
           <app-user-menu></app-user-menu>
   </div>
+</div>
 </mat-toolbar>
 <mat-drawer-container class="admin-container">
   <mat-drawer #sidenav [opened]="settings.adminSidenavIsOpened" [mode]="(settings.adminSidenavIsPinned) ? 'side' : 'over'" class="admin-sidenav mat-elevation-z6" autoFocus="false">

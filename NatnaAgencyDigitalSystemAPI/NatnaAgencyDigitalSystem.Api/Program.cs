@@ -24,12 +24,17 @@ using System.Text;
 using Telerik.Reporting.Cache.File;
 using Telerik.Reporting.Services;
 using Telerik.WebReportDesigner.Services;
+using NatnaAgencyDigitalSystem.Core.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //cors 
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
+builder.Services.AddSignalR();
+
+// Register repositories and other dependencies
+builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IApplicantProfileRepository, ApplicantProfileRepository>();
@@ -219,5 +224,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+//app.MapHub();
 
 app.Run();

@@ -7,6 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UntypedFormGroup, UntypedFormBuilder, Validators} from '@angular/forms';
 import { User } from '../user/user.model';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { ConfirmedValidator } from './confirmed-validator.service';
 
 @Component({
   selector: 'app-user-dialog',
@@ -35,8 +36,11 @@ export class UserDialogComponent implements OnInit {
       officeId: [null, Validators.compose([Validators.required])],
       userName: [null, Validators.compose([Validators.required, Validators.minLength(5)])],
       password: [null, Validators.compose([Validators.required, Validators.minLength(6)])],
+      confirmPassword: ['', [Validators.required]]
 
 
+    }, {
+      validator: ConfirmedValidator('password', 'confirmPassword')
     });
   }
 
@@ -49,6 +53,9 @@ export class UserDialogComponent implements OnInit {
 
     }
     this.getOffices();
+  }
+  get f(){
+    return this.userSignupform.controls;
   }
   public getOffices()
   {

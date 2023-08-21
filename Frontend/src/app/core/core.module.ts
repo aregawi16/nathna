@@ -9,6 +9,7 @@ import { UserMenuComponent } from './components/user-menu/user-menu.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
+import { SignalRService } from '../features/applicant-profile/services/signalr.service';
 
 
 
@@ -29,7 +30,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule,
     SharedModule
   ],
-  bootstrap: [CoreComponent]
+  bootstrap: [CoreComponent],
+  providers:[ SignalRService  ]
 
 })
 export class CoreModule { }

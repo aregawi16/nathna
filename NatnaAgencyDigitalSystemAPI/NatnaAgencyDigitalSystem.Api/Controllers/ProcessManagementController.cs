@@ -36,9 +36,11 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
         {
 
             var placements = new List<ApplicantPlacement>();
+            IQueryable<ApplicantProfile> applicants = _db.ApplicantProfiles.Where(q=> ApplicantPlacmentRes.applicantIds.Contains(q.ApplicantProfileId));
+
             foreach (var applicantId in ApplicantPlacmentRes.applicantIds)
             {
-                var applicant = _db.ApplicantProfiles.Find(applicantId);
+                var applicant = applicants.FirstOrDefault(q=>q.ApplicantProfileId== applicantId);
                 if (applicant != null)
                 {
                     applicant.Status = Status.Placement;

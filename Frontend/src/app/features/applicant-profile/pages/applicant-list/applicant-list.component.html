@@ -21,13 +21,13 @@
           <div class="card-header text-white d-flex justify-content-between align-items-start" style="background-color: #06407a;">
              <div>
                <h6 *ngIf="!applicantProfile.isDeleted">{{applicantProfile.fullName}}</h6>
-              <h6 *ngIf="!applicantProfile.isDeleted">{{applicantProfile.fullNameAm}}</h6>
+              <h6 *ngIf="!applicantProfile.isDeleted&&isHeadOffice">{{applicantProfile.fullNameAm}}</h6>
             </div>   <!--  -->
               <!-- <p style="font-size: 3.5vw;"></p> -->
               <h5 *ngIf="applicantProfile.isDeleted" class="user-name">User blocked</h5>
-              <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
+              <a mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
                   <mat-icon>more_vert</mat-icon>
-              </button>
+              </a>
           </div>
 
           <mat-menu #menu="matMenu" xPosition="before"  overlapTrigger="true">
@@ -130,7 +130,7 @@
                 </p>
               </div>
           </div>
-          <div class="card-footer d-flex justify-content-between align-items-start" *ngIf="applicantProfile.applicantStatuses[0]?.officeLevel!='Placement'">
+          <div class="card-footer d-flex justify-content-between align-items-start" *ngIf="(applicantProfile.applicantStatuses.length!=0) && (applicantProfile.applicantStatuses[0]?.officeLevel!='Placement')">
             <p>
               <mat-icon class="text-muted">wc</mat-icon>
               <span>    {{applicantProfile.applicantStatuses[0]?applicantProfile.applicantStatuses[0].officeLevel:"UnAssigned"}}   </span>
