@@ -18,7 +18,7 @@ import { Gender } from 'src/app/core/constants/gender.enum';
 import { Religion } from 'src/app/core/constants/religion.enum';
 import { Priority } from 'src/app/core/constants/priority.enum';
 import { Relationship } from '../../model/Relationship.enum';
-import { empty } from 'rxjs';
+import { Observable, empty } from 'rxjs';
 
 /**
  * @title Stepper with customized states
@@ -84,7 +84,8 @@ model : LoginForm={
 
   constructor(public _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
-    @Inject(MAT_DIALOG_DATA) public dataa: any,
+    private _applicantService:ApplicantProfileService,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private _settingService: SettingService,
     private _dialogRef: MatDialogRef<AddApplicantComponent>,
     private _router: Router,
@@ -172,10 +173,17 @@ this.initInsuranceGroup();
 
 
   }
-  ngOnInit() {
+   ngOnInit() {
 
-  if(this.dataa){
-    this.personalInfoFormGroup.patchValue(this.dataa);
+  if(this.data){
+       this._applicantService.getApplicantRofileById(this.data.applicantProfileId)
+      .subscribe( {
+        next:(dataa)=>{
+              this.personalInfoFormGroup.patchValue(dataa);
+        },
+      error:(err)=>{
+        console.log(err);
+      }})
   }
 }
   initGroup() {
@@ -301,7 +309,7 @@ submitApplicantProfile()
 
   console.log(this.formData);
   console.log(this.personalInfoFormGroup.value);
-  if(this.dataa.applicantProfileId==undefined|| this.dataa.applicantProfileId==null)
+  if(this.data.applicantProfileId==undefined|| this.data.applicantProfileId==null)
   {
     this._applicantProfileService.createApplicantProfile(this.personalInfoFormGroup.value)
     .subscribe(data => {
@@ -327,12 +335,16 @@ submitApplicantProfile()
     this._applicantProfileService.updateApplicantProfile(this.personalInfoFormGroup.value)
     .subscribe(data => {
       this.triggerEvent(data );
+      this._dialogRef.close();
+
       this._snackBar.open('Applicant updated successfully', 'Undo', {
         duration:10000,
         horizontalPosition: this.horizontalPosition,
         verticalPosition: this.verticalPosition,
       });
     });
+    this._dialogRef.close();
+
   }
 
 }
@@ -365,13 +377,13 @@ onSubmit(formItemDirective:FormGroupDirective)
     }
 
   });
-  console.log(this.dataa.applicantProfileId);
+  console.log(this.data.applicantProfileId);
   console.log(this.personalInfoFormGroup.value);
   console.log(Object.keys(this.personalInfoFormGroup.value));
 
   if(this.personalInfoFormGroup.valid && this.documentFormGroup)
   {
-    if(this.dataa.applicantProfileId==undefined|| this.dataa.applicantProfileId==null )
+    if(this.data.applicantProfileId==undefined|| this.data.applicantProfileId==null )
     {
     this._applicantProfileService.createApplicantProfile(this.formData)
     .subscribe({ next: (beers) => {
@@ -425,7 +437,8 @@ onSubmit(formItemDirective:FormGroupDirective)
           horizontalPosition: this.horizontalPosition,
           verticalPosition: this.verticalPosition,
         });
-        // this._dialogRef.close();
+         this._dialogRef.close();
+         this._router.navigateByUrl('/applicant-profile/list');
 
       });
     }

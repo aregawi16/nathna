@@ -686,7 +686,7 @@ this._processManagementService.followFlight(data)
                         verticalPosition: this.verticalPosition,
                       });
 
-                      this._dialogRef.close();
+                      // this._dialogRef.close();
 
                 });
 
@@ -722,7 +722,7 @@ this._processManagementService.followFlight(data)
                         verticalPosition: this.verticalPosition,
                       });
 
-                      this._dialogRef.close();
+                      // this._dialogRef.close();
 
                 });
 
@@ -807,7 +807,7 @@ this._processManagementService.followFlight(data)
 
 
 
-          this._dialogRef.close();
+          // this._dialogRef.close();
         }
       });
 
@@ -891,9 +891,10 @@ console.log(row);
         console.log("Here");
           if(data)
               this.updateApplicantProfile(data);
-              dialogRef.close();
 
         });
+        // this._dialogRef.close();
+
     }
 
 
@@ -928,7 +929,6 @@ console.log(row);
                         verticalPosition: this.verticalPosition,
                       });
 
-                      this._dialogRef.close();
 
                 });
 

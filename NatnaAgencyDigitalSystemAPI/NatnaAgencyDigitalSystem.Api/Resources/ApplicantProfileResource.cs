@@ -48,7 +48,7 @@ namespace NatnaAgencyDigitalSystem.Api.Resources
         public string Kebelle { get; set; }
         public decimal Height { get; set; }
         public decimal Weight { get; set; }
-        public IFormFile applicantPassport { get; set; }
+        public IFormFile? applicantPassport { get; set; } = null;
         public IFormFile? applicantId { get; set; } = null;
         public IFormFile? contactDocument { get; set; } = null;
         public IFormFile? applicantVideo { get; set; } = null;
@@ -94,7 +94,7 @@ namespace NatnaAgencyDigitalSystem.Api.Resources
     public class ApplicantDocumentResource
     {
         public int ApplicantProfileId { get; set; }
-        public IFormFile applicantPassport { get; set; }
+        public IFormFile? applicantPassport { get; set; } = null;
         public IFormFile? applicantId { get; set; } = null;
         public  IFormFile? contactDocument { get; set; } = null;
         public IFormFile? applicantVideo { get; set; } = null;

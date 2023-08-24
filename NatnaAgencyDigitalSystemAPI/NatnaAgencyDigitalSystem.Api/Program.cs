@@ -136,32 +136,32 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var reportsPath = System.IO.Path.Combine(builder.Environment.ContentRootPath, "Letters");
 // Configure dependencies for ReportsController.
-builder.Services.TryAddSingleton<IReportServiceConfiguration>(sp =>
-    new ReportServiceConfiguration
-    {
-        // The default ReportingEngineConfiguration will be initialized from appsettings.json or appsettings.{EnvironmentName}.json:
-        ReportingEngineConfiguration = sp.GetService<IConfiguration>(),
+//builder.Services.TryAddSingleton<IReportServiceConfiguration>(sp =>
+//    new ReportServiceConfiguration
+//    {
+//        // The default ReportingEngineConfiguration will be initialized from appsettings.json or appsettings.{EnvironmentName}.json:
+//        ReportingEngineConfiguration = sp.GetService<IConfiguration>(),
 
-        // In case the ReportingEngineConfiguration needs to be loaded from a specific configuration file, use the approach below:
-        //ReportingEngineConfiguration = ResolveSpecificReportingConfiguration(sp.GetService<IWebHostEnvironment>()),
-        HostAppId = "ERAMSReportService",
-        Storage = new FileStorage(),
-        ReportSourceResolver = new TypeReportSourceResolver()
-                                    .AddFallbackResolver(
-                                        new UriReportSourceResolver(reportsPath))
-    });
+//        // In case the ReportingEngineConfiguration needs to be loaded from a specific configuration file, use the approach below:
+//        //ReportingEngineConfiguration = ResolveSpecificReportingConfiguration(sp.GetService<IWebHostEnvironment>()),
+//        HostAppId = "ERAMSReportService",
+//        Storage = new FileStorage(),
+//        ReportSourceResolver = new TypeReportSourceResolver()
+//                                    .AddFallbackResolver(
+//                                        new UriReportSourceResolver(reportsPath))
+//    });
 
-builder.Services.TryAddSingleton<IReportDesignerServiceConfiguration>(sp => new ReportDesignerServiceConfiguration
-{
-    DefinitionStorage = new FileDefinitionStorage(
-        reportsPath),
-    ResourceStorage = new ResourceStorage(
-        System.IO.Path.Combine(builder.Environment.ContentRootPath, "Resources")),
-    SharedDataSourceStorage = new FileSharedDataSourceStorage(
-        System.IO.Path.Combine(builder.Environment.ContentRootPath, "Shared Data Sources")),
-    SettingsStorage = new FileSettingsStorage(
-        System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Telerik Reporting")),
-});
+//builder.Services.TryAddSingleton<IReportDesignerServiceConfiguration>(sp => new ReportDesignerServiceConfiguration
+//{
+//    DefinitionStorage = new FileDefinitionStorage(
+//        reportsPath),
+//    ResourceStorage = new ResourceStorage(
+//        System.IO.Path.Combine(builder.Environment.ContentRootPath, "Resources")),
+//    SharedDataSourceStorage = new FileSharedDataSourceStorage(
+//        System.IO.Path.Combine(builder.Environment.ContentRootPath, "Shared Data Sources")),
+//    SettingsStorage = new FileSettingsStorage(
+//        System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Telerik Reporting")),
+//});
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,

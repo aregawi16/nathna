@@ -14,7 +14,7 @@ export class CoreComponent implements OnInit {
   public userImage = 'assets/images/others/core.jpg';
   public settings:Settings;
   accessToken!: string;
-  showElement: boolean = false;
+  showElement: boolean = true;
 
   public menuItems!:Array<any>;
   public toggleSearchBar:boolean = false;
@@ -27,6 +27,7 @@ export class CoreComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.onWindowResize();
     if(window.innerWidth <= 960){
       this.settings.adminSidenavIsOpened = false;
       this.settings.adminSidenavIsPinned = false;
@@ -91,7 +92,7 @@ export class CoreComponent implements OnInit {
 
   @HostListener('window:resize')
   public onWindowResize():void {
-    this.showElement = window.innerWidth >= 606; // Adjust the breakpoint as needed
+    this.showElement = window.innerWidth >= 600; // Adjust the breakpoint as needed
 
     if(window.innerWidth <= 960){
       this.settings.adminSidenavIsOpened = false;
