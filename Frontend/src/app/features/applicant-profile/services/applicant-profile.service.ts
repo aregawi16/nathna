@@ -72,8 +72,17 @@ uplodApplicantDocument(data)
     })
   );
 }
-placeApplicant(data)
+placeApplicant(data:any)
 {return this._http.post(HttpApi.placeApplicant,data)
+  .pipe(
+    map((response: any) => {
+      return response;
+    })
+  );
+
+}
+approveApplicant(data:any)
+{return this._http.post(HttpApi.approveApplicant,data)
   .pipe(
     map((response: any) => {
       return response;

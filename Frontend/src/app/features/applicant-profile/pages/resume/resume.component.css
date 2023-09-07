@@ -326,4 +326,6 @@ svg{
 {
  width: 90%;
 max-width: fit-content;
+height: 75%;
+height:fit-content;
 }

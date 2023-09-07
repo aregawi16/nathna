@@ -153,8 +153,9 @@
 
 <div *ngIf="viewType.value == 'table'" class="row">
    <div  fxFlex="100" class="p-1" >
+    <button class="btn btn-primary" type="button" (click)="approveApplicant()" *ngIf="isAnySelected&&candidateType==2"> Approve</button>
       <mat-card class="p-0">
-        <div *ngIf="isAnySelected&&isHeadOffice" class="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="start">
+        <div *ngIf="isAnySelected&&isHeadOffice&&candidateType==1" class="row flex-column d-flex justify-content-start align-content-center">
           <div [formGroup]="placementFormGroup">
 
    <mat-form-field appearance="outline">

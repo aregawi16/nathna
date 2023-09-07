@@ -592,6 +592,39 @@ this._processManagementService.followFlight(data)
 
 }
  }
+
+ approveApplicant()
+ {
+
+
+   const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+     maxWidth: "400px",
+     data: {
+       title: "Confirm Placement",
+       message: "Are you sure to assign offices?"
+     }
+ });
+ dialogRef.afterClosed().subscribe(customer => {
+
+     let ids = this.selection.selected.map((obj) => obj.applicantProfileId);
+
+
+   this._applicantService.approveApplicant(ids)
+   .subscribe(data => {
+
+         this._snackBar.open('Applicant approved  successfully', 'Undo', {
+           duration:10000,
+           horizontalPosition: this.horizontalPosition,
+           verticalPosition: this.verticalPosition,
+         });
+         this.selection.clear();
+         window.location.reload();
+         this.isAnySelected=false;
+   });
+ });
+
+
+}
     public addApplicantProfile(applicantProfile:any){
     }
     public updateApplicantProfile(applicantProfile:any){

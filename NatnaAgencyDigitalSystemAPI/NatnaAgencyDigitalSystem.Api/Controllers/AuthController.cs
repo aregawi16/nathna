@@ -125,6 +125,7 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
                 return Ok(new { 
                     AccessToken=GenerateJwt(user, roles),
                     IsHeadOffice=offce?.IsHeadOffice,
+                    Roles = roles,
                     fullName = user.FullName
                 });
             }

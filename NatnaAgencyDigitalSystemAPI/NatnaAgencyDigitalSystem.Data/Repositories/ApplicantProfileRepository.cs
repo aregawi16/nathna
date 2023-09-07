@@ -38,17 +38,23 @@ namespace NatnaAgencyDigitalSystem.Data.Repositories
             if (id == 2)
             {
                 isUpdate = true;
-                    var aappIds = _context.ApplicantStatuses.Where(q => q.OfficeLevel == "Placement" && q.Status == "Selected").Select(q => q.ApplicantProfileId);
+                    var aappIds = _context.ApplicantStatuses.Where(q => q.OfficeLevel == "Placement" && q.Status == "Selected"||q.Status == "Approved").Select(q => q.ApplicantProfileId);
                     appIds = _context.ApplicantStatuses.Where(q => q.OfficeLevel == "Placement" && q.Status == "Assigned"&& !aappIds.Contains(q.ApplicantProfileId)).Select(q => q.ApplicantProfileId);
             }
             else if (id == 3)
+            {
+                isUpdate = true;
+                var aappIds = _context.ApplicantStatuses.Where(q => q.OfficeLevel == "Placement" && q.Status == "Selected").Select(q => q.ApplicantProfileId);
+                appIds = _context.ApplicantStatuses.Where(q => q.OfficeLevel == "Placement" && q.Status == "Approved" && !aappIds.Contains(q.ApplicantProfileId)).Select(q => q.ApplicantProfileId);
+            }
+            else if (id == 4)
             {
                 isUpdate = true;
 
                 appIds = _context.ApplicantStatuses.Where(q => q.OfficeLevel == "Placement" && q.OfficeLevel != "ContractAgreement" && q.Status == "Selected").Select(q => q.ApplicantProfileId);
 
             }
-            else if (id == 4)
+            else if (id == 5)
             {
                 isUpdate = true;
 

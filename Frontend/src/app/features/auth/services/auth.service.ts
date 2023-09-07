@@ -50,6 +50,7 @@ incorrectCredential : boolean = false;
           localStorage.setItem('access_token', JSON.stringify(response.accessToken));
           localStorage.setItem('isHeadOffice', JSON.stringify(response.isHeadOffice));
           localStorage.setItem('fullName', JSON.stringify(response.fullName));
+          localStorage.setItem('roles', JSON.stringify(response.roles));
           return response;
         })
       );
@@ -58,6 +59,11 @@ incorrectCredential : boolean = false;
   {
    let isHeadOffce =  JSON.parse(localStorage["isHeadOffice"]);
    return isHeadOffce;
+  }
+  isAdmin()
+  {
+   let roles =  JSON.parse(localStorage["roles"]);
+   return roles.includes('admin');
   }
   getFullName()
   {

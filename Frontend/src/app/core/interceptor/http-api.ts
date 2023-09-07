@@ -15,6 +15,7 @@ static createApplicantProfile = 'ApplicantProfile';
 static listApplicantProfile = 'ApplicantProfile/list';
 static getApplicantProfileList = 'ApplicantProfile';
 static placeApplicant = 'ProcessManagement/placement';
+static approveApplicant = 'ProcessManagement/approveApplicant';
 static getApplicantsForTraining = 'ApplicantProfile/getApplicantsForTraining';
 
 

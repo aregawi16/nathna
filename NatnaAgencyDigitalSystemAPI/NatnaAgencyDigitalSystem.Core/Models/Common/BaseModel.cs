@@ -112,10 +112,11 @@ namespace NatnaAgencyDigitalSystem.Api.Models.Common
 public enum ApplicantPlacementStatus
     {
         Assigned = 1,
-        Selected,
-        DocumentVerified,
-        Accepted,
-        Rejected,
+        Selected=2,
+        DocumentVerified=3,
+        Accepted=4,
+        Approved = 5,
+        Rejected=6,
        
     }
     public enum ApplicantContractStatus

@@ -23,6 +23,7 @@ export class CandidateListComponent implements OnInit {
   pageNumber = 1;
   officeId:any=0;
   isHeadOffice:boolean=true;
+  isAdmin:boolean=false;
   statuses!:number[];
   public searchText!: string;
   public startDate!: string;
@@ -69,7 +70,7 @@ export class CandidateListComponent implements OnInit {
 
   this.getApplicantProfiles(0,this.selectedTab,this.officeId);
   this.isHeadOffice = this._authService.isHeadOffice();
-
+  this.isAdmin = this._authService.isAdmin();
   this.statuses= Object.keys(this.statusList).map(key => parseInt(key)).filter(f => !isNaN(Number(f)));
 this.getOffices();
  }

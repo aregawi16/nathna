@@ -94,6 +94,18 @@ namespace NatnaAgencyDigitalSystem.Api.Controllers
             }
             return Ok();
         }
+        [HttpPost("approveApplicant")]
+        [Authorize(Roles = "OnlyTest")]
+        public async Task<ActionResult> approveApplicantProfileStatus([FromBody] List<int> ids)
+        {
+            foreach(int id in ids)
+            {
+                UpdateStatus(id, Status.Placement, ApplicantPlacementStatus.Approved.ToString());
+
+                _db.SaveChanges();
+            }
+            return Ok();
+        }
 
         [HttpPost("receiveContractAgreement")]
         [Authorize(Roles = "OnlyTest")]
